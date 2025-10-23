@@ -3,42 +3,1010 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 2 Slides | Game Dev Course 2025</title>
-    <link rel="stylesheet" href="../../styles.css">
+    <title>Week 2: Materials, Textures & Animations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px 80px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .slide h2 {
+            font-size: 2.2em;
+            color: #764ba2;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .slide h3 {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .slide h4 {
+            font-size: 1.4em;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .slide ul, .slide ol {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+        }
+
+        .bilingual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        .english, .japanese {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .english {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+        }
+
+        .japanese {
+            background: #fff0f6;
+            border-left: 4px solid #764ba2;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .code-box {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            color: #667eea;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .title-slide h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .title-slide .subtitle {
+            font-size: 2em;
+            color: #764ba2;
+            margin-bottom: 40px;
+        }
+
+        .title-slide .info {
+            font-size: 1.3em;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .shortcut-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .shortcut-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .shortcut-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .shortcut-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        kbd {
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 3px 8px;
+            font-family: monospace;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🖥️ Week 2 Slides</h1>
-            <p class="subtitle">Materials, Textures & Animations</p>
-        </div>
-    </header>
+    <div class="slide-number" id="slideNumber">Slide 1 / 20</div>
 
-    <nav class="main-nav">
-        <div class="container">
-            <a href="../../index.html">← Course Home</a>
-            <a href="lecture.html">Lecture Notes</a>
-            <a href="assignment.html">Assignment</a>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>🎨 Week 2</h1>
+            <p class="subtitle">Materials, Textures & Simple Animations<br>マテリアル、テクスチャ、シンプルなアニメーション</p>
+            <p class="info"><strong>Duration:</strong> 100 minutes / 100分</p>
+            <p class="info"><strong>Developer:</strong> Yuri Tijerino</p>
+            <p class="info">Game Development Course 2025</p>
         </div>
-    </nav>
 
-    <main class="container" style="padding: 60px 20px; text-align: center;">
-        <div style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <h2 style="color: var(--primary-color);">🚧 Slides Coming Soon</h2>
-            <p style="margin: 20px 0; color: var(--text-light);">Interactive presentation slides for Week 2 are currently being developed.</p>
-            <p style="margin: 20px 0;">In the meantime, please refer to:</p>
-            <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
-                <a href="lecture.html" class="btn btn-primary">📖 Lecture Notes</a>
-                <a href="assignment.html" class="btn btn-accent">📝 Assignment</a>
-                <a href="../../index.html" class="btn btn-secondary">← Back to Course</a>
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h2>📚 Learning Objectives / 学習目標</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>By the end of this lecture:</h4>
+                    <ol>
+                        <li>Understand materials and shaders in Blender</li>
+                        <li>Apply colors and materials to 3D objects</li>
+                        <li>Perform basic UV unwrapping</li>
+                        <li>Apply image textures to models</li>
+                        <li>Create simple path-based animations</li>
+                        <li>Understand bone rigging basics</li>
+                        <li>Export textured models for Unity</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>この講義の終了までに:</h4>
+                    <ol>
+                        <li>Blenderのマテリアルとシェーダーを理解</li>
+                        <li>3Dオブジェクトに色とマテリアルを適用</li>
+                        <li>基本的なUV展開を実行</li>
+                        <li>モデルに画像テクスチャを適用</li>
+                        <li>シンプルなパスベースのアニメーションを作成</li>
+                        <li>ボーンリギングの基礎を理解</li>
+                        <li>テクスチャ付きモデルをUnity用にエクスポート</li>
+                    </ol>
+                </div>
             </div>
         </div>
-    </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+        <!-- Slide 3: What are Materials? -->
+        <div class="slide">
+            <h2>🎭 What are Materials?</h2>
+            <div class="highlight-box">
+                <h3>The Rendering Equation</h3>
+                <p style="text-align: center; font-size: 1.5em; margin: 20px 0;">
+                    <strong>Materials + Lighting = Final Appearance</strong>
+                </p>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>Materials define:</h4>
+                    <ul>
+                        <li>How surfaces appear</li>
+                        <li>Color properties</li>
+                        <li>Shininess / Roughness</li>
+                        <li>Transparency</li>
+                        <li>How light interacts with surface</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h4>マテリアルが定義するもの:</h4>
+                    <ul>
+                        <li>表面の見え方</li>
+                        <li>色のプロパティ</li>
+                        <li>光沢 / ラフネス</li>
+                        <li>透明度</li>
+                        <li>光と表面の相互作用</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </footer>
+
+        <!-- Slide 4: Material Properties -->
+        <div class="slide">
+            <h2>⚙️ Material Properties</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Property / プロパティ</th>
+                        <th>Description / 説明</th>
+                        <th>Values / 値</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Base Color</strong></td>
+                        <td>Fundamental surface color<br>基本的な表面色</td>
+                        <td>RGB color picker</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Metallic</strong></td>
+                        <td>Metal vs non-metal<br>金属vs非金属</td>
+                        <td>0.0 (plastic) to 1.0 (metal)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Roughness</strong></td>
+                        <td>Shiny vs matte<br>光沢vsマット</td>
+                        <td>0.0 (mirror) to 1.0 (matte)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alpha</strong></td>
+                        <td>Transparency<br>透明度</td>
+                        <td>0.0 (invisible) to 1.0 (opaque)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 5: Shader Editor -->
+        <div class="slide">
+            <h2>🔧 Shader Editor Overview</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Accessing Shader Editor:</h3>
+                    <ul>
+                        <li>Switch to <strong>Shading</strong> workspace (top menu)</li>
+                        <li>Node-based system</li>
+                        <li>Boxes connected by lines</li>
+                    </ul>
+                    <h4>Key Nodes:</h4>
+                    <ul>
+                        <li><strong>Principled BSDF:</strong> Industry-standard shader</li>
+                        <li><strong>Material Output:</strong> Final render connection</li>
+                        <li><strong>Image Texture:</strong> For applying textures</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>Shader Editorへのアクセス:</h3>
+                    <ul>
+                        <li><strong>Shading</strong>ワークスペースに切り替え（上部メニュー）</li>
+                        <li>ノードベースシステム</li>
+                        <li>線で接続されたボックス</li>
+                    </ul>
+                    <h4>主要なノード:</h4>
+                    <ul>
+                        <li><strong>Principled BSDF:</strong> 業界標準シェーダー</li>
+                        <li><strong>Material Output:</strong> 最終レンダー接続</li>
+                        <li><strong>Image Texture:</strong> テクスチャ適用用</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Applying Materials - Step by Step -->
+        <div class="slide">
+            <h2>🖌️ Applying Materials: Step-by-Step</h2>
+            <div class="code-box">
+                <strong>Process / プロセス:</strong>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Select Object</strong>
+                        <ul>
+                            <li>Click in viewport or outliner</li>
+                        </ul>
+                    </li>
+                    <li><strong>Add Material</strong>
+                        <ul>
+                            <li>Shading workspace</li>
+                            <li>Material Properties (sphere icon)</li>
+                            <li>Click "+ New"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Adjust Properties</strong>
+                        <ul>
+                            <li>Base Color → Pick color</li>
+                            <li>Adjust Metallic (0-1)</li>
+                            <li>Adjust Roughness (0-1)</li>
+                        </ul>
+                    </li>
+                    <li><strong>View Results</strong>
+                        <ul>
+                            <li>Material Preview mode (3rd sphere)</li>
+                            <li>Or Rendered view (4th sphere)</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 7: Viewport Shading Modes -->
+        <div class="slide">
+            <h2>👁️ Viewport Shading Modes</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Shortcut / ショートカット</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Wireframe</td>
+                        <td><kbd>Z</kbd> → 1st sphere</td>
+                        <td>Shows mesh structure only<br>メッシュ構造のみ表示</td>
+                    </tr>
+                    <tr>
+                        <td>Solid</td>
+                        <td><kbd>Z</kbd> → 2nd sphere</td>
+                        <td>Basic shading, no materials<br>基本シェーディング、マテリアルなし</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Material Preview</strong></td>
+                        <td><kbd>Z</kbd> → 3rd sphere</td>
+                        <td>Shows materials with studio lighting<br>スタジオライティングでマテリアルを表示</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rendered</strong></td>
+                        <td><kbd>Z</kbd> → 4th sphere</td>
+                        <td>Full render with scene lighting<br>シーンライティングで完全レンダー</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box">
+                <p><strong>💡 Tip:</strong> Use Material Preview for quick material work, Rendered for final results</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: UV Unwrapping Concept -->
+        <div class="slide">
+            <h2>📐 What is UV Unwrapping?</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>The Concept:</h3>
+                    <p>"Unfolding" a 3D model into a 2D layout</p>
+                    <p><strong>Think of it like:</strong> Unwrapping a gift box and laying the paper flat</p>
+                    <h4>Why UV Unwrapping?</h4>
+                    <ul>
+                        <li>To apply 2D images (textures) onto 3D surfaces</li>
+                        <li>UV = 2D coordinates (U and V axes)</li>
+                        <li>Maps image pixels to 3D surface points</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>概念:</h3>
+                    <p>3Dモデルを2Dレイアウトに「展開」</p>
+                    <p><strong>例えると:</strong> ギフトボックスを開いて紙を平らにする</p>
+                    <h4>なぜUV展開？</h4>
+                    <ul>
+                        <li>2D画像（テクスチャ）を3D表面に適用するため</li>
+                        <li>UV = 2D座標（UとV軸）</li>
+                        <li>画像ピクセルを3D表面ポイントにマップ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: UV Unwrapping Process -->
+        <div class="slide">
+            <h2>🔪 UV Unwrapping Process</h2>
+            <div class="code-box">
+                <strong>Steps / 手順:</strong>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Enter Edit Mode</strong>
+                        <ul><li><kbd>Tab</kbd></li></ul>
+                    </li>
+                    <li><strong>Select All Faces</strong>
+                        <ul><li><kbd>A</kbd> (select all)</li></ul>
+                    </li>
+                    <li><strong>Mark Seams</strong>
+                        <ul>
+                            <li>Select edges where to "cut"</li>
+                            <li><kbd>Ctrl</kbd> + <kbd>E</kbd> → Mark Seam</li>
+                        </ul>
+                    </li>
+                    <li><strong>Unwrap</strong>
+                        <ul><li><kbd>U</kbd> → Unwrap</li></ul>
+                    </li>
+                    <li><strong>View UV Layout</strong>
+                        <ul><li>Switch to UV Editing workspace</li></ul>
+                    </li>
+                </ol>
+            </div>
+            <div class="highlight-box">
+                <p><strong>💡 Where to Place Seams:</strong> Sharp corners, hidden areas, natural breaks</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Applying Image Textures -->
+        <div class="slide">
+            <h2>🖼️ Applying Image Textures</h2>
+            <div class="two-column">
+                <div>
+                    <h3>English</h3>
+                    <h4>1. Get Texture Image:</h4>
+                    <ul>
+                        <li>Free sources:
+                            <ul>
+                                <li>Poly Haven</li>
+                                <li>OpenGameArt.org</li>
+                                <li>Textures.com</li>
+                            </ul>
+                        </li>
+                        <li>Size: 512x512 or 1024x1024</li>
+                    </ul>
+                    <h4>2. Add to Material:</h4>
+                    <ul>
+                        <li>Shader Editor</li>
+                        <li>Add → Texture → Image Texture</li>
+                        <li>Open image file</li>
+                        <li>Connect to Base Color</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>日本語</h3>
+                    <h4>1. テクスチャ画像を取得:</h4>
+                    <ul>
+                        <li>無料ソース:
+                            <ul>
+                                <li>Poly Haven</li>
+                                <li>OpenGameArt.org</li>
+                                <li>Textures.com</li>
+                            </ul>
+                        </li>
+                        <li>サイズ: 512x512または1024x1024</li>
+                    </ul>
+                    <h4>2. マテリアルに追加:</h4>
+                    <ul>
+                        <li>Shader Editor</li>
+                        <li>Add → Texture → Image Texture</li>
+                        <li>画像ファイルを開く</li>
+                        <li>Base Colorに接続</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Animation Introduction -->
+        <div class="slide">
+            <h2>🎬 Introduction to Animation</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>What is Animation?</h3>
+                    <p>Creating the illusion of movement by displaying a sequence of images (frames) over time</p>
+                    <h4>Key Concepts:</h4>
+                    <ul>
+                        <li><strong>Frame Rate:</strong> 24-30 frames per second (fps)</li>
+                        <li><strong>Timeline:</strong> Shows frame range</li>
+                        <li><strong>Keyframes:</strong> Important animation positions</li>
+                        <li><strong>Interpolation:</strong> Automatic in-between frames</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>アニメーションとは？</h3>
+                    <p>時間の経過とともに画像（フレーム）のシーケンスを表示することで動きの錯覚を作成</p>
+                    <h4>主要な概念:</h4>
+                    <ul>
+                        <li><strong>フレームレート:</strong> 24〜30フレーム/秒（fps）</li>
+                        <li><strong>タイムライン:</strong> フレーム範囲を表示</li>
+                        <li><strong>キーフレーム:</strong> 重要なアニメーション位置</li>
+                        <li><strong>補間:</strong> 自動的な中間フレーム</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Path Animation -->
+        <div class="slide">
+            <h2>🛤️ Path-Based Animation</h2>
+            <div class="highlight-box">
+                <h3>Concept:</h3>
+                <p style="font-size: 1.3em;">Object follows a predefined curve or path</p>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>Use Cases:</h4>
+                    <ul>
+                        <li>Camera fly-throughs</li>
+                        <li>Moving platforms in games</li>
+                        <li>Patrol routes for enemies</li>
+                        <li>Orbiting objects</li>
+                        <li>Collectible items</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h4>使用例:</h4>
+                    <ul>
+                        <li>カメラのフライスルー</li>
+                        <li>ゲーム内の移動プラットフォーム</li>
+                        <li>敵のパトロールルート</li>
+                        <li>軌道上のオブジェクト</li>
+                        <li>収集可能なアイテム</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Creating Path Animation -->
+        <div class="slide">
+            <h2>🎯 Creating Path Animation</h2>
+            <div class="code-box">
+                <strong>Step-by-Step / ステップバイステップ:</strong>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Create Path:</strong>
+                        <ul>
+                            <li><kbd>Shift</kbd> + <kbd>A</kbd> → Curve → Bezier Curve</li>
+                            <li>Edit Mode → Move control points to shape path</li>
+                        </ul>
+                    </li>
+                    <li><strong>Create Object:</strong>
+                        <ul><li>Add sphere or any object to animate</li></ul>
+                    </li>
+                    <li><strong>Add Follow Path Constraint:</strong>
+                        <ul>
+                            <li>Select object</li>
+                            <li>Constraints → Add → Follow Path</li>
+                            <li>Target: Select curve</li>
+                            <li>Check "Follow Curve"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Set Animation:</strong>
+                        <ul>
+                            <li>Select curve</li>
+                            <li>Object Data Properties → Path Animation</li>
+                            <li>Set frame range (e.g., 0-120)</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 14: Animation Shortcuts -->
+        <div class="slide">
+            <h2>⌨️ Animation Shortcuts</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action / アクション</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><kbd>Spacebar</kbd></td>
+                        <td>Play/Pause</td>
+                        <td>Start or stop animation playback<br>アニメーション再生を開始または停止</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>←</kbd> <kbd>→</kbd></td>
+                        <td>Frame Step</td>
+                        <td>Move one frame forward/backward<br>1フレーム前後に移動</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>Shift</kbd> + <kbd>←</kbd></td>
+                        <td>First Frame</td>
+                        <td>Jump to first frame<br>最初のフレームにジャンプ</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>Shift</kbd> + <kbd>→</kbd></td>
+                        <td>Last Frame</td>
+                        <td>Jump to last frame<br>最後のフレームにジャンプ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 15: Bone Rigging Introduction -->
+        <div class="slide">
+            <h2>🦴 Introduction to Bone Rigging</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>What is Rigging?</h3>
+                    <p>Creating a skeleton system (bones/armature) that controls mesh deformation</p>
+                    <h4>Key Concepts:</h4>
+                    <ul>
+                        <li><strong>Armature:</strong> Collection of bones</li>
+                        <li><strong>Bones:</strong> Individual control elements</li>
+                        <li><strong>Skinning:</strong> Binding mesh to bones</li>
+                        <li><strong>Pose Mode:</strong> Posing and animating bones</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>リギングとは？</h3>
+                    <p>メッシュの変形を制御する骨格システム（ボーン/アーマチュア）の作成</p>
+                    <h4>主要な概念:</h4>
+                    <ul>
+                        <li><strong>アーマチュア:</strong> ボーンのコレクション</li>
+                        <li><strong>ボーン:</strong> 個々の制御要素</li>
+                        <li><strong>スキニング:</strong> メッシュをボーンにバインド</li>
+                        <li><strong>ポーズモード:</strong> ボーンのポージングとアニメーション</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <p><strong>📌 Note:</strong> Rigging is complex! This is just an introduction. We'll use pre-rigged characters later.</p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Basic Rigging Process -->
+        <div class="slide">
+            <h2>🔗 Basic Rigging Process</h2>
+            <div class="code-box">
+                <strong>Quick Overview / 簡単な概要:</strong>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Add Armature:</strong>
+                        <ul><li><kbd>Shift</kbd> + <kbd>A</kbd> → Armature → Single Bone</li></ul>
+                    </li>
+                    <li><strong>Edit Bones (Edit Mode):</strong>
+                        <ul>
+                            <li><kbd>Tab</kbd> → Edit Mode</li>
+                            <li>Move bone head/tail</li>
+                            <li><kbd>E</kbd> to extrude and add bones</li>
+                        </ul>
+                    </li>
+                    <li><strong>Parent Mesh to Armature:</strong>
+                        <ul>
+                            <li>Select mesh, then armature</li>
+                            <li><kbd>Ctrl</kbd> + <kbd>P</kbd> → With Automatic Weights</li>
+                        </ul>
+                    </li>
+                    <li><strong>Pose Mode:</strong>
+                        <ul>
+                            <li>Select armature</li>
+                            <li>Switch to Pose Mode</li>
+                            <li><kbd>R</kbd> / <kbd>G</kbd> to rotate/move bones</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 17: Exporting for Unity -->
+        <div class="slide">
+            <h2>📦 Exporting for Unity</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Export Format: FBX</h3>
+                    <p><strong>Process:</strong></p>
+                    <ol>
+                        <li>File → Export → FBX (.fbx)</li>
+                        <li>Check "Selected Objects" (if needed)</li>
+                        <li>Apply Modifiers: ON</li>
+                        <li>Choose location and filename</li>
+                        <li>Click "Export FBX"</li>
+                    </ol>
+                    <h4>Pre-Export Checklist:</h4>
+                    <ul>
+                        <li>✅ Materials applied</li>
+                        <li>✅ Textures in project folder</li>
+                        <li>✅ Objects properly named</li>
+                        <li>✅ Appropriate scale</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>エクスポート形式: FBX</h3>
+                    <p><strong>プロセス:</strong></p>
+                    <ol>
+                        <li>File → Export → FBX（.fbx）</li>
+                        <li>「Selected Objects」にチェック（必要な場合）</li>
+                        <li>Apply Modifiers: ON</li>
+                        <li>場所とファイル名を選択</li>
+                        <li>「Export FBX」をクリック</li>
+                    </ol>
+                    <h4>エクスポート前チェックリスト:</h4>
+                    <ul>
+                        <li>✅ マテリアルが適用されている</li>
+                        <li>✅ テクスチャがプロジェクトフォルダにある</li>
+                        <li>✅ オブジェクトが適切に名前付けされている</li>
+                        <li>✅ 適切なスケール</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Week 2 Assignment -->
+        <div class="slide">
+            <h2>📝 Week 2 Assignment</h2>
+            <div class="highlight-box">
+                <h3>Enhance Your Maze!</h3>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>Requirements:</h4>
+                    <ol>
+                        <li><strong>Materials (5 pts):</strong>
+                            <ul><li>Apply colors to all objects</li></ul>
+                        </li>
+                        <li><strong>Textures (5 pts):</strong>
+                            <ul>
+                                <li>UV unwrap at least one object</li>
+                                <li>Apply at least one image texture</li>
+                            </ul>
+                        </li>
+                        <li><strong>Animation (3 pts):</strong>
+                            <ul><li>One simple path animation</li></ul>
+                        </li>
+                        <li><strong>Organization (2 pts):</strong>
+                            <ul><li>Proper naming and GitHub submission</li></ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>要件:</h4>
+                    <ol>
+                        <li><strong>マテリアル（5点）:</strong>
+                            <ul><li>すべてのオブジェクトに色を適用</li></ul>
+                        </li>
+                        <li><strong>テクスチャ（5点）:</strong>
+                            <ul>
+                                <li>少なくとも1つのオブジェクトをUV展開</li>
+                                <li>少なくとも1つの画像テクスチャを適用</li>
+                            </ul>
+                        </li>
+                        <li><strong>アニメーション（3点）:</strong>
+                            <ul><li>1つのシンプルなパスアニメーション</li></ul>
+                        </li>
+                        <li><strong>整理（2点）:</strong>
+                            <ul><li>適切な命名とGitHub提出</li></ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Common Pitfalls -->
+        <div class="slide">
+            <h2>⚠️ Common Pitfalls to Avoid</h2>
+            <div class="two-column">
+                <div class="english">
+                    <h3>Materials Issues:</h3>
+                    <ul>
+                        <li>❌ Not showing → Check viewport shading</li>
+                        <li>❌ Black material → Check lighting</li>
+                    </ul>
+                    <h3>Texture Issues:</h3>
+                    <ul>
+                        <li>❌ Stretched texture → Re-unwrap with seams</li>
+                        <li>❌ Missing texture → Pack resources</li>
+                    </ul>
+                    <h3>Animation Issues:</h3>
+                    <ul>
+                        <li>❌ Not playing → Check frame range</li>
+                        <li>❌ Object not following → Check constraint target</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>マテリアルの問題:</h3>
+                    <ul>
+                        <li>❌ 表示されない → ビューポートシェーディングを確認</li>
+                        <li>❌ 黒いマテリアル → ライティングを確認</li>
+                    </ul>
+                    <h3>テクスチャの問題:</h3>
+                    <ul>
+                        <li>❌ 引き伸ばされたテクスチャ → シームで再展開</li>
+                        <li>❌ 欠けているテクスチャ → リソースをパック</li>
+                    </ul>
+                    <h3>アニメーションの問題:</h3>
+                    <ul>
+                        <li>❌ 再生されない → フレーム範囲を確認</li>
+                        <li>❌ オブジェクトが従わない → 制約ターゲットを確認</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Summary & Next Week -->
+        <div class="slide">
+            <h2>🎯 Summary & Next Week</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Today You Learned:</h3>
+                    <ul>
+                        <li>✅ Materials and shader basics</li>
+                        <li>✅ Applying colors and properties</li>
+                        <li>✅ UV unwrapping fundamentals</li>
+                        <li>✅ Image texture application</li>
+                        <li>✅ Path-based animations</li>
+                        <li>✅ Rigging introduction</li>
+                        <li>✅ FBX export for Unity</li>
+                    </ul>
+                    <h3>Next Week - Week 3:</h3>
+                    <ul>
+                        <li>🎮 Unity3D Introduction</li>
+                        <li>🎮 Importing Blender assets</li>
+                        <li>🎮 Basic scene setup</li>
+                        <li>🎮 Physics and collisions</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>今日学んだこと:</h3>
+                    <ul>
+                        <li>✅ マテリアルとシェーダーの基礎</li>
+                        <li>✅ 色とプロパティの適用</li>
+                        <li>✅ UV展開の基礎</li>
+                        <li>✅ 画像テクスチャの適用</li>
+                        <li>✅ パスベースアニメーション</li>
+                        <li>✅ リギング入門</li>
+                        <li>✅ Unity用FBXエクスポート</li>
+                    </ul>
+                    <h3>来週 - 第3週:</h3>
+                    <ul>
+                        <li>🎮 Unity3D入門</li>
+                        <li>🎮 Blenderアセットのインポート</li>
+                        <li>🎮 基本シーンセットアップ</li>
+                        <li>🎮 物理演算と衝突</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 30px; text-align: center;">
+                <h2>🎉 Thank You! / ありがとうございました！</h2>
+                <p style="font-size: 1.3em;">Questions? / 質問はありますか？</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+
+            document.getElementById('slideNumber').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                showSlide(0);
+            } else if (event.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
 </body>
 </html>

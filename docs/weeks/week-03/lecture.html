@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3: Unity Interface & GameObjects | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lecture-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .lecture-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .lecture-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .lecture-content h4 {
+            color: var(--text-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .timeline-segment {
+            background: var(--bg-light);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        .duration-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .shortcut-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--warning);
+            margin: 15px 0;
+        }
+        .shortcut-box code {
+            background: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .objectives-list {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .objectives-list ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .tip-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .unity-panel {
+            background: #f0f9ff;
+            border: 2px solid #3b82f6;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎮 Week 3: Unity Interface & GameObjects</h1>
+            <p class="subtitle">第3週：Unityインターフェースとゲームオブジェクト</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="assignment.html">Assignment</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lecture-content">
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-02/lecture.html" class="btn btn-primary">← Previous Week</a>
+            </div>
+
+            <div class="objectives-list">
+                <h3>Learning Objectives / 学習目標</h3>
+                <p><strong>English:</strong> By the end of this lecture, students will be able to:</p>
+                <ul>
+                    <li>Navigate the Unity interface confidently</li>
+                    <li>Understand the GameObject-Component architecture</li>
+                    <li>Create and manipulate 3D objects in Unity</li>
+                    <li>Use the Scene, Hierarchy, Inspector, and Project windows effectively</li>
+                    <li>Perform basic Transform operations (position, rotation, scale)</li>
+                    <li>Create and use Prefabs</li>
+                    <li>Import Blender models (FBX) into Unity</li>
+                    <li>Set up a basic game scene with proper organization</li>
+                </ul>
+                <p><strong>日本語:</strong> この講義の終了までに、学生は以下ができるようになります：</p>
+                <ul>
+                    <li>Unityインターフェースを自信を持って操作する</li>
+                    <li>GameObjectとComponentのアーキテクチャを理解する</li>
+                    <li>Unityで3Dオブジェクトを作成して操作する</li>
+                    <li>Scene、Hierarchy、Inspector、Projectウィンドウを効果的に使用する</li>
+                    <li>基本的なTransform操作（位置、回転、スケール）を実行する</li>
+                    <li>Prefabを作成して使用する</li>
+                    <li>BlenderモデルをFBX形式でUnityにインポートする</li>
+                    <li>適切な整理で基本的なゲームシーンをセットアップする</li>
+                </ul>
+            </div>
+
+            <h2>Lecture Timeline (100 minutes)</h2>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 1: Welcome to Unity & Unity Hub Overview</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Recap of Blender weeks and transition to Unity</li>
+                    <li>What is Unity? Game engine vs 3D modeling software</li>
+                    <li>Unity Hub installation verification</li>
+                    <li>Creating a new 3D project</li>
+                    <li>Project settings and templates</li>
+                    <li>Understanding project file structure</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>Blender週のまとめとUnityへの移行</li>
+                    <li>Unityとは？ゲームエンジン vs 3Dモデリングソフトウェア</li>
+                    <li>Unity Hubのインストール確認</li>
+                    <li>新しい3Dプロジェクトの作成</li>
+                    <li>プロジェクト設定とテンプレート</li>
+                    <li>プロジェクトファイル構造の理解</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Project Creation Tips / プロジェクト作成のヒント:</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Use 3D Core template for this course</li>
+                        <li>Name project: <code>GameDev2025_Week03</code></li>
+                        <li>Save in your GitHub repository folder</li>
+                        <li>Unity creates Assets, Library, Packages, and ProjectSettings folders</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>このコースでは3D Coreテンプレートを使用</li>
+                        <li>プロジェクト名：<code>GameDev2025_Week03</code></li>
+                        <li>GitHubリポジトリフォルダに保存</li>
+                        <li>UnityはAssets、Library、Packages、ProjectSettingsフォルダを作成します</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 2: Unity Interface Tour</h3>
+
+                <h4>Main Window Areas / メインウィンドウエリア</h4>
+
+                <div class="unity-panel">
+                    <h4>1. Scene View (Center) / シーンビュー（中央）</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Visual workspace where you build your game</li>
+                        <li>Navigate with Right Mouse Button (RMB) + WASD</li>
+                        <li>Zoom with scroll wheel</li>
+                        <li>Frame selected object: F key</li>
+                        <li>Toggle scene lighting: Sun icon</li>
+                        <li>Gizmos and visual aids</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>ゲームを構築するビジュアルワークスペース</li>
+                        <li>右マウスボタン（RMB）+ WASDでナビゲート</li>
+                        <li>スクロールホイールでズーム</li>
+                        <li>選択したオブジェクトをフレーム：Fキー</li>
+                        <li>シーンライティングの切り替え：太陽アイコン</li>
+                        <li>ギズモとビジュアルエイド</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>2. Game View / ゲームビュー</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Shows what the player will see through the camera</li>
+                        <li>Preview your game without building</li>
+                        <li>Press Play button to test</li>
+                        <li>Aspect ratio settings</li>
+                        <li>Stats and profiling information</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>カメラを通してプレイヤーが見るものを表示</li>
+                        <li>ビルドせずにゲームをプレビュー</li>
+                        <li>Playボタンを押してテスト</li>
+                        <li>アスペクト比の設定</li>
+                        <li>統計とプロファイリング情報</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>3. Hierarchy Window (Left) / ヒエラルキーウィンドウ（左）</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Lists all GameObjects in the current scene</li>
+                        <li>Shows parent-child relationships</li>
+                        <li>Right-click to create new objects</li>
+                        <li>Drag to rearrange hierarchy</li>
+                        <li>Toggle visibility with eye icon</li>
+                        <li>Lock objects to prevent editing</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>現在のシーンのすべてのGameObjectをリスト</li>
+                        <li>親子関係を表示</li>
+                        <li>右クリックで新しいオブジェクトを作成</li>
+                        <li>ドラッグして階層を再配置</li>
+                        <li>目のアイコンで可視性を切り替え</li>
+                        <li>オブジェクトをロックして編集を防止</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>4. Inspector Window (Right) / インスペクターウィンドウ（右）</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Displays properties and components of selected GameObject</li>
+                        <li>Modify component values</li>
+                        <li>Add/remove components</li>
+                        <li>Enable/disable components with checkbox</li>
+                        <li>Access component documentation</li>
+                        <li>Debug mode for advanced users</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>選択したGameObjectのプロパティとコンポーネントを表示</li>
+                        <li>コンポーネント値を変更</li>
+                        <li>コンポーネントを追加/削除</li>
+                        <li>チェックボックスでコンポーネントを有効/無効化</li>
+                        <li>コンポーネントのドキュメントにアクセス</li>
+                        <li>上級ユーザー向けのデバッグモード</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>5. Project Window (Bottom) / プロジェクトウィンドウ（下部）</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>File browser for all project assets</li>
+                        <li>Organized into folders (Models, Materials, Scenes, Scripts)</li>
+                        <li>Import assets by dragging files here</li>
+                        <li>Create new assets with right-click menu</li>
+                        <li>Search and filter assets</li>
+                        <li>Two-column or one-column layout</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>すべてのプロジェクトアセット用のファイルブラウザ</li>
+                        <li>フォルダに整理（Models、Materials、Scenes、Scripts）</li>
+                        <li>ここにファイルをドラッグしてアセットをインポート</li>
+                        <li>右クリックメニューで新しいアセットを作成</li>
+                        <li>アセットを検索してフィルタリング</li>
+                        <li>2列または1列のレイアウト</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>6. Console Window / コンソールウィンドウ</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Displays errors, warnings, and debug messages</li>
+                        <li>Essential for troubleshooting</li>
+                        <li>Clear console with clear button</li>
+                        <li>Filter by error type</li>
+                        <li>Double-click to jump to error in code</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>エラー、警告、デバッグメッセージを表示</li>
+                        <li>トラブルシューティングに不可欠</li>
+                        <li>クリアボタンでコンソールをクリア</li>
+                        <li>エラータイプでフィルタリング</li>
+                        <li>ダブルクリックでコード内のエラーにジャンプ</li>
+                    </ul>
+                </div>
+
+                <div class="shortcut-box">
+                    <h4>🎹 Unity Navigation Shortcuts / Unityナビゲーションショートカット:</h4>
+                    <ul>
+                        <li><code>RMB + WASD</code> = Fly camera / フライカメラ</li>
+                        <li><code>Alt + LMB</code> = Orbit around object / オブジェクト周りを回転</li>
+                        <li><code>Alt + RMB</code> = Zoom / ズーム</li>
+                        <li><code>F</code> = Frame selected object / 選択したオブジェクトをフレーム</li>
+                        <li><code>Shift + F</code> = Fly through scene / シーンを飛行</li>
+                        <li><code>Middle Mouse</code> = Pan view / ビューをパン</li>
+                        <li><code>Scroll Wheel</code> = Zoom in/out / ズームイン/アウト</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 3: GameObjects & Component Architecture</h3>
+
+                <h4>Understanding GameObjects / GameObjectの理解</h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Everything in Unity is a GameObject</li>
+                    <li>GameObjects are containers for Components</li>
+                    <li>Empty by default (just a Transform)</li>
+                    <li>Functionality comes from Components</li>
+                    <li>Parent-child relationships for organization</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>UnityのすべてはGameObject</li>
+                    <li>GameObjectはComponentのコンテナ</li>
+                    <li>デフォルトでは空（Transformのみ）</li>
+                    <li>機能はComponentから提供</li>
+                    <li>整理のための親子関係</li>
+                </ul>
+
+                <h4>Component System / コンポーネントシステム</h4>
+                <p><strong>English:</strong> Components define what a GameObject can do:</p>
+                <ul>
+                    <li><strong>Transform:</strong> Position, rotation, scale (every GameObject has this)</li>
+                    <li><strong>Mesh Filter:</strong> Defines the 3D shape</li>
+                    <li><strong>Mesh Renderer:</strong> Makes the object visible</li>
+                    <li><strong>Collider:</strong> Enables physics collision detection</li>
+                    <li><strong>Rigidbody:</strong> Adds physics simulation (gravity, forces)</li>
+                    <li><strong>Light:</strong> Emits light in the scene</li>
+                    <li><strong>Camera:</strong> Renders what the player sees</li>
+                    <li><strong>Audio Source:</strong> Plays sounds</li>
+                    <li><strong>Scripts:</strong> Custom behavior (C# code)</li>
+                </ul>
+
+                <p><strong>日本語:</strong> Componentは、GameObjectができることを定義します：</p>
+                <ul>
+                    <li><strong>Transform:</strong> 位置、回転、スケール（すべてのGameObjectにあります）</li>
+                    <li><strong>Mesh Filter:</strong> 3D形状を定義</li>
+                    <li><strong>Mesh Renderer:</strong> オブジェクトを可視化</li>
+                    <li><strong>Collider:</strong> 物理衝突検出を有効化</li>
+                    <li><strong>Rigidbody:</strong> 物理シミュレーション（重力、力）を追加</li>
+                    <li><strong>Light:</strong> シーンに光を放射</li>
+                    <li><strong>Camera:</strong> プレイヤーが見るものをレンダリング</li>
+                    <li><strong>Audio Source:</strong> サウンドを再生</li>
+                    <li><strong>Scripts:</strong> カスタム動作（C#コード）</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>🎯 Component Philosophy / コンポーネント哲学:</h4>
+                    <p><strong>English:</strong> Instead of creating object classes (like "Enemy" or "Player"), Unity uses composition. You build objects by combining components. This makes Unity extremely flexible!</p>
+                    <p><strong>日本語:</strong> オブジェクトクラス（「Enemy」や「Player」など）を作成する代わりに、Unityは構成を使用します。コンポーネントを組み合わせてオブジェクトを構築します。これによりUnityは非常に柔軟になります！</p>
+                </div>
+
+                <h4>Creating GameObjects / GameObjectの作成</h4>
+                <p><strong>Method 1:</strong> Hierarchy Window → Right-click → 3D Object</p>
+                <p><strong>Method 2:</strong> GameObject menu → 3D Object</p>
+                <p><strong>Method 3:</strong> Drag a prefab/model from Project window to Scene</p>
+
+                <h4>Basic 3D Primitives / 基本的な3Dプリミティブ</h4>
+                <ul>
+                    <li>Cube - 立方体</li>
+                    <li>Sphere - 球</li>
+                    <li>Capsule - カプセル</li>
+                    <li>Cylinder - 円柱</li>
+                    <li>Plane - 平面</li>
+                    <li>Quad - 四角形（片面のみ）</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 4: Transform Component Deep Dive</h3>
+
+                <h4>Transform Properties / Transformプロパティ</h4>
+
+                <div class="unity-panel">
+                    <h4>Position / 位置</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>X, Y, Z coordinates in 3D space</li>
+                        <li>World space vs Local space</li>
+                        <li>0,0,0 is the origin/center of the world</li>
+                        <li>Positive Y is up, positive X is right, positive Z is forward</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>3D空間のX、Y、Z座標</li>
+                        <li>ワールド空間 vs ローカル空間</li>
+                        <li>0,0,0はワールドの原点/中心</li>
+                        <li>正のYは上、正のXは右、正のZは前方</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>Rotation / 回転</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Euler angles (X, Y, Z in degrees)</li>
+                        <li>X rotation: pitch (tilt forward/back)</li>
+                        <li>Y rotation: yaw (turn left/right)</li>
+                        <li>Z rotation: roll (tilt sideways)</li>
+                        <li>Watch out for gimbal lock!</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>オイラー角（X、Y、Z度単位）</li>
+                        <li>X回転：ピッチ（前後に傾ける）</li>
+                        <li>Y回転：ヨー（左右に回す）</li>
+                        <li>Z回転：ロール（横に傾ける）</li>
+                        <li>ジンバルロックに注意！</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>Scale / スケール</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Size multiplier on each axis</li>
+                        <li>1,1,1 is normal/default size</li>
+                        <li>2,2,2 is twice as large</li>
+                        <li>0.5,0.5,0.5 is half size</li>
+                        <li>Non-uniform scale possible (2,1,1 = stretched on X)</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>各軸のサイズ乗数</li>
+                        <li>1,1,1は通常/デフォルトサイズ</li>
+                        <li>2,2,2は2倍の大きさ</li>
+                        <li>0.5,0.5,0.5は半分のサイズ</li>
+                        <li>非均一スケール可能（2,1,1 = Xに引き伸ばす）</li>
+                    </ul>
+                </div>
+
+                <div class="shortcut-box">
+                    <h4>🎹 Transform Tool Shortcuts / Transformツールショートカット:</h4>
+                    <ul>
+                        <li><code>Q</code> = Hand tool (pan view) / ハンドツール（ビューをパン）</li>
+                        <li><code>W</code> = Move tool / 移動ツール</li>
+                        <li><code>E</code> = Rotate tool / 回転ツール</li>
+                        <li><code>R</code> = Scale tool / スケールツール</li>
+                        <li><code>T</code> = Rect tool (2D) / Rectツール（2D）</li>
+                        <li><code>Y</code> = Combined transform tool / 結合トランスフォームツール</li>
+                        <li><code>Ctrl + D</code> = Duplicate selected / 選択を複製</li>
+                        <li><code>Delete</code> = Delete selected / 選択を削除</li>
+                    </ul>
+                </div>
+
+                <h4>Gizmo Modes / ギズモモード</h4>
+                <p><strong>English:</strong> Toggle between Local and Global space with the button in the toolbar</p>
+                <ul>
+                    <li><strong>Global:</strong> Axes aligned with world space</li>
+                    <li><strong>Local:</strong> Axes aligned with object's rotation</li>
+                </ul>
+                <p><strong>日本語:</strong> ツールバーのボタンでローカルとグローバル空間を切り替え</p>
+                <ul>
+                    <li><strong>グローバル:</strong> ワールド空間に沿った軸</li>
+                    <li><strong>ローカル:</strong> オブジェクトの回転に沿った軸</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 5: Introduction to Prefabs</h3>
+
+                <h4>What are Prefabs? / Prefabとは？</h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Reusable GameObject templates</li>
+                    <li>Create once, use many times</li>
+                    <li>Changes to prefab affect all instances</li>
+                    <li>Can override individual properties</li>
+                    <li>Essential for level design efficiency</li>
+                    <li>Blue text in Hierarchy indicates prefab instance</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>再利用可能なGameObjectテンプレート</li>
+                    <li>一度作成して何度も使用</li>
+                    <li>Prefabへの変更はすべてのインスタンスに影響</li>
+                    <li>個々のプロパティをオーバーライド可能</li>
+                    <li>レベルデザインの効率に不可欠</li>
+                    <li>Hierarchyの青いテキストはPrefabインスタンスを示す</li>
+                </ul>
+
+                <h4>Creating a Prefab / Prefabの作成</h4>
+                <p><strong>English - Steps:</strong></p>
+                <ol>
+                    <li>Create and configure a GameObject in the scene</li>
+                    <li>Drag it from Hierarchy to Project window</li>
+                    <li>Choose "Original Prefab" when prompted</li>
+                    <li>Prefab asset is created in Project</li>
+                    <li>Original becomes prefab instance (blue text)</li>
+                </ol>
+
+                <p><strong>日本語 - 手順:</strong></p>
+                <ol>
+                    <li>シーンでGameObjectを作成して設定</li>
+                    <li>HierarchyからProjectウィンドウにドラッグ</li>
+                    <li>プロンプトが表示されたら「Original Prefab」を選択</li>
+                    <li>ProjectにPrefabアセットが作成される</li>
+                    <li>元のオブジェクトがPrefabインスタンスになる（青いテキスト）</li>
+                </ol>
+
+                <h4>Using Prefabs / Prefabの使用</h4>
+                <ul>
+                    <li>Drag prefab from Project to Scene to create instances</li>
+                    <li>Each instance shares the prefab's properties</li>
+                    <li>Modify prefab: double-click to enter Prefab Mode</li>
+                    <li>Apply overrides: Inspector → Overrides → Apply All</li>
+                    <li>Revert changes: Overrides → Revert All</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Prefab Best Practices / Prefabのベストプラクティス:</h4>
+                    <ul>
+                        <li>Use prefabs for any object that appears multiple times</li>
+                        <li>Create a "Prefabs" folder in your Project</li>
+                        <li>Name prefabs clearly (Wall_Straight, Wall_Corner, etc.)</li>
+                        <li>Use nested prefabs for complex objects</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 6: Importing Blender Models into Unity</h3>
+
+                <h4>Export from Blender / Blenderからエクスポート</h4>
+                <p><strong>English - Blender Export Steps:</strong></p>
+                <ol>
+                    <li>In Blender: Select your model(s)</li>
+                    <li>File → Export → FBX (.fbx)</li>
+                    <li>Export settings:
+                        <ul>
+                            <li>Selected Objects: ON (if you only want selected)</li>
+                            <li>Scale: 1.00</li>
+                            <li>Forward: -Z Forward</li>
+                            <li>Up: Y Up</li>
+                            <li>Apply Scalings: FBX All</li>
+                        </ul>
+                    </li>
+                    <li>Save to your Unity project's Assets folder</li>
+                    <li>Name clearly: <code>Maze_Week01.fbx</code></li>
+                </ol>
+
+                <p><strong>日本語 - Blenderエクスポート手順:</strong></p>
+                <ol>
+                    <li>Blenderで：モデルを選択</li>
+                    <li>ファイル → エクスポート → FBX (.fbx)</li>
+                    <li>エクスポート設定:
+                        <ul>
+                            <li>選択したオブジェクト：ON（選択したもののみ必要な場合）</li>
+                            <li>スケール：1.00</li>
+                            <li>前方：-Z Forward</li>
+                            <li>上：Y Up</li>
+                            <li>スケーリングを適用：FBX All</li>
+                        </ul>
+                    </li>
+                    <li>UnityプロジェクトのAssetsフォルダに保存</li>
+                    <li>明確に命名：<code>Maze_Week01.fbx</code></li>
+                </ol>
+
+                <div class="warning-box">
+                    <h4>⚠️ Common Export Issues / よくあるエクスポートの問題:</h4>
+                    <ul>
+                        <li><strong>Wrong size:</strong> Check scale settings in both Blender and Unity</li>
+                        <li><strong>Wrong orientation:</strong> Verify Forward/Up axis settings</li>
+                        <li><strong>Missing materials:</strong> Materials don't export with FBX (recreate in Unity)</li>
+                        <li><strong>Complex hierarchy:</strong> Apply transforms before export</li>
+                    </ul>
+                </div>
+
+                <h4>Import to Unity / Unityにインポート</h4>
+                <p><strong>English - Unity Import Steps:</strong></p>
+                <ol>
+                    <li><strong>Method 1:</strong> Drag .fbx file into Unity Project window</li>
+                    <li><strong>Method 2:</strong> Copy .fbx to Assets folder (auto-imports)</li>
+                    <li>Select imported model in Project window</li>
+                    <li>Inspector shows import settings:
+                        <ul>
+                            <li><strong>Model tab:</strong> Scale factor, meshes</li>
+                            <li><strong>Rig tab:</strong> Animation settings (none for now)</li>
+                            <li><strong>Animation tab:</strong> Animation clips (none for now)</li>
+                            <li><strong>Materials tab:</strong> Material extraction</li>
+                        </ul>
+                    </li>
+                    <li>Click Apply after changing settings</li>
+                </ol>
+
+                <p><strong>日本語 - Unityインポート手順:</strong></p>
+                <ol>
+                    <li><strong>方法1:</strong> .fbxファイルをUnity Projectウィンドウにドラッグ</li>
+                    <li><strong>方法2:</strong> .fbxをAssetsフォルダにコピー（自動インポート）</li>
+                    <li>Projectウィンドウでインポートしたモデルを選択</li>
+                    <li>Inspectorにインポート設定を表示:
+                        <ul>
+                            <li><strong>Modelタブ:</strong> スケールファクター、メッシュ</li>
+                            <li><strong>Rigタブ:</strong> アニメーション設定（今はなし）</li>
+                            <li><strong>Animationタブ:</strong> アニメーションクリップ（今はなし）</li>
+                            <li><strong>Materialsタブ:</strong> マテリアルの抽出</li>
+                        </ul>
+                    </li>
+                    <li>設定を変更した後にApplyをクリック</li>
+                </ol>
+
+                <h4>Using Imported Models / インポートされたモデルの使用</h4>
+                <ul>
+                    <li>Drag model from Project to Scene or Hierarchy</li>
+                    <li>Model appears as GameObject with Mesh Filter and Mesh Renderer</li>
+                    <li>Adjust Transform as needed (position, rotation, scale)</li>
+                    <li>Create materials in Unity for proper appearance</li>
+                    <li>Consider making complex models into prefabs</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Model Organization Tips / モデル整理のヒント:</h4>
+                    <ul>
+                        <li>Create "Models" folder in Assets</li>
+                        <li>Create "Materials" folder for Unity materials</li>
+                        <li>Keep Blender source files in separate folder (not in Assets)</li>
+                        <li>Use consistent naming: <code>ModelName_LOD0.fbx</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">5 minutes / 5分</span>
+                <h3>Segment 7: Assignment Introduction & Q&A</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Review Week 3 assignment requirements</li>
+                    <li>Import Week 1 maze from Blender</li>
+                    <li>Set up Unity scene with proper organization</li>
+                    <li>Add lighting, camera, and basic GameObjects</li>
+                    <li>Prepare for Week 4: Physics and input systems</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>第3週の課題要件をレビュー</li>
+                    <li>BlenderからWeek 1迷路をインポート</li>
+                    <li>適切な整理でUnityシーンをセットアップ</li>
+                    <li>ライティング、カメラ、基本的なGameObjectを追加</li>
+                    <li>第4週の準備：物理システムと入力システム</li>
+                </ul>
+            </div>
+
+            <h2>Common Pitfalls / よくある落とし穴</h2>
+
+            <div class="timeline-segment">
+                <h4>1. Wrong Coordinate System / 間違った座標系</h4>
+                <p><strong>Problem:</strong> Blender uses Z-up, Unity uses Y-up</p>
+                <p><strong>Solution:</strong> Use correct export settings: Forward = -Z, Up = Y</p>
+
+                <h4>2. Scale Inconsistencies / スケールの不一致</h4>
+                <p><strong>Problem:</strong> Model appears too large or too small in Unity</p>
+                <p><strong>Solution:</strong> Apply scale in Blender before export, use Scale Factor in Unity import settings</p>
+
+                <h4>3. Lost in Scene View / シーンビューで迷子</h4>
+                <p><strong>Problem:</strong> Can't find objects or navigate properly</p>
+                <p><strong>Solution:</strong> Select object in Hierarchy, press F to frame it</p>
+
+                <h4>4. Component Confusion / コンポーネントの混乱</h4>
+                <p><strong>Problem:</strong> Adding wrong components or too many components</p>
+                <p><strong>Solution:</strong> Start simple - basic objects only need Transform, Mesh Filter, Mesh Renderer</p>
+
+                <h4>5. Hierarchy Disorganization / ヒエラルキーの無秩序</h4>
+                <p><strong>Problem:</strong> All objects at root level, hard to find things</p>
+                <p><strong>Solution:</strong> Use empty GameObjects as folders (Environment, Props, Lighting, etc.)</p>
+
+                <h4>6. Forgetting to Save Scene / シーンの保存を忘れる</h4>
+                <p><strong>Problem:</strong> Losing work when Unity crashes</p>
+                <p><strong>Solution:</strong> Ctrl+S frequently, enable Auto Save in preferences</p>
+            </div>
+
+            <h2>Materials Needed / 必要な教材</h2>
+
+            <div class="timeline-segment">
+                <h4>Software / ソフトウェア</h4>
+                <ul>
+                    <li><strong>Unity Hub</strong> (installed before class)</li>
+                    <li><strong>Unity 2022 LTS or newer</strong> - <a href="https://unity.com/" target="_blank">Download</a></li>
+                    <li><strong>Blender 4.0+</strong> (for exporting models)</li>
+                    <li><strong>Visual Studio Code</strong> or <strong>Visual Studio</strong> (for scripts later)</li>
+                    <li><strong>GitHub Desktop</strong> or Git CLI</li>
+                </ul>
+
+                <h4>Files Needed / 必要なファイル</h4>
+                <ul>
+                    <li>Week 1 Blender maze file (.blend)</li>
+                    <li>Unity keyboard shortcuts cheat sheet</li>
+                    <li>.gitignore for Unity projects</li>
+                </ul>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+
+            <div class="timeline-segment">
+                <h4>Video Tutorials (English):</h4>
+                <ul>
+                    <li><a href="https://learn.unity.com/" target="_blank">Unity Learn - Official Tutorials</a></li>
+                    <li><a href="https://www.youtube.com/@Brackeys" target="_blank">Brackeys - "How to make a Video Game"</a></li>
+                    <li><a href="https://www.youtube.com/@CodeMonkeyUnity" target="_blank">Code Monkey - Unity Beginner Tutorials</a></li>
+                    <li><a href="https://www.youtube.com/@Blackthornprod" target="_blank">Blackthornprod - Game Dev Basics</a></li>
+                </ul>
+
+                <h4>Video Tutorials (Japanese / 日本語):</h4>
+                <ul>
+                    <li>Unity Japan YouTube Channel</li>
+                    <li>たにっち - Unity初心者チュートリアル</li>
+                    <li>ユニティちゃん公式 - Unity基礎講座</li>
+                </ul>
+
+                <h4>Documentation:</h4>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Manual/index.html" target="_blank">Unity Manual (English)</a></li>
+                    <li><a href="https://docs.unity3d.com/ja/current/Manual/index.html" target="_blank">Unityマニュアル（日本語）</a></li>
+                    <li><a href="https://docs.unity3d.com/ScriptReference/" target="_blank">Unity Scripting API</a></li>
+                </ul>
+            </div>
+
+            <h2>Preparation for Next Week / 次週の準備</h2>
+
+            <div class="objectives-list">
+                <p><strong>English - Students should:</strong></p>
+                <ul>
+                    <li>✅ Complete Week 3 assignment (import maze to Unity)</li>
+                    <li>✅ Practice Unity navigation and interface</li>
+                    <li>✅ Experiment with GameObjects and Components</li>
+                    <li>✅ Watch Unity basics tutorial videos</li>
+                    <li>✅ Ensure Unity project is committed to GitHub</li>
+                    <li>✅ Read about Rigidbody and Collider components</li>
+                </ul>
+                <p><strong>日本語 - 学生は以下を行うべきです：</strong></p>
+                <ul>
+                    <li>✅ 第3週の課題を完了（迷路をUnityにインポート）</li>
+                    <li>✅ Unityナビゲーションとインターフェースを練習</li>
+                    <li>✅ GameObjectとComponentを実験</li>
+                    <li>✅ Unity基礎チュートリアルビデオを視聴</li>
+                    <li>✅ UnityプロジェクトがGitHubにコミットされていることを確認</li>
+                    <li>✅ RigidbodyとColliderコンポーネントについて読む</li>
+                </ul>
+                <p><strong>Next Week Preview:</strong> Physics, Collisions, and Input Systems</p>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-04/lecture.html" class="btn btn-primary">Next Week: Physics & Input →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>

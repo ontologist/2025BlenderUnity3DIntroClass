@@ -5,53 +5,518 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 2 Assignment | Game Dev Course 2025</title>
     <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .assignment-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .assignment-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .assignment-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .requirement-box {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+        }
+        .requirement-box h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        .points-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .checklist {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checklist li::before {
+            content: "✅ ";
+            margin-right: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: var(--bg-light);
+            font-weight: bold;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>📝 Week 2 Assignment: Textured Maze with Animation</h1>
-            <p class="subtitle">第2週課題：アニメーション付きテクスチャ迷路</p>
+            <h1>📝 Week 2 Assignment: Textured & Animated Maze</h1>
+            <p class="subtitle">第2週課題：テクスチャとアニメーション付き迷路</p>
         </div>
     </header>
+
     <nav class="main-nav">
         <div class="container">
             <a href="../../index.html">← Course Home</a>
             <a href="lecture.html">Lecture Notes</a>
         </div>
     </nav>
-    <main class="container" style="padding: 60px 20px;">
-        <div style="max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <div style="background: #dbeafe; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+
+    <main class="container">
+        <div class="assignment-content">
+            <div class="requirement-box">
                 <h3>📋 Assignment Overview</h3>
-                <p><strong>Due Date:</strong> Before Week 3 lecture</p>
-                <p><strong>Points:</strong> 15 points</p>
+                <p><strong>Due Date:</strong> Before Week 3 lecture / 第3週講義前</p>
+                <p><strong>Points:</strong> 15 points / 15点</p>
                 <p><strong>Submission:</strong> Via GitHub repository</p>
             </div>
-            <h2 style="color: var(--primary-color);">Full Assignment Details</h2>
-            <p style="background: #fef3c7; padding: 15px; border-radius: 5px;">
-                <strong>🚧 Full HTML assignment page is being finalized.</strong><br>
-                Complete assignment details are available in the GitHub repository:
-            </p>
-            <div style="margin: 20px 0;">
-                <a href="https://github.com/ontologist/2025BlenderUnity3DIntroClass/blob/main/lectures/week-02/assignments/WEEK02_ASSIGNMENT.md" class="btn btn-primary" target="_blank">View Full Assignment on GitHub</a>
+
+            <h2>Assignment Description / 課題概要</h2>
+
+            <p><strong>English:</strong> Enhance your Week 1 maze by adding materials, textures, and a simple path animation. This assignment builds on your existing maze project and demonstrates your understanding of materials, UV unwrapping, texture application, and basic animation.</p>
+
+            <p><strong>日本語:</strong> 第1週の迷路にマテリアル、テクスチャ、シンプルなパスアニメーションを追加して強化します。この課題は既存の迷路プロジェクトをベースにして、マテリアル、UV展開、テクスチャ適用、基本的なアニメーションの理解を示します。</p>
+
+            <h2>Requirements / 要件</h2>
+
+            <div class="requirement-box">
+                <h4>1. Materials Application <span class="points-badge">5 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Apply materials to ALL objects in your maze</li>
+                    <li>Use appropriate colors for different elements:
+                        <ul>
+                            <li><strong>Floor:</strong> Green/brown (grass or dirt feel)</li>
+                            <li><strong>Walls:</strong> Gray (stone-like)</li>
+                            <li><strong>Start Area:</strong> Blue or green</li>
+                            <li><strong>Goal:</strong> Bright red or gold (eye-catching)</li>
+                        </ul>
+                    </li>
+                    <li>Adjust material properties (Metallic and Roughness) appropriately</li>
+                    <li>Name your materials descriptively (e.g., "Wall_Stone", "Floor_Grass")</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>迷路のすべてのオブジェクトにマテリアルを適用</li>
+                    <li>異なる要素に適切な色を使用：
+                        <ul>
+                            <li><strong>床:</strong> 緑/茶色（草または土の感じ）</li>
+                            <li><strong>壁:</strong> 灰色（石のような）</li>
+                            <li><strong>スタートエリア:</strong> 青または緑</li>
+                            <li><strong>ゴール:</strong> 明るい赤または金色（目を引く）</li>
+                        </ul>
+                    </li>
+                    <li>マテリアルプロパティ（MetallicとRoughness）を適切に調整</li>
+                    <li>マテリアルを説明的に命名（例：「Wall_Stone」、「Floor_Grass」）</li>
+                </ul>
             </div>
-            <h3 style="color: var(--secondary-color);">Quick Summary</h3>
-            <p>Build upon your Week 1 maze by adding:</p>
-            <ul>
-                <li><strong>Materials (5 pts):</strong> Apply colors to floor, walls, goal, and start</li>
-                <li><strong>Texture (5 pts):</strong> Add at least one image texture with UV unwrapping</li>
-                <li><strong>Animation (3 pts):</strong> Create one simple path-based animation</li>
-                <li><strong>File Organization (2 pts):</strong> Proper naming and GitHub submission</li>
-            </ul>
+
+            <div class="requirement-box">
+                <h4>2. UV Unwrapping & Texture Application <span class="points-badge">5 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>UV unwrap <strong>at least ONE object</strong> (wall segment recommended)</li>
+                    <li>Apply <strong>at least ONE image texture</strong> to the unwrapped object</li>
+                    <li>Texture requirements:
+                        <ul>
+                            <li>Use appropriate seam placement</li>
+                            <li>Texture should not appear overly stretched or distorted</li>
+                            <li>Recommended: brick, stone, or wood texture for walls</li>
+                            <li>Image size: at least 512x512 pixels</li>
+                        </ul>
+                    </li>
+                    <li>Texture file must be saved in project folder</li>
+                    <li>Use File → External Data → Pack Resources to embed textures</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li><strong>少なくとも1つのオブジェクト</strong>をUV展開（壁セグメント推奨）</li>
+                    <li>展開したオブジェクトに<strong>少なくとも1つの画像テクスチャ</strong>を適用</li>
+                    <li>テクスチャ要件：
+                        <ul>
+                            <li>適切なシーム配置を使用</li>
+                            <li>テクスチャが過度に引き伸ばされたり歪んだりしていないこと</li>
+                            <li>推奨：壁用のレンガ、石、または木材テクスチャ</li>
+                            <li>画像サイズ：少なくとも512x512ピクセル</li>
+                        </ul>
+                    </li>
+                    <li>テクスチャファイルはプロジェクトフォルダに保存する必要があります</li>
+                    <li>File → External Data → Pack Resourcesを使用してテクスチャを埋め込む</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>🔗 Free Texture Resources:</h4>
+                    <ul>
+                        <li><a href="https://polyhaven.com/textures" target="_blank">Poly Haven</a> - High-quality PBR textures</li>
+                        <li><a href="https://opengameart.org/" target="_blank">OpenGameArt.org</a> - Game assets</li>
+                        <li><a href="https://www.textures.com/" target="_blank">Textures.com</a> - Limited free downloads</li>
+                        <li><a href="https://cc0textures.com/" target="_blank">CC0 Textures</a> - Public domain</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="requirement-box">
+                <h4>3. Path Animation <span class="points-badge">3 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create <strong>ONE simple path animation</strong> in your maze</li>
+                    <li>Animation options (choose one):
+                        <ul>
+                            <li>A sphere or object moving along a path through the maze</li>
+                            <li>A "collectible" item rotating or moving in place</li>
+                            <li>A decorative element (e.g., floating gem, patrol guard)</li>
+                        </ul>
+                    </li>
+                    <li>Animation requirements:
+                        <ul>
+                            <li>Duration: 3-5 seconds (90-150 frames at 30fps)</li>
+                            <li>Use Follow Path constraint</li>
+                            <li>Object should follow path smoothly</li>
+                            <li>Path should be visible in the Blender file (don't hide the curve)</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>迷路に<strong>1つのシンプルなパスアニメーション</strong>を作成</li>
+                    <li>アニメーションオプション（1つ選択）：
+                        <ul>
+                            <li>迷路を通るパスに沿って移動する球体またはオブジェクト</li>
+                            <li>回転または所定の位置で移動する「収集可能」アイテム</li>
+                            <li>装飾要素（例：浮遊する宝石、パトロール警備員）</li>
+                        </ul>
+                    </li>
+                    <li>アニメーション要件：
+                        <ul>
+                            <li>期間：3〜5秒（30fpsで90〜150フレーム）</li>
+                            <li>Follow Path制約を使用</li>
+                            <li>オブジェクトはパスに滑らかに従う</li>
+                            <li>パスはBlenderファイルで表示されている（曲線を非表示にしない）</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>4. File Organization & Submission <span class="points-badge">2 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>All objects properly named in Outliner</li>
+                    <li>Materials named descriptively</li>
+                    <li>File saved as: <code>week02_maze_[yourname].blend</code></li>
+                    <li>Include screenshot: <code>week02_maze_screenshot.png</code></li>
+                    <li>Save textures in <code>week-02/textures/</code> subfolder</li>
+                    <li>Commit and push to GitHub</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>Outlinerですべてのオブジェクトが適切に名前付けされている</li>
+                    <li>マテリアルが説明的に名前付けされている</li>
+                    <li>ファイルを保存：<code>week02_maze_[yourname].blend</code></li>
+                    <li>スクリーンショットを含む：<code>week02_maze_screenshot.png</code></li>
+                    <li>テクスチャを<code>week-02/textures/</code>サブフォルダに保存</li>
+                    <li>GitHubにコミットしてプッシュ</li>
+                </ul>
+            </div>
+
+            <h2>File Structure / ファイル構造</h2>
+
+            <div class="requirement-box">
+                <h4>Required File Structure:</h4>
+                <pre><code>game-dev-2025-yourname/
+└── week-02/
+    ├── week02_maze_[yourname].blend
+    ├── week02_maze_screenshot.png
+    └── textures/
+        └── [your-texture-files.jpg/.png]</code></pre>
+
+                <p><strong>Example / 例:</strong></p>
+                <pre><code>game-dev-2025-john/
+└── week-02/
+    ├── week02_maze_john.blend
+    ├── week02_maze_screenshot.png
+    └── textures/
+        ├── brick_wall.jpg
+        └── grass_floor.png</code></pre>
+            </div>
+
+            <h2>Grading Rubric / 採点基準</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria / 基準</th>
+                        <th>Points / 点数</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Materials</strong></td>
+                        <td>5</td>
+                        <td>All objects have materials with appropriate colors and properties<br/>すべてのオブジェクトに適切な色とプロパティのマテリアルがある</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UV Unwrapping & Textures</strong></td>
+                        <td>5</td>
+                        <td>At least one object properly UV unwrapped with texture applied<br/>少なくとも1つのオブジェクトが適切にUV展開され、テクスチャが適用されている</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Path Animation</strong></td>
+                        <td>3</td>
+                        <td>One smooth path animation (3-5 seconds) working correctly<br/>1つの滑らかなパスアニメーション（3〜5秒）が正しく機能している</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Organization</strong></td>
+                        <td>2</td>
+                        <td>Proper naming, file structure, and GitHub submission<br/>適切な命名、ファイル構造、GitHub提出</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>15</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <h4>⚠️ Grading Scale / 採点スケール</h4>
+                <ul>
+                    <li><strong>14-15 points:</strong> Excellent - All requirements exceeded</li>
+                    <li><strong>12-13 points:</strong> Good - All requirements met</li>
+                    <li><strong>10-11 points:</strong> Satisfactory - Most requirements met</li>
+                    <li><strong>7-9 points:</strong> Needs Improvement - Some requirements missing</li>
+                    <li><strong>0-6 points:</strong> Incomplete - Major requirements not met</li>
+                </ul>
+            </div>
+
+            <h2>Step-by-Step Guide / ステップバイステップガイド</h2>
+
+            <div class="requirement-box">
+                <h4>Quick Steps / クイックステップ</h4>
+                <ol>
+                    <li><strong>Open Week 1 Maze</strong>
+                        <ul>
+                            <li>Open your <code>week01_maze_[yourname].blend</code></li>
+                            <li>Save As: <code>week-02/week02_maze_[yourname].blend</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Apply Materials (30 minutes)</strong>
+                        <ul>
+                            <li>Switch to Shading workspace</li>
+                            <li>Select floor → Add material → Set green/brown color</li>
+                            <li>Select walls → Add material → Set gray color</li>
+                            <li>Select goal → Add material → Set red/gold + adjust Metallic/Roughness</li>
+                            <li>Rename all materials descriptively</li>
+                        </ul>
+                    </li>
+                    <li><strong>Add Texture (45 minutes)</strong>
+                        <ul>
+                            <li>Download a brick or stone texture (512x512+)</li>
+                            <li>Save to <code>week-02/textures/</code> folder</li>
+                            <li>Select one wall segment</li>
+                            <li>Tab → Edit Mode</li>
+                            <li>Mark seams: select vertical edges → Ctrl+E → Mark Seam</li>
+                            <li>Select All (A) → U → Unwrap</li>
+                            <li>In Shader Editor: Add → Texture → Image Texture</li>
+                            <li>Open your texture file</li>
+                            <li>Connect Image Texture Color to Principled BSDF Base Color</li>
+                        </ul>
+                    </li>
+                    <li><strong>Create Animation (30 minutes)</strong>
+                        <ul>
+                            <li>Shift+A → Curve → Bezier Curve</li>
+                            <li>Tab → Edit Mode → Shape path through maze</li>
+                            <li>Shift+A → Mesh → UV Sphere (animated object)</li>
+                            <li>Select sphere → Constraints → Add → Follow Path</li>
+                            <li>Target: Select your curve</li>
+                            <li>Check "Follow Curve"</li>
+                            <li>Select curve → Object Data Properties → Path Animation</li>
+                            <li>Set Frames: 0 to 120</li>
+                            <li>Press Spacebar to test</li>
+                        </ul>
+                    </li>
+                    <li><strong>Screenshot & Finalize</strong>
+                        <ul>
+                            <li>NumPad 7 (top view)</li>
+                            <li>Home key (frame all)</li>
+                            <li>Render → Viewport Render Image</li>
+                            <li>Save as: <code>week02_maze_screenshot.png</code></li>
+                            <li>File → External Data → Pack Resources</li>
+                            <li>Save: Ctrl+S</li>
+                        </ul>
+                    </li>
+                    <li><strong>Submit to GitHub</strong>
+                        <ul>
+                            <li>Open GitHub Desktop</li>
+                            <li>Commit: "Complete Week 2 maze assignment"</li>
+                            <li>Push to GitHub</li>
+                            <li>Verify on GitHub.com</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h2>Submission Checklist / 提出チェックリスト</h2>
+
+            <div class="checklist">
+                <h4>Before submitting, verify / 提出前に確認:</h4>
+                <ul>
+                    <li>All objects have materials applied</li>
+                    <li>At least one object has UV unwrapping and texture</li>
+                    <li>One path animation working (press Spacebar to verify)</li>
+                    <li>All objects properly named in Outliner</li>
+                    <li>Materials named descriptively</li>
+                    <li>Blender file saved with correct naming</li>
+                    <li>Screenshot saved</li>
+                    <li>Textures in <code>week-02/textures/</code> folder</li>
+                    <li>Resources packed (File → External Data → Pack Resources)</li>
+                    <li>Files committed to Git</li>
+                    <li>Files pushed to GitHub</li>
+                    <li>Verified files visible on GitHub.com</li>
+                </ul>
+            </div>
+
+            <h2>Common Mistakes / よくある間違い</h2>
+
+            <div class="warning-box">
+                <h4>❌ Avoid These Mistakes:</h4>
+                <ul>
+                    <li><strong>Materials not visible:</strong> Check viewport shading mode (use Material Preview or Rendered)</li>
+                    <li><strong>Stretched textures:</strong> UV unwrap not done or seams placed incorrectly</li>
+                    <li><strong>Missing textures:</strong> Forgot to pack resources or textures not in project folder</li>
+                    <li><strong>Animation not playing:</strong> Follow Path constraint target not set or frame range incorrect</li>
+                    <li><strong>Textures too small:</strong> Use at least 512x512 pixel images</li>
+                    <li><strong>Not saving in correct folder:</strong> Must be in <code>week-02/</code> folder in your GitHub repo</li>
+                    <li><strong>Forgetting to push:</strong> Committed locally but didn't push to GitHub</li>
+                </ul>
+            </div>
+
+            <h2>Bonus Challenges (Optional) / ボーナスチャレンジ（任意）</h2>
+
+            <div class="requirement-box">
+                <p><strong>English - For extra practice (not graded):</strong></p>
+                <ul>
+                    <li>Apply textures to multiple objects (floor, multiple walls)</li>
+                    <li>Create multiple path animations</li>
+                    <li>Add normal maps or roughness maps to your textures</li>
+                    <li>Experiment with different material properties (subsurface scattering, emission)</li>
+                    <li>Create a simple armature and rig a decorative object</li>
+                </ul>
+                <p><strong>日本語 - 追加練習用（採点対象外）:</strong></p>
+                <ul>
+                    <li>複数のオブジェクトにテクスチャを適用（床、複数の壁）</li>
+                    <li>複数のパスアニメーションを作成</li>
+                    <li>テクスチャに法線マップまたはラフネスマップを追加</li>
+                    <li>異なるマテリアルプロパティを試す（サブサーフェススキャタリング、エミッション）</li>
+                    <li>シンプルなアーマチュアを作成して装飾オブジェクトをリグ</li>
+                </ul>
+            </div>
+
+            <h2>Getting Help / ヘルプを得る</h2>
+
+            <div class="requirement-box">
+                <p><strong>If you're stuck / 困った場合:</strong></p>
+                <ol>
+                    <li>Review the <a href="lecture.html">Week 2 lecture notes</a></li>
+                    <li>Check the <a href="slides.html">Week 2 slides</a></li>
+                    <li>Watch recommended tutorial videos on materials and UV unwrapping</li>
+                    <li>Check the Common Mistakes section above</li>
+                    <li>Ask questions in the course discussion forum</li>
+                    <li>Attend office hours</li>
+                    <li>Ask a classmate (collaboration on concepts is encouraged!)</li>
+                    <li>Email the instructor with:
+                        <ul>
+                            <li>Your GitHub repository link</li>
+                            <li>Screenshot of your issue</li>
+                            <li>Description of what you've tried</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h2>FAQ / よくある質問</h2>
+
+            <div class="requirement-box">
+                <h4>Q1: Do I need to texture everything?</h4>
+                <p><strong>A:</strong> No, only ONE object needs UV unwrapping and texture. Others can use solid color materials.</p>
+
+                <h4>Q2: Can I use photos as textures?</h4>
+                <p><strong>A:</strong> Yes! Photos of walls, floors, etc. work great. Best if taken straight-on with good lighting.</p>
+
+                <h4>Q3: My animation isn't smooth. What's wrong?</h4>
+                <p><strong>A:</strong> Check that: (1) Follow Curve is enabled, (2) Frame range is set correctly, (3) Curve has enough control points</p>
+
+                <h4>Q4: Can I start from scratch instead of using Week 1 maze?</h4>
+                <p><strong>A:</strong> You can, but it's better to build on your existing work. This mirrors real game development.</p>
+
+                <h4>Q5: How long should this take?</h4>
+                <p><strong>A:</strong> Approximately 2-3 hours for most students.</p>
+            </div>
+
             <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
                 <a href="lecture.html" class="btn btn-secondary">← Back to Lecture</a>
                 <a href="../../index.html" class="btn btn-primary">Course Home</a>
+                <a href="../../guides/github-setup.html" class="btn btn-accent">GitHub Setup Guide</a>
             </div>
         </div>
     </main>
+
     <footer>
         <div class="container">
             <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
         </div>
     </footer>
 </body>

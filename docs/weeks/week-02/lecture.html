@@ -3,14 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 2: Materials & Textures | Game Dev Course 2025</title>
+    <title>Week 2: Materials, Textures & Animation | Game Dev Course 2025</title>
     <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lecture-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .lecture-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .lecture-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .lecture-content h4 {
+            color: var(--text-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .timeline-segment {
+            background: var(--bg-light);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        .duration-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .shortcut-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--warning);
+            margin: 15px 0;
+        }
+        .shortcut-box code {
+            background: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .objectives-list {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .objectives-list ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .info-box {
+            background: #d1fae5;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>🎨 Week 2: Materials, Textures & Animations</h1>
-            <p class="subtitle">第2週：マテリアル、テクスチャ、アニメーション</p>
+            <h1>🎨 Week 2: Materials, Textures & Simple Animations</h1>
+            <p class="subtitle">第2週：マテリアル、テクスチャ、シンプルなアニメーション</p>
         </div>
     </header>
 
@@ -22,15 +120,16 @@
         </div>
     </nav>
 
-    <main class="container" style="padding: 60px 20px;">
-        <div style="max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+    <main class="container">
+        <div class="lecture-content">
+            <div class="nav-buttons">
                 <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
                 <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-01/lecture.html" class="btn btn-primary">← Previous Week</a>
             </div>
 
-            <div style="background: #dbeafe; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h3 style="color: var(--primary-color);">Learning Objectives / 学習目標</h3>
+            <div class="objectives-list">
+                <h3>Learning Objectives / 学習目標</h3>
                 <p><strong>English:</strong> By the end of this lecture, students will be able to:</p>
                 <ul>
                     <li>Understand materials and shaders in Blender</li>
@@ -39,8 +138,9 @@
                     <li>Apply image textures to models</li>
                     <li>Create simple path-based animations</li>
                     <li>Understand basic bone rigging concepts</li>
+                    <li>Export textured models for use in Unity</li>
                 </ul>
-                <p><strong>日本語:</strong></p>
+                <p><strong>日本語:</strong> この講義の終了までに、学生は以下ができるようになります：</p>
                 <ul>
                     <li>Blenderのマテリアルとシェーダーを理解する</li>
                     <li>3Dオブジェクトに色とマテリアルを適用する</li>
@@ -48,30 +148,477 @@
                     <li>モデルに画像テクスチャを適用する</li>
                     <li>シンプルなパスベースのアニメーションを作成する</li>
                     <li>基本的なボーンリギングの概念を理解する</li>
+                    <li>テクスチャ付きモデルをUnity用にエクスポートする</li>
                 </ul>
             </div>
 
-            <h2 style="color: var(--primary-color); border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">📚 Full Lecture Notes</h2>
-            <p style="background: #fef3c7; padding: 15px; border-radius: 5px; border-left: 4px solid var(--warning);">
-                <strong>🚧 Full HTML lecture notes are being finalized.</strong><br>
-                In the meantime, you can access the complete markdown version in the GitHub repository:
-            </p>
-            <div style="margin: 20px 0;">
-                <a href="https://github.com/ontologist/2025BlenderUnity3DIntroClass/blob/main/lectures/week-02/LECTURE_PLAN.md" class="btn btn-primary" target="_blank">View on GitHub</a>
+            <h2>Lecture Timeline (100 minutes)</h2>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 1: Review Week 1 and Q&A</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Quick review of navigation and modeling basics</li>
+                    <li>Showcase interesting student maze designs</li>
+                    <li>Address common issues from Week 1</li>
+                    <li>Collect Week 1 assignments</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>ナビゲーションとモデリングの基礎の簡単な復習</li>
+                    <li>興味深い学生の迷路デザインを紹介</li>
+                    <li>第1週の一般的な問題に対処</li>
+                    <li>第1週の課題を収集</li>
+                </ul>
             </div>
 
-            <h2 style="color: var(--primary-color); margin-top: 40px;">Key Topics / 主なトピック</h2>
-            <ul style="line-height: 1.8;">
-                <li><strong>Introduction to Materials:</strong> Understanding shaders and material properties</li>
-                <li><strong>Applying Materials:</strong> Adding colors and properties to objects</li>
-                <li><strong>UV Unwrapping:</strong> Preparing models for textures</li>
-                <li><strong>Image Textures:</strong> Applying and adjusting textures</li>
-                <li><strong>Path-Based Animation:</strong> Creating animated objects following curves</li>
-                <li><strong>Bone Rigging Basics:</strong> Introduction to armatures</li>
-            </ul>
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 2: Introduction to Materials</h3>
 
-            <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
-                <a href="../week-01/lecture.html" class="btn btn-secondary">← Week 1: Blender Basics</a>
+                <h4>What are Materials? / マテリアルとは何か？</h4>
+                <p><strong>English:</strong> Materials define how surfaces appear in 3D space. They control properties like color, shininess, transparency, and how light interacts with the surface.</p>
+                <p><strong>日本語:</strong> マテリアルは3D空間で表面がどのように見えるかを定義します。色、光沢、透明度、そして光が表面とどのように相互作用するかを制御します。</p>
+
+                <div class="info-box">
+                    <p><strong>The Rendering Equation:</strong> Materials + Lighting = Final Appearance</p>
+                    <p><strong>レンダリング方程式:</strong> マテリアル + ライティング = 最終的な見た目</p>
+                </div>
+
+                <h4>Material Properties / マテリアルプロパティ</h4>
+                <ul>
+                    <li><strong>Base Color:</strong> The fundamental color of the surface / 表面の基本色</li>
+                    <li><strong>Metallic:</strong> 0 = non-metal (plastic, wood), 1 = metal (steel, gold) / 0 = 非金属（プラスチック、木）、1 = 金属（鋼、金）</li>
+                    <li><strong>Roughness:</strong> 0 = mirror-like, 1 = completely matte / 0 = 鏡のよう、1 = 完全にマット</li>
+                    <li><strong>Alpha:</strong> Transparency level / 透明度レベル</li>
+                </ul>
+
+                <h4>Shader Editor Overview / Shader Editor概要</h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Access via Shading workspace (top menu tabs)</li>
+                    <li>Node-based system: boxes connected by lines</li>
+                    <li><strong>Principled BSDF:</strong> Industry-standard shader with all common properties</li>
+                    <li><strong>Material Output:</strong> Final connection to render engine</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>Shadingワークスペース経由でアクセス（上部メニュータブ）</li>
+                    <li>ノードベースシステム：線で接続されたボックス</li>
+                    <li><strong>Principled BSDF:</strong> すべての一般的なプロパティを持つ業界標準シェーダー</li>
+                    <li><strong>Material Output:</strong> レンダーエンジンへの最終接続</li>
+                </ul>
+
+                <div class="shortcut-box">
+                    <h4>🎹 Quick Access / クイックアクセス:</h4>
+                    <ul>
+                        <li><code>Z</code> → Change viewport shading mode / ビューポートシェーディングモードを変更</li>
+                        <li>Choose <strong>Material Preview</strong> (3rd sphere) to see materials / マテリアルを見るには<strong>Material Preview</strong>（3番目の球体）を選択</li>
+                        <li>Choose <strong>Rendered</strong> (4th sphere) for full lighting / 完全なライティングには<strong>Rendered</strong>（4番目の球体）を選択</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 3: Applying Materials</h3>
+
+                <h4>Step-by-Step Process / ステップバイステッププロセス</h4>
+
+                <p><strong>1. Select Object / オブジェクトを選択</strong></p>
+                <pre><code>Click object in viewport or outliner
+ビューポートまたはアウトライナーでオブジェクトをクリック</code></pre>
+
+                <p><strong>2. Add Material / マテリアルを追加</strong></p>
+                <ul>
+                    <li>Switch to <strong>Shading</strong> workspace (top menu)</li>
+                    <li>Properties panel → <strong>Material Properties</strong> (sphere icon)</li>
+                    <li>Click <strong>+ New</strong> to add material</li>
+                </ul>
+
+                <p><strong>3. Adjust Properties / プロパティを調整</strong></p>
+                <ul>
+                    <li>Click on <strong>Base Color</strong> → Choose color from color picker</li>
+                    <li>Adjust <strong>Metallic</strong> slider (0 = plastic/wood, 1 = metal)</li>
+                    <li>Adjust <strong>Roughness</strong> slider (0 = shiny mirror, 1 = matte)</li>
+                </ul>
+
+                <p><strong>4. See Results / 結果を確認</strong></p>
+                <ul>
+                    <li>Change viewport shading to <strong>Material Preview</strong> (3rd sphere icon, top right)</li>
+                    <li>Or use <strong>Rendered</strong> view (4th sphere icon) for full lighting</li>
+                </ul>
+
+                <h4>Material Management / マテリアル管理</h4>
+                <ul>
+                    <li><strong>Naming:</strong> Double-click material name to rename descriptively (e.g., "Wall_Stone", "Floor_Grass")</li>
+                    <li><strong>Reusing:</strong> Select object → Material Properties → click dropdown → choose existing material</li>
+                    <li><strong>Multiple Materials:</strong> One object can have multiple material slots for different parts</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4>🏠 Practice Exercise: Colorize Your Maze</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li>Floor: Green or brown (grass/dirt feel) - Roughness: 0.8</li>
+                        <li>Walls: Gray stone - Roughness: 0.6</li>
+                        <li>Goal: Bright red or gold - Metallic: 0.5, Roughness: 0.3</li>
+                        <li>Start area: Blue - Roughness: 0.7</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li>床：緑または茶色（草/土の感じ） - ラフネス：0.8</li>
+                        <li>壁：灰色の石 - ラフネス：0.6</li>
+                        <li>ゴール：明るい赤または金色 - メタリック：0.5、ラフネス：0.3</li>
+                        <li>スタートエリア：青 - ラフネス：0.7</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 4: Introduction to UV Unwrapping and Textures</h3>
+
+                <h4>What is UV Unwrapping? / UV展開とは何か？</h4>
+                <p><strong>English:</strong> UV unwrapping is the process of "unfolding" a 3D model into a 2D layout. Think of it like unwrapping a gift box and laying the wrapping paper flat.</p>
+                <p><strong>日本語:</strong> UV展開は、3Dモデルを2Dレイアウトに「展開」するプロセスです。ギフトボックスを開いて包装紙を平らにするようなものと考えてください。</p>
+
+                <ul>
+                    <li><strong>UV = 2D coordinates:</strong> U and V axes (like X and Y, but for textures)</li>
+                    <li><strong>Why?</strong> To apply 2D images (textures) onto 3D surfaces accurately</li>
+                    <li><strong>UV Map:</strong> Tells Blender which part of the image goes on which part of the model</li>
+                </ul>
+
+                <h4>UV Unwrapping Basics / UV展開の基礎</h4>
+                <pre><code>Steps / 手順:
+1. Enter Edit Mode (Tab)
+   編集モードに入る（Tab）
+
+2. Select All Faces (A)
+   すべての面を選択（A）
+
+3. Mark Seams (Ctrl+E → Mark Seam)
+   シームをマーク（Ctrl+E → Mark Seam）
+   - Seams = "cuts" where model will unfold
+   - シーム = モデルが展開される「カット」
+
+4. Unwrap (U → Unwrap)
+   展開（U → Unwrap）
+
+5. View UV Layout
+   UVレイアウトを表示
+   - Switch to UV Editing workspace
+   - UV Editingワークスペースに切り替え</code></pre>
+
+                <div class="shortcut-box">
+                    <h4>🔍 Where to Place Seams / シームを配置する場所:</h4>
+                    <ul>
+                        <li>Sharp corners and edges / 鋭い角とエッジ</li>
+                        <li>Hidden areas (bottom of objects) / 隠れた領域（オブジェクトの底）</li>
+                        <li>Natural breaks (where materials change) / 自然な切れ目（マテリアルが変わる場所）</li>
+                    </ul>
+                    <p><strong>Tip:</strong> Fewer seams = smoother textures, but harder to unwrap complex shapes</p>
+                    <p><strong>ヒント:</strong> シームが少ない = 滑らかなテクスチャ、しかし複雑な形状の展開は難しい</p>
+                </div>
+
+                <h4>Applying Image Textures / 画像テクスチャの適用</h4>
+
+                <p><strong>1. Get Texture Image / テクスチャ画像を取得</strong></p>
+                <ul>
+                    <li>Free sources: <a href="https://polyhaven.com/textures" target="_blank">Poly Haven</a>, <a href="https://opengameart.org/" target="_blank">OpenGameArt.org</a>, <a href="https://www.textures.com/" target="_blank">Textures.com</a></li>
+                    <li>Or create simple texture in image editor (GIMP, Photoshop, Paint.NET)</li>
+                    <li>Recommended size: 512x512 or 1024x1024 pixels</li>
+                </ul>
+
+                <p><strong>2. Add Texture to Material / マテリアルにテクスチャを追加</strong></p>
+                <pre><code>In Shader Editor / Shader Editorで:
+1. Add → Texture → Image Texture
+   Add → Texture → Image Texture
+2. Click "Open" and select image file
+   「Open」をクリックして画像ファイルを選択
+3. Drag from Image Texture "Color" output to Principled BSDF "Base Color" input
+   Image Textureの「Color」出力からPrincipled BSDFの「Base Color」入力にドラッグ</code></pre>
+
+                <p><strong>3. Adjust UVs if Needed / 必要に応じてUVを調整</strong></p>
+                <ul>
+                    <li>Switch to <strong>UV Editing</strong> workspace</li>
+                    <li>Select faces in Edit Mode</li>
+                    <li>In UV Editor: <code>S</code> to scale, <code>R</code> to rotate, <code>G</code> to move</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4>🧱 Demo: Apply Brick Texture to Wall</h4>
+                    <p>Follow along as instructor demonstrates texturing a single wall segment with brick texture.</p>
+                    <p>インストラクターが1つの壁セグメントにレンガテクスチャを適用するデモに従ってください。</p>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 5: Path-Based Animation</h3>
+
+                <h4>What is Animation? / アニメーションとは何か？</h4>
+                <p><strong>English:</strong> Animation creates the illusion of movement by displaying a sequence of images (frames) over time. In games and 3D graphics, we typically use 24-30 frames per second.</p>
+                <p><strong>日本語:</strong> アニメーションは、時間をかけて画像（フレーム）のシーケンスを表示することで動きの錯覚を作り出します。ゲームと3Dグラフィックスでは、通常24〜30フレーム/秒を使用します。</p>
+
+                <p><strong>Path Animation:</strong> Object follows a predefined curve or path / オブジェクトが事前定義された曲線またはパスに従う</p>
+
+                <h4>Creating a Path Animation / パスアニメーションの作成</h4>
+
+                <p><strong>Step 1: Create a Path / ステップ1：パスを作成</strong></p>
+                <pre><code>1. Add → Curve → Bezier Curve
+   Add → Curve → Bezier Curve
+
+2. Enter Edit Mode (Tab)
+   編集モードに入る（Tab）
+
+3. Select control points and move (G) to shape path
+   コントロールポイントを選択して移動（G）してパスを形成
+
+4. Can add more points: Extrude (E)
+   さらにポイントを追加可能：押し出し（E）</code></pre>
+
+                <p><strong>Step 2: Create Object to Animate / ステップ2：アニメーションするオブジェクトを作成</strong></p>
+                <ul>
+                    <li>Add simple object: <code>Shift+A</code> → Mesh → UV Sphere (or any object)</li>
+                    <li>Position at start of path</li>
+                </ul>
+
+                <p><strong>Step 3: Add Follow Path Constraint / ステップ3：Follow Path制約を追加</strong></p>
+                <pre><code>1. Select the object (sphere)
+   オブジェクト（球体）を選択
+
+2. Properties panel → Constraints (chain link icon)
+   プロパティパネル → Constraints（チェーンリンクアイコン）
+
+3. Add Constraint → Relationship → Follow Path
+   制約を追加 → Relationship → Follow Path
+
+4. Target: Click eyedropper and select the curve
+   ターゲット：スポイトをクリックして曲線を選択
+
+5. Check "Follow Curve" option
+   「Follow Curve」オプションにチェック</code></pre>
+
+                <p><strong>Step 4: Animate Along Path / ステップ4：パスに沿ってアニメーション</strong></p>
+                <pre><code>1. Select the curve (not the object)
+   曲線を選択（オブジェクトではない）
+
+2. Object Data Properties → Path Animation
+   Object Data Properties → Path Animation
+
+3. Set Frames: e.g., 0 to 120 (4 seconds at 30fps)
+   フレームを設定：例：0から120（30fpsで4秒）
+
+4. Press Spacebar to play animation
+   スペースバーを押してアニメーションを再生</code></pre>
+
+                <h4>Timeline Controls / タイムラインコントロール</h4>
+                <div class="shortcut-box">
+                    <h4>🎬 Animation Shortcuts / アニメーションショートカット:</h4>
+                    <ul>
+                        <li><code>Spacebar</code> = Play/Pause animation / アニメーションを再生/一時停止</li>
+                        <li><code>Left/Right Arrow</code> = Step forward/backward one frame / 1フレーム前後に移動</li>
+                        <li><code>Shift+Left Arrow</code> = Jump to first frame / 最初のフレームにジャンプ</li>
+                        <li><code>Shift+Right Arrow</code> = Jump to last frame / 最後のフレームにジャンプ</li>
+                    </ul>
+                </div>
+
+                <ul>
+                    <li><strong>Timeline:</strong> Bottom of screen, shows frame range</li>
+                    <li><strong>Playhead:</strong> Blue vertical line, shows current frame</li>
+                    <li><strong>Scrubbing:</strong> Drag playhead to preview animation</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4>🎯 Practice: Animated Sphere in Maze</h4>
+                    <p><strong>English:</strong> Create a sphere that moves along a path through your maze. This could represent a moving obstacle or collectible item.</p>
+                    <p><strong>日本語:</strong> 迷路を通るパスに沿って移動する球体を作成します。これは移動する障害物または収集可能なアイテムを表すことができます。</p>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 6: Introduction to Bone Rigging</h3>
+
+                <h4>What is Rigging? / リギングとは何か？</h4>
+                <p><strong>English:</strong> Rigging is creating a skeleton system (bones/armature) that controls how a mesh deforms. Essential for character animation and complex mechanical movements.</p>
+                <p><strong>日本語:</strong> リギングは、メッシュがどのように変形するかを制御する骨格システム（ボーン/アーマチュア）を作成することです。キャラクターアニメーションと複雑な機械的動きに不可欠です。</p>
+
+                <h4>Basic Armature / 基本的なアーマチュア</h4>
+
+                <p><strong>1. Add Armature / アーマチュアを追加</strong></p>
+                <pre><code>Shift+A → Armature → Single Bone
+Shift+A → Armature → Single Bone</code></pre>
+
+                <p><strong>2. Edit Armature in Edit Mode / 編集モードでアーマチュアを編集</strong></p>
+                <ul>
+                    <li>With armature selected: <code>Tab</code> → Edit Mode</li>
+                    <li>Select bone head or tail and move (<code>G</code>)</li>
+                    <li><code>E</code> to extrude and add connected bones</li>
+                </ul>
+
+                <p><strong>3. Parent Mesh to Armature (Skinning) / メッシュをアーマチュアに親子付け（スキニング）</strong></p>
+                <pre><code>1. Select mesh object
+   メッシュオブジェクトを選択
+
+2. Shift+Click to also select armature (armature should be bright orange)
+   Shift+クリックでアーマチュアも選択（アーマチュアは明るいオレンジ色になるはず）
+
+3. Ctrl+P → With Automatic Weights
+   Ctrl+P → With Automatic Weights
+
+4. Now bones control mesh
+   これでボーンがメッシュを制御</code></pre>
+
+                <p><strong>4. Pose Mode / ポーズモード</strong></p>
+                <ul>
+                    <li>Select armature</li>
+                    <li>Change to <strong>Pose Mode</strong> (dropdown at top left, or <code>Ctrl+Tab</code>)</li>
+                    <li>Select individual bones</li>
+                    <li>Rotate (<code>R</code>) or move (<code>G</code>) bones</li>
+                    <li>Mesh deforms with bone movements</li>
+                </ul>
+
+                <div class="shortcut-box">
+                    <h4>📌 Important Note:</h4>
+                    <p><strong>English:</strong> Rigging is complex for beginners. This is just an introduction. We'll use pre-rigged characters later in the course. For now, just observe the demonstration.</p>
+                    <p><strong>日本語:</strong> リギングは初心者には複雑です。これは単なる入門です。コースの後半でリグ済みキャラクターを使用します。今のところ、デモを観察するだけです。</p>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">5 minutes / 5分</span>
+                <h3>Segment 7: Exporting for Unity</h3>
+
+                <h4>Export Settings / エクスポート設定</h4>
+                <p><strong>English:</strong> When you're ready to use your Blender models in Unity, you'll export them as FBX files.</p>
+                <p><strong>日本語:</strong> BlenderモデルをUnityで使用する準備ができたら、FBXファイルとしてエクスポートします。</p>
+
+                <pre><code>Export Process / エクスポートプロセス:
+1. File → Export → FBX (.fbx)
+   File → Export → FBX（.fbx）
+
+2. Settings:
+   設定:
+   - Selected Objects (if exporting specific items)
+   - Selected Objects（特定のアイテムをエクスポートする場合）
+   - Apply Modifiers
+   - モディファイアを適用
+   - Mesh: Check "Apply Modifiers"
+   - メッシュ：「Apply Modifiers」にチェック
+
+3. Choose location and filename
+   場所とファイル名を選択
+
+4. Click "Export FBX"
+   「Export FBX」をクリック</code></pre>
+
+                <h4>Export Checklist / エクスポートチェックリスト</h4>
+                <ul>
+                    <li>✅ Materials applied to all objects</li>
+                    <li>✅ Textures saved in project folder (with relative paths)</li>
+                    <li>✅ Objects properly named</li>
+                    <li>✅ Scale appropriate (Unity uses 1 unit = 1 meter)</li>
+                    <li>✅ No overlapping or duplicate geometry</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4>🔜 Next Week:</h4>
+                    <p><strong>English:</strong> We'll actually import these FBX files into Unity and create our first interactive 3D game scene!</p>
+                    <p><strong>日本語:</strong> 来週は実際にこれらのFBXファイルをUnityにインポートして、最初のインタラクティブな3Dゲームシーンを作成します！</p>
+                </div>
+            </div>
+
+            <h2>Common Pitfalls / よくある落とし穴</h2>
+
+            <div class="timeline-segment">
+                <h4>1. Materials Not Showing / マテリアルが表示されない</h4>
+                <p><strong>Problem:</strong> Material is black or not visible / マテリアルが黒または見えない</p>
+                <p><strong>Solution:</strong> Check viewport shading mode - use Material Preview (3rd sphere) or Rendered view (4th sphere)</p>
+
+                <h4>2. Texture Appears Stretched or Wrong / テクスチャが引き伸ばされるまたは間違っている</h4>
+                <p><strong>Problem:</strong> UV mapping not done correctly / UVマッピングが正しく行われていない</p>
+                <p><strong>Solution:</strong> Re-unwrap with proper seams. Check UV layout in UV Editing workspace.</p>
+
+                <h4>3. Too Many Seams / シームが多すぎる</h4>
+                <p><strong>Problem:</strong> UV layout is fragmented / UVレイアウトが断片化されている</p>
+                <p><strong>Solution:</strong> Use fewer seams, only where necessary (sharp corners, natural breaks)</p>
+
+                <h4>4. Texture File Not Found / テクスチャファイルが見つからない</h4>
+                <p><strong>Problem:</strong> Red/pink "missing texture" appearance / 赤/ピンクの「欠けテクスチャ」の見た目</p>
+                <p><strong>Solution:</strong> Keep texture images in project folder, use File → External Data → Pack Resources</p>
+
+                <h4>5. Animation Not Playing / アニメーションが再生されない</h4>
+                <p><strong>Problem:</strong> Timeline doesn't show movement / タイムラインが動きを表示しない</p>
+                <p><strong>Solution:</strong> Check frame range (start/end), ensure Follow Path constraint is properly set with correct target</p>
+
+                <h4>6. Bones Don't Affect Mesh / ボーンがメッシュに影響しない</h4>
+                <p><strong>Problem:</strong> Mesh doesn't move with bones / メッシュがボーンと一緒に動かない</p>
+                <p><strong>Solution:</strong> Check parenting - select mesh, then armature, then Ctrl+P → With Automatic Weights</p>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+
+            <div class="timeline-segment">
+                <h4>Video Tutorials (English):</h4>
+                <ul>
+                    <li><a href="https://www.youtube.com/@BlenderGuru" target="_blank">Blender Guru - "Understanding Materials and Shading"</a></li>
+                    <li><a href="https://www.youtube.com/@GrantAbbitt" target="_blank">Grant Abbitt - "Beginner UV Unwrapping Guide"</a></li>
+                    <li><a href="https://cgcookie.com/" target="_blank">CG Cookie - "Introduction to Texturing"</a></li>
+                    <li>Blender Official - "Animation Fundamentals"</li>
+                </ul>
+
+                <h4>Video Tutorials (Japanese / 日本語):</h4>
+                <ul>
+                    <li>Blender Japan - マテリアル入門</li>
+                    <li>CGrad - UV展開チュートリアル</li>
+                    <li>3D人 - テクスチャリング基礎</li>
+                </ul>
+
+                <h4>Free Texture Resources:</h4>
+                <ul>
+                    <li><a href="https://polyhaven.com/textures" target="_blank">Poly Haven</a> - High-quality free PBR textures</li>
+                    <li><a href="https://opengameart.org/" target="_blank">OpenGameArt.org</a> - Game-ready textures</li>
+                    <li><a href="https://www.textures.com/" target="_blank">Textures.com</a> - Limited free textures</li>
+                    <li><a href="https://cc0textures.com/" target="_blank">CC0 Textures</a> - Free public domain textures</li>
+                </ul>
+
+                <h4>Documentation:</h4>
+                <ul>
+                    <li><a href="https://docs.blender.org/manual/en/latest/render/materials/" target="_blank">Blender Manual - Materials</a></li>
+                    <li><a href="https://docs.blender.org/manual/en/latest/modeling/meshes/uv/" target="_blank">Blender Manual - UV Mapping</a></li>
+                    <li><a href="https://docs.blender.org/manual/en/latest/animation/" target="_blank">Blender Manual - Animation</a></li>
+                </ul>
+            </div>
+
+            <h2>Preparation for Next Week / 次週の準備</h2>
+
+            <div class="objectives-list">
+                <p><strong>English - Students should:</strong></p>
+                <ul>
+                    <li>✅ Complete Week 2 assignment (textured maze with animation)</li>
+                    <li>✅ Install Unity Hub and Unity 2022 LTS</li>
+                    <li>✅ Watch introductory Unity videos (links will be provided)</li>
+                    <li>✅ Ensure GitHub repository is up to date</li>
+                    <li>✅ Bring questions about materials, textures, and animations</li>
+                </ul>
+                <p><strong>日本語 - 学生は以下を行うべきです：</strong></p>
+                <ul>
+                    <li>✅ 第2週の課題を完了（アニメーション付きテクスチャ迷路）</li>
+                    <li>✅ Unity HubとUnity 2022 LTSをインストール</li>
+                    <li>✅ 入門Unityビデオを視聴（リンクが提供されます）</li>
+                    <li>✅ GitHubリポジトリが最新であることを確認</li>
+                    <li>✅ マテリアル、テクスチャ、アニメーションについての質問を準備</li>
+                </ul>
+                <p><strong>Next Week Preview:</strong> Unity3D Introduction - Importing Assets, Basic Scene Setup, and Physics</p>
+                <p><strong>来週のプレビュー:</strong> Unity3D入門 - アセットのインポート、基本シーンセットアップ、物理演算</p>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="../week-01/lecture.html" class="btn btn-secondary">← Previous Week</a>
+                <a href="../../index.html" class="btn btn-primary">Back to Curriculum</a>
                 <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
             </div>
         </div>

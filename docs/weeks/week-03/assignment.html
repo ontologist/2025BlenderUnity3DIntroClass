@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 Assignment | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .assignment-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .assignment-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .assignment-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .requirement-box {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+        }
+        .requirement-box h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        .points-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .checklist {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checklist li::before {
+            content: "✅ ";
+            margin-right: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: var(--bg-light);
+            font-weight: bold;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        .tip-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📝 Week 3 Assignment: Import Maze to Unity</h1>
+            <p class="subtitle">第3週課題：迷路をUnityにインポート</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="assignment-content">
+            <div class="requirement-box">
+                <h3>📋 Assignment Overview</h3>
+                <p><strong>Due Date:</strong> Before Week 4 lecture / 第4週講義前</p>
+                <p><strong>Points:</strong> 15 points / 15点</p>
+                <p><strong>Estimated Time:</strong> 2-3 hours / 2〜3時間</p>
+                <p><strong>Submission:</strong> Via GitHub repository</p>
+            </div>
+
+            <h2>Assignment Description / 課題概要</h2>
+
+            <p><strong>English:</strong> This week, you'll transition from Blender to Unity by importing your Week 1 maze and setting up a complete Unity scene. You'll learn the Unity interface, work with GameObjects and Components, and prepare the foundation for a playable ball-maze game that will be completed in Week 4.</p>
+
+            <p><strong>日本語:</strong> 今週は、Week 1の迷路をインポートし、完全なUnityシーンをセットアップすることで、BlenderからUnityへ移行します。Unityインターフェースを学び、GameObjectとComponentを操作し、Week 4で完成するプレイ可能なボール迷路ゲームの基礎を準備します。</p>
+
+            <h2>Requirements / 要件</h2>
+
+            <div class="requirement-box">
+                <h4>1. Export Maze from Blender <span class="points-badge">3 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Open your Week 1 maze in Blender</li>
+                    <li>Apply all transforms (Ctrl+A → All Transforms)</li>
+                    <li>Export as FBX with correct settings:
+                        <ul>
+                            <li>Forward: -Z Forward</li>
+                            <li>Up: Y Up</li>
+                            <li>Apply Scalings: FBX All</li>
+                            <li>Scale: 1.00</li>
+                        </ul>
+                    </li>
+                    <li>File name: <code>Maze_Week01.fbx</code></li>
+                    <li>Save to Unity project's Assets/Models folder</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>BlenderでWeek 1の迷路を開く</li>
+                    <li>すべてのトランスフォームを適用（Ctrl+A → All Transforms）</li>
+                    <li>正しい設定でFBXとしてエクスポート:
+                        <ul>
+                            <li>前方：-Z Forward</li>
+                            <li>上：Y Up</li>
+                            <li>スケーリングを適用：FBX All</li>
+                            <li>スケール：1.00</li>
+                        </ul>
+                    </li>
+                    <li>ファイル名：<code>Maze_Week01.fbx</code></li>
+                    <li>UnityプロジェクトのAssets/Modelsフォルダに保存</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4>⚠️ Important Export Tips:</h4>
+                    <ul>
+                        <li>Make sure all objects are visible before export</li>
+                        <li>Check that scale is applied in Blender (Object Properties → Scale should be 1,1,1)</li>
+                        <li>Export only the maze objects (select them first, enable "Selected Objects")</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="requirement-box">
+                <h4>2. Set Up Unity Project & Import Model <span class="points-badge">3 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create new Unity 3D Core project: <code>GameDev2025_Week03</code></li>
+                    <li>Save in your GitHub repository folder: <code>week-03/</code></li>
+                    <li>Create folder structure in Assets:
+                        <ul>
+                            <li>Models</li>
+                            <li>Materials</li>
+                            <li>Prefabs</li>
+                            <li>Scenes</li>
+                        </ul>
+                    </li>
+                    <li>Import FBX file (drag into Models folder)</li>
+                    <li>Check import settings in Inspector</li>
+                    <li>Adjust Scale Factor if needed (usually 1 or 100)</li>
+                    <li>Click Apply</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>新しいUnity 3D Coreプロジェクトを作成：<code>GameDev2025_Week03</code></li>
+                    <li>GitHubリポジトリフォルダに保存：<code>week-03/</code></li>
+                    <li>Assetsにフォルダ構造を作成:
+                        <ul>
+                            <li>Models</li>
+                            <li>Materials</li>
+                            <li>Prefabs</li>
+                            <li>Scenes</li>
+                        </ul>
+                    </li>
+                    <li>FBXファイルをインポート（Modelsフォルダにドラッグ）</li>
+                    <li>Inspectorでインポート設定を確認</li>
+                    <li>必要に応じてScale Factorを調整（通常1または100）</li>
+                    <li>Applyをクリック</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Scale Troubleshooting:</h4>
+                    <p>If your maze appears too large or too small, select the imported FBX in Project window, go to Inspector → Model tab → Scale Factor → Try values like 0.01, 0.1, 1, or 100 until it looks right.</p>
+                </div>
+            </div>
+
+            <div class="requirement-box">
+                <h4>3. Build the Scene <span class="points-badge">4 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create new scene: <code>MazeGame</code></li>
+                    <li>Save in Scenes folder</li>
+                    <li>Drag imported maze model into scene</li>
+                    <li>Position at (0, 0, 0)</li>
+                    <li>Add Ball GameObject:
+                        <ul>
+                            <li>Create 3D Object → Sphere</li>
+                            <li>Rename to "Ball"</li>
+                            <li>Scale to 0.5, 0.5, 0.5 (or appropriate size for maze)</li>
+                            <li>Position above maze start area</li>
+                        </ul>
+                    </li>
+                    <li>Configure Main Camera:
+                        <ul>
+                            <li>Position to see entire maze</li>
+                            <li>Angle looking down at maze (rotate around X-axis)</li>
+                            <li>Recommended: Position (0, 15, -10), Rotation (45, 0, 0)</li>
+                        </ul>
+                    </li>
+                    <li>Configure Directional Light:
+                        <ul>
+                            <li>Adjust rotation for good shadows</li>
+                            <li>Recommended: Rotation (50, -30, 0)</li>
+                            <li>Intensity: 1.0</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>新しいシーンを作成：<code>MazeGame</code></li>
+                    <li>Scenesフォルダに保存</li>
+                    <li>インポートした迷路モデルをシーンにドラッグ</li>
+                    <li>位置を(0, 0, 0)に設定</li>
+                    <li>Ball GameObjectを追加:
+                        <ul>
+                            <li>3D Object → Sphereを作成</li>
+                            <li>「Ball」にリネーム</li>
+                            <li>スケールを0.5, 0.5, 0.5（または迷路に適したサイズ）に設定</li>
+                            <li>迷路のスタートエリアの上に配置</li>
+                        </ul>
+                    </li>
+                    <li>Main Cameraを設定:
+                        <ul>
+                            <li>迷路全体が見える位置に配置</li>
+                            <li>迷路を見下ろす角度（X軸周りに回転）</li>
+                            <li>推奨：位置(0, 15, -10)、回転(45, 0, 0)</li>
+                        </ul>
+                    </li>
+                    <li>Directional Lightを設定:
+                        <ul>
+                            <li>良い影のために回転を調整</li>
+                            <li>推奨：回転(50, -30, 0)</li>
+                            <li>強度：1.0</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>4. Organize Hierarchy <span class="points-badge">3 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create empty GameObjects as folders:
+                        <ul>
+                            <li>"Environment" - Contains maze/floor</li>
+                            <li>"GameObjects" - Contains ball and future game objects</li>
+                            <li>"Lighting" - Contains all lights</li>
+                        </ul>
+                    </li>
+                    <li>Organize objects into proper parent folders</li>
+                    <li>Rename all objects clearly:
+                        <ul>
+                            <li>Imported maze → "Maze"</li>
+                            <li>Ball sphere → "Ball"</li>
+                            <li>Light → "Main Light"</li>
+                        </ul>
+                    </li>
+                    <li>Final hierarchy should look like:
+                        <pre><code>Scene: MazeGame
+├─ Environment
+│  └─ Maze
+├─ GameObjects
+│  └─ Ball
+├─ Lighting
+│  └─ Main Light
+└─ Main Camera</code></pre>
+                    </li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>フォルダとして空のGameObjectを作成:
+                        <ul>
+                            <li>「Environment」 - 迷路/床を含む</li>
+                            <li>「GameObjects」 - ボールと将来のゲームオブジェクトを含む</li>
+                            <li>「Lighting」 - すべてのライトを含む</li>
+                        </ul>
+                    </li>
+                    <li>オブジェクトを適切な親フォルダに整理</li>
+                    <li>すべてのオブジェクトを明確にリネーム:
+                        <ul>
+                            <li>インポートした迷路 → 「Maze」</li>
+                            <li>Ball sphere → 「Ball」</li>
+                            <li>Light → 「Main Light」</li>
+                        </ul>
+                    </li>
+                    <li>最終的なヒエラルキーは次のようになるべき:
+                        <pre><code>Scene: MazeGame
+├─ Environment
+│  └─ Maze
+├─ GameObjects
+│  └─ Ball
+├─ Lighting
+│  └─ Main Light
+└─ Main Camera</code></pre>
+                    </li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Creating Empty GameObjects:</h4>
+                    <p>Right-click in Hierarchy → Create Empty. Then rename and drag other objects onto it to make them children.</p>
+                </div>
+            </div>
+
+            <div class="requirement-box">
+                <h4>5. File Organization & Submission <span class="points-badge">2 points</span></h4>
+
+                <p><strong>File Structure / ファイル構造:</strong></p>
+                <pre><code>game-dev-2025-yourname/
+└── week-03/
+    ├── GameDev2025_Week03/          (Unity project folder)
+    │   ├── Assets/
+    │   │   ├── Models/
+    │   │   │   └── Maze_Week01.fbx
+    │   │   ├── Materials/
+    │   │   ├── Prefabs/
+    │   │   └── Scenes/
+    │   │       └── MazeGame.unity
+    │   ├── ProjectSettings/
+    │   └── Packages/
+    └── week03_screenshot.png        (Screenshot of your scene)</code></pre>
+
+                <p><strong>English:</strong></p>
+                <ol>
+                    <li>Take screenshot of Game View showing your maze and ball</li>
+                    <li>Save as <code>week03_screenshot.png</code> in week-03 folder</li>
+                    <li>Update .gitignore for Unity (ignore Library, Temp folders)</li>
+                    <li>Save your Unity scene (Ctrl+S)</li>
+                    <li>Verify file organization matches structure above</li>
+                </ol>
+
+                <p><strong>日本語:</strong></p>
+                <ol>
+                    <li>迷路とボールを表示するGame Viewのスクリーンショットを撮る</li>
+                    <li>week-03フォルダに<code>week03_screenshot.png</code>として保存</li>
+                    <li>Unity用に.gitignoreを更新（Library、Tempフォルダを無視）</li>
+                    <li>Unityシーンを保存（Ctrl+S）</li>
+                    <li>ファイル構成が上記の構造と一致することを確認</li>
+                </ol>
+
+                <div class="warning-box">
+                    <h4>⚠️ Unity .gitignore Important!</h4>
+                    <p>Unity projects create large temporary files. Add this to your .gitignore:</p>
+                    <pre><code># Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+*.pidb
+*.unityproj
+*.sln
+*.userprefs
+.DS_Store</code></pre>
+                    <p>Only commit: Assets/, ProjectSettings/, Packages/manifest.json</p>
+                </div>
+            </div>
+
+            <h2>Grading Rubric / 採点基準</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria / 基準</th>
+                        <th>Points / 点数</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Blender Export</td>
+                        <td>3</td>
+                        <td>Maze properly exported as FBX with correct settings<br/>迷路が正しい設定でFBXとして適切にエクスポートされた</td>
+                    </tr>
+                    <tr>
+                        <td>Unity Project Setup</td>
+                        <td>3</td>
+                        <td>Project created with proper folder structure, model imported<br/>適切なフォルダ構造でプロジェクトが作成され、モデルがインポートされた</td>
+                    </tr>
+                    <tr>
+                        <td>Scene Setup</td>
+                        <td>4</td>
+                        <td>Ball, camera, and lighting properly configured<br/>ボール、カメラ、ライティングが適切に設定された</td>
+                    </tr>
+                    <tr>
+                        <td>Hierarchy Organization</td>
+                        <td>3</td>
+                        <td>Objects organized into logical parent folders, clearly named<br/>オブジェクトが論理的な親フォルダに整理され、明確に命名された</td>
+                    </tr>
+                    <tr>
+                        <td>File Management</td>
+                        <td>2</td>
+                        <td>Screenshot included, .gitignore configured, proper submission<br/>スクリーンショットが含まれ、.gitignoreが設定され、適切な提出</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>15</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <h4>⚠️ Grading Scale / 採点スケール</h4>
+                <ul>
+                    <li><strong>14-15 points:</strong> Excellent - All requirements met, well organized</li>
+                    <li><strong>12-13 points:</strong> Good - Most requirements met with minor issues</li>
+                    <li><strong>10-11 points:</strong> Satisfactory - Basic requirements met, some organization issues</li>
+                    <li><strong>7-9 points:</strong> Needs Improvement - Missing some requirements</li>
+                    <li><strong>0-6 points:</strong> Incomplete - Major requirements not met</li>
+                </ul>
+            </div>
+
+            <h2>Step-by-Step Guide / ステップバイステップガイド</h2>
+
+            <div class="requirement-box">
+                <h4>Detailed Workflow / 詳細ワークフロー</h4>
+
+                <h3>Part 1: Export from Blender (30 minutes)</h3>
+                <ol>
+                    <li><strong>Open Blender and your Week 1 maze file</strong></li>
+                    <li><strong>Prepare the model:</strong>
+                        <ul>
+                            <li>Select all maze objects (A key)</li>
+                            <li>Apply all transforms: Object → Apply → All Transforms</li>
+                            <li>Check scale in properties: should be 1,1,1</li>
+                        </ul>
+                    </li>
+                    <li><strong>Export to FBX:</strong>
+                        <ul>
+                            <li>File → Export → FBX (.fbx)</li>
+                            <li>Navigate to your Unity project location</li>
+                            <li>Create folder: week-03/GameDev2025_Week03/Assets/Models/</li>
+                            <li>Set export options:
+                                <ul>
+                                    <li>Selected Objects: ON</li>
+                                    <li>Scale: 1.00</li>
+                                    <li>Forward: -Z Forward</li>
+                                    <li>Up: Y Up</li>
+                                    <li>Apply Scalings: FBX All</li>
+                                </ul>
+                            </li>
+                            <li>Save as: Maze_Week01.fbx</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Part 2: Create Unity Project (15 minutes)</h3>
+                <ol>
+                    <li><strong>Open Unity Hub</strong></li>
+                    <li><strong>Create New Project:</strong>
+                        <ul>
+                            <li>Click "New Project"</li>
+                            <li>Template: 3D Core</li>
+                            <li>Project name: GameDev2025_Week03</li>
+                            <li>Location: Your GitHub repo/week-03/</li>
+                            <li>Click "Create Project"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Wait for Unity to open (first time may take a few minutes)</strong></li>
+                    <li><strong>Create folder structure in Project window:</strong>
+                        <ul>
+                            <li>Right-click in Assets → Create → Folder</li>
+                            <li>Create: Models, Materials, Prefabs, Scenes</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Part 3: Import and Build Scene (45 minutes)</h3>
+                <ol>
+                    <li><strong>Import the maze (if not already there from export):</strong>
+                        <ul>
+                            <li>Drag Maze_Week01.fbx into Assets/Models folder</li>
+                            <li>Unity will process the import</li>
+                        </ul>
+                    </li>
+                    <li><strong>Check import settings:</strong>
+                        <ul>
+                            <li>Click on Maze_Week01.fbx in Project window</li>
+                            <li>Inspector → Model tab</li>
+                            <li>Check Scale Factor (adjust if needed)</li>
+                            <li>Click Apply</li>
+                        </ul>
+                    </li>
+                    <li><strong>Create new scene:</strong>
+                        <ul>
+                            <li>File → New Scene</li>
+                            <li>File → Save As → Assets/Scenes/MazeGame.unity</li>
+                        </ul>
+                    </li>
+                    <li><strong>Add maze to scene:</strong>
+                        <ul>
+                            <li>Drag Maze_Week01.fbx from Project into Scene view</li>
+                            <li>In Inspector, set Transform Position to (0, 0, 0)</li>
+                            <li>Use F key to frame the maze in view</li>
+                        </ul>
+                    </li>
+                    <li><strong>Create ball:</strong>
+                        <ul>
+                            <li>Hierarchy → Right-click → 3D Object → Sphere</li>
+                            <li>Rename to "Ball"</li>
+                            <li>Inspector → Transform:
+                                <ul>
+                                    <li>Position: Above maze start (e.g., 0, 1, 0)</li>
+                                    <li>Scale: 0.5, 0.5, 0.5</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><strong>Position camera:</strong>
+                        <ul>
+                            <li>Select "Main Camera" in Hierarchy</li>
+                            <li>Inspector → Transform:
+                                <ul>
+                                    <li>Position: (0, 15, -10)</li>
+                                    <li>Rotation: (45, 0, 0)</li>
+                                </ul>
+                            </li>
+                            <li>Adjust until you can see the whole maze in Game view</li>
+                        </ul>
+                    </li>
+                    <li><strong>Adjust lighting:</strong>
+                        <ul>
+                            <li>Select "Directional Light" in Hierarchy</li>
+                            <li>Inspector → Transform → Rotation: (50, -30, 0)</li>
+                            <li>Light component → Intensity: 1.0</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Part 4: Organize Hierarchy (15 minutes)</h3>
+                <ol>
+                    <li><strong>Create empty parent objects:</strong>
+                        <ul>
+                            <li>Hierarchy → Right-click → Create Empty</li>
+                            <li>Rename to "Environment"</li>
+                            <li>Repeat for "GameObjects" and "Lighting"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Organize objects:</strong>
+                        <ul>
+                            <li>Drag "Maze" onto "Environment"</li>
+                            <li>Drag "Ball" onto "GameObjects"</li>
+                            <li>Drag "Directional Light" onto "Lighting"</li>
+                            <li>Rename "Directional Light" to "Main Light"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Verify hierarchy matches requirement</strong></li>
+                </ol>
+
+                <h3>Part 5: Save and Submit (15 minutes)</h3>
+                <ol>
+                    <li><strong>Save scene: File → Save (or Ctrl+S)</strong></li>
+                    <li><strong>Take screenshot:</strong>
+                        <ul>
+                            <li>Click on Game view tab</li>
+                            <li>Take screenshot (Print Screen or Snipping Tool)</li>
+                            <li>Save as week03_screenshot.png in week-03 folder</li>
+                        </ul>
+                    </li>
+                    <li><strong>Update .gitignore (if needed)</strong></li>
+                    <li><strong>Git commit and push:</strong>
+                        <ul>
+                            <li>Stage changes in GitHub Desktop</li>
+                            <li>Commit message: "Complete Week 3: Import maze to Unity"</li>
+                            <li>Push to GitHub</li>
+                        </ul>
+                    </li>
+                    <li><strong>Verify on GitHub.com that files are uploaded</strong></li>
+                </ol>
+            </div>
+
+            <h2>Submission Checklist / 提出チェックリスト</h2>
+
+            <div class="checklist">
+                <h4>Before submitting, verify / 提出前に確認:</h4>
+                <ul>
+                    <li>Maze exported from Blender as FBX</li>
+                    <li>Unity project created with correct name</li>
+                    <li>Folder structure in Assets (Models, Materials, Prefabs, Scenes)</li>
+                    <li>Maze imported and positioned at (0,0,0)</li>
+                    <li>Ball created, scaled, and positioned</li>
+                    <li>Camera positioned to see entire maze</li>
+                    <li>Lighting adjusted for good visibility</li>
+                    <li>Hierarchy organized with parent folders</li>
+                    <li>All objects clearly named</li>
+                    <li>Screenshot saved</li>
+                    <li>Scene saved (Ctrl+S)</li>
+                    <li>.gitignore configured for Unity</li>
+                    <li>Files committed to Git</li>
+                    <li>Files pushed to GitHub</li>
+                    <li>Verified on GitHub.com</li>
+                </ul>
+            </div>
+
+            <h2>Common Mistakes / よくある間違い</h2>
+
+            <div class="warning-box">
+                <h4>❌ Avoid These Mistakes:</h4>
+
+                <h4>1. Export Problems</h4>
+                <ul>
+                    <li><strong>Wrong orientation:</strong> Forgetting to set Forward=-Z, Up=Y</li>
+                    <li><strong>Wrong scale:</strong> Not applying transforms in Blender first</li>
+                    <li><strong>Missing objects:</strong> Not selecting all objects before export</li>
+                </ul>
+
+                <h4>2. Import Problems</h4>
+                <ul>
+                    <li><strong>Huge/tiny model:</strong> Scale Factor needs adjustment in import settings</li>
+                    <li><strong>Wrong location:</strong> Not placing FBX in Models folder</li>
+                    <li><strong>Forgot to click Apply:</strong> Changes to import settings not saved</li>
+                </ul>
+
+                <h4>3. Scene Setup Problems</h4>
+                <ul>
+                    <li><strong>Can't see maze:</strong> Camera position too close or wrong angle</li>
+                    <li><strong>Everything dark:</strong> Light intensity too low or wrong angle</li>
+                    <li><strong>Ball wrong size:</strong> Need to scale to match maze proportions</li>
+                </ul>
+
+                <h4>4. Organization Problems</h4>
+                <ul>
+                    <li><strong>Messy hierarchy:</strong> Not using parent folders</li>
+                    <li><strong>Bad names:</strong> Leaving default names like "Cube", "Sphere"</li>
+                    <li><strong>Scene not saved:</strong> Forgetting to save before closing Unity</li>
+                </ul>
+
+                <h4>5. GitHub Problems</h4>
+                <ul>
+                    <li><strong>Uploading Library folder:</strong> Wastes space, .gitignore not configured</li>
+                    <li><strong>Forgetting screenshot:</strong> Screenshot not in week-03 folder</li>
+                    <li><strong>Wrong project location:</strong> Unity project not in week-03 folder</li>
+                </ul>
+            </div>
+
+            <h2>Troubleshooting / トラブルシューティング</h2>
+
+            <div class="requirement-box">
+                <h4>Problem: Maze appears upside down or sideways</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Re-export from Blender with correct Forward/Up settings</li>
+                    <li>Or manually rotate in Unity: Select maze → Inspector → Rotation</li>
+                </ul>
+
+                <h4>Problem: Maze is way too big or way too small</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Select FBX in Project window</li>
+                    <li>Inspector → Model tab → Scale Factor</li>
+                    <li>Try: 0.01, 0.1, 1, 10, or 100</li>
+                    <li>Click Apply after each change</li>
+                </ul>
+
+                <h4>Problem: Can't see anything in Scene view</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Select any object in Hierarchy</li>
+                    <li>Press F key to frame it</li>
+                    <li>Or double-click object name in Hierarchy</li>
+                </ul>
+
+                <h4>Problem: Game view is blank/black</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Make sure camera is positioned correctly</li>
+                    <li>Check that camera is looking at the maze</li>
+                    <li>Verify objects are in front of camera</li>
+                    <li>Check lighting - add Directional Light if missing</li>
+                </ul>
+
+                <h4>Problem: Unity runs very slowly</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Close other programs</li>
+                    <li>Lower quality settings: Edit → Project Settings → Quality</li>
+                    <li>Disable real-time lighting in Scene view (sun icon)</li>
+                </ul>
+            </div>
+
+            <h2>Frequently Asked Questions / よくある質問</h2>
+
+            <div class="requirement-box">
+                <h4>Q: Can I use a different maze if I didn't complete Week 1?</h4>
+                <p><strong>A:</strong> Yes, create a simple maze in Blender first (at least 5x5 units with some walls), then export and import it.</p>
+
+                <h4>Q: Do I need to add materials/textures?</h4>
+                <p><strong>A:</strong> No, that's not required for Week 3. We'll cover materials later. The default white/gray appearance is fine.</p>
+
+                <h4>Q: Can I use a different camera angle?</h4>
+                <p><strong>A:</strong> Yes! The suggested position is just a starting point. Position the camera however you think looks best for your maze.</p>
+
+                <h4>Q: Should I add physics to the ball yet?</h4>
+                <p><strong>A:</strong> No, we'll add Rigidbody and physics in Week 4. For now, just place the ball in the scene.</p>
+
+                <h4>Q: What if I can't install Unity on my computer?</h4>
+                <p><strong>A:</strong> Contact the instructor immediately. You may need to use a school computer or lab.</p>
+
+                <h4>Q: How large should my Unity project be for GitHub?</h4>
+                <p><strong>A:</strong> With proper .gitignore, it should be under 50 MB. If larger, you're probably committing Library or Temp folders.</p>
+
+                <h4>Q: Can I work with a classmate?</h4>
+                <p><strong>A:</strong> You can discuss concepts and help each other, but each student must submit their own maze and Unity project.</p>
+            </div>
+
+            <h2>Getting Help / ヘルプを得る</h2>
+
+            <div class="requirement-box">
+                <p><strong>If you're stuck / 困った場合:</strong></p>
+                <ol>
+                    <li>Review the <a href="lecture.html">Week 3 lecture notes</a></li>
+                    <li>Check the Troubleshooting section above</li>
+                    <li>Watch Unity beginner tutorials on Unity Learn</li>
+                    <li>Check Unity Manual for specific features</li>
+                    <li>Ask questions in the course discussion forum</li>
+                    <li>Attend office hours</li>
+                    <li>Ask a classmate (collaboration on concepts is encouraged!)</li>
+                    <li>Email the instructor with:
+                        <ul>
+                            <li>Screenshot of the problem</li>
+                            <li>Description of what you tried</li>
+                            <li>Your GitHub repository link</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h2>Bonus Challenges (Optional) / ボーナスチャレンジ（オプション）</h2>
+
+            <div class="tip-box">
+                <p><strong>Want to go further? Try these optional enhancements:</strong></p>
+                <ul>
+                    <li>Add a second light for more interesting shadows</li>
+                    <li>Create a simple material with color for the ball</li>
+                    <li>Add more decorative objects (cubes, cylinders) to the scene</li>
+                    <li>Create a Prefab from one of your wall segments</li>
+                    <li>Experiment with different camera perspectives</li>
+                    <li>Add a Skybox (Window → Rendering → Lighting Settings)</li>
+                </ul>
+                <p><em>Note: Bonus work won't add points but shows initiative!</em></p>
+            </div>
+
+            <div class="nav-buttons" style="display: flex; gap: 15px; margin-top: 30px;">
+                <a href="lecture.html" class="btn btn-secondary">← Back to Lecture</a>
+                <a href="../../index.html" class="btn btn-primary">Course Home</a>
+                <a href="slides.html" class="btn btn-accent">View Slides</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>
