@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1 Assignment | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .assignment-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .assignment-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .assignment-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .requirement-box {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+        }
+        .requirement-box h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        .points-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .checklist {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checklist li::before {
+            content: "✅ ";
+            margin-right: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: var(--bg-light);
+            font-weight: bold;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📝 Week 1 Assignment: Simple Maze Layout</h1>
+            <p class="subtitle">第1週課題：シンプルな迷路レイアウト</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="assignment-content">
+            <div class="requirement-box">
+                <h3>📋 Assignment Overview</h3>
+                <p><strong>Due Date:</strong> Before Week 2 lecture / 第2週講義前</p>
+                <p><strong>Points:</strong> 10 points / 10点</p>
+                <p><strong>Submission:</strong> Via GitHub repository</p>
+            </div>
+
+            <h2>Assignment Description / 課題概要</h2>
+
+            <p><strong>English:</strong> Create a simple 3D maze layout in Blender that will serve as the foundation for your game project. This assignment tests your understanding of Blender's interface, basic modeling tools, and file management with GitHub.</p>
+
+            <p><strong>日本語:</strong> ゲームプロジェクトの基礎となるシンプルな3D迷路レイアウトをBlenderで作成します。この課題は、Blenderのインターフェース、基本的なモデリングツール、GitHubによるファイル管理の理解をテストします。</p>
+
+            <h2>Requirements / 要件</h2>
+
+            <div class="requirement-box">
+                <h4>1. Floor <span class="points-badge">1 point</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create a floor plane for the maze</li>
+                    <li>Minimum size: 10 x 10 Blender units</li>
+                    <li>Can be one large plane or multiple connected planes</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>迷路用の床平面を作成</li>
+                    <li>最小サイズ：10 x 10 Blenderユニット</li>
+                    <li>1つの大きな平面または複数の接続された平面でも可</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>2. Walls <span class="points-badge">3 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create walls using cubes or extruded edges</li>
+                    <li><strong>Minimum of 15 wall segments</strong></li>
+                    <li>Walls should create at least 3 distinct pathways</li>
+                    <li>Wall height: at least 2 Blender units</li>
+                    <li>Wall thickness: at least 0.2 Blender units</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>立方体または押し出されたエッジを使用して壁を作成</li>
+                    <li><strong>最小15の壁セグメント</strong></li>
+                    <li>壁は少なくとも3つの異なる経路を作成する必要があります</li>
+                    <li>壁の高さ：少なくとも2 Blenderユニット</li>
+                    <li>壁の厚さ：少なくとも0.2 Blenderユニット</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>3. Start Area <span class="points-badge">1 point</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Clearly designated starting area for the player</li>
+                    <li>Can be marked with a different object or color</li>
+                    <li>Should be an open space (no walls blocking it)</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>プレイヤーの明確に指定された開始エリア</li>
+                    <li>異なるオブジェクトまたは色でマークできます</li>
+                    <li>オープンスペースである必要があります（壁で塞がれていない）</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>4. Goal/Hole <span class="points-badge">2 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create a goal area or hole where the ball will fall</li>
+                    <li>Options:
+                        <ul>
+                            <li>A hole in the floor (using Edit Mode to delete faces)</li>
+                            <li>A different colored area</li>
+                            <li>A cylinder marking the target</li>
+                        </ul>
+                    </li>
+                    <li>Should be clearly visible and accessible from the start</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>ボールが落ちるゴールエリアまたは穴を作成</li>
+                    <li>オプション:
+                        <ul>
+                            <li>床の穴（編集モードを使用して面を削除）</li>
+                            <li>異なる色のエリア</li>
+                            <li>ターゲットをマークする円柱</li>
+                        </ul>
+                    </li>
+                    <li>スタートから明確に見えてアクセス可能である必要があります</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>5. Proper Organization <span class="points-badge">1 point</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>All objects properly named in the Outliner:
+                        <ul>
+                            <li>"Floor"</li>
+                            <li>"Wall_01", "Wall_02", etc.</li>
+                            <li>"StartArea"</li>
+                            <li>"Goal"</li>
+                        </ul>
+                    </li>
+                    <li>Use Collections to organize maze elements</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>アウトライナーですべてのオブジェクトが適切に名前付けされている：
+                        <ul>
+                            <li>「Floor」</li>
+                            <li>「Wall_01」、「Wall_02」など</li>
+                            <li>「StartArea」</li>
+                            <li>「Goal」</li>
+                        </ul>
+                    </li>
+                    <li>Collectionsを使用して迷路要素を整理</li>
+                </ul>
+            </div>
+
+            <h2>File Submission / ファイル提出</h2>
+
+            <div class="requirement-box">
+                <h4>Required Files <span class="points-badge">2 points</span></h4>
+
+                <p><strong>File Structure / ファイル構造:</strong></p>
+                <pre><code>game-dev-2025-yourname/
+└── week-01/
+    ├── week01_maze_[yourname].blend
+    └── week01_maze_screenshot.png</code></pre>
+
+                <p><strong>English:</strong></p>
+                <ol>
+                    <li><strong>Blender File:</strong> <code>week01_maze_[yourname].blend</code>
+                        <ul>
+                            <li>Example: <code>week01_maze_john.blend</code></li>
+                            <li>Save in <code>week-01/</code> folder</li>
+                        </ul>
+                    </li>
+                    <li><strong>Screenshot:</strong> <code>week01_maze_screenshot.png</code>
+                        <ul>
+                            <li>Top view of your maze</li>
+                            <li>Save in <code>week-01/</code> folder</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <p><strong>日本語:</strong></p>
+                <ol>
+                    <li><strong>Blenderファイル:</strong> <code>week01_maze_[yourname].blend</code>
+                        <ul>
+                            <li>例：<code>week01_maze_john.blend</code></li>
+                            <li><code>week-01/</code>フォルダに保存</li>
+                        </ul>
+                    </li>
+                    <li><strong>スクリーンショット:</strong> <code>week01_maze_screenshot.png</code>
+                        <ul>
+                            <li>迷路の上面図</li>
+                            <li><code>week-01/</code>フォルダに保存</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="requirement-box">
+                <h4>GitHub Submission <span class="points-badge">1 point</span></h4>
+                <p><strong>English:</strong></p>
+                <ol>
+                    <li>Commit your files with a descriptive message</li>
+                    <li>Push to your GitHub repository</li>
+                    <li>Verify files are visible on GitHub.com</li>
+                </ol>
+                <p><strong>日本語:</strong></p>
+                <ol>
+                    <li>説明的なメッセージでファイルをコミット</li>
+                    <li>GitHubリポジトリにプッシュ</li>
+                    <li>GitHub.comでファイルが表示されることを確認</li>
+                </ol>
+            </div>
+
+            <h2>Grading Rubric / 採点基準</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria / 基準</th>
+                        <th>Points / 点数</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Floor</td>
+                        <td>1</td>
+                        <td>Floor plane present and appropriately sized<br/>床平面が存在し、適切なサイズ</td>
+                    </tr>
+                    <tr>
+                        <td>Walls</td>
+                        <td>3</td>
+                        <td>At least 15 wall segments creating 3+ pathways<br/>少なくとも15の壁セグメントが3つ以上の経路を作成</td>
+                    </tr>
+                    <tr>
+                        <td>Start Area</td>
+                        <td>1</td>
+                        <td>Clearly marked starting location<br/>明確にマークされた開始位置</td>
+                    </tr>
+                    <tr>
+                        <td>Goal</td>
+                        <td>2</td>
+                        <td>Visible and accessible goal area<br/>見えてアクセス可能なゴールエリア</td>
+                    </tr>
+                    <tr>
+                        <td>Organization</td>
+                        <td>1</td>
+                        <td>Objects properly named and organized<br/>オブジェクトが適切に名前付けされ整理されている</td>
+                    </tr>
+                    <tr>
+                        <td>File Management</td>
+                        <td>1</td>
+                        <td>Correct file naming and screenshot included<br/>正しいファイル名とスクリーンショット含まれる</td>
+                    </tr>
+                    <tr>
+                        <td>GitHub Submission</td>
+                        <td>1</td>
+                        <td>Files successfully pushed to GitHub<br/>GitHubにファイルが正常にプッシュされた</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>10</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <h4>⚠️ Grading Scale / 採点スケール</h4>
+                <ul>
+                    <li><strong>9-10 points:</strong> Excellent - All requirements met or exceeded</li>
+                    <li><strong>7-8 points:</strong> Good - Most requirements met with minor issues</li>
+                    <li><strong>5-6 points:</strong> Satisfactory - Basic requirements met but missing some elements</li>
+                    <li><strong>3-4 points:</strong> Needs Improvement - Significant requirements missing</li>
+                    <li><strong>0-2 points:</strong> Incomplete - Major requirements not met</li>
+                </ul>
+            </div>
+
+            <h2>Step-by-Step Guide / ステップバイステップガイド</h2>
+
+            <div class="requirement-box">
+                <h4>Quick Steps / クイックステップ</h4>
+                <ol>
+                    <li><strong>Set Up Workspace</strong>
+                        <ul>
+                            <li>Open Blender</li>
+                            <li>Delete default cube (X → Delete)</li>
+                            <li>Save immediately: File → Save As → <code>week-01/week01_maze_[yourname].blend</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Create Floor</strong>
+                        <ul>
+                            <li>Add plane: Shift+A → Mesh → Plane</li>
+                            <li>Scale: S → 10 → Enter</li>
+                            <li>Rename: "Floor"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Create Walls</strong>
+                        <ul>
+                            <li>Add cube: Shift+A → Mesh → Cube</li>
+                            <li>Scale thin: S → X → 0.1, S → Z → 2</li>
+                            <li>Duplicate: Shift+D</li>
+                            <li>Repeat for at least 15 walls</li>
+                            <li>Name: "Wall_01", "Wall_02", etc.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Add Start & Goal</strong>
+                        <ul>
+                            <li>Start: Add small cube/cylinder</li>
+                            <li>Goal: Add cylinder or create hole in floor</li>
+                            <li>Name appropriately</li>
+                        </ul>
+                    </li>
+                    <li><strong>Take Screenshot</strong>
+                        <ul>
+                            <li>Top view: NumPad 7</li>
+                            <li>Frame all: Home key</li>
+                            <li>Render → Viewport Render Image</li>
+                            <li>Save as: <code>week01_maze_screenshot.png</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Save & Submit</strong>
+                        <ul>
+                            <li>Save Blender file: Ctrl+S</li>
+                            <li>Open GitHub Desktop</li>
+                            <li>Commit: "Complete Week 1 maze assignment"</li>
+                            <li>Push to GitHub</li>
+                            <li>Verify on GitHub.com</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h2>Submission Checklist / 提出チェックリスト</h2>
+
+            <div class="checklist">
+                <h4>Before submitting, verify / 提出前に確認:</h4>
+                <ul>
+                    <li>Blender file saved with correct naming</li>
+                    <li>Screenshot saved</li>
+                    <li>Both files in <code>week-01/</code> folder</li>
+                    <li>All maze elements present: floor, walls, start, goal</li>
+                    <li>Objects properly named in Outliner</li>
+                    <li>Files committed to Git</li>
+                    <li>Files pushed to GitHub</li>
+                    <li>Verified files visible on GitHub.com</li>
+                </ul>
+            </div>
+
+            <h2>Common Mistakes / よくある間違い</h2>
+
+            <div class="warning-box">
+                <h4>❌ Avoid These Mistakes:</h4>
+                <ul>
+                    <li><strong>Wrong File Location:</strong> Saving to Desktop instead of GitHub repo</li>
+                    <li><strong>Forgetting to Push:</strong> Only committing locally without pushing</li>
+                    <li><strong>Unnamed Objects:</strong> Leaving default names like "Cube.001"</li>
+                    <li><strong>No Screenshot:</strong> Forgetting to include the screenshot</li>
+                    <li><strong>Too Complex:</strong> Adding materials/textures (save for Week 2!)</li>
+                </ul>
+            </div>
+
+            <h2>Getting Help / ヘルプを得る</h2>
+
+            <div class="requirement-box">
+                <p><strong>If you're stuck / 困った場合:</strong></p>
+                <ol>
+                    <li>Review the <a href="lecture.html">Week 1 lecture notes</a></li>
+                    <li>Watch the recommended Blender tutorial videos</li>
+                    <li>Check the Common Pitfalls section</li>
+                    <li>Ask questions in the course discussion forum</li>
+                    <li>Attend office hours</li>
+                    <li>Ask a classmate (collaboration on concepts is encouraged!)</li>
+                    <li>Email the instructor with:
+                        <ul>
+                            <li>Your GitHub repository link</li>
+                            <li>Screenshot of your problem</li>
+                            <li>Description of what you've tried</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="nav-buttons" style="display: flex; gap: 15px; margin-top: 30px;">
+                <a href="lecture.html" class="btn btn-secondary">← Back to Lecture</a>
+                <a href="../../index.html" class="btn btn-primary">Course Home</a>
+                <a href="../../guides/github-setup.html" class="btn btn-accent">GitHub Setup Guide</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>

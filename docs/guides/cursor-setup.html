@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor AI Setup Guide | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .guide-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .guide-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .guide-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .guide-content h4 {
+            color: var(--text-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .guide-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .guide-content pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        .guide-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .guide-content ul, .guide-content ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .guide-content li {
+            margin: 8px 0;
+        }
+        .bilingual-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+        .english-content {
+            margin-bottom: 20px;
+        }
+        .japanese-content {
+            color: var(--text-light);
+        }
+        .note-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .important-box {
+            background: #dbeafe;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .back-link {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>💻 Cursor AI Setup Guide</h1>
+            <p class="subtitle">Cursor エディタセットアップガイド</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../index.html">← Back to Course</a>
+            <a href="github-setup.html">GitHub Setup</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="guide-content">
+            <div class="back-link">
+                <a href="../index.html" class="btn btn-secondary">← Back to Course Home</a>
+            </div>
+
+            <h2>Introduction / 紹介</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Cursor is an AI-powered code editor built on VS Code that will help you write and understand code for Unity3D. It provides intelligent code completion, explanations, and assistance - perfect for learning game development!</p>
+                    <p><strong>Key Features for This Course:</strong></p>
+                    <ul>
+                        <li>AI-powered code completion and suggestions</li>
+                        <li>Natural language code explanations</li>
+                        <li>Built-in terminal for Git commands</li>
+                        <li>C# language support for Unity scripting</li>
+                        <li>GitHub integration</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <p>CursorはVS Codeをベースにした AI搭載のコードエディタで、Unity3D用のコードを書き、理解するのに役立ちます。インテリジェントなコード補完、説明、アシスタンスを提供し、ゲーム開発の学習に最適です！</p>
+                    <p><strong>このコースの主な機能:</strong></p>
+                    <ul>
+                        <li>AI搭載のコード補完と提案</li>
+                        <li>自然言語によるコード説明</li>
+                        <li>Gitコマンド用の組み込みターミナル</li>
+                        <li>UnityスクリプティングのためのC#言語サポート</li>
+                        <li>GitHub統合</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Step 1: Download Cursor / ステップ1：Cursorをダウンロード</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li><strong>Visit the Cursor website:</strong> Go to <a href="https://www.cursor.com" target="_blank">https://www.cursor.com</a></li>
+                        <li><strong>Download for your operating system:</strong>
+                            <ul>
+                                <li><strong>Windows:</strong> Click "Download for Windows"</li>
+                                <li><strong>Mac:</strong> Click "Download for Mac"
+                                    <ul>
+                                        <li>For Apple Silicon (M1/M2/M3): Download ARM version</li>
+                                        <li>For Intel Macs: Download Intel version</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Linux:</strong> Click "Download for Linux"</li>
+                            </ul>
+                        </li>
+                        <li><strong>Wait for download to complete</strong> (File size is approximately 100-150 MB)</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li><strong>Cursorウェブサイトにアクセス:</strong> <a href="https://www.cursor.com" target="_blank">https://www.cursor.com</a> にアクセス</li>
+                        <li><strong>オペレーティングシステム用にダウンロード:</strong>
+                            <ul>
+                                <li><strong>Windows:</strong> 「Download for Windows」をクリック</li>
+                                <li><strong>Mac:</strong> 「Download for Mac」をクリック
+                                    <ul>
+                                        <li>Apple Silicon（M1/M2/M3）の場合：ARMバージョンをダウンロード</li>
+                                        <li>Intel Macの場合：Intelバージョンをダウンロード</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Linux:</strong> 「Download for Linux」をクリック</li>
+                            </ul>
+                        </li>
+                        <li><strong>ダウンロードが完了するまで待つ</strong>（ファイルサイズは約100-150 MB）</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2>Step 2: Install Cursor / ステップ2：Cursorをインストール</h2>
+
+            <h3>For Windows / Windows用</h3>
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Locate the downloaded file: <code>CursorSetup.exe</code></li>
+                        <li>Double-click to run the installer</li>
+                        <li>If Windows SmartScreen appears, click "More info" → "Run anyway"</li>
+                        <li>Follow the installation wizard</li>
+                        <li>Click "Install" and wait 1-2 minutes</li>
+                        <li>Click "Finish" to launch Cursor</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>ダウンロードしたファイルを見つける：<code>CursorSetup.exe</code></li>
+                        <li>ダブルクリックしてインストーラーを実行</li>
+                        <li>Windows SmartScreenが表示された場合、「詳細情報」→「実行」をクリック</li>
+                        <li>インストールウィザードに従う</li>
+                        <li>「インストール」をクリックして1〜2分待つ</li>
+                        <li>「完了」をクリックしてCursorを起動</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h3>For Mac / Mac用</h3>
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Locate the downloaded file: <code>Cursor.dmg</code></li>
+                        <li>Double-click to open the disk image</li>
+                        <li>Drag the Cursor icon to the Applications folder</li>
+                        <li>Eject the Cursor disk image</li>
+                        <li>Open Applications folder and double-click Cursor to launch</li>
+                        <li>If macOS security warning appears, right-click Cursor → "Open"</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>ダウンロードしたファイルを見つける：<code>Cursor.dmg</code></li>
+                        <li>ダブルクリックしてディスクイメージを開く</li>
+                        <li>CursorアイコンをApplicationsフォルダにドラッグ</li>
+                        <li>Cursorディスクイメージを取り出す</li>
+                        <li>Applicationsフォルダを開いてCursorをダブルクリックして起動</li>
+                        <li>macOSセキュリティ警告が表示された場合、Cursorを右クリック →「開く」</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2>Step 3: Get Free Student Pro Plan / ステップ3：無料学生プロプランを取得</h2>
+
+            <div class="important-box">
+                <strong>IMPORTANT / 重要:</strong> As a student, you can get Cursor Pro for FREE! / 学生は Cursor Proを無料で利用できます！
+            </div>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>How to Get Free Student Pro:</h4>
+                    <ol>
+                        <li><strong>Visit the Student Page:</strong> Go to <a href="https://cursor.com/students" target="_blank">https://cursor.com/students</a></li>
+                        <li><strong>Click "Apply for Student Plan"</strong></li>
+                        <li><strong>Sign Up/Sign In</strong> with your school email if possible</li>
+                        <li><strong>Verify Your Student Status</strong> using one of these methods:
+                            <ul>
+                                <li><strong>Option A:</strong> School email verification (.edu, .ac.jp, etc.)</li>
+                                <li><strong>Option B:</strong> Upload student ID or enrollment document</li>
+                                <li><strong>Option C:</strong> Use GitHub Student Developer Pack if you have it</li>
+                            </ul>
+                        </li>
+                        <li><strong>Wait for Approval</strong> (usually 24-48 hours)</li>
+                        <li><strong>Restart Cursor</strong> once approved - Pro features will be automatically enabled</li>
+                    </ol>
+
+                    <p><strong>Pro Plan Benefits (FREE for students):</strong></p>
+                    <ul>
+                        <li>✅ Unlimited AI requests</li>
+                        <li>✅ Advanced AI models (GPT-4, Claude)</li>
+                        <li>✅ Priority support</li>
+                        <li>✅ Faster responses</li>
+                        <li>✅ More powerful code generation</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>無料学生プロの取得方法:</h4>
+                    <ol>
+                        <li><strong>学生ページにアクセス:</strong> <a href="https://cursor.com/students" target="_blank">https://cursor.com/students</a> にアクセス</li>
+                        <li><strong>「Apply for Student Plan」をクリック</strong></li>
+                        <li><strong>サインアップ/サインイン</strong> 可能であれば学校のメールアドレスを使用</li>
+                        <li><strong>学生ステータスを確認</strong> 以下のいずれかの方法を使用:
+                            <ul>
+                                <li><strong>オプションA:</strong> 学校メール確認（.edu、.ac.jpなど）</li>
+                                <li><strong>オプションB:</strong> 学生証または在籍証明書をアップロード</li>
+                                <li><strong>オプションC:</strong> GitHub Student Developer Packを使用（持っている場合）</li>
+                            </ul>
+                        </li>
+                        <li><strong>承認を待つ</strong>（通常24〜48時間）</li>
+                        <li><strong>Cursorを再起動</strong> 承認後 - プロ機能が自動的に有効になります</li>
+                    </ol>
+
+                    <p><strong>プロプランの特典（学生は無料）:</strong></p>
+                    <ul>
+                        <li>✅ 無制限のAIリクエスト</li>
+                        <li>✅ 高度なAIモデル（GPT-4、Claude）</li>
+                        <li>✅ 優先サポート</li>
+                        <li>✅ より速い応答</li>
+                        <li>✅ より強力なコード生成</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Step 4: Install Essential Extensions / ステップ4：必須の拡張機能をインストール</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>For Unity development, install these extensions:</p>
+                    <ol>
+                        <li><strong>Open Extensions View:</strong> Press <code>Ctrl+Shift+X</code> (Windows/Linux) or <code>Cmd+Shift+X</code> (Mac)</li>
+                        <li><strong>Install C# Extension:</strong> Search for "C# Dev Kit" by Microsoft → Click "Install"</li>
+                        <li><strong>Install Unity Code Snippets (Optional):</strong> Search for "Unity Code Snippets" → Click "Install"</li>
+                        <li><strong>Install GitLens (Optional):</strong> Search for "GitLens" → Click "Install"</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <p>Unity開発には以下の拡張機能をインストール:</p>
+                    <ol>
+                        <li><strong>拡張機能ビューを開く:</strong> <code>Ctrl+Shift+X</code>（Windows/Linux）または<code>Cmd+Shift+X</code>（Mac）を押す</li>
+                        <li><strong>C#拡張機能をインストール:</strong> Microsoftの「C# Dev Kit」を検索 → 「Install」をクリック</li>
+                        <li><strong>Unity Code Snippetsをインストール（オプション）:</strong> 「Unity Code Snippets」を検索 → 「Install」をクリック</li>
+                        <li><strong>GitLensをインストール（オプション）:</strong> 「GitLens」を検索 → 「Install」をクリック</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2>Step 5: Connect to GitHub / ステップ5：GitHubに接続</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Click the Source Control icon in the left sidebar (or press <code>Ctrl+Shift+G</code> / <code>Cmd+Shift+G</code>)</li>
+                        <li>Click "Sign in with GitHub"</li>
+                        <li>A browser window will open - click "Authorize"</li>
+                        <li>Close the browser and return to Cursor</li>
+                        <li>You can now commit and push directly from Cursor!</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>左サイドバーのソースコントロールアイコンをクリック（または<code>Ctrl+Shift+G</code> / <code>Cmd+Shift+G</code>を押す）</li>
+                        <li>「Sign in with GitHub」をクリック</li>
+                        <li>ブラウザウィンドウが開きます - 「Authorize」をクリック</li>
+                        <li>ブラウザを閉じてCursorに戻る</li>
+                        <li>これでCursorから直接コミットしてプッシュできます！</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2>Using Cursor's AI Features / CursorのAI機能を使う</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>1. Cursor Chat (Ctrl+L or Cmd+L)</h4>
+                    <p>Ask questions about code in natural language:</p>
+                    <ul>
+                        <li>"What does this Unity script do?"</li>
+                        <li>"How do I move a GameObject with arrow keys?"</li>
+                        <li>"Explain what a Rigidbody is in Unity"</li>
+                    </ul>
+
+                    <h4>2. AI Code Completion (Automatic)</h4>
+                    <p>As you type, Cursor suggests code completions. Press <code>Tab</code> to accept.</p>
+
+                    <h4>3. Code Explanation (Ctrl+K or Cmd+K)</h4>
+                    <p>Select code and press <code>Ctrl+K</code> / <code>Cmd+K</code>, then type:</p>
+                    <ul>
+                        <li>"explain" - Get code explanation</li>
+                        <li>"comment" - Add comments</li>
+                        <li>"fix" - Find and fix errors</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>1. Cursor Chat（Ctrl+LまたはCmd+L）</h4>
+                    <p>自然言語でコードについて質問:</p>
+                    <ul>
+                        <li>「このUnityスクリプトは何をしますか？」</li>
+                        <li>「矢印キーでGameObjectを移動するにはどうすればよいですか？」</li>
+                        <li>「UnityでRigidbodyとは何か説明してください」</li>
+                    </ul>
+
+                    <h4>2. AIコード補完（自動）</h4>
+                    <p>入力すると、Cursorがコード補完を提案。<code>Tab</code>を押して受け入れ。</p>
+
+                    <h4>3. コード説明（Ctrl+KまたはCmd+K）</h4>
+                    <p>コードを選択して<code>Ctrl+K</code> / <code>Cmd+K</code>を押し、次のように入力:</p>
+                    <ul>
+                        <li>「explain」- コード説明を取得</li>
+                        <li>「comment」- コメントを追加</li>
+                        <li>「fix」- エラーを見つけて修正</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Troubleshooting / トラブルシューティング</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Problem: Cursor won't start</h4>
+                    <ul>
+                        <li><strong>Solution 1:</strong> Restart your computer</li>
+                        <li><strong>Solution 2:</strong> Reinstall Cursor</li>
+                        <li><strong>Solution 3:</strong> Check system requirements (8GB RAM minimum)</li>
+                    </ul>
+
+                    <h4>Problem: AI features not working</h4>
+                    <ul>
+                        <li><strong>Solution 1:</strong> Make sure you're signed in (check bottom left corner)</li>
+                        <li><strong>Solution 2:</strong> Check internet connection</li>
+                        <li><strong>Solution 3:</strong> You may have reached daily limit (free plan)</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>問題：Cursorが起動しない</h4>
+                    <ul>
+                        <li><strong>解決策1:</strong> コンピュータを再起動</li>
+                        <li><strong>解決策2:</strong> Cursorを再インストール</li>
+                        <li><strong>解決策3:</strong> システム要件を確認（最小8GB RAM）</li>
+                    </ul>
+
+                    <h4>問題：AI機能が動作しない</h4>
+                    <ul>
+                        <li><strong>解決策1:</strong> サインインしていることを確認（左下隅をチェック）</li>
+                        <li><strong>解決策2:</strong> インターネット接続を確認</li>
+                        <li><strong>解決策3:</strong> 1日の制限に達している可能性（無料プラン）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Next Steps / 次のステップ</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Now that Cursor is set up:</p>
+                    <ol>
+                        <li>✅ Familiarize yourself with the interface</li>
+                        <li>✅ Try opening your GitHub repository folder in Cursor</li>
+                        <li>✅ Experiment with Cursor Chat (Ctrl+L / Cmd+L)</li>
+                        <li>✅ Ask it questions like "What is Unity3D?" or "What is C#?"</li>
+                        <li>✅ Ready for Week 3 when we start Unity scripting!</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <p>Cursorがセットアップされたので:</p>
+                    <ol>
+                        <li>✅ インターフェースに慣れる</li>
+                        <li>✅ CursorでGitHubリポジトリフォルダを開いてみる</li>
+                        <li>✅ Cursor Chat（Ctrl+L / Cmd+L）を試す</li>
+                        <li>✅ 「Unity3Dとは何ですか？」や「C#とは何ですか？」のような質問をする</li>
+                        <li>✅ Unityスクリプティングを開始する第3週の準備が整いました！</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="../index.html" class="btn btn-primary">← Back to Course Home</a>
+                <a href="github-setup.html" class="btn btn-secondary">Next: GitHub Setup →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>

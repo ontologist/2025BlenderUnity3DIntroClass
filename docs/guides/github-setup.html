@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Setup Guide | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .guide-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .guide-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .guide-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .guide-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .guide-content pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        .guide-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .guide-content ul, .guide-content ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .guide-content li {
+            margin: 8px 0;
+        }
+        .bilingual-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+        .english-content {
+            margin-bottom: 20px;
+        }
+        .japanese-content {
+            color: var(--text-light);
+        }
+        .important-box {
+            background: #dbeafe;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .back-link {
+            margin: 20px 0;
+        }
+        .step-number {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📦 GitHub Setup Guide</h1>
+            <p class="subtitle">GitHub セットアップガイド</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../index.html">← Back to Course</a>
+            <a href="cursor-setup.html">Cursor Setup</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="guide-content">
+            <div class="back-link">
+                <a href="../index.html" class="btn btn-secondary">← Back to Course Home</a>
+            </div>
+
+            <h2>Introduction / 紹介</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>GitHub is a platform for version control and collaboration. In this course, you'll use GitHub to:</p>
+                    <ul>
+                        <li>Store all your project files</li>
+                        <li>Track changes to your work over time</li>
+                        <li>Submit assignments</li>
+                        <li>Build a portfolio of your game development projects</li>
+                    </ul>
+                    <p>This guide will walk you through setting up GitHub for this course in about 10-15 minutes.</p>
+                </div>
+                <div class="japanese-content">
+                    <p>GitHubはバージョン管理とコラボレーションのためのプラットフォームです。このコースでは、GitHubを以下のために使用します：</p>
+                    <ul>
+                        <li>すべてのプロジェクトファイルを保存</li>
+                        <li>作業の変更を時間とともに追跡</li>
+                        <li>課題を提出</li>
+                        <li>ゲーム開発プロジェクトのポートフォリオを構築</li>
+                    </ul>
+                    <p>このガイドでは、約10〜15分でこのコース用のGitHubのセットアップを説明します。</p>
+                </div>
+            </div>
+
+            <h2><span class="step-number">1</span> Create GitHub Account / GitHubアカウントを作成</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Go to <a href="https://github.com" target="_blank">https://github.com</a></li>
+                        <li>Click "Sign up" in the top right corner</li>
+                        <li>Enter your email address</li>
+                        <li>Create a strong password</li>
+                        <li>Choose a username (this will be public)
+                            <ul>
+                                <li><strong>Tip:</strong> Use a professional username like <code>firstname-lastname</code></li>
+                            </ul>
+                        </li>
+                        <li>Verify your account via email</li>
+                        <li>Choose the <strong>FREE</strong> plan (sufficient for this course)</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li><a href="https://github.com" target="_blank">https://github.com</a> にアクセス</li>
+                        <li>右上の「Sign up」をクリック</li>
+                        <li>メールアドレスを入力</li>
+                        <li>強力なパスワードを作成</li>
+                        <li>ユーザー名を選択（これは公開されます）
+                            <ul>
+                                <li><strong>ヒント:</strong> <code>firstname-lastname</code>のようなプロフェッショナルなユーザー名を使用</li>
+                            </ul>
+                        </li>
+                        <li>メールでアカウントを確認</li>
+                        <li><strong>FREE</strong>プランを選択（このコースには十分）</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">2</span> Install GitHub Desktop / GitHub Desktopをインストール</h2>
+
+            <div class="important-box">
+                <strong>Recommended for beginners / 初心者推奨:</strong> GitHub Desktop provides an easy visual interface for Git.
+            </div>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Download from <a href="https://desktop.github.com" target="_blank">https://desktop.github.com</a></li>
+                        <li>Install the application</li>
+                        <li>Launch GitHub Desktop</li>
+                        <li>Sign in with your GitHub account</li>
+                        <li>Configure your name and email (appears on your commits)</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li><a href="https://desktop.github.com" target="_blank">https://desktop.github.com</a> からダウンロード</li>
+                        <li>アプリケーションをインストール</li>
+                        <li>GitHub Desktopを起動</li>
+                        <li>GitHubアカウントでサインイン</li>
+                        <li>名前とメールを設定（コミットに表示されます）</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">3</span> Create Course Repository / コース用リポジトリを作成</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>On GitHub.com:</h4>
+                    <ol>
+                        <li>Go to GitHub.com and log in</li>
+                        <li>Click the "+" icon in the top right → "New repository"</li>
+                        <li><strong>Repository name:</strong> <code>game-dev-2025-yourname</code>
+                            <ul>
+                                <li>Example: <code>game-dev-2025-john-smith</code></li>
+                            </ul>
+                        </li>
+                        <li><strong>Description:</strong> "Game Development Course - Blender and Unity3D"</li>
+                        <li><strong>Visibility:</strong> Public (recommended) or Private</li>
+                        <li><strong>Initialize with:</strong>
+                            <ul>
+                                <li>✅ Check "Add a README file"</li>
+                                <li>✅ Check "Add .gitignore" → Choose "Unity" template</li>
+                            </ul>
+                        </li>
+                        <li>Click "Create repository"</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <h4>GitHub.comで:</h4>
+                    <ol>
+                        <li>GitHub.comにアクセスしてログイン</li>
+                        <li>右上の「+」アイコンをクリック → 「New repository」</li>
+                        <li><strong>リポジトリ名:</strong> <code>game-dev-2025-yourname</code>
+                            <ul>
+                                <li>例：<code>game-dev-2025-john-smith</code></li>
+                            </ul>
+                        </li>
+                        <li><strong>説明:</strong> 「Game Development Course - Blender and Unity3D」</li>
+                        <li><strong>可視性:</strong> Public（推奨）またはPrivate</li>
+                        <li><strong>初期化:</strong>
+                            <ul>
+                                <li>✅ 「Add a README file」にチェック</li>
+                                <li>✅ 「Add .gitignore」にチェック → 「Unity」テンプレートを選択</li>
+                            </ul>
+                        </li>
+                        <li>「Create repository」をクリック</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">4</span> Clone to Your Computer / コンピュータにクローン</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Using GitHub Desktop:</h4>
+                    <ol>
+                        <li>On your repository page on GitHub.com, click the green "Code" button</li>
+                        <li>Click "Open with GitHub Desktop"</li>
+                        <li>Choose where to save the repository
+                            <ul>
+                                <li>Recommended: <code>Documents/GameDev2025/</code></li>
+                            </ul>
+                        </li>
+                        <li>Click "Clone"</li>
+                    </ol>
+                    <p><strong>Your repository is now on your computer!</strong></p>
+                </div>
+                <div class="japanese-content">
+                    <h4>GitHub Desktopを使用:</h4>
+                    <ol>
+                        <li>GitHub.comのリポジトリページで、緑色の「Code」ボタンをクリック</li>
+                        <li>「Open with GitHub Desktop」をクリック</li>
+                        <li>リポジトリを保存する場所を選択
+                            <ul>
+                                <li>推奨：<code>Documents/GameDev2025/</code></li>
+                            </ul>
+                        </li>
+                        <li>「Clone」をクリック</li>
+                    </ol>
+                    <p><strong>リポジトリがコンピュータ上にあります！</strong></p>
+                </div>
+            </div>
+
+            <h2><span class="step-number">5</span> Set Up Folder Structure / フォルダ構造をセットアップ</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Create folders for each week of the course in your repository:</p>
+                    <pre><code>game-dev-2025-yourname/
+├── week-01/
+├── week-02/
+├── week-03/
+├── week-04/
+├── week-05/
+├── week-06/
+├── week-07/
+├── week-08/
+├── week-09/
+├── week-10/
+├── week-11/
+└── week-12/</code></pre>
+                    <p>You can create these manually in your file explorer/finder, or use the command line.</p>
+                </div>
+                <div class="japanese-content">
+                    <p>リポジトリにコースの各週のフォルダを作成:</p>
+                    <pre><code>game-dev-2025-yourname/
+├── week-01/
+├── week-02/
+├── week-03/
+├── week-04/
+├── week-05/
+├── week-06/
+├── week-07/
+├── week-08/
+├── week-09/
+├── week-10/
+├── week-11/
+└── week-12/</code></pre>
+                    <p>ファイルエクスプローラー/Finderで手動で作成するか、コマンドラインを使用できます。</p>
+                </div>
+            </div>
+
+            <h2><span class="step-number">6</span> Update .gitignore for Blender / Blender用の.gitignoreを更新</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Open the <code>.gitignore</code> file in your repository and add these lines for Blender:</p>
+                    <pre><code># Blender
+*.blend1
+*.blend2
+*.blend3
+blendcache_*/
+
+# OS Files
+.DS_Store
+Thumbs.db</code></pre>
+                    <p>This tells Git to ignore temporary Blender files.</p>
+                </div>
+                <div class="japanese-content">
+                    <p>リポジトリの<code>.gitignore</code>ファイルを開き、Blender用にこれらの行を追加:</p>
+                    <pre><code># Blender
+*.blend1
+*.blend2
+*.blend3
+blendcache_*/
+
+# OS Files
+.DS_Store
+Thumbs.db</code></pre>
+                    <p>これにより、Gitは一時的なBlenderファイルを無視します。</p>
+                </div>
+            </div>
+
+            <h2><span class="step-number">7</span> Make Your First Commit / 最初のコミットを行う</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Using GitHub Desktop:</h4>
+                    <ol>
+                        <li>Open GitHub Desktop</li>
+                        <li>You should see your changes listed (new folders, updated .gitignore)</li>
+                        <li>At the bottom left:
+                            <ul>
+                                <li><strong>Summary:</strong> "Set up project structure"</li>
+                                <li><strong>Description:</strong> "Created weekly folders and updated .gitignore"</li>
+                            </ul>
+                        </li>
+                        <li>Click "Commit to main"</li>
+                        <li>Click "Push origin" to upload to GitHub</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <h4>GitHub Desktopを使用:</h4>
+                    <ol>
+                        <li>GitHub Desktopを開く</li>
+                        <li>変更がリストされているはず（新しいフォルダ、更新された.gitignore）</li>
+                        <li>左下で:
+                            <ul>
+                                <li><strong>Summary:</strong> 「Set up project structure」</li>
+                                <li><strong>Description:</strong> 「Created weekly folders and updated .gitignore」</li>
+                            </ul>
+                        </li>
+                        <li>「Commit to main」をクリック</li>
+                        <li>「Push origin」をクリックしてGitHubにアップロード</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2>Basic Workflow / 基本的なワークフロー</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>This is the workflow you'll follow every week:</p>
+                    <ol>
+                        <li><strong>Work on your project</strong> (create Blender files, Unity projects, etc.)</li>
+                        <li><strong>Save your work</strong> regularly in the appropriate week folder</li>
+                        <li><strong>Commit your changes</strong> in GitHub Desktop:
+                            <ul>
+                                <li>Review your changes</li>
+                                <li>Write a descriptive commit message</li>
+                                <li>Click "Commit to main"</li>
+                            </ul>
+                        </li>
+                        <li><strong>Push to GitHub:</strong> Click "Push origin"</li>
+                        <li><strong>Verify</strong> on GitHub.com that your files are uploaded</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <p>これは毎週従うワークフローです：</p>
+                    <ol>
+                        <li><strong>プロジェクトに取り組む</strong>（Blenderファイル、Unityプロジェクトなどを作成）</li>
+                        <li><strong>作業を保存</strong> 適切な週フォルダに定期的に</li>
+                        <li><strong>変更をコミット</strong> GitHub Desktopで:
+                            <ul>
+                                <li>変更を確認</li>
+                                <li>説明的なコミットメッセージを書く</li>
+                                <li>「Commit to main」をクリック</li>
+                            </ul>
+                        </li>
+                        <li><strong>GitHubにプッシュ:</strong> 「Push origin」をクリック</li>
+                        <li><strong>確認</strong> GitHub.comでファイルがアップロードされていることを確認</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2>Troubleshooting / トラブルシューティング</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Problem: Can't push to GitHub</h4>
+                    <ul>
+                        <li><strong>Solution 1:</strong> Make sure you're logged into GitHub Desktop</li>
+                        <li><strong>Solution 2:</strong> Check your internet connection</li>
+                        <li><strong>Solution 3:</strong> Try pulling first: Repository → Pull</li>
+                    </ul>
+
+                    <h4>Problem: Changes don't show in GitHub Desktop</h4>
+                    <ul>
+                        <li><strong>Solution:</strong> Make sure you saved the files in your repository folder, not somewhere else</li>
+                    </ul>
+
+                    <h4>Problem: Accidentally committed wrong files</h4>
+                    <ul>
+                        <li><strong>Solution 1:</strong> If you haven't pushed yet: Repository → Undo commit</li>
+                        <li><strong>Solution 2:</strong> Add the file pattern to .gitignore</li>
+                        <li><strong>Solution 3:</strong> Ask the instructor for help</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>問題：GitHubにプッシュできない</h4>
+                    <ul>
+                        <li><strong>解決策1:</strong> GitHub Desktopにログインしていることを確認</li>
+                        <li><strong>解決策2:</strong> インターネット接続を確認</li>
+                        <li><strong>解決策3:</strong> まずプルしてみる：Repository → Pull</li>
+                    </ul>
+
+                    <h4>問題：変更がGitHub Desktopに表示されない</h4>
+                    <ul>
+                        <li><strong>解決策:</strong> コンピュータの他の場所ではなく、リポジトリフォルダにファイルを保存したことを確認</li>
+                    </ul>
+
+                    <h4>問題：誤って不要なファイルをコミットした</h4>
+                    <ul>
+                        <li><strong>解決策1:</strong> まだプッシュしていない場合：Repository → Undo commit</li>
+                        <li><strong>解決策2:</strong> ファイルパターンを.gitignoreに追加</li>
+                        <li><strong>解決策3:</strong> インストラクターに助けを求める</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Next Steps / 次のステップ</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Now that your GitHub is set up:</p>
+                    <ol>
+                        <li>✅ Complete your Week 1 Blender assignment</li>
+                        <li>✅ Save it in the <code>week-01/</code> folder</li>
+                        <li>✅ Commit and push to GitHub</li>
+                        <li>✅ Verify it's visible on GitHub.com</li>
+                    </ol>
+                    <p><strong>Your repository URL format:</strong><br>
+                    <code>https://github.com/yourusername/game-dev-2025-yourname</code></p>
+                </div>
+                <div class="japanese-content">
+                    <p>GitHubがセットアップされたので:</p>
+                    <ol>
+                        <li>✅ Week 1のBlender課題を完了</li>
+                        <li>✅ <code>week-01/</code>フォルダに保存</li>
+                        <li>✅ コミットしてGitHubにプッシュ</li>
+                        <li>✅ GitHub.comで表示されることを確認</li>
+                    </ol>
+                    <p><strong>リポジトリURLの形式:</strong><br>
+                    <code>https://github.com/yourusername/game-dev-2025-yourname</code></p>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="cursor-setup.html" class="btn btn-secondary">← Cursor Setup</a>
+                <a href="../index.html" class="btn btn-primary">Back to Course Home →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>

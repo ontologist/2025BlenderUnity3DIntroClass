@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1: Blender Basics | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lecture-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .lecture-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .lecture-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .lecture-content h4 {
+            color: var(--text-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .timeline-segment {
+            background: var(--bg-light);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        .duration-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .shortcut-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--warning);
+            margin: 15px 0;
+        }
+        .shortcut-box code {
+            background: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .objectives-list {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .objectives-list ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 Week 1: Blender Interface & Basic Modeling</h1>
+            <p class="subtitle">第1週：Blenderインターフェースと基本的な3Dモデリング</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="assignment.html">Assignment</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lecture-content">
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../../guides/cursor-setup.html" class="btn btn-primary">Cursor Setup</a>
+                <a href="../../guides/github-setup.html" class="btn btn-primary">GitHub Setup</a>
+            </div>
+
+            <div class="objectives-list">
+                <h3>Learning Objectives / 学習目標</h3>
+                <p><strong>English:</strong> By the end of this lecture, students will be able to:</p>
+                <ul>
+                    <li>Understand the course structure and expectations</li>
+                    <li>Set up their development environment (Blender, Unity, GitHub)</li>
+                    <li>Navigate the Blender interface confidently</li>
+                    <li>Create and manipulate basic 3D shapes</li>
+                    <li>Use fundamental modeling tools (move, rotate, scale, extrude)</li>
+                    <li>Create a GitHub repository for their coursework</li>
+                </ul>
+                <p><strong>日本語:</strong> この講義の終了までに、学生は以下ができるようになります：</p>
+                <ul>
+                    <li>コース構成と期待事項を理解する</li>
+                    <li>開発環境（Blender、Unity、GitHub）をセットアップする</li>
+                    <li>Blenderインターフェースを自信を持って操作する</li>
+                    <li>基本的な3D形状を作成し操作する</li>
+                    <li>基本的なモデリングツール（移動、回転、拡大縮小、押し出し）を使用する</li>
+                    <li>課題用のGitHubリポジトリを作成する</li>
+                </ul>
+            </div>
+
+            <h2>Lecture Timeline (100 minutes)</h2>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 1: Course Introduction</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Welcome and introductions</li>
+                    <li>Course overview and learning path</li>
+                    <li>Software requirements</li>
+                    <li>GitHub setup for version control</li>
+                    <li>Assessment structure</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>歓迎と自己紹介</li>
+                    <li>コース概要と学習パス</li>
+                    <li>ソフトウェア要件</li>
+                    <li>バージョン管理のためのGitHubセットアップ</li>
+                    <li>評価構造</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 2: Software Installation Check</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Verify Blender installation (version 4.0+)</li>
+                    <li>Verify Unity Hub installation</li>
+                    <li>GitHub Desktop or Git CLI setup</li>
+                    <li>Cursor AI editor setup</li>
+                    <li>Troubleshoot installation issues</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>Blenderのインストール確認（バージョン4.0以降）</li>
+                    <li>Unity Hubのインストール確認</li>
+                    <li>GitHub DesktopまたはGit CLIのセットアップ</li>
+                    <li>Cursor AIエディタのセットアップ</li>
+                    <li>インストール問題のトラブルシューティング</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 3: Introduction to 3D Graphics</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>What is 3D modeling?</li>
+                    <li>Vertices, edges, and faces</li>
+                    <li>Coordinate systems (X, Y, Z axes)</li>
+                    <li>Viewport navigation concepts</li>
+                    <li>Real-world applications of 3D graphics</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>3Dモデリングとは何か？</li>
+                    <li>頂点、エッジ、面</li>
+                    <li>座標系（X、Y、Z軸）</li>
+                    <li>ビューポートナビゲーションの概念</li>
+                    <li>3Dグラフィックスの実世界応用</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 4: Blender Interface Tour</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Launching Blender and understanding the startup screen</li>
+                    <li>Main areas: 3D Viewport, Outliner, Properties, Timeline</li>
+                    <li>Navigation controls:
+                        <ul>
+                            <li>Middle mouse button (MMB) - rotate view</li>
+                            <li>Shift+MMB - pan view</li>
+                            <li>Scroll wheel - zoom</li>
+                        </ul>
+                    </li>
+                    <li>Selection methods (left-click)</li>
+                    <li>Transform gizmos</li>
+                    <li>Modes: Object Mode vs Edit Mode</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>Blenderの起動とスタートアップ画面の理解</li>
+                    <li>主要エリア：3Dビューポート、アウトライナー、プロパティ、タイムライン</li>
+                    <li>ナビゲーションコントロール：
+                        <ul>
+                            <li>マウス中ボタン（MMB）- ビュー回転</li>
+                            <li>Shift+MMB - ビューパン</li>
+                            <li>スクロールホイール - ズーム</li>
+                        </ul>
+                    </li>
+                    <li>選択方法（左クリック）</li>
+                    <li>トランスフォームギズモ</li>
+                    <li>モード：オブジェクトモード vs 編集モード</li>
+                </ul>
+
+                <div class="shortcut-box">
+                    <h4>🎹 Important Shortcuts / 重要なショートカット:</h4>
+                    <ul>
+                        <li><code>NumPad 1</code> = Front View / 正面図</li>
+                        <li><code>NumPad 3</code> = Side View / 側面図</li>
+                        <li><code>NumPad 7</code> = Top View / 上面図</li>
+                        <li><code>Tab</code> = Toggle Edit Mode / 編集モード切替</li>
+                        <li><code>G</code> = Move/Grab / 移動</li>
+                        <li><code>R</code> = Rotate / 回転</li>
+                        <li><code>S</code> = Scale / 拡大縮小</li>
+                        <li><code>X</code> = Delete / 削除</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">30 minutes / 30分</span>
+                <h3>Segment 5: Basic 3D Modeling</h3>
+
+                <h4>Adding Primitive Shapes / プリミティブ形状の追加</h4>
+                <p><strong>English:</strong> <code>Shift+A</code> → Mesh → Choose shape</p>
+                <ul>
+                    <li>Cube, Sphere (UV Sphere), Cylinder, Cone, Plane</li>
+                </ul>
+
+                <h4>Transform Tools / トランスフォームツール</h4>
+                <ul>
+                    <li><strong>G (Grab/Move):</strong> Move objects
+                        <ul>
+                            <li><code>G → X/Y/Z</code> to constrain to axis</li>
+                            <li><code>G → Shift+X/Y/Z</code> to exclude axis</li>
+                        </ul>
+                    </li>
+                    <li><strong>R (Rotate):</strong> Rotate objects
+                        <ul>
+                            <li><code>R → X/Y/Z</code> to rotate around axis</li>
+                            <li><code>R → R</code> for trackball rotation</li>
+                        </ul>
+                    </li>
+                    <li><strong>S (Scale):</strong> Scale objects
+                        <ul>
+                            <li><code>S → X/Y/Z</code> to scale along axis</li>
+                            <li><code>S → Shift+X/Y/Z</code> to scale excluding axis</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Edit Mode Operations / 編集モード操作</h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Selecting vertices (1), edges (2), faces (3)</li>
+                    <li><strong>Extrude (E key):</strong> Pull out new geometry</li>
+                    <li><strong>Loop Cut (Ctrl+R):</strong> Add edge loops</li>
+                    <li><strong>Inset Faces (I key):</strong> Create inset faces</li>
+                    <li><strong>Delete (X key):</strong> Delete selected elements</li>
+                </ul>
+
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>頂点（1）、エッジ（2）、面（3）の選択</li>
+                    <li><strong>押し出し（Eキー）:</strong> 新しいジオメトリを引き出す</li>
+                    <li><strong>ループカット（Ctrl+R）:</strong> エッジループを追加</li>
+                    <li><strong>インセット面（Iキー）:</strong> インセット面を作成</li>
+                    <li><strong>削除（Xキー）:</strong> 選択した要素を削除</li>
+                </ul>
+
+                <h4>🏠 Demo Project: Simple House / デモプロジェクト：シンプルな家</h4>
+                <pre><code>Steps / 手順:
+1. Start with default cube (base of house)
+   デフォルトキューブから開始（家の基礎）
+2. Scale up: S → 2 → Enter
+   拡大：S → 2 → Enter
+3. Add cube for roof base: Shift+A → Mesh → Cube
+   屋根ベース用のキューブを追加
+4. Move up: G → Z → 2 → Enter
+   上に移動
+5. Scale: S → 1.2 on X, 0.2 on Z
+   スケール：Xで1.2、Zで0.2
+6. Add cone for roof: Shift+A → Mesh → Cone
+   屋根用の円錐を追加
+7. Position and scale appropriately
+   適切に配置してスケール</code></pre>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 6: GitHub Setup for Coursework</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Creating a repository for the course</li>
+                    <li>Repository naming convention: <code>game-dev-2025-[yourname]</code></li>
+                    <li>Basic Git workflow: Clone, Commit, Push</li>
+                    <li>Using .gitignore for Blender and Unity projects</li>
+                    <li>Organizing weekly assignments in folders</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>コース用のリポジトリ作成</li>
+                    <li>リポジトリ命名規則：<code>game-dev-2025-[yourname]</code></li>
+                    <li>基本的なGitワークフロー：クローン、コミット、プッシュ</li>
+                    <li>BlenderとUnityプロジェクト用の.gitignoreの使用</li>
+                    <li>週次課題をフォルダで整理</li>
+                </ul>
+                <p><strong>📖 See detailed guide:</strong> <a href="../../guides/github-setup.html">GitHub Setup Guide</a></p>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">5 minutes / 5分</span>
+                <h3>Segment 7: Assignment Introduction & Q&A</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Review Week 1 assignment requirements</li>
+                    <li>Explain submission process via GitHub</li>
+                    <li>Answer questions</li>
+                    <li>Preview Week 2 topics</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>第1週の課題要件をレビュー</li>
+                    <li>GitHub経由の提出プロセスを説明</li>
+                    <li>質問に回答</li>
+                    <li>第2週のトピックをプレビュー</li>
+                </ul>
+            </div>
+
+            <h2>Common Pitfalls / よくある落とし穴</h2>
+
+            <div class="timeline-segment">
+                <h4>1. Navigation Confusion / ナビゲーションの混乱</h4>
+                <p><strong>Problem:</strong> Students without 3-button mouse struggle with navigation</p>
+                <p><strong>Solution:</strong> Enable "Emulate 3 Button Mouse" in Preferences → Input</p>
+
+                <h4>2. Lost in 3D Space / 3D空間で迷子</h4>
+                <p><strong>Problem:</strong> Students lose track of where objects are</p>
+                <p><strong>Solution:</strong> Use NumPad views (1, 3, 7) and Home key to frame all objects</p>
+
+                <h4>3. Accidental Deletions / 誤って削除</h4>
+                <p><strong>Problem:</strong> Pressing X and confirming delete without thinking</p>
+                <p><strong>Solution:</strong> Emphasize Ctrl+Z (undo) and teach careful selection habits</p>
+
+                <h4>4. Mode Confusion / モードの混乱</h4>
+                <p><strong>Problem:</strong> Not knowing whether in Object Mode or Edit Mode</p>
+                <p><strong>Solution:</strong> Always check mode indicator at top-left of viewport</p>
+
+                <h4>5. File Organization / ファイル整理</h4>
+                <p><strong>Problem:</strong> Not saving files or saving in wrong location</p>
+                <p><strong>Solution:</strong> Teach proper project folder structure from day one</p>
+            </div>
+
+            <h2>Materials Needed / 必要な教材</h2>
+
+            <div class="timeline-segment">
+                <h4>Software / ソフトウェア</h4>
+                <ul>
+                    <li><strong>Blender 4.0+</strong> (installed before class) - <a href="https://www.blender.org/" target="_blank">Download</a></li>
+                    <li><strong>GitHub account</strong> - <a href="https://github.com/" target="_blank">Sign up</a></li>
+                    <li><strong>Git or GitHub Desktop</strong> - <a href="https://desktop.github.com/" target="_blank">Download</a></li>
+                    <li><strong>Cursor AI</strong> (optional but recommended) - <a href="https://cursor.com/" target="_blank">Download</a></li>
+                </ul>
+
+                <h4>Files Provided / 提供ファイル</h4>
+                <ul>
+                    <li>Course syllabus PDF</li>
+                    <li>Blender keyboard shortcuts cheat sheet</li>
+                    <li>.gitignore template for Blender projects</li>
+                    <li>Sample completed house model (.blend file)</li>
+                </ul>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+
+            <div class="timeline-segment">
+                <h4>Video Tutorials (English):</h4>
+                <ul>
+                    <li><a href="https://www.youtube.com/@BlenderGuru" target="_blank">Blender Guru - "Blender Beginner Tutorial Series"</a></li>
+                    <li><a href="https://www.youtube.com/@GrantAbbitt" target="_blank">Grant Abbitt - "Complete Beginner Guide to Blender"</a></li>
+                    <li><a href="https://cgcookie.com/" target="_blank">CG Cookie - "Blender Basics"</a></li>
+                </ul>
+
+                <h4>Video Tutorials (Japanese / 日本語):</h4>
+                <ul>
+                    <li>Blender Japan YouTube Channel</li>
+                    <li>CGrad - Blender初心者向けチュートリアル</li>
+                    <li>3D人 - Blender基礎講座</li>
+                </ul>
+
+                <h4>Documentation:</h4>
+                <ul>
+                    <li><a href="https://docs.blender.org/manual/en/latest/" target="_blank">Blender Official Manual (English)</a></li>
+                    <li><a href="https://docs.blender.org/manual/ja/latest/" target="_blank">Blender公式マニュアル（日本語）</a></li>
+                </ul>
+            </div>
+
+            <h2>Preparation for Next Week / 次週の準備</h2>
+
+            <div class="objectives-list">
+                <p><strong>English - Students should:</strong></p>
+                <ul>
+                    <li>✅ Complete Week 1 assignment (simple maze layout)</li>
+                    <li>✅ Watch recommended tutorial videos</li>
+                    <li>✅ Practice navigation and basic modeling</li>
+                    <li>✅ Ensure Blender files are committed to GitHub</li>
+                    <li>✅ Come prepared with questions</li>
+                </ul>
+                <p><strong>日本語 - 学生は以下を行うべきです：</strong></p>
+                <ul>
+                    <li>✅ 第1週の課題を完了（シンプルな迷路レイアウト）</li>
+                    <li>✅ 推奨チュートリアルビデオを視聴</li>
+                    <li>✅ ナビゲーションと基本モデリングを練習</li>
+                    <li>✅ BlenderファイルがGitHubにコミットされていることを確認</li>
+                    <li>✅ 質問を準備して来る</li>
+                </ul>
+                <p><strong>Next Week Preview:</strong> Materials, Textures, and Simple Animations</p>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-02/lecture.html" class="btn btn-primary">Next Week: Materials & Textures →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>
