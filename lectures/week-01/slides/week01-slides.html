@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1: Course Introduction & Blender Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px 80px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .slide h2 {
+            font-size: 2.2em;
+            color: #764ba2;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .slide h3 {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .slide h4 {
+            font-size: 1.4em;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .slide ul, .slide ol {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+        }
+
+        .bilingual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        .english, .japanese {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .english {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+        }
+
+        .japanese {
+            background: #fff0f6;
+            border-left: 4px solid #764ba2;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .code-box {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            color: #667eea;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .title-slide h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .title-slide .subtitle {
+            font-size: 2em;
+            color: #764ba2;
+            margin-bottom: 40px;
+        }
+
+        .title-slide .info {
+            font-size: 1.3em;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .shortcut-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .shortcut-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .shortcut-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .shortcut-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        kbd {
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 3px 8px;
+            font-family: monospace;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-number" id="slideNumber">Slide 1 / 20</div>
+
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>🎮 Week 1</h1>
+            <p class="subtitle">Course Introduction & Blender Basics<br>コース紹介とBlender基礎</p>
+            <p class="info"><strong>Duration:</strong> 100 minutes / 100分</p>
+            <p class="info"><strong>Developer:</strong> Yuri Tijerino</p>
+            <p class="info">Game Development Course 2025</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h2>📚 Learning Objectives / 講義目標</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>By the end of this lecture, students will be able to:</h4>
+                    <ol>
+                        <li>Understand the course structure and expectations</li>
+                        <li>Set up their development environment (Blender, Unity, GitHub)</li>
+                        <li>Navigate the Blender interface confidently</li>
+                        <li>Create and manipulate basic 3D shapes</li>
+                        <li>Use fundamental modeling tools</li>
+                        <li>Create a GitHub repository for coursework</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>この講義の終了までに、学生は以下ができるようになります：</h4>
+                    <ol>
+                        <li>コース構成と期待事項を理解する</li>
+                        <li>開発環境をセットアップする</li>
+                        <li>Blenderインターフェースを自信を持って操作する</li>
+                        <li>基本的な3D形状を作成し操作する</li>
+                        <li>基本的なモデリングツールを使用する</li>
+                        <li>課題用のGitHubリポジトリを作成する</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Course Overview -->
+        <div class="slide">
+            <h2>🗺️ Course Overview / コース概要</h2>
+            <div class="highlight-box">
+                <h3>12-Week Journey / 12週間の旅</h3>
+                <p><strong>Weeks 1-4:</strong> Blender Fundamentals & 3D Modeling</p>
+                <p><strong>Weeks 5-8:</strong> Unity3D Basics & Game Mechanics</p>
+                <p><strong>Weeks 9-10:</strong> Advanced Game Development</p>
+                <p><strong>Weeks 11-12:</strong> Final Project</p>
+            </div>
+            <div class="two-column">
+                <div>
+                    <h4>English</h4>
+                    <ul>
+                        <li>📐 3D Modeling with Blender</li>
+                        <li>🎮 Game Development with Unity</li>
+                        <li>💻 Version Control with Git</li>
+                        <li>🎨 Asset Creation & Integration</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>日本語</h4>
+                    <ul>
+                        <li>📐 Blenderでの3Dモデリング</li>
+                        <li>🎮 Unityでのゲーム開発</li>
+                        <li>💻 Gitでのバージョン管理</li>
+                        <li>🎨 アセット作成と統合</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Software Requirements -->
+        <div class="slide">
+            <h2>💾 Software Requirements / ソフトウェア要件</h2>
+            <div class="two-column">
+                <div class="english">
+                    <h3>Required Software:</h3>
+                    <ul>
+                        <li><strong>Blender 4.0+</strong> (Free, Open Source)</li>
+                        <li><strong>Unity 2022 LTS</strong> (Personal - Free)</li>
+                        <li><strong>GitHub Account</strong> (Free)</li>
+                        <li><strong>Git / GitHub Desktop</strong></li>
+                        <li><strong>Cursor Editor</strong> (Free/Student Pro)</li>
+                    </ul>
+                    <h4>System Requirements:</h4>
+                    <ul>
+                        <li>8 GB RAM (16 GB recommended)</li>
+                        <li>Dedicated GPU recommended</li>
+                        <li>20 GB+ free storage</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>必要なソフトウェア:</h3>
+                    <ul>
+                        <li><strong>Blender 4.0+</strong>（無料、オープンソース）</li>
+                        <li><strong>Unity 2022 LTS</strong>（Personal - 無料）</li>
+                        <li><strong>GitHubアカウント</strong>（無料）</li>
+                        <li><strong>Git / GitHub Desktop</strong></li>
+                        <li><strong>Cursor エディタ</strong>（無料/学生プロ）</li>
+                    </ul>
+                    <h4>システム要件:</h4>
+                    <ul>
+                        <li>8 GB RAM（16 GB推奨）</li>
+                        <li>専用GPU推奨</li>
+                        <li>20 GB以上の空き容量</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: What is 3D Modeling? -->
+        <div class="slide">
+            <h2>🎨 What is 3D Modeling? / 3Dモデリングとは？</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>3D Graphics Fundamentals</h3>
+                    <p><strong>3D Modeling</strong> is the process of creating three-dimensional objects in digital space.</p>
+                    <h4>Basic Components:</h4>
+                    <ul>
+                        <li><strong>Vertices:</strong> Points in 3D space</li>
+                        <li><strong>Edges:</strong> Lines connecting vertices</li>
+                        <li><strong>Faces:</strong> Surfaces defined by edges</li>
+                    </ul>
+                    <h4>Coordinate System:</h4>
+                    <ul>
+                        <li><strong>X-axis:</strong> Left/Right (Red)</li>
+                        <li><strong>Y-axis:</strong> Forward/Back (Green)</li>
+                        <li><strong>Z-axis:</strong> Up/Down (Blue)</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>3Dグラフィックスの基礎</h3>
+                    <p><strong>3Dモデリング</strong>は、デジタル空間で3次元オブジェクトを作成するプロセスです。</p>
+                    <h4>基本コンポーネント:</h4>
+                    <ul>
+                        <li><strong>頂点:</strong> 3D空間の点</li>
+                        <li><strong>エッジ:</strong> 頂点を結ぶ線</li>
+                        <li><strong>面:</strong> エッジによって定義される表面</li>
+                    </ul>
+                    <h4>座標系:</h4>
+                    <ul>
+                        <li><strong>X軸:</strong> 左/右（赤）</li>
+                        <li><strong>Y軸:</strong> 前/後（緑）</li>
+                        <li><strong>Z軸:</strong> 上/下（青）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Introduction to Blender -->
+        <div class="slide">
+            <h2>🔷 Introduction to Blender</h2>
+            <div class="highlight-box">
+                <h3>Why Blender?</h3>
+                <div class="two-column">
+                    <div>
+                        <h4>English</h4>
+                        <ul>
+                            <li>✅ Free and Open Source</li>
+                            <li>✅ Professional-grade tool</li>
+                            <li>✅ Used by studios worldwide</li>
+                            <li>✅ Excellent Unity integration</li>
+                            <li>✅ Large community & resources</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>日本語</h4>
+                        <ul>
+                            <li>✅ 無料でオープンソース</li>
+                            <li>✅ プロフェッショナルグレードツール</li>
+                            <li>✅ 世界中のスタジオで使用</li>
+                            <li>✅ 優れたUnity統合</li>
+                            <li>✅ 大規模なコミュニティとリソース</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Blender Interface Overview -->
+        <div class="slide">
+            <h2>🖥️ Blender Interface Overview</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Main Interface Areas:</h3>
+                    <ol>
+                        <li><strong>3D Viewport (Center)</strong>
+                            <ul><li>Main working area for modeling</li></ul>
+                        </li>
+                        <li><strong>Outliner (Top Right)</strong>
+                            <ul><li>Scene hierarchy and object list</li></ul>
+                        </li>
+                        <li><strong>Properties Panel (Bottom Right)</strong>
+                            <ul><li>Object properties and settings</li></ul>
+                        </li>
+                        <li><strong>Timeline (Bottom)</strong>
+                            <ul><li>Animation controls (used later)</li></ul>
+                        </li>
+                        <li><strong>Tool Shelf (Left)</strong>
+                            <ul><li>Modeling tools and operations</li></ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h3>主要なインターフェースエリア:</h3>
+                    <ol>
+                        <li><strong>3Dビューポート（中央）</strong>
+                            <ul><li>モデリングのメイン作業エリア</li></ul>
+                        </li>
+                        <li><strong>アウトライナー（右上）</strong>
+                            <ul><li>シーン階層とオブジェクトリスト</li></ul>
+                        </li>
+                        <li><strong>プロパティパネル（右下）</strong>
+                            <ul><li>オブジェクトのプロパティと設定</li></ul>
+                        </li>
+                        <li><strong>タイムライン（下部）</strong>
+                            <ul><li>アニメーションコントロール（後で使用）</li></ul>
+                        </li>
+                        <li><strong>ツールシェルフ（左側）</strong>
+                            <ul><li>モデリングツールと操作</li></ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Navigation Controls -->
+        <div class="slide">
+            <h2>🧭 Navigation Controls / ナビゲーションコントロール</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Action / アクション</th>
+                        <th>Control / コントロール</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rotate View / ビュー回転</td>
+                        <td><kbd>Middle Mouse Button</kbd> + Drag</td>
+                        <td>Rotate around scene / シーン周りを回転</td>
+                    </tr>
+                    <tr>
+                        <td>Pan View / ビューパン</td>
+                        <td><kbd>Shift</kbd> + <kbd>MMB</kbd> + Drag</td>
+                        <td>Move view sideways / ビューを横に移動</td>
+                    </tr>
+                    <tr>
+                        <td>Zoom / ズーム</td>
+                        <td><kbd>Scroll Wheel</kbd></td>
+                        <td>Zoom in/out / ズームイン/アウト</td>
+                    </tr>
+                    <tr>
+                        <td>Front View / 正面ビュー</td>
+                        <td><kbd>NumPad 1</kbd></td>
+                        <td>View from front / 正面から表示</td>
+                    </tr>
+                    <tr>
+                        <td>Side View / 側面ビュー</td>
+                        <td><kbd>NumPad 3</kbd></td>
+                        <td>View from right side / 右側面から表示</td>
+                    </tr>
+                    <tr>
+                        <td>Top View / 上面ビュー</td>
+                        <td><kbd>NumPad 7</kbd></td>
+                        <td>View from top / 上から表示</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box">
+                <strong>💡 No NumPad?</strong> Enable "Emulate Numpad" in Edit → Preferences → Input
+                <br><strong>💡 テンキーがない？</strong> 編集 → プリファレンス → 入力で「テンキーをエミュレート」を有効化
+            </div>
+        </div>
+
+        <!-- Slide 9: Essential Shortcuts -->
+        <div class="slide">
+            <h2>⌨️ Essential Keyboard Shortcuts</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action / アクション</th>
+                        <th>Details / 詳細</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><kbd>G</kbd></td>
+                        <td>Grab/Move / 移動</td>
+                        <td>Move selected object / 選択したオブジェクトを移動</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>R</kbd></td>
+                        <td>Rotate / 回転</td>
+                        <td>Rotate selected object / 選択したオブジェクトを回転</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>S</kbd></td>
+                        <td>Scale / スケール</td>
+                        <td>Scale selected object / 選択したオブジェクトをスケール</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>X</kbd></td>
+                        <td>Delete / 削除</td>
+                        <td>Delete selected object / 選択したオブジェクトを削除</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>Tab</kbd></td>
+                        <td>Toggle Edit Mode / 編集モード切替</td>
+                        <td>Switch between Object/Edit mode / オブジェクト/編集モードを切替</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>Shift</kbd> + <kbd>A</kbd></td>
+                        <td>Add Object / オブジェクト追加</td>
+                        <td>Open add menu / 追加メニューを開く</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td>
+                        <td>Undo / 元に戻す</td>
+                        <td>Undo last action / 最後のアクションを元に戻す</td>
+                    </tr>
+                    <tr>
+                        <td><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
+                        <td>Save / 保存</td>
+                        <td>Save current file / 現在のファイルを保存</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 10: Transform Tools in Detail -->
+        <div class="slide">
+            <h2>🔧 Transform Tools in Detail</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Move (G - Grab)</h3>
+                    <ul>
+                        <li><kbd>G</kbd> → Move freely</li>
+                        <li><kbd>G</kbd> → <kbd>X</kbd>/<kbd>Y</kbd>/<kbd>Z</kbd> → Constrain to axis</li>
+                        <li><kbd>G</kbd> → <kbd>Shift</kbd> + <kbd>X</kbd>/<kbd>Y</kbd>/<kbd>Z</kbd> → Exclude axis</li>
+                        <li><kbd>G</kbd> → Type number → Move exact distance</li>
+                    </ul>
+                    <h3>Rotate (R)</h3>
+                    <ul>
+                        <li><kbd>R</kbd> → Rotate freely</li>
+                        <li><kbd>R</kbd> → <kbd>X</kbd>/<kbd>Y</kbd>/<kbd>Z</kbd> → Rotate around axis</li>
+                        <li><kbd>R</kbd> → Type number (e.g., 90) → Rotate exact degrees</li>
+                    </ul>
+                    <h3>Scale (S)</h3>
+                    <ul>
+                        <li><kbd>S</kbd> → Scale uniformly</li>
+                        <li><kbd>S</kbd> → <kbd>X</kbd>/<kbd>Y</kbd>/<kbd>Z</kbd> → Scale along axis</li>
+                        <li><kbd>S</kbd> → Type number → Scale to exact size</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>移動 (G - Grab)</h3>
+                    <ul>
+                        <li><kbd>G</kbd> → 自由に移動</li>
+                        <li><kbd>G</kbd> → <kbd>X</kbd>/<kbd>Y</kbd>/<kbd>Z</kbd> → 軸に制約</li>
+                        <li><kbd>G</kbd> → <kbd>Shift</kbd> + <kbd>X</kbd>/<kbd>Y</kbd>/<kbd>Z</kbd> → 軸を除外</li>
+                        <li><kbd>G</kbd> → 数字を入力 → 正確な距離で移動</li>
+                    </ul>
+                    <h3>回転 (R)</h3>
+                    <ul>
+                        <li><kbd>R</kbd> → 自由に回転</li>
+                        <li><kbd>R</kbd> → <kbd>X</kbd>/<kbd>Y</kbd>/<kbd>Z</kbd> → 軸周りに回転</li>
+                        <li><kbd>R</kbd> → 数字を入力（例：90） → 正確な角度で回転</li>
+                    </ul>
+                    <h3>スケール (S)</h3>
+                    <ul>
+                        <li><kbd>S</kbd> → 均一にスケール</li>
+                        <li><kbd>S</kbd> → <kbd>X</kbd>/<kbd>Y</kbd>/<kbd>Z</kbd> → 軸に沿ってスケール</li>
+                        <li><kbd>S</kbd> → 数字を入力 → 正確なサイズにスケール</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Object Mode vs Edit Mode -->
+        <div class="slide">
+            <h2>🔄 Object Mode vs Edit Mode</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Object Mode / オブジェクトモード</h3>
+                    <div class="highlight-box">
+                        <h4>English:</h4>
+                        <ul>
+                            <li>Work with entire objects</li>
+                            <li>Move, rotate, scale whole objects</li>
+                            <li>Add/delete objects</li>
+                            <li>Duplicate objects</li>
+                        </ul>
+                        <h4>日本語:</h4>
+                        <ul>
+                            <li>オブジェクト全体で作業</li>
+                            <li>オブジェクト全体を移動、回転、スケール</li>
+                            <li>オブジェクトを追加/削除</li>
+                            <li>オブジェクトを複製</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Edit Mode / 編集モード</h3>
+                    <div class="highlight-box">
+                        <h4>English:</h4>
+                        <ul>
+                            <li>Modify object geometry</li>
+                            <li>Select vertices, edges, faces</li>
+                            <li>Extrude, inset, loop cut</li>
+                            <li>Shape and sculpt objects</li>
+                        </ul>
+                        <h4>日本語:</h4>
+                        <ul>
+                            <li>オブジェクトのジオメトリを変更</li>
+                            <li>頂点、エッジ、面を選択</li>
+                            <li>押し出し、インセット、ループカット</li>
+                            <li>オブジェクトを形成してスカルプト</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px; font-size: 1.4em;">
+                <strong>Toggle with <kbd>Tab</kbd> key / <kbd>Tab</kbd>キーで切替</strong>
+            </p>
+        </div>
+
+        <!-- Slide 12: Edit Mode Selection -->
+        <div class="slide">
+            <h2>✨ Edit Mode Selection Modes</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Selection Modes:</h3>
+                    <table class="shortcut-table">
+                        <tr>
+                            <td><kbd>1</kbd></td>
+                            <td><strong>Vertex Mode</strong></td>
+                            <td>Select individual points</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>2</kbd></td>
+                            <td><strong>Edge Mode</strong></td>
+                            <td>Select edges between vertices</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>3</kbd></td>
+                            <td><strong>Face Mode</strong></td>
+                            <td>Select surfaces/polygons</td>
+                        </tr>
+                    </table>
+                    <h4>Selection Tools:</h4>
+                    <ul>
+                        <li><kbd>Left Click</kbd> - Select single element</li>
+                        <li><kbd>Shift</kbd> + <kbd>Left Click</kbd> - Add to selection</li>
+                        <li><kbd>A</kbd> - Select all</li>
+                        <li><kbd>Alt</kbd> + <kbd>A</kbd> - Deselect all</li>
+                        <li><kbd>B</kbd> - Box select</li>
+                        <li><kbd>C</kbd> - Circle select</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>選択モード:</h3>
+                    <table class="shortcut-table">
+                        <tr>
+                            <td><kbd>1</kbd></td>
+                            <td><strong>頂点モード</strong></td>
+                            <td>個々の点を選択</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>2</kbd></td>
+                            <td><strong>エッジモード</strong></td>
+                            <td>頂点間のエッジを選択</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>3</kbd></td>
+                            <td><strong>面モード</strong></td>
+                            <td>表面/ポリゴンを選択</td>
+                        </tr>
+                    </table>
+                    <h4>選択ツール:</h4>
+                    <ul>
+                        <li><kbd>左クリック</kbd> - 単一要素を選択</li>
+                        <li><kbd>Shift</kbd> + <kbd>左クリック</kbd> - 選択に追加</li>
+                        <li><kbd>A</kbd> - すべて選択</li>
+                        <li><kbd>Alt</kbd> + <kbd>A</kbd> - すべて選択解除</li>
+                        <li><kbd>B</kbd> - ボックス選択</li>
+                        <li><kbd>C</kbd> - サークル選択</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Essential Edit Mode Tools -->
+        <div class="slide">
+            <h2>🔨 Essential Edit Mode Tools</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Tool / ツール</th>
+                        <th>Shortcut</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Extrude / 押し出し</strong></td>
+                        <td><kbd>E</kbd></td>
+                        <td>Create new geometry by extending selected faces / 選択した面を拡張して新しいジオメトリを作成</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inset Faces / インセット面</strong></td>
+                        <td><kbd>I</kbd></td>
+                        <td>Create inset within selected faces / 選択した面内にインセットを作成</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Loop Cut / ループカット</strong></td>
+                        <td><kbd>Ctrl</kbd> + <kbd>R</kbd></td>
+                        <td>Add edge loops to mesh / メッシュにエッジループを追加</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Subdivide / 細分化</strong></td>
+                        <td>Right-click → Subdivide</td>
+                        <td>Divide edges/faces into smaller parts / エッジ/面をより小さな部分に分割</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Merge / マージ</strong></td>
+                        <td><kbd>M</kbd></td>
+                        <td>Combine selected vertices / 選択した頂点を結合</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Delete / 削除</strong></td>
+                        <td><kbd>X</kbd></td>
+                        <td>Delete selected geometry (vertices/edges/faces) / 選択したジオメトリを削除</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 14: Adding Primitive Shapes -->
+        <div class="slide">
+            <h2>➕ Adding Primitive Shapes / プリミティブ形状の追加</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Press <kbd>Shift</kbd> + <kbd>A</kbd> to open Add Menu</h3>
+                    <h4>Common Primitives:</h4>
+                    <ul>
+                        <li><strong>Cube:</strong> 6-sided box (starting object)</li>
+                        <li><strong>UV Sphere:</strong> Smooth sphere (32 segments)</li>
+                        <li><strong>Cylinder:</strong> Tube shape with circular ends</li>
+                        <li><strong>Cone:</strong> Pointed shape narrowing to a point</li>
+                        <li><strong>Plane:</strong> Flat square surface</li>
+                        <li><strong>Torus:</strong> Donut shape</li>
+                    </ul>
+                    <h4>Pro Tip:</h4>
+                    <p>After adding object, you can immediately adjust settings in the bottom-left corner!</p>
+                </div>
+                <div class="japanese">
+                    <h3><kbd>Shift</kbd> + <kbd>A</kbd>を押して追加メニューを開く</h3>
+                    <h4>一般的なプリミティブ:</h4>
+                    <ul>
+                        <li><strong>立方体:</strong> 6面のボックス（開始オブジェクト）</li>
+                        <li><strong>UV球:</strong> 滑らかな球（32セグメント）</li>
+                        <li><strong>円柱:</strong> 円形の端を持つチューブ形状</li>
+                        <li><strong>円錐:</strong> 点に向かって狭くなる尖った形状</li>
+                        <li><strong>平面:</strong> 平らな正方形の表面</li>
+                        <li><strong>トーラス:</strong> ドーナツ形状</li>
+                    </ul>
+                    <h4>プロのヒント:</h4>
+                    <p>オブジェクトを追加した後、左下隅で設定をすぐに調整できます！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Demo Project - Simple House -->
+        <div class="slide">
+            <h2>🏠 Demo Project: Simple House</h2>
+            <div class="code-box">
+                <strong>Step-by-Step Instructions:</strong>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Base of House / 家の基礎:</strong>
+                        <ul>
+                            <li>Start with default cube</li>
+                            <li>Press <kbd>S</kbd> → type <kbd>2</kbd> → <kbd>Enter</kbd> (scale up)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Roof Base / 屋根ベース:</strong>
+                        <ul>
+                            <li><kbd>Shift</kbd> + <kbd>A</kbd> → Mesh → Cube</li>
+                            <li><kbd>G</kbd> → <kbd>Z</kbd> → type <kbd>2</kbd> → <kbd>Enter</kbd> (move up)</li>
+                            <li><kbd>S</kbd> → <kbd>X</kbd> → <kbd>1.2</kbd> → <kbd>Enter</kbd> (scale X)</li>
+                            <li><kbd>S</kbd> → <kbd>Z</kbd> → <kbd>0.2</kbd> → <kbd>Enter</kbd> (flatten)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Roof / 屋根:</strong>
+                        <ul>
+                            <li><kbd>Shift</kbd> + <kbd>A</kbd> → Mesh → Cone</li>
+                            <li><kbd>G</kbd> → <kbd>Z</kbd> → position above roof base</li>
+                            <li><kbd>S</kbd> → scale to fit</li>
+                            <li><kbd>R</kbd> → <kbd>Y</kbd> → <kbd>90</kbd> → <kbd>Enter</kbd> (if needed)</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 16: GitHub Setup for Coursework -->
+        <div class="slide">
+            <h2>📦 GitHub Setup for Coursework</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Repository Setup:</h3>
+                    <ol>
+                        <li>Create new repository: <code>game-dev-2025-yourname</code></li>
+                        <li>Initialize with README</li>
+                        <li>Add .gitignore template for Unity</li>
+                        <li>Clone repository to local machine</li>
+                    </ol>
+                    <h4>Folder Structure:</h4>
+                    <div class="code-box">
+game-dev-2025-yourname/
+├── week-01/
+├── week-02/
+├── week-03/
+...
+└── week-12/
+                    </div>
+                    <h4>Basic Workflow:</h4>
+                    <ol>
+                        <li>Save Blender file in appropriate week folder</li>
+                        <li>Commit changes with descriptive message</li>
+                        <li>Push to GitHub</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h3>リポジトリセットアップ:</h3>
+                    <ol>
+                        <li>新しいリポジトリを作成: <code>game-dev-2025-yourname</code></li>
+                        <li>READMEで初期化</li>
+                        <li>Unity用の.gitignoreテンプレートを追加</li>
+                        <li>ローカルマシンにリポジトリをクローン</li>
+                    </ol>
+                    <h4>フォルダ構造:</h4>
+                    <div class="code-box">
+game-dev-2025-yourname/
+├── week-01/
+├── week-02/
+├── week-03/
+...
+└── week-12/
+                    </div>
+                    <h4>基本的なワークフロー:</h4>
+                    <ol>
+                        <li>適切な週フォルダにBlenderファイルを保存</li>
+                        <li>説明的なメッセージで変更をコミット</li>
+                        <li>GitHubにプッシュ</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Week 1 Assignment -->
+        <div class="slide">
+            <h2>📝 Week 1 Assignment / 第1週の課題</h2>
+            <div class="highlight-box">
+                <h3>Assignment: Create a Simple Maze Layout</h3>
+                <h3>課題：シンプルな迷路レイアウトを作成</h3>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>Requirements:</h4>
+                    <ul>
+                        <li>Create a maze using cubes as walls</li>
+                        <li>Minimum size: 5x5 units</li>
+                        <li>Include:
+                            <ul>
+                                <li>Start area (green cube)</li>
+                                <li>Goal area (red cube or different object)</li>
+                                <li>At least 3 pathways</li>
+                                <li>Floor plane</li>
+                            </ul>
+                        </li>
+                        <li>Save as: <code>week-01/maze.blend</code></li>
+                        <li>Push to GitHub</li>
+                    </ul>
+                    <h4>Bonus:</h4>
+                    <ul>
+                        <li>Add obstacles or decorations</li>
+                        <li>Use different primitive shapes</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h4>要件:</h4>
+                    <ul>
+                        <li>壁として立方体を使用して迷路を作成</li>
+                        <li>最小サイズ：5x5ユニット</li>
+                        <li>含める:
+                            <ul>
+                                <li>スタートエリア（緑の立方体）</li>
+                                <li>ゴールエリア（赤い立方体または異なるオブジェクト）</li>
+                                <li>少なくとも3つの経路</li>
+                                <li>床平面</li>
+                            </ul>
+                        </li>
+                        <li>保存: <code>week-01/maze.blend</code></li>
+                        <li>GitHubにプッシュ</li>
+                    </ul>
+                    <h4>ボーナス:</h4>
+                    <ul>
+                        <li>障害物や装飾を追加</li>
+                        <li>異なるプリミティブ形状を使用</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Common Mistakes to Avoid -->
+        <div class="slide">
+            <h2>⚠️ Common Mistakes to Avoid</h2>
+            <div class="two-column">
+                <div class="english">
+                    <h3>Navigation Issues:</h3>
+                    <ul>
+                        <li>❌ Forgetting middle mouse button alternatives</li>
+                        <li>✅ Use Alt+Left Click if no MMB</li>
+                    </ul>
+                    <h3>Lost in 3D Space:</h3>
+                    <ul>
+                        <li>❌ Can't find objects</li>
+                        <li>✅ Press <kbd>Home</kbd> or <kbd>NumPad .</kbd> to frame all</li>
+                    </ul>
+                    <h3>Mode Confusion:</h3>
+                    <ul>
+                        <li>❌ Not knowing current mode</li>
+                        <li>✅ Check mode indicator (top-left)</li>
+                    </ul>
+                    <h3>File Management:</h3>
+                    <ul>
+                        <li>❌ Not saving or wrong location</li>
+                        <li>✅ Save early, save often</li>
+                        <li>✅ Use proper folder structure</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ナビゲーションの問題:</h3>
+                    <ul>
+                        <li>❌ 中ボタンの代替を忘れる</li>
+                        <li>✅ MMBがない場合はAlt+左クリックを使用</li>
+                    </ul>
+                    <h3>3D空間で迷子:</h3>
+                    <ul>
+                        <li>❌ オブジェクトが見つからない</li>
+                        <li>✅ <kbd>Home</kbd>または<kbd>NumPad .</kbd>を押してすべてをフレーム</li>
+                    </ul>
+                    <h3>モードの混乱:</h3>
+                    <ul>
+                        <li>❌ 現在のモードがわからない</li>
+                        <li>✅ モードインジケータを確認（左上）</li>
+                    </ul>
+                    <h3>ファイル管理:</h3>
+                    <ul>
+                        <li>❌ 保存しない、または間違った場所に保存</li>
+                        <li>✅ 早めに保存、頻繁に保存</li>
+                        <li>✅ 適切なフォルダ構造を使用</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Resources & Support -->
+        <div class="slide">
+            <h2>📚 Resources & Support / リソースとサポート</h2>
+            <div class="two-column">
+                <div>
+                    <h3>English Resources:</h3>
+                    <ul>
+                        <li><strong>Blender Manual:</strong>
+                            <br>docs.blender.org</li>
+                        <li><strong>Video Tutorials:</strong>
+                            <ul>
+                                <li>Blender Guru</li>
+                                <li>Grant Abbitt</li>
+                                <li>CG Cookie</li>
+                            </ul>
+                        </li>
+                        <li><strong>Community:</strong>
+                            <ul>
+                                <li>Blender Artists Forum</li>
+                                <li>r/blender</li>
+                                <li>Blender Stack Exchange</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>日本語リソース:</h3>
+                    <ul>
+                        <li><strong>Blenderマニュアル:</strong>
+                            <br>docs.blender.org/ja</li>
+                        <li><strong>ビデオチュートリアル:</strong>
+                            <ul>
+                                <li>Blender Japan</li>
+                                <li>CGrad</li>
+                                <li>3D人</li>
+                            </ul>
+                        </li>
+                        <li><strong>コミュニティ:</strong>
+                            <ul>
+                                <li>Blender Japan</li>
+                                <li>日本語フォーラム</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 30px;">
+                <h3>💬 Getting Help:</h3>
+                <p><strong>English:</strong> Ask classmates, post in discussion forum, contact instructor</p>
+                <p><strong>日本語:</strong> クラスメートに聞く、ディスカッションフォーラムに投稿、インストラクターに連絡</p>
+            </div>
+        </div>
+
+        <!-- Slide 20: Next Week Preview & Summary -->
+        <div class="slide">
+            <h2>🎯 Summary & Next Week Preview</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Today You Learned:</h3>
+                    <ul>
+                        <li>✅ Course structure and expectations</li>
+                        <li>✅ Blender interface navigation</li>
+                        <li>✅ Essential keyboard shortcuts</li>
+                        <li>✅ Transform tools (G, R, S)</li>
+                        <li>✅ Object vs Edit mode</li>
+                        <li>✅ Adding and manipulating primitives</li>
+                        <li>✅ GitHub repository setup</li>
+                    </ul>
+                    <h3>Next Week - Week 2:</h3>
+                    <ul>
+                        <li>🔹 Advanced Modeling Techniques</li>
+                        <li>🔹 Modifiers (Array, Mirror, Subdivision)</li>
+                        <li>🔹 Materials and Basic Texturing</li>
+                        <li>🔹 Lighting Fundamentals</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>今日学んだこと:</h3>
+                    <ul>
+                        <li>✅ コース構成と期待事項</li>
+                        <li>✅ Blenderインターフェースナビゲーション</li>
+                        <li>✅ 必須キーボードショートカット</li>
+                        <li>✅ トランスフォームツール（G、R、S）</li>
+                        <li>✅ オブジェクトモード vs 編集モード</li>
+                        <li>✅ プリミティブの追加と操作</li>
+                        <li>✅ GitHubリポジトリのセットアップ</li>
+                    </ul>
+                    <h3>来週 - 第2週:</h3>
+                    <ul>
+                        <li>🔹 高度なモデリング技術</li>
+                        <li>🔹 モディファイア（配列、ミラー、サブディビジョン）</li>
+                        <li>🔹 マテリアルと基本的なテクスチャリング</li>
+                        <li>🔹 ライティングの基礎</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 30px; text-align: center;">
+                <h2>🎉 Thank You! / ありがとうございました！</h2>
+                <p style="font-size: 1.3em;">Questions? / 質問はありますか？</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+
+            document.getElementById('slideNumber').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                showSlide(0);
+            } else if (event.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
