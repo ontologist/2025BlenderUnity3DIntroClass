@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Installation & Setup Guide | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .guide-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .guide-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .guide-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .guide-content h4 {
+            color: var(--text-color);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .guide-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .guide-content pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        .guide-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .guide-content ul, .guide-content ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .guide-content li {
+            margin: 8px 0;
+        }
+        .guide-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .guide-content table th,
+        .guide-content table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        .guide-content table th {
+            background: var(--bg-light);
+            font-weight: bold;
+        }
+        .bilingual-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+        .english-content {
+            margin-bottom: 20px;
+        }
+        .japanese-content {
+            color: var(--text-light);
+        }
+        .important-box {
+            background: #dbeafe;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .back-link {
+            margin: 20px 0;
+        }
+        .step-number {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎨 Blender Installation & Setup Guide</h1>
+            <p class="subtitle">Blender インストール＆セットアップガイド</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../index.html">← Back to Course</a>
+            <a href="github-setup.html">GitHub Setup</a>
+            <a href="cursor-setup.html">Cursor Setup</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="guide-content">
+            <div class="back-link">
+                <a href="../index.html" class="btn btn-secondary">← Back to Course Home</a>
+            </div>
+
+            <h2>Introduction / 紹介</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Blender is a free, open-source 3D creation suite that supports 3D modeling, animation, rendering, and more. In this course, you'll use Blender to:</p>
+                    <ul>
+                        <li>Create 3D models for game environments</li>
+                        <li>Design game objects and characters</li>
+                        <li>Build complete game levels</li>
+                        <li>Export models to Unity3D</li>
+                    </ul>
+                    <p>This guide will walk you through installing and setting up Blender 4.0+ for this course in about 10-15 minutes.</p>
+                    <p><strong>What You'll Learn:</strong></p>
+                    <ul>
+                        <li>How to download and install Blender</li>
+                        <li>Initial configuration for game development</li>
+                        <li>Basic interface navigation</li>
+                        <li>Essential shortcuts and settings</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <p>Blenderは、3Dモデリング、アニメーション、レンダリングなどをサポートする無料のオープンソース3D作成スイートです。このコースでは、Blenderを以下のために使用します：</p>
+                    <ul>
+                        <li>ゲーム環境用の3Dモデルを作成</li>
+                        <li>ゲームオブジェクトとキャラクターをデザイン</li>
+                        <li>完全なゲームレベルを構築</li>
+                        <li>モデルをUnity3Dにエクスポート</li>
+                    </ul>
+                    <p>このガイドでは、約10〜15分でこのコース用のBlender 4.0+のインストールとセットアップを説明します。</p>
+                    <p><strong>学ぶこと:</strong></p>
+                    <ul>
+                        <li>Blenderのダウンロードとインストール方法</li>
+                        <li>ゲーム開発のための初期設定</li>
+                        <li>基本的なインターフェースナビゲーション</li>
+                        <li>必須のショートカットと設定</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>System Requirements / システム要件</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Minimum Requirements:</h4>
+                    <ul>
+                        <li><strong>OS:</strong> Windows 10/11, macOS 10.13+, or Linux</li>
+                        <li><strong>CPU:</strong> 64-bit quad core CPU</li>
+                        <li><strong>RAM:</strong> 8 GB</li>
+                        <li><strong>Graphics:</strong> 2 GB VRAM, OpenGL 4.3 compatible</li>
+                        <li><strong>Display:</strong> 1920x1080 resolution</li>
+                        <li><strong>Storage:</strong> 500 MB for installation</li>
+                    </ul>
+                    <h4>Recommended Requirements:</h4>
+                    <ul>
+                        <li><strong>CPU:</strong> 64-bit eight core CPU</li>
+                        <li><strong>RAM:</strong> 16 GB or more</li>
+                        <li><strong>Graphics:</strong> 4 GB VRAM or more, NVIDIA or AMD GPU</li>
+                        <li><strong>Display:</strong> 2560x1440 or higher</li>
+                        <li><strong>Mouse:</strong> 3-button mouse or trackpad with gesture support</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>最小要件:</h4>
+                    <ul>
+                        <li><strong>OS:</strong> Windows 10/11、macOS 10.13+、またはLinux</li>
+                        <li><strong>CPU:</strong> 64ビットクアッドコアCPU</li>
+                        <li><strong>RAM:</strong> 8 GB</li>
+                        <li><strong>グラフィックス:</strong> 2 GB VRAM、OpenGL 4.3互換</li>
+                        <li><strong>ディスプレイ:</strong> 1920x1080解像度</li>
+                        <li><strong>ストレージ:</strong> インストールに500 MB</li>
+                    </ul>
+                    <h4>推奨要件:</h4>
+                    <ul>
+                        <li><strong>CPU:</strong> 64ビットオクタコアCPU</li>
+                        <li><strong>RAM:</strong> 16 GB以上</li>
+                        <li><strong>グラフィックス:</strong> 4 GB VRAM以上、NVIDIAまたはAMD GPU</li>
+                        <li><strong>ディスプレイ:</strong> 2560x1440以上</li>
+                        <li><strong>マウス:</strong> 3ボタンマウスまたはジェスチャーサポート付きトラックパッド</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2><span class="step-number">1</span> Download Blender / Blenderをダウンロード</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li><strong>Visit the official Blender website:</strong>
+                            <ul><li>Go to <a href="https://www.blender.org/download/" target="_blank">https://www.blender.org/download/</a></li></ul>
+                        </li>
+                        <li><strong>Choose your operating system:</strong>
+                            <ul>
+                                <li>The website automatically detects your OS</li>
+                                <li>Click the large <strong>"Download Blender 4.3"</strong> button (or latest version)</li>
+                                <li><strong>Windows:</strong> Downloads a <code>.msi</code> installer or <code>.zip</code> portable version</li>
+                                <li><strong>Mac:</strong> Downloads a <code>.dmg</code> disk image</li>
+                                <li><strong>Linux:</strong> Choose your distribution (Snap, Flatpak, or direct download)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Alternative: Download LTS (Long Term Support) Version:</strong>
+                            <ul>
+                                <li>Scroll down to find "Long Term Support" section</li>
+                                <li>Blender 4.2 LTS is recommended for stability</li>
+                                <li>Click the appropriate download button for your OS</li>
+                            </ul>
+                        </li>
+                        <li><strong>Wait for download to complete:</strong>
+                            <ul>
+                                <li>File size: approximately 200-300 MB</li>
+                                <li>Save to your Downloads folder</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>Note:</strong> For this course, Blender 4.0 or higher is required. Version 4.2 LTS or 4.3+ are recommended.
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li><strong>公式Blenderウェブサイトにアクセス:</strong>
+                            <ul><li><a href="https://www.blender.org/download/" target="_blank">https://www.blender.org/download/</a> にアクセス</li></ul>
+                        </li>
+                        <li><strong>オペレーティングシステムを選択:</strong>
+                            <ul>
+                                <li>ウェブサイトが自動的にOSを検出します</li>
+                                <li>大きな <strong>「Download Blender 4.3」</strong> ボタン（または最新バージョン）をクリック</li>
+                                <li><strong>Windows:</strong> <code>.msi</code>インストーラーまたは<code>.zip</code>ポータブルバージョンをダウンロード</li>
+                                <li><strong>Mac:</strong> <code>.dmg</code>ディスクイメージをダウンロード</li>
+                                <li><strong>Linux:</strong> ディストリビューションを選択（Snap、Flatpak、または直接ダウンロード）</li>
+                            </ul>
+                        </li>
+                        <li><strong>代替：LTS（長期サポート）バージョンをダウンロード:</strong>
+                            <ul>
+                                <li>下にスクロールして「Long Term Support」セクションを見つける</li>
+                                <li>安定性のためにBlender 4.2 LTSを推奨</li>
+                                <li>OS用の適切なダウンロードボタンをクリック</li>
+                            </ul>
+                        </li>
+                        <li><strong>ダウンロードが完了するまで待つ:</strong>
+                            <ul>
+                                <li>ファイルサイズ：約200〜300 MB</li>
+                                <li>Downloadsフォルダに保存</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>注意:</strong> このコースでは、Blender 4.0以上が必要です。バージョン4.2 LTSまたは4.3+を推奨します。
+                    </div>
+                </div>
+            </div>
+
+            <h2><span class="step-number">2</span> Install Blender / Blenderをインストール</h2>
+
+            <h3>For Windows / Windows用</h3>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Locate the downloaded file: <code>blender-4.x.x-windows-x64.msi</code></li>
+                        <li>Double-click to run the installer</li>
+                        <li>Windows SmartScreen may appear:
+                            <ul><li>Click "More info" → "Run anyway"</li></ul>
+                        </li>
+                        <li>Follow the installation wizard:
+                            <ul>
+                                <li>Click "Next" on the welcome screen</li>
+                                <li>Accept the End User License Agreement</li>
+                                <li>Choose installation location:
+                                    <ul>
+                                        <li>Default: <code>C:\Program Files\Blender Foundation\Blender 4.x</code></li>
+                                        <li>Or choose custom location with enough space (1 GB recommended)</li>
+                                    </ul>
+                                </li>
+                                <li>Select components to install (keep defaults)</li>
+                                <li>Choose whether to create desktop shortcut (recommended)</li>
+                            </ul>
+                        </li>
+                        <li>Click "Install"</li>
+                        <li>Wait for installation to complete (2-3 minutes)</li>
+                        <li>Click "Finish"
+                            <ul><li>Check "Launch Blender" to start immediately</li></ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>ダウンロードしたファイルを見つける: <code>blender-4.x.x-windows-x64.msi</code></li>
+                        <li>ダブルクリックしてインストーラーを実行</li>
+                        <li>Windows SmartScreenが表示される場合:
+                            <ul><li>「詳細情報」→「実行」をクリック</li></ul>
+                        </li>
+                        <li>インストールウィザードに従う:
+                            <ul>
+                                <li>ウェルカム画面で「次へ」をクリック</li>
+                                <li>エンドユーザーライセンス契約に同意</li>
+                                <li>インストール場所を選択:
+                                    <ul>
+                                        <li>デフォルト: <code>C:\Program Files\Blender Foundation\Blender 4.x</code></li>
+                                        <li>または十分なスペースのあるカスタム場所（1 GB推奨）</li>
+                                    </ul>
+                                </li>
+                                <li>インストールするコンポーネントを選択（デフォルトのまま）</li>
+                                <li>デスクトップショートカットを作成するかどうかを選択（推奨）</li>
+                            </ul>
+                        </li>
+                        <li>「インストール」をクリック</li>
+                        <li>インストールが完了するまで待つ（2〜3分）</li>
+                        <li>「完了」をクリック
+                            <ul><li>すぐに起動するには「Launch Blender」にチェック</li></ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <h3>For Mac / Mac用</h3>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Locate the downloaded file: <code>blender-4.x.x-macos-arm64.dmg</code> (Apple Silicon) or <code>blender-4.x.x-macos-x64.dmg</code> (Intel)</li>
+                        <li>Double-click the <code>.dmg</code> file to open it</li>
+                        <li>Drag the Blender icon to the Applications folder
+                            <ul><li>This installs Blender on your Mac</li></ul>
+                        </li>
+                        <li>Eject the Blender disk image
+                            <ul>
+                                <li>Right-click the disk image on desktop → "Eject"</li>
+                                <li>Or drag it to the Trash</li>
+                            </ul>
+                        </li>
+                        <li>Open Applications folder</li>
+                        <li>First launch security:
+                            <ul>
+                                <li>Find Blender in Applications</li>
+                                <li><strong>Right-click</strong> (or Control+click) on Blender → Select "Open"</li>
+                                <li>macOS will warn: "Blender is an app downloaded from the internet"</li>
+                                <li>Click "Open" to confirm</li>
+                                <li>This only needs to be done the first time</li>
+                            </ul>
+                        </li>
+                        <li>Blender will launch</li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>Note for Apple Silicon (M1/M2/M3) Macs:</strong> Download the ARM64 version for best performance. The Intel version will work but runs slower through Rosetta 2.
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>ダウンロードしたファイルを見つける: <code>blender-4.x.x-macos-arm64.dmg</code>（Apple Silicon）または<code>blender-4.x.x-macos-x64.dmg</code>（Intel）</li>
+                        <li><code>.dmg</code>ファイルをダブルクリックして開く</li>
+                        <li>BlenderアイコンをApplicationsフォルダにドラッグ
+                            <ul><li>これによりBlenderがMacにインストールされます</li></ul>
+                        </li>
+                        <li>Blenderディスクイメージを取り出す
+                            <ul>
+                                <li>デスクトップのディスクイメージを右クリック →「取り出す」</li>
+                                <li>またはゴミ箱にドラッグ</li>
+                            </ul>
+                        </li>
+                        <li>Applicationsフォルダを開く</li>
+                        <li>初回起動時のセキュリティ:
+                            <ul>
+                                <li>ApplicationsでBlenderを見つける</li>
+                                <li>Blenderを<strong>右クリック</strong>（またはControl+クリック）→「開く」を選択</li>
+                                <li>macOSが警告：「Blenderはインターネットからダウンロードされたアプリです」</li>
+                                <li>「開く」をクリックして確認</li>
+                                <li>これは初回のみ行う必要があります</li>
+                            </ul>
+                        </li>
+                        <li>Blenderが起動します</li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>Apple Silicon（M1/M2/M3）Mac向けの注意:</strong> 最高のパフォーマンスのためにARM64バージョンをダウンロード。Intelバージョンも動作しますが、Rosetta 2を通じて遅くなります。
+                    </div>
+                </div>
+            </div>
+
+            <h3>For Linux / Linux用</h3>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Option A: Using Snap (Recommended for Ubuntu/Debian):</h4>
+                    <pre><code>sudo snap install blender --classic</code></pre>
+
+                    <h4>Option B: Using Flatpak:</h4>
+                    <pre><code>flatpak install flathub org.blender.Blender</code></pre>
+
+                    <h4>Option C: Direct Download (.tar.xz):</h4>
+                    <ol>
+                        <li>Download the <code>.tar.xz</code> file from blender.org</li>
+                        <li>Extract the archive:
+                            <pre><code>cd ~/Downloads
+tar -xf blender-4.x.x-linux-x64.tar.xz</code></pre>
+                        </li>
+                        <li>Move to <code>/opt/</code> or your preferred location:
+                            <pre><code>sudo mv blender-4.x.x-linux-x64 /opt/blender</code></pre>
+                        </li>
+                        <li>Create a symbolic link (optional):
+                            <pre><code>sudo ln -s /opt/blender/blender /usr/local/bin/blender</code></pre>
+                        </li>
+                        <li>Launch from terminal: <code>blender</code></li>
+                    </ol>
+
+                    <h4>Option D: Distribution Package Manager:</h4>
+                    <ul>
+                        <li><strong>Arch Linux:</strong> <code>sudo pacman -S blender</code></li>
+                        <li><strong>Fedora:</strong> <code>sudo dnf install blender</code></li>
+                        <li><strong>Debian/Ubuntu:</strong> <code>sudo apt install blender</code> (Note: Repo versions may be older)</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>オプションA：Snapを使用（Ubuntu/Debian推奨）:</h4>
+                    <pre><code>sudo snap install blender --classic</code></pre>
+
+                    <h4>オプションB：Flatpakを使用:</h4>
+                    <pre><code>flatpak install flathub org.blender.Blender</code></pre>
+
+                    <h4>オプションC：直接ダウンロード（.tar.xz）:</h4>
+                    <ol>
+                        <li>blender.orgから<code>.tar.xz</code>ファイルをダウンロード</li>
+                        <li>アーカイブを展開:
+                            <pre><code>cd ~/Downloads
+tar -xf blender-4.x.x-linux-x64.tar.xz</code></pre>
+                        </li>
+                        <li><code>/opt/</code>または好みの場所に移動:
+                            <pre><code>sudo mv blender-4.x.x-linux-x64 /opt/blender</code></pre>
+                        </li>
+                        <li>シンボリックリンクを作成（オプション）:
+                            <pre><code>sudo ln -s /opt/blender/blender /usr/local/bin/blender</code></pre>
+                        </li>
+                        <li>ターミナルから起動: <code>blender</code></li>
+                    </ol>
+
+                    <h4>オプションD：ディストリビューションパッケージマネージャー:</h4>
+                    <ul>
+                        <li><strong>Arch Linux:</strong> <code>sudo pacman -S blender</code></li>
+                        <li><strong>Fedora:</strong> <code>sudo dnf install blender</code></li>
+                        <li><strong>Debian/Ubuntu:</strong> <code>sudo apt install blender</code> （注意：リポジトリのバージョンは古い場合があります）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2><span class="step-number">3</span> First Launch & Initial Setup / 初回起動と初期セットアップ</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>When you launch Blender for the first time:</p>
+                    <ol>
+                        <li><strong>Splash Screen Appears:</strong>
+                            <ul>
+                                <li>Shows the Blender version and news</li>
+                                <li><strong>Click anywhere to dismiss</strong> or wait a few seconds</li>
+                            </ul>
+                        </li>
+                        <li><strong>Quick Setup Dialog:</strong> If this appears, configure the following:
+                            <ul>
+                                <li><strong>Language:</strong> Select "English" (or "日本語" if you prefer Japanese interface)</li>
+                                <li><strong>Shortcuts:</strong> Select <strong>"Blender"</strong> (recommended for this course). Alternative: "Industry Compatible" (similar to Maya/3ds Max)</li>
+                                <li><strong>Theme:</strong> Select <strong>"Blender Dark"</strong> (recommended - easier on eyes). Alternative: "Blender Light"</li>
+                                <li><strong>Select With:</strong> Keep as <strong>"Left Click"</strong> (default and recommended)</li>
+                                <li><strong>Spacebar Action:</strong> Set to <strong>"Play"</strong> (recommended for this course). This makes Spacebar start/stop animations</li>
+                            </ul>
+                        </li>
+                        <li>Click <strong>"Next"</strong> and then <strong>"Save Preferences"</strong></li>
+                        <li>You'll see the default Blender workspace with:
+                            <ul>
+                                <li>Default cube in the center</li>
+                                <li>Camera</li>
+                                <li>Light source</li>
+                                <li>3D viewport</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <p>Blenderを初めて起動すると：</p>
+                    <ol>
+                        <li><strong>スプラッシュ画面が表示されます:</strong>
+                            <ul>
+                                <li>Blenderバージョンとニュースが表示されます</li>
+                                <li><strong>どこかをクリックして閉じる</strong>か、数秒待つ</li>
+                            </ul>
+                        </li>
+                        <li><strong>クイックセットアップダイアログ:</strong> これが表示された場合、以下を設定:
+                            <ul>
+                                <li><strong>Language:</strong> 「English」を選択（または日本語インターフェースが好みなら「日本語」）</li>
+                                <li><strong>Shortcuts:</strong> <strong>「Blender」</strong>を選択（このコースに推奨）。代替：「Industry Compatible」（MayaとMAX/3ds Maxに類似）</li>
+                                <li><strong>Theme:</strong> <strong>「Blender Dark」</strong>を選択（推奨 - 目に優しい）。代替：「Blender Light」</li>
+                                <li><strong>Select With:</strong> <strong>「Left Click」</strong>のままにする（デフォルトで推奨）</li>
+                                <li><strong>Spacebar Action:</strong> <strong>「Play」</strong>に設定（このコースに推奨）。これによりスペースバーでアニメーションが開始/停止します</li>
+                            </ul>
+                        </li>
+                        <li><strong>「Next」</strong>をクリックしてから<strong>「Save Preferences」</strong>をクリック</li>
+                        <li>デフォルトのBlenderワークスペースが表示されます:
+                            <ul>
+                                <li>中央にデフォルトキューブ</li>
+                                <li>カメラ</li>
+                                <li>ライトソース</li>
+                                <li>3Dビューポート</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">4</span> Interface Overview / インターフェースの概要</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Understanding Blender's interface is crucial. Here are the main areas:</p>
+                    <ul>
+                        <li><strong>1. 3D Viewport (Center):</strong>
+                            <ul>
+                                <li>Main working area where you create 3D models</li>
+                                <li>Contains grid floor, camera, lights, and objects</li>
+                                <li>This is where you'll spend most of your time</li>
+                            </ul>
+                        </li>
+                        <li><strong>2. Outliner (Top Right):</strong>
+                            <ul>
+                                <li>Shows hierarchy of all objects in your scene</li>
+                                <li>Click to select objects</li>
+                                <li>Click the eye icon to hide/show objects</li>
+                            </ul>
+                        </li>
+                        <li><strong>3. Properties Panel (Bottom Right):</strong>
+                            <ul>
+                                <li>Shows properties of selected object</li>
+                                <li>Tabs for different settings (Object, Modifier, Material, etc.)</li>
+                                <li>Used to configure object details</li>
+                            </ul>
+                        </li>
+                        <li><strong>4. Timeline (Bottom):</strong>
+                            <ul>
+                                <li>For animations (we'll use this later in the course)</li>
+                                <li>Shows frame numbers and keyframes</li>
+                            </ul>
+                        </li>
+                        <li><strong>5. Top Menu Bar:</strong>
+                            <ul>
+                                <li>File, Edit, Render, Window, Help</li>
+                                <li>Access to all major functions</li>
+                            </ul>
+                        </li>
+                        <li><strong>6. Tool Shelf (Left Side):</strong>
+                            <ul>
+                                <li>Contains tools for modeling</li>
+                                <li>Select, Move, Rotate, Scale, and more</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4>Navigation Tips:</h4>
+                    <ul>
+                        <li><strong>Middle Mouse Button (MMB):</strong> Rotate view by dragging</li>
+                        <li><strong>Shift + MMB:</strong> Pan view (move sideways)</li>
+                        <li><strong>Scroll Wheel:</strong> Zoom in/out</li>
+                        <li><strong>Trackpad Users:</strong> Two-finger drag to rotate, pinch to zoom</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <p>Blenderのインターフェースを理解することは非常に重要です。主なエリアは以下です：</p>
+                    <ul>
+                        <li><strong>1. 3Dビューポート（中央）:</strong>
+                            <ul>
+                                <li>3Dモデルを作成するメインの作業エリア</li>
+                                <li>グリッド床、カメラ、ライト、オブジェクトが含まれます</li>
+                                <li>ここでほとんどの時間を過ごします</li>
+                            </ul>
+                        </li>
+                        <li><strong>2. アウトライナー（右上）:</strong>
+                            <ul>
+                                <li>シーン内のすべてのオブジェクトの階層を表示</li>
+                                <li>クリックしてオブジェクトを選択</li>
+                                <li>目のアイコンをクリックしてオブジェクトを非表示/表示</li>
+                            </ul>
+                        </li>
+                        <li><strong>3. プロパティパネル（右下）:</strong>
+                            <ul>
+                                <li>選択されたオブジェクトのプロパティを表示</li>
+                                <li>異なる設定のタブ（オブジェクト、モディファイア、マテリアルなど）</li>
+                                <li>オブジェクトの詳細を設定するために使用</li>
+                            </ul>
+                        </li>
+                        <li><strong>4. タイムライン（下部）:</strong>
+                            <ul>
+                                <li>アニメーション用（コースの後半で使用します）</li>
+                                <li>フレーム番号とキーフレームを表示</li>
+                            </ul>
+                        </li>
+                        <li><strong>5. トップメニューバー:</strong>
+                            <ul>
+                                <li>ファイル、編集、レンダリング、ウィンドウ、ヘルプ</li>
+                                <li>すべての主要機能へのアクセス</li>
+                            </ul>
+                        </li>
+                        <li><strong>6. ツールシェルフ（左側）:</strong>
+                            <ul>
+                                <li>モデリング用のツールを含む</li>
+                                <li>選択、移動、回転、スケールなど</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4>ナビゲーションのヒント:</h4>
+                    <ul>
+                        <li><strong>マウス中ボタン（MMB）:</strong> ドラッグでビューを回転</li>
+                        <li><strong>Shift + MMB:</strong> ビューをパン（横に移動）</li>
+                        <li><strong>スクロールホイール:</strong> ズームイン/アウト</li>
+                        <li><strong>トラックパッドユーザー:</strong> 2本指ドラッグで回転、ピンチでズーム</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2><span class="step-number">5</span> Essential Settings for Game Development / ゲーム開発のための必須設定</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Let's configure Blender for game development:</p>
+                    <ol>
+                        <li><strong>Enable Auto Save:</strong>
+                            <ul>
+                                <li>Go to <strong>Edit → Preferences</strong> (or <strong>Blender → Preferences</strong> on Mac)</li>
+                                <li>Click <strong>"Save & Load"</strong> on the left</li>
+                                <li>Enable <strong>"Auto Save"</strong></li>
+                                <li>Set <strong>"Auto Save Time"</strong> to <strong>2 minutes</strong></li>
+                                <li>Click the <strong>☰</strong> menu → <strong>"Save Preferences"</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Set Units to Metric:</strong>
+                            <ul>
+                                <li>In the <strong>Properties Panel</strong> (bottom right), find the <strong>Scene Properties</strong> tab</li>
+                                <li>Expand <strong>"Units"</strong> section</li>
+                                <li>Set <strong>"Unit System"</strong> to <strong>"Metric"</strong></li>
+                                <li>Set <strong>"Length"</strong> to <strong>"Meters"</strong></li>
+                                <li>This matches Unity's default unit system</li>
+                            </ul>
+                        </li>
+                        <li><strong>Enable Screencast Keys (Optional but Helpful):</strong>
+                            <ul>
+                                <li>Go to <strong>Edit → Preferences → Add-ons</strong></li>
+                                <li>Search for <strong>"Screencast Keys"</strong></li>
+                                <li>Check the box to enable it</li>
+                                <li>This shows which keys you're pressing (helpful for learning)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Enable Node Wrangler (Helpful for Materials):</strong>
+                            <ul>
+                                <li>In <strong>Edit → Preferences → Add-ons</strong></li>
+                                <li>Search for <strong>"Node Wrangler"</strong></li>
+                                <li>Check the box to enable it</li>
+                                <li>Provides shortcuts for working with materials</li>
+                            </ul>
+                        </li>
+                        <li><strong>Increase Undo Steps:</strong>
+                            <ul>
+                                <li>In <strong>Edit → Preferences → System</strong></li>
+                                <li>Find <strong>"Undo Steps"</strong></li>
+                                <li>Increase to <strong>64</strong> (default is 32)</li>
+                                <li>Allows more undo history</li>
+                            </ul>
+                        </li>
+                        <li><strong>Save Preferences:</strong>
+                            <ul>
+                                <li>Click the <strong>☰</strong> menu at bottom left of Preferences window</li>
+                                <li>Select <strong>"Save Preferences"</strong></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <p>ゲーム開発用にBlenderを設定しましょう：</p>
+                    <ol>
+                        <li><strong>自動保存を有効化:</strong>
+                            <ul>
+                                <li><strong>編集 → プリファレンス</strong>（またはMacでは<strong>Blender → プリファレンス</strong>）に移動</li>
+                                <li>左側の<strong>「保存とロード」</strong>をクリック</li>
+                                <li><strong>「自動保存」</strong>を有効化</li>
+                                <li><strong>「自動保存時間」</strong>を<strong>2分</strong>に設定</li>
+                                <li><strong>☰</strong>メニュー → <strong>「プリファレンスを保存」</strong>をクリック</li>
+                            </ul>
+                        </li>
+                        <li><strong>単位をメートル法に設定:</strong>
+                            <ul>
+                                <li><strong>プロパティパネル</strong>（右下）で、<strong>シーンプロパティ</strong>タブを見つける</li>
+                                <li><strong>「単位」</strong>セクションを展開</li>
+                                <li><strong>「単位系」</strong>を<strong>「メートル法」</strong>に設定</li>
+                                <li><strong>「長さ」</strong>を<strong>「メートル」</strong>に設定</li>
+                                <li>これはUnityのデフォルト単位系と一致します</li>
+                            </ul>
+                        </li>
+                        <li><strong>スクリーンキャストキーを有効化（オプションだが役立つ）:</strong>
+                            <ul>
+                                <li><strong>編集 → プリファレンス → アドオン</strong>に移動</li>
+                                <li><strong>「Screencast Keys」</strong>を検索</li>
+                                <li>チェックボックスをオンにして有効化</li>
+                                <li>押しているキーが表示されます（学習に役立ちます）</li>
+                            </ul>
+                        </li>
+                        <li><strong>Node Wranglerを有効化（マテリアルに役立つ）:</strong>
+                            <ul>
+                                <li><strong>編集 → プリファレンス → アドオン</strong>で</li>
+                                <li><strong>「Node Wrangler」</strong>を検索</li>
+                                <li>チェックボックスをオンにして有効化</li>
+                                <li>マテリアル作業のためのショートカットを提供</li>
+                            </ul>
+                        </li>
+                        <li><strong>元に戻すステップを増やす:</strong>
+                            <ul>
+                                <li><strong>編集 → プリファレンス → システム</strong>で</li>
+                                <li><strong>「元に戻すステップ」</strong>を見つける</li>
+                                <li><strong>64</strong>に増やす（デフォルトは32）</li>
+                                <li>より多くの元に戻す履歴を許可</li>
+                            </ul>
+                        </li>
+                        <li><strong>プリファレンスを保存:</strong>
+                            <ul>
+                                <li>プリファレンスウィンドウの左下の<strong>☰</strong>メニューをクリック</li>
+                                <li><strong>「プリファレンスを保存」</strong>を選択</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">6</span> Basic Navigation Practice / 基本的なナビゲーション練習</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Let's practice navigating in Blender:</p>
+                    <ol>
+                        <li><strong>Select the Default Cube:</strong> <strong>Left-click</strong> on the cube (it should highlight in orange)</li>
+                        <li><strong>Delete the Cube:</strong> Press <strong>X</strong> key, select "Delete" from the menu</li>
+                        <li><strong>Add a New Object:</strong> Press <strong>Shift + A</strong> (Add menu appears), select <strong>Mesh → UV Sphere</strong></li>
+                        <li><strong>Move the Camera View:</strong>
+                            <ul>
+                                <li>Hold <strong>Middle Mouse Button</strong> and drag to rotate view</li>
+                                <li><strong>Scroll wheel</strong> to zoom in/out</li>
+                                <li><strong>Shift + Middle Mouse Button</strong> to pan</li>
+                            </ul>
+                        </li>
+                        <li><strong>Reset View:</strong>
+                            <ul>
+                                <li>Press <strong>Numpad 7</strong> for top view</li>
+                                <li>Press <strong>Numpad 1</strong> for front view</li>
+                                <li>Press <strong>Numpad 3</strong> for right side view</li>
+                                <li>Press <strong>Numpad 0</strong> for camera view</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>No Numpad?</strong> Enable Emulate Numpad: Edit → Preferences → Input → Check "Emulate Numpad". Now use regular numbers for view shortcuts.
+                    </div>
+                    <ol start="6">
+                        <li><strong>Frame Selected Object:</strong> Select an object, press <strong>Numpad Period (.)</strong> or View → Frame Selected</li>
+                        <li><strong>Undo/Redo:</strong> <strong>Ctrl + Z</strong> to undo, <strong>Ctrl + Shift + Z</strong> to redo</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <p>Blenderでのナビゲーションを練習しましょう：</p>
+                    <ol>
+                        <li><strong>デフォルトキューブを選択:</strong> キューブを<strong>左クリック</strong>（オレンジ色でハイライトされるはず）</li>
+                        <li><strong>キューブを削除:</strong> <strong>X</strong>キーを押し、メニューから「削除」を選択</li>
+                        <li><strong>新しいオブジェクトを追加:</strong> <strong>Shift + A</strong>を押す（追加メニューが表示）、<strong>メッシュ → UV球</strong>を選択</li>
+                        <li><strong>カメラビューを移動:</strong>
+                            <ul>
+                                <li><strong>マウス中ボタン</strong>を押しながらドラッグしてビューを回転</li>
+                                <li><strong>スクロールホイール</strong>でズームイン/アウト</li>
+                                <li><strong>Shift +マウス中ボタン</strong>でパン</li>
+                            </ul>
+                        </li>
+                        <li><strong>ビューをリセット:</strong>
+                            <ul>
+                                <li><strong>テンキー7</strong>で上面ビュー</li>
+                                <li><strong>テンキー1</strong>で正面ビュー</li>
+                                <li><strong>テンキー3</strong>で右側面ビュー</li>
+                                <li><strong>テンキー0</strong>でカメラビュー</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>テンキーがない？</strong> テンキーエミュレートを有効化: 編集 → プリファレンス → 入力 → 「テンキーをエミュレート」にチェック。これで通常の数字をビューショートカットに使用できます。
+                    </div>
+                    <ol start="6">
+                        <li><strong>選択したオブジェクトをフレーム:</strong> オブジェクトを選択、<strong>テンキーのピリオド（.）</strong>を押すか、ビュー → 選択をフレームに収める</li>
+                        <li><strong>元に戻す/やり直し:</strong> <strong>Ctrl + Z</strong>で元に戻す、<strong>Ctrl + Shift + Z</strong>でやり直す</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2>Essential Blender Shortcuts / 必須のBlenderショートカット</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Memorize these essential shortcuts for efficient workflow:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Shortcut</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Add Object</strong></td>
+                                <td>Shift + A</td>
+                                <td>Opens add menu for meshes, lights, cameras</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Delete</strong></td>
+                                <td>X</td>
+                                <td>Delete selected object</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Select</strong></td>
+                                <td>Left Click</td>
+                                <td>Select object</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Select All</strong></td>
+                                <td>A</td>
+                                <td>Select all objects</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Deselect All</strong></td>
+                                <td>Alt + A</td>
+                                <td>Deselect everything</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grab/Move</strong></td>
+                                <td>G</td>
+                                <td>Move selected object (then X/Y/Z to constrain)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rotate</strong></td>
+                                <td>R</td>
+                                <td>Rotate selected object (then X/Y/Z for axis)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scale</strong></td>
+                                <td>S</td>
+                                <td>Scale selected object (then X/Y/Z for axis)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Duplicate</strong></td>
+                                <td>Shift + D</td>
+                                <td>Duplicate selected object</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tab</strong></td>
+                                <td>Tab</td>
+                                <td>Toggle Edit Mode / Object Mode</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Save</strong></td>
+                                <td>Ctrl + S</td>
+                                <td>Save current file</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Undo</strong></td>
+                                <td>Ctrl + Z</td>
+                                <td>Undo last action</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Search</strong></td>
+                                <td>F3</td>
+                                <td>Search for any command</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Render</strong></td>
+                                <td>F12</td>
+                                <td>Render current scene</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="important-box">
+                        <strong>Pro Tips:</strong>
+                        <ul>
+                            <li>After pressing G, R, or S, type a number to set exact values. Example: G → Z → 2 → Enter (moves object 2 units up on Z axis)</li>
+                            <li>Press the axis key twice to use local orientation. Example: G → Z → Z (moves along object's local Z axis)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <p>効率的なワークフローのために、これらの必須ショートカットを覚えましょう：</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>アクション</th>
+                                <th>ショートカット</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>オブジェクトを追加</strong></td>
+                                <td>Shift + A</td>
+                                <td>メッシュ、ライト、カメラの追加メニューを開く</td>
+                            </tr>
+                            <tr>
+                                <td><strong>削除</strong></td>
+                                <td>X</td>
+                                <td>選択したオブジェクトを削除</td>
+                            </tr>
+                            <tr>
+                                <td><strong>選択</strong></td>
+                                <td>左クリック</td>
+                                <td>オブジェクトを選択</td>
+                            </tr>
+                            <tr>
+                                <td><strong>すべて選択</strong></td>
+                                <td>A</td>
+                                <td>すべてのオブジェクトを選択</td>
+                            </tr>
+                            <tr>
+                                <td><strong>すべて選択解除</strong></td>
+                                <td>Alt + A</td>
+                                <td>すべての選択を解除</td>
+                            </tr>
+                            <tr>
+                                <td><strong>グラブ/移動</strong></td>
+                                <td>G</td>
+                                <td>選択したオブジェクトを移動（その後X/Y/Zで軸に制約）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>回転</strong></td>
+                                <td>R</td>
+                                <td>選択したオブジェクトを回転（その後X/Y/Zで軸）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>スケール</strong></td>
+                                <td>S</td>
+                                <td>選択したオブジェクトをスケール（その後X/Y/Zで軸）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>複製</strong></td>
+                                <td>Shift + D</td>
+                                <td>選択したオブジェクトを複製</td>
+                            </tr>
+                            <tr>
+                                <td><strong>タブ</strong></td>
+                                <td>Tab</td>
+                                <td>編集モード/オブジェクトモードを切り替え</td>
+                            </tr>
+                            <tr>
+                                <td><strong>保存</strong></td>
+                                <td>Ctrl + S</td>
+                                <td>現在のファイルを保存</td>
+                            </tr>
+                            <tr>
+                                <td><strong>元に戻す</strong></td>
+                                <td>Ctrl + Z</td>
+                                <td>最後のアクションを元に戻す</td>
+                            </tr>
+                            <tr>
+                                <td><strong>検索</strong></td>
+                                <td>F3</td>
+                                <td>任意のコマンドを検索</td>
+                            </tr>
+                            <tr>
+                                <td><strong>レンダー</strong></td>
+                                <td>F12</td>
+                                <td>現在のシーンをレンダリング</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="important-box">
+                        <strong>プロのヒント:</strong>
+                        <ul>
+                            <li>G、R、またはSを押した後、数字を入力して正確な値を設定。例：G → Z → 2 → Enter（Z軸で2単位上に移動）</li>
+                            <li>軸キーを2回押してローカル方向を使用。例：G → Z → Z（オブジェクトのローカルZ軸に沿って移動）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2><span class="step-number">7</span> Create Your First Save File / 最初の保存ファイルを作成</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Let's save your first Blender file:</p>
+                    <ol>
+                        <li><strong>Prepare Your Workspace:</strong> Create a <code>week-01</code> folder in your course repository (if not already created)</li>
+                        <li><strong>Save Your Blender File:</strong>
+                            <ul>
+                                <li>Go to <strong>File → Save As...</strong></li>
+                                <li>Navigate to your course repository: <code>game-dev-2025-yourname/week-01/</code></li>
+                                <li>Name your file: <code>test-scene.blend</code></li>
+                                <li>Click <strong>"Save As"</strong></li>
+                            </ul>
+                        </li>
+                        <li><strong>Verify Auto-Save is Working:</strong>
+                            <ul>
+                                <li>Make a change (add an object: Shift + A → Mesh → Cube)</li>
+                                <li>Wait 2 minutes</li>
+                                <li>Check that auto-save created a backup file</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>Blender File Tips:</strong>
+                        <ul>
+                            <li><code>.blend</code> files contain your entire scene (objects, materials, lights, etc.)</li>
+                            <li>Always save frequently (Ctrl + S)</li>
+                            <li>Blender creates automatic backups (<code>.blend1</code>, <code>.blend2</code>)</li>
+                            <li>Your <code>.gitignore</code> should already exclude backup files from Git</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <p>最初のBlenderファイルを保存しましょう：</p>
+                    <ol>
+                        <li><strong>ワークスペースを準備:</strong> コースリポジトリに<code>week-01</code>フォルダを作成（まだ作成していない場合）</li>
+                        <li><strong>Blenderファイルを保存:</strong>
+                            <ul>
+                                <li><strong>ファイル → 名前を付けて保存...</strong>に移動</li>
+                                <li>コースリポジトリに移動：<code>game-dev-2025-yourname/week-01/</code></li>
+                                <li>ファイルに名前を付ける：<code>test-scene.blend</code></li>
+                                <li><strong>「名前を付けて保存」</strong>をクリック</li>
+                            </ul>
+                        </li>
+                        <li><strong>自動保存が機能していることを確認:</strong>
+                            <ul>
+                                <li>変更を加える（オブジェクトを追加：Shift + A → メッシュ → 立方体）</li>
+                                <li>2分待つ</li>
+                                <li>自動保存がバックアップファイルを作成したことを確認</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>Blenderファイルのヒント:</strong>
+                        <ul>
+                            <li><code>.blend</code>ファイルにはシーン全体（オブジェクト、マテリアル、ライトなど）が含まれます</li>
+                            <li>常に頻繁に保存（Ctrl + S）</li>
+                            <li>Blenderは自動バックアップを作成（<code>.blend1</code>、<code>.blend2</code>）</li>
+                            <li><code>.gitignore</code>はすでにGitからバックアップファイルを除外しているはず</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Troubleshooting / トラブルシューティング</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Problem: Blender won't launch</h4>
+                    <ul>
+                        <li><strong>Solution 1:</strong> Check system requirements (8GB RAM minimum, OpenGL 4.3)</li>
+                        <li><strong>Solution 2:</strong> Update graphics drivers</li>
+                        <li><strong>Solution 3:</strong> Try launching in safe mode (hold Shift while launching)</li>
+                        <li><strong>Solution 4:</strong> Reinstall Blender</li>
+                    </ul>
+
+                    <h4>Problem: Interface is too small or too large</h4>
+                    <ul>
+                        <li><strong>Solution:</strong> Edit → Preferences → Interface → Adjust "Resolution Scale"</li>
+                    </ul>
+
+                    <h4>Problem: Can't navigate with trackpad</h4>
+                    <ul>
+                        <li><strong>Solution:</strong> Edit → Preferences → Input → Enable "Emulate 3 Button Mouse"</li>
+                        <li>Now: Alt + Left Click Drag to rotate view</li>
+                    </ul>
+
+                    <h4>Problem: Objects disappearing or clipping</h4>
+                    <ul>
+                        <li><strong>Solution:</strong> Press N → View tab → Adjust "Clip Start" to 0.01 and "Clip End" to 10000</li>
+                    </ul>
+
+                    <h4>Problem: Blender running slowly</h4>
+                    <ul>
+                        <li><strong>Solution 1:</strong> Switch to "Solid" viewport shading mode</li>
+                        <li><strong>Solution 2:</strong> Disable unnecessary add-ons</li>
+                        <li><strong>Solution 3:</strong> Reduce undo steps to 32</li>
+                        <li><strong>Solution 4:</strong> Close other applications to free up RAM</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>問題：Blenderが起動しない</h4>
+                    <ul>
+                        <li><strong>解決策1:</strong> システム要件を確認（最小8GB RAM、OpenGL 4.3）</li>
+                        <li><strong>解決策2:</strong> グラフィックスドライバを更新</li>
+                        <li><strong>解決策3:</strong> セーフモードで起動してみる（起動時にShiftを押し続ける）</li>
+                        <li><strong>解決策4:</strong> Blenderを再インストール</li>
+                    </ul>
+
+                    <h4>問題：インターフェースが小さすぎるまたは大きすぎる</h4>
+                    <ul>
+                        <li><strong>解決策:</strong> 編集 → プリファレンス → インターフェース → 「解像度スケール」を調整</li>
+                    </ul>
+
+                    <h4>問題：トラックパッドでナビゲートできない</h4>
+                    <ul>
+                        <li><strong>解決策:</strong> 編集 → プリファレンス → 入力 → 「3ボタンマウスをエミュレート」を有効化</li>
+                        <li>これで：Alt +左クリックドラッグでビューを回転</li>
+                    </ul>
+
+                    <h4>問題：オブジェクトが消えたりクリッピングしたりする</h4>
+                    <ul>
+                        <li><strong>解決策:</strong> Nを押す → ビュータブ → 「クリップ開始」を0.01に、「クリップ終了」を10000に調整</li>
+                    </ul>
+
+                    <h4>問題：Blenderの動作が遅い</h4>
+                    <ul>
+                        <li><strong>解決策1:</strong> 「ソリッド」ビューポートシェーディングモードに切り替え</li>
+                        <li><strong>解決策2:</strong> 不要なアドオンを無効化</li>
+                        <li><strong>解決策3:</strong> 元に戻すステップを32に減らす</li>
+                        <li><strong>解決策4:</strong> RAMを解放するために他のアプリケーションを閉じる</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Next Steps / 次のステップ</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Now that Blender is installed and configured:</p>
+                    <ol>
+                        <li>✅ Familiarize yourself with the interface</li>
+                        <li>✅ Practice basic navigation (rotate, pan, zoom)</li>
+                        <li>✅ Try adding and deleting objects (Shift + A, X)</li>
+                        <li>✅ Practice moving (G), rotating (R), and scaling (S) objects</li>
+                        <li>✅ Save your practice file to your <code>week-01/</code> folder</li>
+                        <li>✅ Commit and push to GitHub</li>
+                        <li>✅ Ready to start <strong>Week 1 Assignment: Create a simple maze level!</strong></li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>Recommended Practice:</strong>
+                        <ul>
+                            <li>Spend 15-30 minutes just navigating and moving objects</li>
+                            <li>Watch the Quick Start tutorials in Blender: Help → Manual → Quick Start</li>
+                            <li>Get comfortable with G, R, S shortcuts before starting assignments</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <p>Blenderがインストールされ、設定されたので:</p>
+                    <ol>
+                        <li>✅ インターフェースに慣れる</li>
+                        <li>✅ 基本的なナビゲーションを練習（回転、パン、ズーム）</li>
+                        <li>✅ オブジェクトの追加と削除を試す（Shift + A、X）</li>
+                        <li>✅ オブジェクトの移動（G）、回転（R）、スケール（S）を練習</li>
+                        <li>✅ 練習ファイルを<code>week-01/</code>フォルダに保存</li>
+                        <li>✅ GitHubにコミットしてプッシュ</li>
+                        <li>✅ <strong>Week 1課題の準備完了：シンプルな迷路レベルを作成！</strong></li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>推奨される練習:</strong>
+                        <ul>
+                            <li>15〜30分間、ナビゲートとオブジェクトの移動だけを練習</li>
+                            <li>Blenderのクイックスタートチュートリアルを見る：ヘルプ → マニュアル → クイックスタート</li>
+                            <li>課題を始める前にG、R、Sショートカットに慣れる</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ul>
+                        <li><strong>Official Blender Manual:</strong> <a href="https://docs.blender.org/manual/en/latest/" target="_blank">https://docs.blender.org/manual/en/latest/</a></li>
+                        <li><strong>Blender Fundamentals (Video Series):</strong> <a href="https://www.youtube.com/playlist?list=PLa1F2ddGya_-UvuAqHAksYnB0qL9yWDO6" target="_blank">YouTube Playlist</a></li>
+                        <li><strong>Blender Guru (Beginner Tutorial):</strong> <a href="https://www.youtube.com/watch?v=nIoXOplUvAw" target="_blank">Donut Tutorial</a></li>
+                        <li><strong>Blender Hotkey Cheat Sheet:</strong> <a href="https://www.blender.org/support/" target="_blank">https://www.blender.org/support/</a></li>
+                        <li><strong>Blender Stack Exchange:</strong> <a href="https://blender.stackexchange.com/" target="_blank">https://blender.stackexchange.com/</a></li>
+                        <li><strong>r/blender Community:</strong> <a href="https://www.reddit.com/r/blender/" target="_blank">https://www.reddit.com/r/blender/</a></li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <ul>
+                        <li><strong>公式Blenderマニュアル（日本語）:</strong> <a href="https://docs.blender.org/manual/ja/latest/" target="_blank">https://docs.blender.org/manual/ja/latest/</a></li>
+                        <li><strong>Blender基礎（ビデオシリーズ）:</strong> <a href="https://www.youtube.com/playlist?list=PLa1F2ddGya_-UvuAqHAksYnB0qL9yWDO6" target="_blank">YouTubeプレイリスト</a> （英語）</li>
+                        <li><strong>Blender Guru（初心者チュートリアル）:</strong> <a href="https://www.youtube.com/watch?v=nIoXOplUvAw" target="_blank">ドーナツチュートリアル</a> （英語、日本語字幕あり）</li>
+                        <li><strong>Blenderホットキーチートシート:</strong> <a href="https://www.blender.org/support/" target="_blank">https://www.blender.org/support/</a></li>
+                        <li><strong>Blender Stack Exchange:</strong> <a href="https://blender.stackexchange.com/" target="_blank">https://blender.stackexchange.com/</a> （英語）</li>
+                        <li><strong>r/blenderコミュニティ:</strong> <a href="https://www.reddit.com/r/blender/" target="_blank">https://www.reddit.com/r/blender/</a> （英語）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="github-setup.html" class="btn btn-secondary">GitHub Setup →</a>
+                <a href="../index.html" class="btn btn-primary">Back to Course Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>

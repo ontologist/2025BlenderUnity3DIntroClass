@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity3D Installation & Setup Guide | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .guide-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .guide-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .guide-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .guide-content h4 {
+            color: var(--text-color);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .guide-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .guide-content pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        .guide-content pre code {
+            background: none;
+            padding: 0;
+        }
+        .guide-content ul, .guide-content ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        .guide-content li {
+            margin: 8px 0;
+        }
+        .guide-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .guide-content table th,
+        .guide-content table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        .guide-content table th {
+            background: var(--bg-light);
+            font-weight: bold;
+        }
+        .bilingual-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 5px;
+        }
+        .english-content {
+            margin-bottom: 20px;
+        }
+        .japanese-content {
+            color: var(--text-light);
+        }
+        .important-box {
+            background: #dbeafe;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .back-link {
+            margin: 20px 0;
+        }
+        .step-number {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎮 Unity3D Installation & Setup Guide</h1>
+            <p class="subtitle">Unity3D インストール＆セットアップガイド</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../index.html">← Back to Course</a>
+            <a href="github-setup.html">GitHub Setup</a>
+            <a href="blender-setup.html">Blender Setup</a>
+            <a href="cursor-setup.html">Cursor Setup</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="guide-content">
+            <div class="back-link">
+                <a href="../index.html" class="btn btn-secondary">← Back to Course Home</a>
+            </div>
+
+            <h2>Introduction / 紹介</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Unity3D is a powerful cross-platform game engine used to create 2D and 3D games. In this course, you'll use Unity3D to:</p>
+                    <ul>
+                        <li>Import Blender models into game scenes</li>
+                        <li>Add physics and interactivity to game objects</li>
+                        <li>Create player controls and game mechanics</li>
+                        <li>Build complete playable game projects</li>
+                        <li>Export games for multiple platforms</li>
+                    </ul>
+                    <p>This guide will walk you through installing and setting up Unity3D for this course in about 15-20 minutes.</p>
+                    <p><strong>What You'll Learn:</strong></p>
+                    <ul>
+                        <li>How to install Unity Hub and Unity Editor</li>
+                        <li>How to create and manage Unity projects</li>
+                        <li>Basic Unity interface navigation</li>
+                        <li>Essential settings for game development</li>
+                        <li>How to connect Unity with your code editor (Cursor)</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <p>Unity3Dは、2Dおよび3Dゲームを作成するために使用される強力なクロスプラットフォームゲームエンジンです。このコースでは、Unity3Dを以下のために使用します：</p>
+                    <ul>
+                        <li>Blenderモデルをゲームシーンにインポート</li>
+                        <li>ゲームオブジェクトに物理とインタラクティビティを追加</li>
+                        <li>プレイヤーコントロールとゲームメカニクスを作成</li>
+                        <li>完全なプレイ可能なゲームプロジェクトを構築</li>
+                        <li>複数のプラットフォーム用にゲームをエクスポート</li>
+                    </ul>
+                    <p>このガイドでは、約15〜20分でこのコース用のUnity3Dのインストールとセットアップを説明します。</p>
+                    <p><strong>学ぶこと:</strong></p>
+                    <ul>
+                        <li>Unity HubとUnity Editorのインストール方法</li>
+                        <li>Unityプロジェクトの作成と管理方法</li>
+                        <li>基本的なUnityインターフェースナビゲーション</li>
+                        <li>ゲーム開発のための必須設定</li>
+                        <li>Unityをコードエディタ（Cursor）と接続する方法</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>System Requirements / システム要件</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Minimum Requirements:</h4>
+                    <ul>
+                        <li><strong>OS:</strong> Windows 10 (64-bit), macOS 10.15+, or Ubuntu 20.04+</li>
+                        <li><strong>CPU:</strong> X64 architecture with SSE2 instruction set support</li>
+                        <li><strong>RAM:</strong> 8 GB</li>
+                        <li><strong>Graphics:</strong> DX10 (shader model 4.0) capable GPU</li>
+                        <li><strong>Storage:</strong>
+                            <ul>
+                                <li>Unity Hub: ~100 MB</li>
+                                <li>Unity Editor: 4-6 GB per version</li>
+                                <li>Projects: 1-5 GB per project (varies)</li>
+                                <li><strong>Total Recommended:</strong> 20 GB free space</li>
+                            </ul>
+                        </li>
+                        <li><strong>Internet:</strong> Required for installation and asset downloads</li>
+                    </ul>
+                    <h4>Recommended Requirements:</h4>
+                    <ul>
+                        <li><strong>OS:</strong> Windows 11 (64-bit) or macOS 12+</li>
+                        <li><strong>CPU:</strong> Quad-core processor or better</li>
+                        <li><strong>RAM:</strong> 16 GB or more</li>
+                        <li><strong>Graphics:</strong> Dedicated GPU with 4 GB VRAM (NVIDIA GeForce GTX 1060 or AMD Radeon RX 580 or better)</li>
+                        <li><strong>Storage:</strong> SSD with 40 GB+ free space</li>
+                        <li><strong>Display:</strong> 1920x1080 or higher resolution</li>
+                    </ul>
+                    <div class="important-box">
+                        <strong>Note for Apple Silicon (M1/M2/M3) Macs:</strong> Unity runs natively on Apple Silicon with excellent performance in Unity 2022 LTS and newer.
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <h4>最小要件:</h4>
+                    <ul>
+                        <li><strong>OS:</strong> Windows 10（64ビット）、macOS 10.15+、またはUbuntu 20.04+</li>
+                        <li><strong>CPU:</strong> SSE2命令セットをサポートするX64アーキテクチャ</li>
+                        <li><strong>RAM:</strong> 8 GB</li>
+                        <li><strong>グラフィックス:</strong> DX10（シェーダーモデル4.0）対応GPU</li>
+                        <li><strong>ストレージ:</strong>
+                            <ul>
+                                <li>Unity Hub：約100 MB</li>
+                                <li>Unity Editor：バージョンごとに4〜6 GB</li>
+                                <li>プロジェクト：プロジェクトごとに1〜5 GB（変動）</li>
+                                <li><strong>合計推奨:</strong> 20 GB以上の空き容量</li>
+                            </ul>
+                        </li>
+                        <li><strong>インターネット:</strong> インストールとアセットのダウンロードに必要</li>
+                    </ul>
+                    <h4>推奨要件:</h4>
+                    <ul>
+                        <li><strong>OS:</strong> Windows 11（64ビット）またはmacOS 12+</li>
+                        <li><strong>CPU:</strong> クアッドコアプロセッサ以上</li>
+                        <li><strong>RAM:</strong> 16 GB以上</li>
+                        <li><strong>グラフィックス:</strong> 4 GB VRAMの専用GPU（NVIDIA GeForce GTX 1060またはAMD Radeon RX 580またはそれ以上）</li>
+                        <li><strong>ストレージ:</strong> 40 GB以上の空き容量のあるSSD</li>
+                        <li><strong>ディスプレイ:</strong> 1920x1080以上の解像度</li>
+                    </ul>
+                    <div class="important-box">
+                        <strong>Apple Silicon（M1/M2/M3）Mac向けの注意:</strong> UnityはApple Siliconでネイティブに動作し、Unity 2022 LTS以降では優れたパフォーマンスを発揮します。
+                    </div>
+                </div>
+            </div>
+
+            <h2><span class="step-number">1</span> Create Unity Account / Unityアカウントを作成</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Before installing Unity, create a free Unity account:</p>
+                    <ol>
+                        <li>Visit Unity ID website: <a href="https://id.unity.com/" target="_blank">https://id.unity.com/</a></li>
+                        <li>Click "Create a Unity ID"</li>
+                        <li>Enter your information:
+                            <ul>
+                                <li>Email address (use your school email if possible)</li>
+                                <li>Username</li>
+                                <li>Password (strong password recommended)</li>
+                                <li>Full name</li>
+                            </ul>
+                        </li>
+                        <li>Verify your email (check inbox and click verification link)</li>
+                        <li>Choose License Type (you'll be asked during installation):
+                            <ul>
+                                <li><strong>Unity Personal (Free)</strong> - Choose this for the course</li>
+                                <li>Requirements: Revenue/funding less than $100K/year</li>
+                                <li>Perfect for students and learning</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Why create account first?</strong> Faster installation, immediate access to Unity services, Asset Store access, and cloud features.</p>
+                </div>
+                <div class="japanese-content">
+                    <p>Unityをインストールする前に、無料のUnityアカウントを作成します：</p>
+                    <ol>
+                        <li>Unity IDウェブサイトにアクセス：<a href="https://id.unity.com/" target="_blank">https://id.unity.com/</a></li>
+                        <li>「Create a Unity ID」をクリック</li>
+                        <li>情報を入力:
+                            <ul>
+                                <li>メールアドレス（可能であれば学校のメールを使用）</li>
+                                <li>ユーザー名</li>
+                                <li>パスワード（強力なパスワードを推奨）</li>
+                                <li>フルネーム</li>
+                            </ul>
+                        </li>
+                        <li>メールを確認（受信トレイを確認して確認リンクをクリック）</li>
+                        <li>ライセンスタイプを選択（インストール中に尋ねられます）:
+                            <ul>
+                                <li><strong>Unity Personal（無料）</strong> - このコース用にこれを選択</li>
+                                <li>要件：年間収益/資金が$100K未満</li>
+                                <li>学生と学習に最適</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>なぜアカウントを最初に作成？</strong> より速いインストール、Unityサービスへの即座のアクセス、アセットストアへのアクセス、クラウド機能。</p>
+                </div>
+            </div>
+
+            <h2><span class="step-number">2</span> Download Unity Hub / Unity Hubをダウンロード</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Unity Hub is a management tool for Unity installations and projects.</p>
+                    <ol>
+                        <li>Visit Unity Download page: <a href="https://unity.com/download" target="_blank">https://unity.com/download</a></li>
+                        <li>Click <strong>"Download Unity Hub"</strong> (website detects your OS automatically)</li>
+                        <li>File size: approximately 100 MB</li>
+                        <li>Choose your platform:
+                            <ul>
+                                <li><strong>Windows:</strong> <code>UnityHubSetup.exe</code></li>
+                                <li><strong>Mac:</strong> <code>UnityHubSetup.dmg</code></li>
+                                <li><strong>Linux:</strong> <code>UnityHub.AppImage</code></li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>What is Unity Hub?</strong> Central application to manage Unity versions, project manager and launcher, license management, and easy version switching.
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <p>Unity Hubは、Unityのインストールとプロジェクトを管理するためのツールです。</p>
+                    <ol>
+                        <li>Unityダウンロードページにアクセス：<a href="https://unity.com/download" target="_blank">https://unity.com/download</a></li>
+                        <li><strong>「Download Unity Hub」</strong>をクリック（ウェブサイトが自動的にOSを検出）</li>
+                        <li>ファイルサイズ：約100 MB</li>
+                        <li>プラットフォームを選択:
+                            <ul>
+                                <li><strong>Windows:</strong> <code>UnityHubSetup.exe</code></li>
+                                <li><strong>Mac:</strong> <code>UnityHubSetup.dmg</code></li>
+                                <li><strong>Linux:</strong> <code>UnityHub.AppImage</code></li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>Unity Hubとは？</strong> Unityバージョンを管理するための中央アプリケーション、プロジェクトマネージャーとランチャー、ライセンス管理、簡単なバージョン切り替え。
+                    </div>
+                </div>
+            </div>
+
+            <h2><span class="step-number">3</span> Install Unity Hub / Unity Hubをインストール</h2>
+
+            <h3>For Windows / Windows用</h3>
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Locate <code>UnityHubSetup.exe</code> and double-click to run</li>
+                        <li>If Windows SmartScreen appears, click "More info" → "Run anyway"</li>
+                        <li>Accept the Unity Hub License Agreement</li>
+                        <li>Choose installation location (default: <code>C:\Program Files\Unity Hub</code>)</li>
+                        <li>Click "Install" and wait (1-2 minutes)</li>
+                        <li>Launch Unity Hub when installation completes</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li><code>UnityHubSetup.exe</code>を見つけてダブルクリックして実行</li>
+                        <li>Windows SmartScreenが表示された場合、「詳細情報」→「実行」をクリック</li>
+                        <li>Unity Hubライセンス契約に同意</li>
+                        <li>インストール場所を選択（デフォルト：<code>C:\Program Files\Unity Hub</code>）</li>
+                        <li>「Install」をクリックして待つ（1〜2分）</li>
+                        <li>インストール完了時にUnity Hubを起動</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h3>For Mac / Mac用</h3>
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Locate <code>UnityHubSetup.dmg</code> and double-click to open</li>
+                        <li>Drag Unity Hub to Applications folder</li>
+                        <li>Eject the disk image</li>
+                        <li>Open Applications folder and find Unity Hub</li>
+                        <li>Right-click Unity Hub → "Open" (first time only for macOS security)</li>
+                        <li>Click "Open" to confirm</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li><code>UnityHubSetup.dmg</code>を見つけてダブルクリックして開く</li>
+                        <li>Unity HubをApplicationsフォルダにドラッグ</li>
+                        <li>ディスクイメージを取り出す</li>
+                        <li>ApplicationsフォルダでUnity Hubを見つける</li>
+                        <li>Unity Hubを右クリック →「開く」（初回のみmacOSセキュリティ用）</li>
+                        <li>「開く」をクリックして確認</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h3>For Linux / Linux用</h3>
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Make the AppImage executable:
+                            <pre><code>chmod +x UnityHub.AppImage</code></pre>
+                        </li>
+                        <li>Run Unity Hub:
+                            <pre><code>./UnityHub.AppImage</code></pre>
+                        </li>
+                        <li>(Optional) Move to /opt for system-wide access:
+                            <pre><code>sudo mv UnityHub.AppImage /opt/UnityHub.AppImage
+sudo ln -s /opt/UnityHub.AppImage /usr/local/bin/unityhub</code></pre>
+                        </li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>AppImageを実行可能にする:
+                            <pre><code>chmod +x UnityHub.AppImage</code></pre>
+                        </li>
+                        <li>Unity Hubを実行:
+                            <pre><code>./UnityHub.AppImage</code></pre>
+                        </li>
+                        <li>（オプション）システム全体でのアクセスのために/optに移動:
+                            <pre><code>sudo mv UnityHub.AppImage /opt/UnityHub.AppImage
+sudo ln -s /opt/UnityHub.AppImage /usr/local/bin/unityhub</code></pre>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">4</span> Sign in to Unity Hub / Unity Hubにサインイン</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>Launch Unity Hub (if not already open)</li>
+                        <li>Click <strong>"Sign in"</strong> button (top right)</li>
+                        <li>Enter your Unity ID email and password</li>
+                        <li>Click "Sign in"</li>
+                        <li>Choose your license:
+                            <ul>
+                                <li>Click <strong>"Add"</strong> or <strong>"Get Unity Personal"</strong></li>
+                                <li>Select <strong>"Unity Personal"</strong></li>
+                                <li>Check the boxes:
+                                    <ul>
+                                        <li>✅ "I don't use Unity in a professional capacity"</li>
+                                        <li>✅ Accept terms</li>
+                                    </ul>
+                                </li>
+                                <li>Click <strong>"Done"</strong> or <strong>"Activate"</strong></li>
+                            </ul>
+                        </li>
+                        <li>Verify license activation (look for green checkmark next to "Unity Personal")</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>Unity Hubを起動（まだ開いていない場合）</li>
+                        <li><strong>「Sign in」</strong>ボタンをクリック（右上）</li>
+                        <li>Unity IDメールとパスワードを入力</li>
+                        <li>「Sign in」をクリック</li>
+                        <li>ライセンスを選択:
+                            <ul>
+                                <li><strong>「Add」</strong>または<strong>「Get Unity Personal」</strong>をクリック</li>
+                                <li><strong>「Unity Personal」</strong>を選択</li>
+                                <li>チェックボックスにチェック:
+                                    <ul>
+                                        <li>✅ 「I don't use Unity in a professional capacity」</li>
+                                        <li>✅ 規約に同意</li>
+                                    </ul>
+                                </li>
+                                <li><strong>「Done」</strong>または<strong>「Activate」</strong>をクリック</li>
+                            </ul>
+                        </li>
+                        <li>ライセンスアクティベーションを確認（「Unity Personal」の横に緑のチェックマークを探す）</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">5</span> Install Unity Editor / Unity Editorをインストール</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>In Unity Hub, click the <strong>"Installs"</strong> tab (left sidebar)</li>
+                        <li>Click <strong>"Install Editor"</strong> or <strong>"Add"</strong> button</li>
+                        <li>Choose Unity Version:
+                            <ul>
+                                <li><strong>Recommended for this course:</strong> Unity <strong>2022 LTS (Long Term Support)</strong></li>
+                                <li>Look for <strong>"2022.3.x LTS"</strong> (where x is the latest patch number)</li>
+                                <li>Click <strong>"Install"</strong></li>
+                            </ul>
+                        </li>
+                        <li>Add Modules (Important!):
+                            <ul>
+                                <li><strong>Essential Modules:</strong>
+                                    <ul>
+                                        <li>✅ Microsoft Visual Studio Community (Windows only, optional if using Cursor)</li>
+                                        <li>✅ Documentation (offline Unity manual)</li>
+                                        <li>✅ Language Pack (optional - add Japanese if desired)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Build Support (choose your target platforms):</strong>
+                                    <ul>
+                                        <li>✅ Windows Build Support (IL2CPP)</li>
+                                        <li>✅ Mac Build Support (Mono)</li>
+                                        <li>✅ Linux Build Support (Mono)</li>
+                                        <li>✅ WebGL Build Support (to build browser games)</li>
+                                        <li>⚠️ Android Build Support (optional)</li>
+                                        <li>⚠️ iOS Build Support (optional, Mac only)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>Accept license agreements</li>
+                        <li>Click "Continue" then "Install"</li>
+                        <li>Wait for installation (4-6 GB download, 15-30 minutes depending on internet speed)</li>
+                        <li>Verify installation: Unity 2022.3.x LTS listed in "Installs" tab with green "Open" button</li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>Unity Hubで<strong>「Installs」</strong>タブをクリック（左サイドバー）</li>
+                        <li><strong>「Install Editor」</strong>または<strong>「Add」</strong>ボタンをクリック</li>
+                        <li>Unityバージョンを選択:
+                            <ul>
+                                <li><strong>このコースに推奨:</strong> Unity <strong>2022 LTS（長期サポート）</strong></li>
+                                <li><strong>「2022.3.x LTS」</strong>を探す（xは最新のパッチ番号）</li>
+                                <li><strong>「Install」</strong>をクリック</li>
+                            </ul>
+                        </li>
+                        <li>モジュールを追加（重要！）:
+                            <ul>
+                                <li><strong>必須モジュール:</strong>
+                                    <ul>
+                                        <li>✅ Microsoft Visual Studio Community（Windowsのみ、Cursorを使用する場合はオプション）</li>
+                                        <li>✅ Documentation（オフラインUnityマニュアル）</li>
+                                        <li>✅ Language Pack（オプション - 必要に応じて日本語を追加）</li>
+                                    </ul>
+                                </li>
+                                <li><strong>ビルドサポート（ターゲットプラットフォームを選択）:</strong>
+                                    <ul>
+                                        <li>✅ Windows Build Support (IL2CPP)</li>
+                                        <li>✅ Mac Build Support (Mono)</li>
+                                        <li>✅ Linux Build Support (Mono)</li>
+                                        <li>✅ WebGL Build Support（ブラウザゲームをビルドする場合）</li>
+                                        <li>⚠️ Android Build Support（オプション）</li>
+                                        <li>⚠️ iOS Build Support（オプション、Macのみ）</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>ライセンス契約に同意</li>
+                        <li>「Continue」をクリックしてから「Install」</li>
+                        <li>インストールを待つ（4〜6 GBダウンロード、インターネット速度に応じて15〜30分）</li>
+                        <li>インストールを確認：「Installs」タブにUnity 2022.3.x LTSがリストされ、緑色の「Open」ボタンがあります</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">6</span> Create Your First Unity Project / 最初のUnityプロジェクトを作成</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ol>
+                        <li>In Unity Hub, click the <strong>"Projects"</strong> tab</li>
+                        <li>Click <strong>"New project"</strong> button</li>
+                        <li>Configure project settings:
+                            <ul>
+                                <li><strong>Editor Version:</strong> Select Unity 2022.3.x LTS</li>
+                                <li><strong>Template:</strong> Choose <strong>"3D (Built-in Render Pipeline)"</strong></li>
+                                <li><strong>Project Name:</strong> Enter <code>TestProject</code> or <code>Unity-Learning-Project</code></li>
+                                <li><strong>Location:</strong> Navigate to your course repository (<code>game-dev-2025-yourname/week-03/</code>) or create dedicated Unity projects folder</li>
+                            </ul>
+                        </li>
+                        <li>Click <strong>"Create project"</strong></li>
+                        <li>Wait for project creation (Unity Editor will open, may take 2-3 minutes first time)</li>
+                        <li>First launch complete! You should see:
+                            <ul>
+                                <li>Unity Editor interface</li>
+                                <li>Default scene with Main Camera and Directional Light</li>
+                                <li>Various windows: Scene, Game, Hierarchy, Project, Inspector</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="japanese-content">
+                    <ol>
+                        <li>Unity Hubで<strong>「Projects」</strong>タブをクリック</li>
+                        <li><strong>「New project」</strong>ボタンをクリック</li>
+                        <li>プロジェクト設定を構成:
+                            <ul>
+                                <li><strong>Editor Version:</strong> Unity 2022.3.x LTSを選択</li>
+                                <li><strong>Template:</strong> <strong>「3D (Built-in Render Pipeline)」</strong>を選択</li>
+                                <li><strong>Project Name:</strong> <code>TestProject</code>または<code>Unity-Learning-Project</code>を入力</li>
+                                <li><strong>Location:</strong> コースリポジトリに移動（<code>game-dev-2025-yourname/week-03/</code>）または専用のUnityプロジェクトフォルダを作成</li>
+                            </ul>
+                        </li>
+                        <li><strong>「Create project」</strong>をクリック</li>
+                        <li>プロジェクト作成を待つ（Unity Editorが開きます、初回は2〜3分かかる場合があります）</li>
+                        <li>初回起動完了！以下が表示されるはずです:
+                            <ul>
+                                <li>Unity Editorインターフェース</li>
+                                <li>Main CameraとDirectional Lightを含むデフォルトシーン</li>
+                                <li>さまざまなウィンドウ：Scene、Game、Hierarchy、Project、Inspector</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2><span class="step-number">7</span> Unity Interface Overview / Unityインターフェースの概要</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Understanding Unity's interface is crucial. Here are the main windows:</p>
+                    <ul>
+                        <li><strong>1. Scene View (Center-Top):</strong> Where you build and navigate your game world</li>
+                        <li><strong>2. Game View:</strong> Shows what the player will see (Tab next to Scene)</li>
+                        <li><strong>3. Hierarchy (Left Side):</strong> Lists all objects in current scene</li>
+                        <li><strong>4. Project Window (Bottom):</strong> Your project's file system (all assets)</li>
+                        <li><strong>5. Inspector (Right Side):</strong> Shows properties of selected object</li>
+                        <li><strong>6. Console:</strong> Shows errors, warnings, and messages (Tab next to Project)</li>
+                        <li><strong>7. Toolbar (Top):</strong> Play/Pause/Step buttons and transform tools</li>
+                    </ul>
+                    <h4>Navigation Controls:</h4>
+                    <ul>
+                        <li><strong>Right Mouse Button + WASD:</strong> Fly through scene</li>
+                        <li><strong>Middle Mouse Button (drag):</strong> Pan view</li>
+                        <li><strong>Scroll Wheel:</strong> Zoom in/out</li>
+                        <li><strong>Alt + Left Mouse Button:</strong> Orbit around selection</li>
+                        <li><strong>F:</strong> Focus on selected object</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <p>Unityのインターフェースを理解することは非常に重要です。主なウィンドウは以下です：</p>
+                    <ul>
+                        <li><strong>1. シーンビュー（中央上部）:</strong> ゲーム世界を構築してナビゲートする場所</li>
+                        <li><strong>2. ゲームビュー:</strong> プレイヤーが見るものを表示（シーンの横のタブ）</li>
+                        <li><strong>3. ヒエラルキー（左側）:</strong> 現在のシーンのすべてのオブジェクトをリスト</li>
+                        <li><strong>4. プロジェクトウィンドウ（下部）:</strong> プロジェクトのファイルシステム（すべてのアセット）</li>
+                        <li><strong>5. インスペクター（右側）:</strong> 選択したオブジェクトのプロパティを表示</li>
+                        <li><strong>6. コンソール:</strong> エラー、警告、メッセージを表示（プロジェクトの横のタブ）</li>
+                        <li><strong>7. ツールバー（上部）:</strong> Play/Pause/Stepボタンとトランスフォームツール</li>
+                    </ul>
+                    <h4>ナビゲーションコントロール:</h4>
+                    <ul>
+                        <li><strong>右マウスボタン + WASD:</strong> シーンを飛行</li>
+                        <li><strong>マウス中ボタン（ドラッグ）:</strong> ビューをパン</li>
+                        <li><strong>スクロールホイール:</strong> ズームイン/アウト</li>
+                        <li><strong>Alt +左マウスボタン:</strong> 選択の周りを周回</li>
+                        <li><strong>F:</strong> 選択したオブジェクトにフォーカス</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2><span class="step-number">8</span> Essential Unity Settings / 必須のUnity設定</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>1. Set External Script Editor (Connect Cursor):</h4>
+                    <ul>
+                        <li>Go to <strong>Edit → Preferences</strong> (Windows/Linux) or <strong>Unity → Settings</strong> (Mac)</li>
+                        <li>Click <strong>"External Tools"</strong> in left sidebar</li>
+                        <li>Under "External Script Editor", click dropdown → <strong>"Browse..."</strong></li>
+                        <li>Navigate to Cursor application:
+                            <ul>
+                                <li>Windows: <code>C:\Users\YourName\AppData\Local\Programs\cursor\Cursor.exe</code></li>
+                                <li>Mac: <code>/Applications/Cursor.app</code></li>
+                                <li>Linux: <code>/usr/local/bin/cursor</code></li>
+                            </ul>
+                        </li>
+                        <li>Now double-clicking C# scripts opens them in Cursor</li>
+                    </ul>
+
+                    <h4>2. Enable Auto-Refresh:</h4>
+                    <ul>
+                        <li>In <strong>Edit → Preferences → General</strong></li>
+                        <li>Ensure <strong>"Auto Refresh"</strong> is enabled</li>
+                    </ul>
+
+                    <h4>3. Set Project to use .gitignore:</h4>
+                    <ul>
+                        <li>In <strong>Edit → Project Settings → Editor</strong></li>
+                        <li>Under "Version Control":
+                            <ul>
+                                <li>Set "Mode" to <strong>"Visible Meta Files"</strong></li>
+                                <li>Set "Asset Serialization" to <strong>"Force Text"</strong></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>1. 外部スクリプトエディタを設定（Cursorを接続）:</h4>
+                    <ul>
+                        <li><strong>編集 → プリファレンス</strong>（Windows/Linux）または<strong>Unity → Settings</strong>（Mac）に移動</li>
+                        <li>左サイドバーの<strong>「External Tools」</strong>をクリック</li>
+                        <li>「External Script Editor」の下で、ドロップダウン → <strong>「Browse...」</strong>をクリック</li>
+                        <li>Cursorアプリケーションに移動:
+                            <ul>
+                                <li>Windows: <code>C:\Users\YourName\AppData\Local\Programs\cursor\Cursor.exe</code></li>
+                                <li>Mac: <code>/Applications/Cursor.app</code></li>
+                                <li>Linux: <code>/usr/local/bin/cursor</code></li>
+                            </ul>
+                        </li>
+                        <li>これでC#スクリプトをダブルクリックするとCursorで開きます</li>
+                    </ul>
+
+                    <h4>2. 自動更新を有効化:</h4>
+                    <ul>
+                        <li><strong>編集 → プリファレンス → 一般</strong>で</li>
+                        <li><strong>「Auto Refresh」</strong>が有効になっていることを確認</li>
+                    </ul>
+
+                    <h4>3. プロジェクトが.gitignoreを使用するように設定:</h4>
+                    <ul>
+                        <li><strong>編集 → プロジェクト設定 → エディタ</strong>で</li>
+                        <li>「Version Control」の下:
+                            <ul>
+                                <li>「Mode」を<strong>「Visible Meta Files」</strong>に設定</li>
+                                <li>「Asset Serialization」を<strong>「Force Text」</strong>に設定</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2><span class="step-number">9</span> Test Unity Installation / Unityインストールをテスト</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Let's create a simple test to verify everything works:</p>
+                    <ol>
+                        <li>Create a 3D Object: Right-click in Hierarchy → <strong>3D Object → Cube</strong></li>
+                        <li>Position the Camera: Select "Main Camera", set Transform Position to X:0, Y:1, Z:-5</li>
+                        <li>Add Color to Cube:
+                            <ul>
+                                <li>Select Cube, find "Mesh Renderer" in Inspector</li>
+                                <li>Create new material and choose a color for Albedo</li>
+                            </ul>
+                        </li>
+                        <li>Test Play Mode: Click <strong>Play</strong> button (▶)</li>
+                        <li>Add Physics (Optional): Add Rigidbody component, press Play, cube falls!</li>
+                        <li>Save the Scene: File → Save As → <code>TestScene</code></li>
+                    </ol>
+                    <p><strong>Congratulations!</strong> Unity is installed and working correctly.</p>
+                </div>
+                <div class="japanese-content">
+                    <p>すべてが機能することを確認するための簡単なテストを作成しましょう：</p>
+                    <ol>
+                        <li>3Dオブジェクトを作成：ヒエラルキーで右クリック → <strong>3D Object → Cube</strong></li>
+                        <li>カメラを配置：「Main Camera」を選択、トランスフォーム位置をX:0、Y:1、Z:-5に設定</li>
+                        <li>キューブに色を追加:
+                            <ul>
+                                <li>キューブを選択、インスペクターで「Mesh Renderer」を見つける</li>
+                                <li>新しいマテリアルを作成してAlbedoの色を選択</li>
+                            </ul>
+                        </li>
+                        <li>プレイモードをテスト：<strong>Play</strong>ボタン（▶）をクリック</li>
+                        <li>物理を追加（オプション）：Rigidbodyコンポーネントを追加、Playを押す、キューブが落下！</li>
+                        <li>シーンを保存：ファイル → 名前を付けて保存 → <code>TestScene</code></li>
+                    </ol>
+                    <p><strong>おめでとうございます！</strong> Unityがインストールされ、正しく動作しています。</p>
+                </div>
+            </div>
+
+            <h2>Essential Unity Shortcuts / 必須のUnityショートカット</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Shortcut</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Play/Pause</strong></td>
+                                <td>Ctrl/Cmd + P</td>
+                                <td>Start/stop game playback</td>
+                            </tr>
+                            <tr>
+                                <td><strong>New Object</strong></td>
+                                <td>Ctrl/Cmd + Shift + N</td>
+                                <td>Create new empty GameObject</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Duplicate</strong></td>
+                                <td>Ctrl/Cmd + D</td>
+                                <td>Duplicate selected object</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Frame Selected</strong></td>
+                                <td>F</td>
+                                <td>Focus camera on selected object</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Move Tool</strong></td>
+                                <td>W</td>
+                                <td>Activate move tool</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rotate Tool</strong></td>
+                                <td>E</td>
+                                <td>Activate rotate tool</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scale Tool</strong></td>
+                                <td>R</td>
+                                <td>Activate scale tool</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hand Tool</strong></td>
+                                <td>Q</td>
+                                <td>Navigate without selecting objects</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Save</strong></td>
+                                <td>Ctrl/Cmd + S</td>
+                                <td>Save current scene</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Undo</strong></td>
+                                <td>Ctrl/Cmd + Z</td>
+                                <td>Undo last action</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="important-box">
+                        <strong>Pro Tips:</strong>
+                        <ul>
+                            <li>Hold <strong>V</strong> while moving objects for vertex snapping</li>
+                            <li>Hold <strong>Ctrl/Cmd</strong> while moving to snap to grid</li>
+                            <li><strong>Right Click + WASD:</strong> Fly through scene like FPS</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>アクション</th>
+                                <th>ショートカット</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Play/Pause</strong></td>
+                                <td>Ctrl/Cmd + P</td>
+                                <td>ゲームの再生を開始/停止</td>
+                            </tr>
+                            <tr>
+                                <td><strong>New Object</strong></td>
+                                <td>Ctrl/Cmd + Shift + N</td>
+                                <td>新しい空のGameObjectを作成</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Duplicate</strong></td>
+                                <td>Ctrl/Cmd + D</td>
+                                <td>選択したオブジェクトを複製</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Frame Selected</strong></td>
+                                <td>F</td>
+                                <td>選択したオブジェクトにカメラをフォーカス</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Move Tool</strong></td>
+                                <td>W</td>
+                                <td>移動ツールを有効化</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rotate Tool</strong></td>
+                                <td>E</td>
+                                <td>回転ツールを有効化</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scale Tool</strong></td>
+                                <td>R</td>
+                                <td>スケールツールを有効化</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hand Tool</strong></td>
+                                <td>Q</td>
+                                <td>オブジェクトを選択せずにナビゲート</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Save</strong></td>
+                                <td>Ctrl/Cmd + S</td>
+                                <td>現在のシーンを保存</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Undo</strong></td>
+                                <td>Ctrl/Cmd + Z</td>
+                                <td>最後のアクションを元に戻す</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="important-box">
+                        <strong>プロのヒント:</strong>
+                        <ul>
+                            <li>オブジェクトを移動中に<strong>V</strong>を押したままにして頂点スナップ</li>
+                            <li>移動中に<strong>Ctrl/Cmd</strong>を押したままにしてグリッドにスナップ</li>
+                            <li><strong>右クリック + WASD:</strong> FPSのようにシーンを飛行</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Troubleshooting / トラブルシューティング</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <h4>Problem: Unity Hub won't launch</h4>
+                    <ul>
+                        <li>Restart computer</li>
+                        <li>Reinstall Unity Hub</li>
+                        <li>Check antivirus isn't blocking Unity Hub</li>
+                        <li>Run as administrator (Windows)</li>
+                    </ul>
+
+                    <h4>Problem: Can't activate Unity Personal license</h4>
+                    <ul>
+                        <li>Ensure you're signed in with Unity ID</li>
+                        <li>Check internet connection</li>
+                        <li>Try signing out and signing in again</li>
+                    </ul>
+
+                    <h4>Problem: Unity Editor extremely slow</h4>
+                    <ul>
+                        <li>Close unnecessary applications</li>
+                        <li>Reduce quality in Edit → Project Settings → Quality</li>
+                        <li>Disable real-time Global Illumination</li>
+                        <li>Check GPU drivers are up to date</li>
+                    </ul>
+
+                    <h4>Problem: Scripts don't open in Cursor</h4>
+                    <ul>
+                        <li>Set external editor again: Edit → Preferences → External Tools</li>
+                        <li>Restart Unity Editor</li>
+                        <li>Right-click script → Open C# Project</li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <h4>問題：Unity Hubが起動しない</h4>
+                    <ul>
+                        <li>コンピュータを再起動</li>
+                        <li>Unity Hubを再インストール</li>
+                        <li>アンチウイルスがUnity Hubをブロックしていないか確認</li>
+                        <li>管理者として実行（Windows）</li>
+                    </ul>
+
+                    <h4>問題：Unity Personalライセンスをアクティベートできない</h4>
+                    <ul>
+                        <li>Unity IDでサインインしていることを確認</li>
+                        <li>インターネット接続を確認</li>
+                        <li>サインアウトして再度サインイン</li>
+                    </ul>
+
+                    <h4>問題：Unity Editorが非常に遅い</h4>
+                    <ul>
+                        <li>不要なアプリケーションを閉じる</li>
+                        <li>編集 → プロジェクト設定 → Qualityで品質を下げる</li>
+                        <li>リアルタイムグローバルイルミネーションを無効化</li>
+                        <li>GPUドライバが最新であることを確認</li>
+                    </ul>
+
+                    <h4>問題：スクリプトがCursorで開かない</h4>
+                    <ul>
+                        <li>外部エディタを再度設定：編集 → プリファレンス → External Tools</li>
+                        <li>Unity Editorを再起動</li>
+                        <li>スクリプトを右クリック → Open C# Project</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Next Steps / 次のステップ</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <p>Now that Unity is installed and configured:</p>
+                    <ol>
+                        <li>✅ Familiarize yourself with the Unity interface</li>
+                        <li>✅ Practice navigating the Scene view</li>
+                        <li>✅ Experiment with creating and manipulating 3D objects</li>
+                        <li>✅ Test Play mode and understand Edit vs Play mode</li>
+                        <li>✅ Save your test project to your course repository</li>
+                        <li>✅ Commit and push to GitHub</li>
+                        <li>✅ Ready to start <strong>importing Blender models into Unity!</strong></li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>Recommended Practice:</strong>
+                        <ul>
+                            <li>Complete Unity Essentials tutorial: <a href="https://learn.unity.com/pathway/unity-essentials" target="_blank">Unity Learn</a></li>
+                            <li>Watch "Unity for Beginners" videos on YouTube</li>
+                            <li>Practice basic C# scripting in Week 3 lectures</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="japanese-content">
+                    <p>Unityがインストールされ、設定されたので:</p>
+                    <ol>
+                        <li>✅ Unityインターフェースに慣れる</li>
+                        <li>✅ シーンビューのナビゲーションを練習</li>
+                        <li>✅ 3Dオブジェクトの作成と操作を実験</li>
+                        <li>✅ プレイモードをテストし、編集モードとプレイモードの違いを理解</li>
+                        <li>✅ テストプロジェクトをコースリポジトリに保存</li>
+                        <li>✅ GitHubにコミットしてプッシュ</li>
+                        <li>✅ <strong>BlenderモデルをUnityにインポートする準備完了！</strong></li>
+                    </ol>
+                    <div class="important-box">
+                        <strong>推奨される練習:</strong>
+                        <ul>
+                            <li>Unity Essentialsチュートリアルを完了：<a href="https://learn.unity.com/pathway/unity-essentials" target="_blank">Unity Learn</a></li>
+                            <li>YouTubeで「Unity for Beginners」ビデオを見る</li>
+                            <li>Week 3講義で基本的なC#スクリプティングを練習</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+
+            <div class="bilingual-section">
+                <div class="english-content">
+                    <ul>
+                        <li><strong>Unity Manual:</strong> <a href="https://docs.unity3d.com/Manual/" target="_blank">https://docs.unity3d.com/Manual/</a></li>
+                        <li><strong>Unity Learn Platform:</strong> <a href="https://learn.unity.com/" target="_blank">https://learn.unity.com/</a></li>
+                        <li><strong>Unity Scripting API:</strong> <a href="https://docs.unity3d.com/ScriptReference/" target="_blank">https://docs.unity3d.com/ScriptReference/</a></li>
+                        <li><strong>Brackeys YouTube Tutorials:</strong> <a href="https://www.youtube.com/@Brackeys" target="_blank">Brackeys Channel</a></li>
+                        <li><strong>Unity Forum:</strong> <a href="https://forum.unity.com/" target="_blank">https://forum.unity.com/</a></li>
+                        <li><strong>r/Unity3D Community:</strong> <a href="https://www.reddit.com/r/Unity3D/" target="_blank">https://www.reddit.com/r/Unity3D/</a></li>
+                    </ul>
+                </div>
+                <div class="japanese-content">
+                    <ul>
+                        <li><strong>Unityマニュアル（日本語）:</strong> <a href="https://docs.unity3d.com/ja/current/Manual/" target="_blank">https://docs.unity3d.com/ja/current/Manual/</a></li>
+                        <li><strong>Unity Learn Platform:</strong> <a href="https://learn.unity.com/" target="_blank">https://learn.unity.com/</a> （英語）</li>
+                        <li><strong>Unityスクリプティング API:</strong> <a href="https://docs.unity3d.com/ja/current/ScriptReference/" target="_blank">https://docs.unity3d.com/ja/current/ScriptReference/</a></li>
+                        <li><strong>Brackeys YouTubeチュートリアル:</strong> <a href="https://www.youtube.com/@Brackeys" target="_blank">Brackeyチャンネル</a> （英語）</li>
+                        <li><strong>Unityフォーラム:</strong> <a href="https://forum.unity.com/" target="_blank">https://forum.unity.com/</a> （英語）</li>
+                        <li><strong>r/Unity3Dコミュニティ:</strong> <a href="https://www.reddit.com/r/Unity3D/" target="_blank">https://www.reddit.com/r/Unity3D/</a> （英語）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="blender-setup.html" class="btn btn-secondary">← Blender Setup</a>
+                <a href="../index.html" class="btn btn-primary">Back to Course Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>
