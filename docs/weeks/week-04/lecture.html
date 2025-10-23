@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4: Unity Physics & Input Systems | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lecture-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .lecture-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .lecture-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .lecture-content h4 {
+            color: var(--text-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .timeline-segment {
+            background: var(--bg-light);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        .duration-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .shortcut-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--warning);
+            margin: 15px 0;
+        }
+        .shortcut-box code {
+            background: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .objectives-list {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .objectives-list ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .tip-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .unity-panel {
+            background: #f0f9ff;
+            border: 2px solid #3b82f6;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        .warning-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎮 Week 4: Unity Physics & Input Systems</h1>
+            <p class="subtitle">第4週：Unity物理システムと入力システム</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="assignment.html">Assignment</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lecture-content">
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-03/lecture.html" class="btn btn-primary">← Previous Week</a>
+            </div>
+
+            <div class="objectives-list">
+                <h3>Learning Objectives / 学習目標</h3>
+                <p><strong>English:</strong> By the end of this lecture, students will be able to:</p>
+                <ul>
+                    <li>Understand Unity's physics system and how it simulates real-world physics</li>
+                    <li>Add and configure Rigidbody components for physics-based movement</li>
+                    <li>Work with different collider types (Box, Sphere, Capsule, Mesh)</li>
+                    <li>Understand the difference between collision and trigger events</li>
+                    <li>Implement player input using both the legacy Input Manager and new Input System</li>
+                    <li>Create physics-based player movement scripts</li>
+                    <li>Implement a camera follow system</li>
+                    <li>Debug and test physics interactions</li>
+                    <li>Build a playable ball controller for the maze game</li>
+                </ul>
+                <p><strong>日本語:</strong> この講義の終了までに、学生は以下ができるようになります：</p>
+                <ul>
+                    <li>Unityの物理システムと現実世界の物理シミュレーション方法を理解する</li>
+                    <li>物理ベースの移動のためにRigidbodyコンポーネントを追加して設定する</li>
+                    <li>さまざまなコライダータイプ（Box、Sphere、Capsule、Mesh）を使用する</li>
+                    <li>衝突イベントとトリガーイベントの違いを理解する</li>
+                    <li>レガシーInput Managerと新しいInput Systemの両方を使用してプレイヤー入力を実装する</li>
+                    <li>物理ベースのプレイヤー移動スクリプトを作成する</li>
+                    <li>カメラフォローシステムを実装する</li>
+                    <li>物理インタラクションをデバッグしてテストする</li>
+                    <li>迷路ゲーム用のプレイ可能なボールコントローラーを構築する</li>
+                </ul>
+            </div>
+
+            <h2>Lecture Timeline (100 minutes)</h2>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 1: Introduction to Unity Physics System</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Review of Week 3: Unity interface and GameObjects</li>
+                    <li>What is a physics engine?</li>
+                    <li>Unity's built-in physics system (NVIDIA PhysX)</li>
+                    <li>When to use physics vs kinematic movement</li>
+                    <li>Real-world examples: gravity, collisions, forces</li>
+                    <li>Physics timestep and FixedUpdate vs Update</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>第3週の復習：Unityインターフェースとゲームオブジェクト</li>
+                    <li>物理エンジンとは何か？</li>
+                    <li>Unityの組み込み物理システム（NVIDIA PhysX）</li>
+                    <li>物理移動とキネマティック移動を使い分けるタイミング</li>
+                    <li>実世界の例：重力、衝突、力</li>
+                    <li>物理タイムステップとFixedUpdate vs Update</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Physics System Key Concepts / 物理システムの主要概念:</h4>
+                    <p><strong>English:</strong></p>
+                    <ul>
+                        <li><strong>Physics Engine:</strong> Simulates real-world physics (gravity, momentum, friction)</li>
+                        <li><strong>FixedUpdate():</strong> Called at consistent intervals for physics calculations</li>
+                        <li><strong>Update():</strong> Called every frame for visual updates and input</li>
+                        <li><strong>Physics Timestep:</strong> Default is 0.02 seconds (50 times per second)</li>
+                    </ul>
+                    <p><strong>日本語:</strong></p>
+                    <ul>
+                        <li><strong>物理エンジン:</strong> 現実世界の物理（重力、運動量、摩擦）をシミュレート</li>
+                        <li><strong>FixedUpdate():</strong> 物理計算のために一定の間隔で呼び出される</li>
+                        <li><strong>Update():</strong> 視覚更新と入力のために毎フレーム呼び出される</li>
+                        <li><strong>物理タイムステップ:</strong> デフォルトは0.02秒（1秒間に50回）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 2: Rigidbody Component Deep Dive</h3>
+
+                <h4>What is a Rigidbody? / Rigidbodyとは？</h4>
+                <p><strong>English:</strong> A Rigidbody component enables GameObjects to be controlled by the physics engine. It allows objects to react to gravity, forces, collisions, and torque.</p>
+                <p><strong>日本語:</strong> Rigidbodyコンポーネントは、GameObjectが物理エンジンによって制御されることを可能にします。オブジェクトが重力、力、衝突、トルクに反応できるようになります。</p>
+
+                <h4>Adding a Rigidbody / Rigidbodyの追加</h4>
+                <p><strong>Steps / 手順:</strong></p>
+                <ol>
+                    <li>Select GameObject in Hierarchy</li>
+                    <li>Inspector → Add Component → Physics → Rigidbody</li>
+                    <li>Configure properties</li>
+                </ol>
+
+                <div class="unity-panel">
+                    <h4>Rigidbody Properties / Rigidbodyプロパティ</h4>
+
+                    <p><strong>Mass / 質量</strong></p>
+                    <ul>
+                        <li><strong>English:</strong> Weight of the object in kilograms. Heavier objects require more force to move.</li>
+                        <li><strong>日本語:</strong> オブジェクトの重さ（キログラム単位）。重いオブジェクトは移動により多くの力が必要。</li>
+                        <li><strong>Default:</strong> 1 kg</li>
+                        <li><strong>Example:</strong> Ball = 0.5 kg, Crate = 10 kg</li>
+                    </ul>
+
+                    <p><strong>Drag / 抗力</strong></p>
+                    <ul>
+                        <li><strong>English:</strong> Air resistance. Higher values slow down moving objects faster.</li>
+                        <li><strong>日本語:</strong> 空気抵抗。高い値は移動中のオブジェクトをより速く減速させる。</li>
+                        <li><strong>Default:</strong> 0</li>
+                        <li><strong>Typical range:</strong> 0-10</li>
+                    </ul>
+
+                    <p><strong>Angular Drag / 角度抗力</strong></p>
+                    <ul>
+                        <li><strong>English:</strong> Resistance to rotation. Higher values slow down spinning.</li>
+                        <li><strong>日本語:</strong> 回転への抵抗。高い値は回転を減速させる。</li>
+                        <li><strong>Default:</strong> 0.05</li>
+                    </ul>
+
+                    <p><strong>Use Gravity / 重力を使用</strong></p>
+                    <ul>
+                        <li><strong>English:</strong> Enable/disable gravitational force (-9.81 m/s² on Y-axis)</li>
+                        <li><strong>日本語:</strong> 重力の有効化/無効化（Y軸で-9.81 m/s²）</li>
+                        <li><strong>Default:</strong> Enabled (checked)</li>
+                    </ul>
+
+                    <p><strong>Is Kinematic / キネマティックである</strong></p>
+                    <ul>
+                        <li><strong>English:</strong> When checked, physics forces won't affect the object, but it can still affect others</li>
+                        <li><strong>日本語:</strong> チェックすると、物理的な力はオブジェクトに影響しないが、他のオブジェクトには影響を与える</li>
+                        <li><strong>Use case:</strong> Moving platforms, doors</li>
+                    </ul>
+
+                    <p><strong>Interpolate / 補間</strong></p>
+                    <ul>
+                        <li><strong>None:</strong> No smoothing</li>
+                        <li><strong>Interpolate:</strong> Smooth based on previous frame</li>
+                        <li><strong>Extrapolate:</strong> Predict based on estimated velocity</li>
+                        <li><strong>Recommended:</strong> Interpolate for player-controlled objects</li>
+                    </ul>
+
+                    <p><strong>Collision Detection / 衝突検出</strong></p>
+                    <ul>
+                        <li><strong>Discrete:</strong> Default, checks collisions at fixed intervals</li>
+                        <li><strong>Continuous:</strong> Better for fast-moving objects</li>
+                        <li><strong>Continuous Dynamic:</strong> Best quality, most expensive</li>
+                        <li><strong>Continuous Speculative:</strong> Prevents tunneling efficiently</li>
+                    </ul>
+
+                    <p><strong>Constraints / 制約</strong></p>
+                    <ul>
+                        <li><strong>Freeze Position:</strong> Lock movement on X, Y, or Z axis</li>
+                        <li><strong>Freeze Rotation:</strong> Lock rotation on X, Y, or Z axis</li>
+                        <li><strong>Example:</strong> For a ball maze, freeze rotation on Y-axis to prevent spinning sideways</li>
+                    </ul>
+                </div>
+
+                <div class="shortcut-box">
+                    <h4>🎯 Rigidbody Best Practices / ベストプラクティス:</h4>
+                    <ul>
+                        <li>Always add a Collider when using Rigidbody</li>
+                        <li>Use appropriate mass values (realistic scale)</li>
+                        <li>Enable interpolation for smooth movement</li>
+                        <li>Use Continuous collision for fast-moving objects</li>
+                        <li>Apply forces in FixedUpdate(), not Update()</li>
+                        <li>Constrain axes you don't want to move/rotate</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 3: Colliders - The Foundation of Physics</h3>
+
+                <h4>What are Colliders? / コライダーとは？</h4>
+                <p><strong>English:</strong> Colliders define the shape of an object for physical collisions. They are invisible boundaries that determine when objects touch, overlap, or trigger events.</p>
+                <p><strong>日本語:</strong> コライダーは、物理的な衝突のためのオブジェクトの形状を定義します。オブジェクトが接触、重複、またはイベントをトリガーするタイミングを決定する見えない境界です。</p>
+
+                <div class="unity-panel">
+                    <h4>Types of Colliders / コライダーの種類</h4>
+
+                    <p><strong>1. Box Collider / ボックスコライダー</strong></p>
+                    <ul>
+                        <li><strong>Shape:</strong> Rectangular box / 長方形ボックス</li>
+                        <li><strong>Performance:</strong> Very fast / 非常に高速</li>
+                        <li><strong>Best for:</strong> Walls, floors, crates, buildings</li>
+                        <li><strong>Properties:</strong> Center, Size</li>
+                        <li><strong>Tip:</strong> Adjust size to fit object visually</li>
+                    </ul>
+
+                    <p><strong>2. Sphere Collider / スフィアコライダー</strong></p>
+                    <ul>
+                        <li><strong>Shape:</strong> Perfect sphere / 完全な球体</li>
+                        <li><strong>Performance:</strong> Very fast / 非常に高速</li>
+                        <li><strong>Best for:</strong> Balls, planets, spherical objects</li>
+                        <li><strong>Properties:</strong> Center, Radius</li>
+                        <li><strong>Tip:</strong> Ideal for rolling physics</li>
+                    </ul>
+
+                    <p><strong>3. Capsule Collider / カプセルコライダー</strong></p>
+                    <ul>
+                        <li><strong>Shape:</strong> Cylinder with rounded ends / 丸い端を持つ円柱</li>
+                        <li><strong>Performance:</strong> Fast / 高速</li>
+                        <li><strong>Best for:</strong> Characters, pillars, cylindrical objects</li>
+                        <li><strong>Properties:</strong> Center, Radius, Height, Direction</li>
+                        <li><strong>Tip:</strong> Better than cylinder for character movement (no getting stuck on edges)</li>
+                    </ul>
+
+                    <p><strong>4. Mesh Collider / メッシュコライダー</strong></p>
+                    <ul>
+                        <li><strong>Shape:</strong> Matches exact mesh geometry / メッシュジオメトリに完全一致</li>
+                        <li><strong>Performance:</strong> Slow / 低速</li>
+                        <li><strong>Best for:</strong> Complex terrain, detailed static objects</li>
+                        <li><strong>Properties:</strong> Mesh, Convex</li>
+                        <li><strong>Warning:</strong> Cannot use with Rigidbody unless "Convex" is checked</li>
+                        <li><strong>Tip:</strong> Use only when necessary; prefer primitive colliders for performance</li>
+                    </ul>
+                </div>
+
+                <h4>Collider Properties / コライダープロパティ</h4>
+                <div class="unity-panel">
+                    <p><strong>Is Trigger / トリガーである</strong></p>
+                    <ul>
+                        <li><strong>Unchecked:</strong> Physical collision (objects bounce/stop)</li>
+                        <li><strong>Checked:</strong> Trigger event (objects pass through, event fires)</li>
+                        <li><strong>Use cases:</strong> Collectible items, goal zones, checkpoint areas</li>
+                    </ul>
+
+                    <p><strong>Material / マテリアル (Physics Material)</strong></p>
+                    <ul>
+                        <li>Defines friction and bounciness</li>
+                        <li>Create: Assets → Create → Physics Material</li>
+                        <li>Properties: Dynamic Friction, Static Friction, Bounciness</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 Collider Selection Guide / コライダー選択ガイド:</h4>
+                    <ul>
+                        <li><strong>Ball:</strong> Sphere Collider</li>
+                        <li><strong>Maze walls:</strong> Box Collider</li>
+                        <li><strong>Floor:</strong> Box Collider</li>
+                        <li><strong>Player character:</strong> Capsule Collider</li>
+                        <li><strong>Terrain:</strong> Mesh Collider (Convex for moving objects)</li>
+                        <li><strong>Complex static object:</strong> Multiple primitive colliders combined</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 4: Collision vs Trigger Events</h3>
+
+                <h4>Understanding the Difference / 違いを理解する</h4>
+
+                <div class="unity-panel">
+                    <h4>Collision Events / 衝突イベント</h4>
+                    <p><strong>English:</strong> Occur when two colliders with "Is Trigger" unchecked interact. Objects physically collide and affect each other.</p>
+                    <p><strong>日本語:</strong> 「Is Trigger」がチェックされていない2つのコライダーが相互作用するときに発生します。オブジェクトが物理的に衝突し、お互いに影響を与えます。</p>
+
+                    <pre><code>// Collision event methods
+void OnCollisionEnter(Collision collision)
+{
+    // Called when collision starts
+    // 衝突が開始されたときに呼び出される
+    Debug.Log("Hit: " + collision.gameObject.name);
+}
+
+void OnCollisionStay(Collision collision)
+{
+    // Called every frame while colliding
+    // 衝突中の毎フレーム呼び出される
+}
+
+void OnCollisionExit(Collision collision)
+{
+    // Called when collision ends
+    // 衝突が終了したときに呼び出される
+}</code></pre>
+
+                    <p><strong>Requirements / 要件:</strong></p>
+                    <ul>
+                        <li>Both objects must have Colliders</li>
+                        <li>At least one must have a Rigidbody</li>
+                        <li>"Is Trigger" must be unchecked on both</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>Trigger Events / トリガーイベント</h4>
+                    <p><strong>English:</strong> Occur when at least one collider has "Is Trigger" checked. Objects pass through each other but detect the overlap.</p>
+                    <p><strong>日本語:</strong> 少なくとも1つのコライダーが「Is Trigger」をチェックしているときに発生します。オブジェクトは互いに通過しますが、重複を検出します。</p>
+
+                    <pre><code>// Trigger event methods
+void OnTriggerEnter(Collider other)
+{
+    // Called when entering trigger
+    // トリガーに入ったときに呼び出される
+    if (other.CompareTag("Player"))
+    {
+        Debug.Log("Player entered goal!");
+    }
+}
+
+void OnTriggerStay(Collider other)
+{
+    // Called every frame while inside trigger
+    // トリガー内にいる間の毎フレーム呼び出される
+}
+
+void OnTriggerExit(Collider other)
+{
+    // Called when leaving trigger
+    // トリガーを出たときに呼び出される
+}</code></pre>
+
+                    <p><strong>Requirements / 要件:</strong></p>
+                    <ul>
+                        <li>Both objects must have Colliders</li>
+                        <li>At least one must have a Rigidbody</li>
+                        <li>At least one must have "Is Trigger" checked</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 When to Use Each / それぞれを使用するタイミング:</h4>
+                    <p><strong>Use Collisions for / 衝突を使用:</strong></p>
+                    <ul>
+                        <li>Physical interactions (bouncing, blocking)</li>
+                        <li>Walls and barriers</li>
+                        <li>Objects that should stop movement</li>
+                    </ul>
+                    <p><strong>Use Triggers for / トリガーを使用:</strong></p>
+                    <ul>
+                        <li>Detection zones (goal areas, checkpoints)</li>
+                        <li>Collectible items</li>
+                        <li>Event activation areas</li>
+                        <li>Sensors and detectors</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 5: Unity Input System (Old & New)</h3>
+
+                <h4>Two Input Systems in Unity / Unityの2つの入力システム</h4>
+                <p><strong>English:</strong> Unity has both a legacy Input Manager and a new Input System. We'll learn both approaches.</p>
+                <p><strong>日本語:</strong> Unityには、レガシーInput Managerと新しいInput Systemの両方があります。両方のアプローチを学びます。</p>
+
+                <div class="unity-panel">
+                    <h4>Legacy Input Manager (Easy Method) / レガシーInput Manager（簡単な方法）</h4>
+                    <p><strong>Access:</strong> Edit → Project Settings → Input Manager</p>
+
+                    <h4>Common Input Methods / 一般的な入力メソッド:</h4>
+
+                    <pre><code>// Keyboard input
+if (Input.GetKey(KeyCode.W))
+{
+    // Held down - W key pressed
+    // 押し続けている - Wキーが押されている
+}
+
+if (Input.GetKeyDown(KeyCode.Space))
+{
+    // Single press - Space pressed this frame
+    // 1回押す - このフレームでスペースが押された
+}
+
+if (Input.GetKeyUp(KeyCode.Escape))
+{
+    // Released - Escape released this frame
+    // リリース - このフレームでEscapeがリリースされた
+}
+
+// Axis input (smooth -1 to 1)
+float horizontal = Input.GetAxis("Horizontal"); // A/D or Left/Right arrows
+float vertical = Input.GetAxis("Vertical");     // W/S or Up/Down arrows
+
+// Raw axis (instant -1, 0, or 1, no smoothing)
+float horizontalRaw = Input.GetAxisRaw("Horizontal");
+
+// Mouse input
+if (Input.GetMouseButton(0)) // 0=left, 1=right, 2=middle
+{
+    // Mouse button held
+}
+
+Vector3 mousePosition = Input.mousePosition;</code></pre>
+
+                    <div class="tip-box">
+                        <h4>💡 GetAxis vs GetAxisRaw</h4>
+                        <ul>
+                            <li><strong>GetAxis:</strong> Smoothed value, gradual acceleration/deceleration</li>
+                            <li><strong>GetAxisRaw:</strong> Instant response, no smoothing</li>
+                            <li><strong>For physics:</strong> Often better to use GetAxisRaw and let physics handle smoothing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>New Input System (Recommended for New Projects)</h4>
+                    <p><strong>Installation / インストール:</strong></p>
+                    <ol>
+                        <li>Window → Package Manager</li>
+                        <li>Search for "Input System"</li>
+                        <li>Click Install</li>
+                        <li>Allow Unity to restart</li>
+                    </ol>
+
+                    <p><strong>Setup / セットアップ:</strong></p>
+                    <ol>
+                        <li>Assets → Create → Input Actions</li>
+                        <li>Name it "PlayerInputActions"</li>
+                        <li>Double-click to open Input Actions window</li>
+                        <li>Create Action Map: "Player"</li>
+                        <li>Add Actions: "Move", "Jump", etc.</li>
+                        <li>Bind keys to each action</li>
+                        <li>Click "Save Asset"</li>
+                        <li>Enable "Generate C# Class"</li>
+                    </ol>
+
+                    <pre><code>// Using new Input System in script
+using UnityEngine.InputSystem;
+
+public class PlayerController : MonoBehaviour
+{
+    private PlayerInputActions inputActions;
+    private Vector2 moveInput;
+
+    void Awake()
+    {
+        inputActions = new PlayerInputActions();
+    }
+
+    void OnEnable()
+    {
+        inputActions.Player.Enable();
+        inputActions.Player.Move.performed += OnMove;
+        inputActions.Player.Move.canceled += OnMove;
+    }
+
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
+
+    void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+    }
+}</code></pre>
+                </div>
+
+                <div class="shortcut-box">
+                    <h4>🎮 Input System Comparison / 入力システムの比較:</h4>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <th>Feature</th>
+                            <th>Legacy Input</th>
+                            <th>New Input System</th>
+                        </tr>
+                        <tr>
+                            <td>Ease of use</td>
+                            <td>Simple, immediate</td>
+                            <td>More setup required</td>
+                        </tr>
+                        <tr>
+                            <td>Flexibility</td>
+                            <td>Limited</td>
+                            <td>Very flexible</td>
+                        </tr>
+                        <tr>
+                            <td>Controller support</td>
+                            <td>Basic</td>
+                            <td>Excellent</td>
+                        </tr>
+                        <tr>
+                            <td>Rebinding</td>
+                            <td>Difficult</td>
+                            <td>Built-in</td>
+                        </tr>
+                        <tr>
+                            <td>Best for</td>
+                            <td>Simple projects, learning</td>
+                            <td>Complex games, multi-platform</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ For This Course / このコースでは:</h4>
+                    <p>We'll use the <strong>Legacy Input Manager</strong> for simplicity. It's perfect for learning and our ball maze game. You can explore the New Input System in your own projects.</p>
+                    <p>シンプルさのために<strong>レガシーInput Manager</strong>を使用します。学習と私たちのボール迷路ゲームには完璧です。新しいInput Systemは自分のプロジェクトで探索できます。</p>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 6: Physics-Based Player Movement</h3>
+
+                <h4>Two Main Approaches / 2つの主なアプローチ</h4>
+
+                <div class="unity-panel">
+                    <h4>Method 1: AddForce (Recommended for Ball) / AddForce（ボールに推奨）</h4>
+                    <p><strong>English:</strong> Applies force to a Rigidbody, respecting physics (mass, drag, etc.)</p>
+                    <p><strong>日本語:</strong> Rigidbodyに力を適用し、物理（質量、抗力など）を尊重します</p>
+
+                    <pre><code>using UnityEngine;
+
+public class BallController : MonoBehaviour
+{
+    public float moveForce = 10f;
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        // Get input
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Create movement vector
+        Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
+
+        // Apply force
+        rb.AddForce(movement * moveForce);
+    }
+}</code></pre>
+
+                    <p><strong>Force Modes / 力モード:</strong></p>
+                    <ul>
+                        <li><strong>ForceMode.Force:</strong> Continuous force considering mass (default)</li>
+                        <li><strong>ForceMode.Impulse:</strong> Instant force considering mass (like a hit)</li>
+                        <li><strong>ForceMode.Acceleration:</strong> Continuous acceleration ignoring mass</li>
+                        <li><strong>ForceMode.VelocityChange:</strong> Instant velocity change ignoring mass</li>
+                    </ul>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>Method 2: Direct Velocity Control / 直接速度制御</h4>
+                    <p><strong>English:</strong> Directly sets velocity for more precise control</p>
+                    <p><strong>日本語:</strong> より正確な制御のために速度を直接設定します</p>
+
+                    <pre><code>using UnityEngine;
+
+public class BallControllerVelocity : MonoBehaviour
+{
+    public float maxSpeed = 5f;
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
+
+        // Set velocity directly
+        rb.velocity = new Vector3(
+            movement.x * maxSpeed,
+            rb.velocity.y, // Keep existing Y velocity (gravity)
+            movement.z * maxSpeed
+        );
+    }
+}</code></pre>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>Method 3: Tilt-Based Movement (Advanced) / 傾きベースの移動（高度）</h4>
+                    <p><strong>English:</strong> Move ball by tilting the entire maze platform</p>
+                    <p><strong>日本語:</strong> 迷路プラットフォーム全体を傾けてボールを移動します</p>
+
+                    <pre><code>using UnityEngine;
+
+public class MazeTilt : MonoBehaviour
+{
+    public float tiltAngle = 15f;
+    public float tiltSpeed = 5f;
+
+    void Update()
+    {
+        float tiltX = Input.GetAxis("Horizontal") * tiltAngle;
+        float tiltZ = Input.GetAxis("Vertical") * tiltAngle;
+
+        // Create target rotation
+        Quaternion targetRotation = Quaternion.Euler(tiltZ, 0, -tiltX);
+
+        // Smoothly rotate towards target
+        transform.rotation = Quaternion.Lerp(
+            transform.rotation,
+            targetRotation,
+            Time.deltaTime * tiltSpeed
+        );
+    }
+}</code></pre>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 Movement Method Selection / 移動方法の選択:</h4>
+                    <ul>
+                        <li><strong>AddForce:</strong> Most realistic physics, gradual acceleration</li>
+                        <li><strong>Velocity:</strong> More responsive, precise control</li>
+                        <li><strong>Tilt Maze:</strong> Unique gameplay, more challenging</li>
+                    </ul>
+                    <p><strong>For this course:</strong> We'll use AddForce for authentic physics-based ball rolling.</p>
+                </div>
+
+                <div class="shortcut-box">
+                    <h4>⚡ Performance Tips / パフォーマンスのヒント:</h4>
+                    <ul>
+                        <li>Always use <code>FixedUpdate()</code> for physics operations</li>
+                        <li>Cache Rigidbody reference in <code>Start()</code></li>
+                        <li>Avoid <code>GetComponent()</code> in Update or FixedUpdate</li>
+                        <li>Use <code>Time.fixedDeltaTime</code> in FixedUpdate if needed</li>
+                        <li>Limit maximum velocity to prevent objects moving too fast</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 7: Camera Follow System</h3>
+
+                <h4>Why Camera Follow? / なぜカメラフォロー？</h4>
+                <p><strong>English:</strong> A camera that follows the player keeps them centered in view and creates better gameplay experience.</p>
+                <p><strong>日本語:</strong> プレイヤーを追跡するカメラは、プレイヤーを視界の中央に保ち、より良いゲームプレイ体験を作ります。</p>
+
+                <div class="unity-panel">
+                    <h4>Basic Camera Follow Script / 基本カメラフォロースクリプト</h4>
+
+                    <pre><code>using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+    public Transform target;           // The ball to follow
+    public Vector3 offset = new Vector3(0, 10, -10);
+    public float smoothSpeed = 5f;     // Camera follow smoothness
+    public bool lookAtTarget = true;   // Should camera always look at target?
+
+    void LateUpdate()
+    {
+        if (target == null) return;
+
+        // Calculate desired position
+        Vector3 desiredPosition = target.position + offset;
+
+        // Smoothly move camera
+        Vector3 smoothedPosition = Vector3.Lerp(
+            transform.position,
+            desiredPosition,
+            smoothSpeed * Time.deltaTime
+        );
+
+        transform.position = smoothedPosition;
+
+        // Optionally look at target
+        if (lookAtTarget)
+        {
+            transform.LookAt(target);
+        }
+    }
+}</code></pre>
+
+                    <p><strong>Setup Steps / セットアップ手順:</strong></p>
+                    <ol>
+                        <li>Create C# script named "CameraFollow"</li>
+                        <li>Attach to Main Camera</li>
+                        <li>Drag ball GameObject to "Target" field in Inspector</li>
+                        <li>Adjust offset to position camera (e.g., 0, 10, -10 for overhead view)</li>
+                        <li>Adjust smoothSpeed (3-10 typical range)</li>
+                        <li>Test and tweak values</li>
+                    </ol>
+                </div>
+
+                <div class="unity-panel">
+                    <h4>Alternative: Fixed Offset Camera / 代替：固定オフセットカメラ</h4>
+                    <p><strong>English:</strong> Simpler approach that maintains exact offset without smoothing</p>
+
+                    <pre><code>using UnityEngine;
+
+public class SimpleCameraFollow : MonoBehaviour
+{
+    public Transform target;
+    public Vector3 offset = new Vector3(0, 10, -10);
+
+    void LateUpdate()
+    {
+        if (target != null)
+        {
+            transform.position = target.position + offset;
+            transform.LookAt(target);
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 Camera Tips / カメラのヒント:</h4>
+                    <ul>
+                        <li>Use <strong>LateUpdate()</strong> for camera movement to ensure player moved first</li>
+                        <li><strong>Offset:</strong> Adjust Y for height, Z for distance</li>
+                        <li><strong>Smooth Speed:</strong> Lower = smoother but slower, Higher = faster but jerkier</li>
+                        <li><strong>Common offsets:</strong>
+                            <ul>
+                                <li>Top-down: (0, 15, 0)</li>
+                                <li>Isometric: (10, 10, -10)</li>
+                                <li>Behind player: (0, 5, -10)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="shortcut-box">
+                    <h4>🎥 Advanced Camera Features (Optional):</h4>
+                    <ul>
+                        <li><strong>Camera bounds:</strong> Limit camera movement to maze area</li>
+                        <li><strong>Zoom control:</strong> Allow player to zoom in/out</li>
+                        <li><strong>Rotation control:</strong> Allow player to rotate camera view</li>
+                        <li><strong>Cinemachine:</strong> Unity's advanced camera system (Package Manager)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Testing and Debugging Physics / 物理のテストとデバッグ</h2>
+
+            <div class="timeline-segment">
+                <h4>Debug Visualization / デバッグ視覚化</h4>
+
+                <div class="unity-panel">
+                    <p><strong>Show Colliders in Scene View / シーンビューでコライダーを表示:</strong></p>
+                    <ul>
+                        <li>Scene view → Gizmos dropdown (top right)</li>
+                        <li>Enable "Physics" → "Colliders"</li>
+                        <li>Colliders will appear as green wireframes</li>
+                    </ul>
+
+                    <p><strong>Debug.DrawRay for Visualizing Forces / 力の視覚化のためのDebug.DrawRay:</strong></p>
+                    <pre><code>void FixedUpdate()
+{
+    Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+    rb.AddForce(movement * moveForce);
+
+    // Visualize force direction in Scene view
+    Debug.DrawRay(transform.position, movement * 2f, Color.red);
+}</code></pre>
+
+                    <p><strong>Physics Debug Settings / 物理デバッグ設定:</strong></p>
+                    <ul>
+                        <li>Edit → Project Settings → Physics</li>
+                        <li>Adjust gravity (default: -9.81)</li>
+                        <li>View Layer Collision Matrix</li>
+                        <li>Adjust default solver iterations for accuracy</li>
+                    </ul>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🔍 Common Physics Issues & Solutions:</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                        <tr>
+                            <th>Problem</th>
+                            <th>Solution</th>
+                        </tr>
+                        <tr>
+                            <td>Ball passes through walls</td>
+                            <td>Set Rigidbody Collision Detection to Continuous</td>
+                        </tr>
+                        <tr>
+                            <td>Movement is jittery</td>
+                            <td>Enable Rigidbody Interpolate</td>
+                        </tr>
+                        <tr>
+                            <td>Ball moves too slowly</td>
+                            <td>Increase moveForce or reduce Drag/Mass</td>
+                        </tr>
+                        <tr>
+                            <td>Ball spins uncontrollably</td>
+                            <td>Freeze Rotation axes in Rigidbody Constraints</td>
+                        </tr>
+                        <tr>
+                            <td>Trigger not detecting</td>
+                            <td>Ensure Rigidbody on moving object, Is Trigger checked</td>
+                        </tr>
+                        <tr>
+                            <td>Input not responsive</td>
+                            <td>Check Input settings, use GetAxisRaw for instant response</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <h2>Building the Ball Maze Game / ボール迷路ゲームの構築</h2>
+
+            <div class="timeline-segment">
+                <h4>Complete Implementation Steps / 完全な実装手順</h4>
+
+                <p><strong>1. Import Maze from Blender</strong></p>
+                <ul>
+                    <li>Export maze from Blender as FBX</li>
+                    <li>Import into Unity Assets folder</li>
+                    <li>Drag into scene</li>
+                    <li>Add Box Colliders to all wall objects</li>
+                </ul>
+
+                <p><strong>2. Create Ball Player</strong></p>
+                <ul>
+                    <li>GameObject → 3D Object → Sphere</li>
+                    <li>Name: "Player"</li>
+                    <li>Add Rigidbody component</li>
+                    <li>Configure: Mass = 1, Drag = 0.5, Use Gravity = true</li>
+                    <li>Sphere Collider already attached</li>
+                    <li>Add Physics Material for bounce/friction</li>
+                </ul>
+
+                <p><strong>3. Add Movement Script</strong></p>
+                <ul>
+                    <li>Create BallController.cs</li>
+                    <li>Attach to Player ball</li>
+                    <li>Set moveForce (try 10-20)</li>
+                    <li>Test movement with WASD or arrow keys</li>
+                </ul>
+
+                <p><strong>4. Setup Camera</strong></p>
+                <ul>
+                    <li>Create CameraFollow.cs</li>
+                    <li>Attach to Main Camera</li>
+                    <li>Set target to Player ball</li>
+                    <li>Adjust offset and smoothSpeed</li>
+                </ul>
+
+                <p><strong>5. Create Goal Zone</strong></p>
+                <ul>
+                    <li>GameObject → 3D Object → Cylinder (or existing model)</li>
+                    <li>Name: "Goal"</li>
+                    <li>Position at end of maze</li>
+                    <li>Add Collider with "Is Trigger" checked</li>
+                    <li>Create GoalTrigger.cs script</li>
+                </ul>
+
+                <pre><code>using UnityEngine;
+
+public class GoalTrigger : MonoBehaviour
+{
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("You Win!");
+            // Later: Load next level, show UI, etc.
+        }
+    }
+}</code></pre>
+
+                <p><strong>6. Test and Polish</strong></p>
+                <ul>
+                    <li>Play test the game</li>
+                    <li>Adjust physics values</li>
+                    <li>Fine-tune camera position</li>
+                    <li>Add materials/colors for visual clarity</li>
+                    <li>Test all pathways work</li>
+                </ul>
+            </div>
+
+            <h2>Common Pitfalls / よくある落とし穴</h2>
+
+            <div class="timeline-segment">
+                <h4>1. Physics Operations in Update Instead of FixedUpdate</h4>
+                <p><strong>Problem:</strong> Inconsistent physics behavior, jittery movement</p>
+                <p><strong>Solution:</strong> Always use FixedUpdate() for AddForce, velocity changes</p>
+
+                <h4>2. Forgetting Rigidbody on Moving Objects</h4>
+                <p><strong>Problem:</strong> Collisions or triggers don't work</p>
+                <p><strong>Solution:</strong> At least one object in collision/trigger must have Rigidbody</p>
+
+                <h4>3. Excessive Force Values</h4>
+                <p><strong>Problem:</strong> Ball moves too fast, becomes uncontrollable</p>
+                <p><strong>Solution:</strong> Start with small force values (5-20), adjust incrementally</p>
+
+                <h4>4. Not Constraining Rotation</h4>
+                <p><strong>Problem:</strong> Ball spins wildly or tips over</p>
+                <p><strong>Solution:</strong> Use Rigidbody Constraints to freeze unwanted rotation axes</p>
+
+                <h4>5. Camera Movement in Update</h4>
+                <p><strong>Problem:</strong> Camera jitters or lags behind player</p>
+                <p><strong>Solution:</strong> Use LateUpdate() for camera movement</p>
+
+                <h4>6. Missing Colliders on Imported Models</h4>
+                <p><strong>Problem:</strong> Ball falls through floor or passes through walls</p>
+                <p><strong>Solution:</strong> Manually add colliders to imported FBX models</p>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+
+            <div class="timeline-segment">
+                <h4>Official Documentation / 公式ドキュメント:</h4>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Manual/PhysicsSection.html" target="_blank">Unity Physics Manual</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/class-Rigidbody.html" target="_blank">Rigidbody Component</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/CollidersOverview.html" target="_blank">Colliders Overview</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/Input.html" target="_blank">Input Manager</a></li>
+                </ul>
+
+                <h4>Video Tutorials (English):</h4>
+                <ul>
+                    <li>Brackeys - "Unity Physics in 10 Minutes"</li>
+                    <li>Code Monkey - "Rigidbody Movement Tutorial"</li>
+                    <li>Sebastian Lague - "Introduction to Unity Physics"</li>
+                </ul>
+
+                <h4>Video Tutorials (Japanese / 日本語):</h4>
+                <ul>
+                    <li>Unity Japan - 物理システムチュートリアル</li>
+                    <li>たのしいUnity - Rigidbody入門</li>
+                </ul>
+            </div>
+
+            <h2>Preparation for Next Week / 次週の準備</h2>
+
+            <div class="objectives-list">
+                <p><strong>English - Students should:</strong></p>
+                <ul>
+                    <li>Complete Week 4 assignment (playable ball maze game)</li>
+                    <li>Experiment with different physics values</li>
+                    <li>Try implementing bonus features</li>
+                    <li>Commit all work to GitHub</li>
+                    <li>Prepare questions about physics or scripting</li>
+                </ul>
+                <p><strong>日本語 - 学生は以下を行うべきです：</strong></p>
+                <ul>
+                    <li>第4週の課題を完了（プレイ可能なボール迷路ゲーム）</li>
+                    <li>さまざまな物理値を試す</li>
+                    <li>ボーナス機能の実装を試みる</li>
+                    <li>すべての作業をGitHubにコミット</li>
+                    <li>物理またはスクリプトに関する質問を準備</li>
+                </ul>
+                <p><strong>Next Week Preview:</strong> Advanced Unity Features - UI Systems, Audio, Particle Effects</p>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-03/lecture.html" class="btn btn-primary">← Previous Week</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>

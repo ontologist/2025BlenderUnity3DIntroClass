@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4 Assignment | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .assignment-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .assignment-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .assignment-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .requirement-box {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+        }
+        .requirement-box h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        .points-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .checklist {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checklist li::before {
+            content: "✅ ";
+            margin-right: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: var(--bg-light);
+            font-weight: bold;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        .tip-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📝 Week 4 Assignment: Playable Ball Maze Game</h1>
+            <p class="subtitle">第4週課題：プレイ可能なボール迷路ゲーム</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="assignment-content">
+            <div class="requirement-box">
+                <h3>📋 Assignment Overview</h3>
+                <p><strong>Due Date:</strong> Before Week 5 lecture / 第5週講義前</p>
+                <p><strong>Points:</strong> 15 points / 15点</p>
+                <p><strong>Estimated Time:</strong> 3-4 hours / 3-4時間</p>
+                <p><strong>Submission:</strong> Via GitHub repository</p>
+            </div>
+
+            <h2>Assignment Description / 課題概要</h2>
+
+            <p><strong>English:</strong> Build a fully playable ball maze game in Unity using physics-based movement. You will import your Week 1 Blender maze, add physics components, implement player controls, create a camera system, and add goal detection. This assignment combines 3D modeling skills from Blender with Unity's physics and scripting systems.</p>
+
+            <p><strong>日本語:</strong> 物理ベースの移動を使用して、Unityで完全にプレイ可能なボール迷路ゲームを構築します。第1週のBlender迷路をインポートし、物理コンポーネントを追加し、プレイヤーコントロールを実装し、カメラシステムを作成し、ゴール検出を追加します。この課題は、BlenderからのUnityの3Dモデリングスキルと物理およびスクリプトシステムを組み合わせます。</p>
+
+            <h2>Requirements / 要件</h2>
+
+            <div class="requirement-box">
+                <h4>1. Ball Player with Rigidbody <span class="points-badge">2 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create or import a sphere object as the player ball</li>
+                    <li>Add Rigidbody component with appropriate settings:
+                        <ul>
+                            <li>Mass: 0.5 - 1 kg</li>
+                            <li>Drag: 0.5 - 2</li>
+                            <li>Use Gravity: Enabled</li>
+                            <li>Interpolate: Enabled</li>
+                            <li>Collision Detection: Continuous or Continuous Dynamic</li>
+                        </ul>
+                    </li>
+                    <li>Sphere Collider already attached to sphere primitive</li>
+                    <li>Tag the ball as "Player"</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>プレイヤーボールとして球体オブジェクトを作成またはインポート</li>
+                    <li>適切な設定でRigidbodyコンポーネントを追加：
+                        <ul>
+                            <li>Mass：0.5 - 1 kg</li>
+                            <li>Drag：0.5 - 2</li>
+                            <li>Use Gravity：有効</li>
+                            <li>Interpolate：有効</li>
+                            <li>Collision Detection：ContinuousまたはContinuous Dynamic</li>
+                        </ul>
+                    </li>
+                    <li>Sphere Colliderは球体プリミティブに既に付属</li>
+                    <li>ボールに「Player」タグを付ける</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>2. Maze with Proper Colliders <span class="points-badge">3 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Import your Week 1 Blender maze as FBX</li>
+                    <li>Add Box Colliders to all walls (at least 10 wall segments)</li>
+                    <li>Add Box Collider to floor/ground</li>
+                    <li>All colliders should have "Is Trigger" unchecked (physical collisions)</li>
+                    <li>Properly organize maze objects in Hierarchy (use empty GameObjects as groups)</li>
+                    <li>Optional: Add Physics Material to floor for friction control</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>第1週のBlender迷路をFBXとしてインポート</li>
+                    <li>すべての壁にBox Colliderを追加（少なくとも10の壁セグメント）</li>
+                    <li>床/地面にBox Colliderを追加</li>
+                    <li>すべてのコライダーで「Is Trigger」のチェックを外す（物理的衝突）</li>
+                    <li>Hierarchyで迷路オブジェクトを適切に整理（グループとして空のGameObjectを使用）</li>
+                    <li>オプション：摩擦制御のためにPhysics Materialを床に追加</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>3. Player Movement Script (Physics-Based) <span class="points-badge">4 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create a C# script named <code>BallController.cs</code></li>
+                    <li>Implement physics-based movement using <code>AddForce()</code> in <code>FixedUpdate()</code></li>
+                    <li>Use Input.GetAxis() for smooth input</li>
+                    <li>Include public variables for moveForce (adjustable in Inspector)</li>
+                    <li>Movement should respond to WASD or Arrow keys</li>
+                    <li>Optional: Implement maximum speed limit</li>
+                    <li>Code must be well-commented and organized</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li><code>BallController.cs</code>という名前のC#スクリプトを作成</li>
+                    <li><code>FixedUpdate()</code>で<code>AddForce()</code>を使用した物理ベースの移動を実装</li>
+                    <li>滑らかな入力のためにInput.GetAxis()を使用</li>
+                    <li>moveForce用のpublic変数を含める（Inspectorで調整可能）</li>
+                    <li>移動はWASDまたは矢印キーに応答する必要があります</li>
+                    <li>オプション：最大速度制限を実装</li>
+                    <li>コードは十分にコメントされ整理されている必要があります</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Code Template:</h4>
+                    <pre><code>using UnityEngine;
+
+public class BallController : MonoBehaviour
+{
+    [Header("Movement Settings")]
+    public float moveForce = 10f;
+
+    private Rigidbody rb;
+
+    void Start()
+    {
+        // Get and cache Rigidbody component
+        rb = GetComponent&lt;Rigidbody&gt;();
+    }
+
+    void FixedUpdate()
+    {
+        // Get input from keyboard
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Create movement vector
+        Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
+
+        // Apply force to ball
+        rb.AddForce(movement * moveForce);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="requirement-box">
+                <h4>4. Camera Follow System <span class="points-badge">3 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create a C# script named <code>CameraFollow.cs</code></li>
+                    <li>Attach script to Main Camera</li>
+                    <li>Implement smooth camera follow using <code>Vector3.Lerp()</code> in <code>LateUpdate()</code></li>
+                    <li>Include public variables for:
+                        <ul>
+                            <li>target (Transform) - reference to player ball</li>
+                            <li>offset (Vector3) - camera position offset</li>
+                            <li>smoothSpeed (float) - follow smoothness</li>
+                        </ul>
+                    </li>
+                    <li>Camera should keep player in view at all times</li>
+                    <li>Optional: Implement LookAt() to always face the ball</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li><code>CameraFollow.cs</code>という名前のC#スクリプトを作成</li>
+                    <li>Main Cameraにスクリプトをアタッチ</li>
+                    <li><code>LateUpdate()</code>で<code>Vector3.Lerp()</code>を使用して滑らかなカメラフォローを実装</li>
+                    <li>次のpublic変数を含める：
+                        <ul>
+                            <li>target (Transform) - プレイヤーボールへの参照</li>
+                            <li>offset (Vector3) - カメラ位置オフセット</li>
+                            <li>smoothSpeed (float) - フォローの滑らかさ</li>
+                        </ul>
+                    </li>
+                    <li>カメラは常にプレイヤーを視界に保つ必要があります</li>
+                    <li>オプション：常にボールを向くようにLookAt()を実装</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Code Template:</h4>
+                    <pre><code>using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+    [Header("Target Settings")]
+    public Transform target;
+
+    [Header("Camera Settings")]
+    public Vector3 offset = new Vector3(0, 10, -10);
+    public float smoothSpeed = 5f;
+    public bool lookAtTarget = true;
+
+    void LateUpdate()
+    {
+        if (target == null) return;
+
+        // Calculate desired position
+        Vector3 desiredPosition = target.position + offset;
+
+        // Smoothly interpolate to desired position
+        Vector3 smoothedPosition = Vector3.Lerp(
+            transform.position,
+            desiredPosition,
+            smoothSpeed * Time.deltaTime
+        );
+
+        transform.position = smoothedPosition;
+
+        // Optionally look at target
+        if (lookAtTarget)
+        {
+            transform.LookAt(target);
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="requirement-box">
+                <h4>5. Goal Detection with Trigger <span class="points-badge">2 points</span></h4>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create a goal zone object (Cylinder, Cube, or custom mesh)</li>
+                    <li>Position at the end of the maze</li>
+                    <li>Add Collider component with "Is Trigger" checked</li>
+                    <li>Create a C# script named <code>GoalTrigger.cs</code></li>
+                    <li>Implement <code>OnTriggerEnter()</code> to detect when player reaches goal</li>
+                    <li>Log success message to Console when goal is reached</li>
+                    <li>Optional: Display UI text or reload scene</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>ゴールゾーンオブジェクトを作成（Cylinder、Cube、またはカスタムメッシュ）</li>
+                    <li>迷路の終わりに配置</li>
+                    <li>「Is Trigger」をチェックしてColliderコンポーネントを追加</li>
+                    <li><code>GoalTrigger.cs</code>という名前のC#スクリプトを作成</li>
+                    <li>プレイヤーがゴールに到達したときを検出するために<code>OnTriggerEnter()</code>を実装</li>
+                    <li>ゴールに到達したときにConsoleに成功メッセージをログ</li>
+                    <li>オプション：UIテキストを表示またはシーンをリロード</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Code Template:</h4>
+                    <pre><code>using UnityEngine;
+
+public class GoalTrigger : MonoBehaviour
+{
+    void OnTriggerEnter(Collider other)
+    {
+        // Check if the ball entered the goal
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("🎉 Congratulations! You reached the goal!");
+
+            // Optional: Add more functionality
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="requirement-box">
+                <h4>6. File Organization and Submission <span class="points-badge">1 point</span></h4>
+                <p><strong>File Structure / ファイル構造:</strong></p>
+                <pre><code>game-dev-2025-yourname/
+└── week-04/
+    ├── BallMazeGame/           (Unity Project folder)
+    │   ├── Assets/
+    │   │   ├── Scripts/
+    │   │   │   ├── BallController.cs
+    │   │   │   ├── CameraFollow.cs
+    │   │   │   └── GoalTrigger.cs
+    │   │   ├── Models/
+    │   │   │   └── maze.fbx
+    │   │   └── Scenes/
+    │   │       └── MazeGame.unity
+    │   └── ProjectSettings/
+    └── week04_screenshot.png</code></pre>
+
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create Unity project named <code>BallMazeGame</code> in week-04 folder</li>
+                    <li>Organize scripts in <code>Assets/Scripts/</code> folder</li>
+                    <li>Save main scene as <code>MazeGame.unity</code></li>
+                    <li>Take a screenshot of gameplay (ball in maze with camera view)</li>
+                    <li>Name screenshot: <code>week04_screenshot.png</code></li>
+                </ul>
+
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>week-04フォルダに<code>BallMazeGame</code>という名前のUnityプロジェクトを作成</li>
+                    <li><code>Assets/Scripts/</code>フォルダにスクリプトを整理</li>
+                    <li>メインシーンを<code>MazeGame.unity</code>として保存</li>
+                    <li>ゲームプレイのスクリーンショットを撮る（カメラビューで迷路内のボール）</li>
+                    <li>スクリーンショットの名前：<code>week04_screenshot.png</code></li>
+                </ul>
+            </div>
+
+            <h2>Grading Rubric / 採点基準</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria / 基準</th>
+                        <th>Points / 点数</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ball with Rigidbody</td>
+                        <td>2</td>
+                        <td>
+                            Ball properly configured with Rigidbody, appropriate physics settings, tagged as Player<br/>
+                            Rigidbodyで適切に設定されたボール、適切な物理設定、Playerとしてタグ付け
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Maze Colliders</td>
+                        <td>3</td>
+                        <td>
+                            All walls and floor have colliders, maze imported correctly, properly organized<br/>
+                            すべての壁と床にコライダーがあり、迷路が正しくインポートされ、適切に整理されている
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Movement Script</td>
+                        <td>4</td>
+                        <td>
+                            Physics-based movement working correctly, uses FixedUpdate, input responsive, well-commented code<br/>
+                            物理ベースの移動が正しく機能し、FixedUpdateを使用し、入力が応答し、コードが十分にコメントされている
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Camera Follow</td>
+                        <td>3</td>
+                        <td>
+                            Camera smoothly follows ball, uses LateUpdate, adjustable settings, keeps player in view<br/>
+                            カメラがボールを滑らかに追跡し、LateUpdateを使用し、調整可能な設定、プレイヤーを視界に保つ
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Goal Detection</td>
+                        <td>2</td>
+                        <td>
+                            Trigger zone at maze end, correctly detects player, logs message to console<br/>
+                            迷路の終わりのトリガーゾーン、プレイヤーを正しく検出、コンソールにメッセージをログ
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>File Organization</td>
+                        <td>1</td>
+                        <td>
+                            Proper folder structure, scripts organized, screenshot included, pushed to GitHub<br/>
+                            適切なフォルダ構造、スクリプトの整理、スクリーンショット含まれる、GitHubにプッシュ
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>15</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <h4>⚠️ Grading Scale / 採点スケール</h4>
+                <ul>
+                    <li><strong>14-15 points:</strong> Excellent - All requirements met, game fully playable</li>
+                    <li><strong>12-13 points:</strong> Good - Most requirements met, minor issues</li>
+                    <li><strong>10-11 points:</strong> Satisfactory - Basic requirements met, some features incomplete</li>
+                    <li><strong>7-9 points:</strong> Needs Improvement - Significant features missing or not working</li>
+                    <li><strong>0-6 points:</strong> Incomplete - Major requirements not met</li>
+                </ul>
+            </div>
+
+            <h2>Step-by-Step Guide / ステップバイステップガイド</h2>
+
+            <div class="requirement-box">
+                <h4>Implementation Steps / 実装手順</h4>
+
+                <h4>Step 1: Create Unity Project (10 minutes)</h4>
+                <ol>
+                    <li>Open Unity Hub</li>
+                    <li>Create New Project → 3D Core template</li>
+                    <li>Name: <code>BallMazeGame</code></li>
+                    <li>Location: Your GitHub repo's <code>week-04</code> folder</li>
+                    <li>Create folders: <code>Assets/Scripts</code>, <code>Assets/Models</code></li>
+                </ol>
+
+                <h4>Step 2: Import and Setup Maze (15 minutes)</h4>
+                <ol>
+                    <li>Export your Week 1 Blender maze as FBX:
+                        <ul>
+                            <li>Blender → File → Export → FBX (.fbx)</li>
+                            <li>Save to <code>Assets/Models/</code></li>
+                        </ul>
+                    </li>
+                    <li>In Unity, drag maze FBX into scene</li>
+                    <li>Position at origin (0, 0, 0)</li>
+                    <li>Select each wall object in Hierarchy</li>
+                    <li>Add Component → Physics → Box Collider</li>
+                    <li>Adjust collider size to match wall</li>
+                    <li>Repeat for all walls and floor</li>
+                    <li>Create empty GameObject named "Maze" as parent, organize walls underneath</li>
+                </ol>
+
+                <h4>Step 3: Create Player Ball (10 minutes)</h4>
+                <ol>
+                    <li>GameObject → 3D Object → Sphere</li>
+                    <li>Name: "Player"</li>
+                    <li>Position at maze start</li>
+                    <li>Scale: 0.5 - 1 (appropriate size for maze)</li>
+                    <li>Add Component → Physics → Rigidbody</li>
+                    <li>Configure Rigidbody:
+                        <ul>
+                            <li>Mass: 1</li>
+                            <li>Drag: 1</li>
+                            <li>Angular Drag: 0.05</li>
+                            <li>Use Gravity: ✓</li>
+                            <li>Interpolate: Interpolate</li>
+                            <li>Collision Detection: Continuous</li>
+                        </ul>
+                    </li>
+                    <li>In Inspector, set Tag to "Player"</li>
+                </ol>
+
+                <h4>Step 4: Create Movement Script (20 minutes)</h4>
+                <ol>
+                    <li>In Project window: <code>Assets/Scripts</code> → Right-click → Create → C# Script</li>
+                    <li>Name: <code>BallController</code></li>
+                    <li>Double-click to open in code editor</li>
+                    <li>Copy the BallController code template (from above)</li>
+                    <li>Save script</li>
+                    <li>Drag script onto Player ball in Hierarchy</li>
+                    <li>In Inspector, set Move Force to 10</li>
+                    <li>Press Play and test with WASD/Arrow keys</li>
+                    <li>Adjust moveForce value until movement feels good</li>
+                </ol>
+
+                <h4>Step 5: Setup Camera Follow (15 minutes)</h4>
+                <ol>
+                    <li>Create script: <code>Assets/Scripts/CameraFollow.cs</code></li>
+                    <li>Copy CameraFollow code template</li>
+                    <li>Save script</li>
+                    <li>Select Main Camera in Hierarchy</li>
+                    <li>Drag CameraFollow script onto Main Camera</li>
+                    <li>In Inspector:
+                        <ul>
+                            <li>Drag Player ball to Target field</li>
+                            <li>Set Offset: (0, 10, -10) for overhead view</li>
+                            <li>Set Smooth Speed: 5</li>
+                            <li>Check Look At Target</li>
+                        </ul>
+                    </li>
+                    <li>Press Play and test camera follows ball smoothly</li>
+                </ol>
+
+                <h4>Step 6: Create Goal Trigger (15 minutes)</h4>
+                <ol>
+                    <li>GameObject → 3D Object → Cylinder</li>
+                    <li>Name: "Goal"</li>
+                    <li>Position at maze exit/end</li>
+                    <li>Scale appropriately (visible but not blocking)</li>
+                    <li>Select Goal in Hierarchy</li>
+                    <li>In Inspector → Capsule Collider → check "Is Trigger"</li>
+                    <li>Create script: <code>Assets/Scripts/GoalTrigger.cs</code></li>
+                    <li>Copy GoalTrigger code template</li>
+                    <li>Drag script onto Goal object</li>
+                    <li>Press Play and test reaching the goal</li>
+                    <li>Check Console for success message</li>
+                </ol>
+
+                <h4>Step 7: Polish and Test (20 minutes)</h4>
+                <ol>
+                    <li>Play test the complete game</li>
+                    <li>Adjust physics values if needed:
+                        <ul>
+                            <li>Too slow? Increase moveForce or reduce Drag</li>
+                            <li>Too fast? Decrease moveForce or increase Drag</li>
+                            <li>Ball spins too much? Increase Angular Drag or freeze rotation axes</li>
+                        </ul>
+                    </li>
+                    <li>Test all pathways in maze work correctly</li>
+                    <li>Verify ball can reach the goal</li>
+                    <li>Optional: Add materials/colors to ball and goal for visual clarity</li>
+                    <li>Save scene: File → Save As → <code>MazeGame.unity</code></li>
+                </ol>
+
+                <h4>Step 8: Screenshot and Submit (10 minutes)</h4>
+                <ol>
+                    <li>Position ball in middle of maze</li>
+                    <li>In Game view, capture screenshot:
+                        <ul>
+                            <li>Play mode</li>
+                            <li>Screenshot tool or F12 (if configured)</li>
+                            <li>Or use operating system screenshot tool</li>
+                        </ul>
+                    </li>
+                    <li>Save as <code>week04_screenshot.png</code> in week-04 folder</li>
+                    <li>Open GitHub Desktop or terminal</li>
+                    <li>Commit changes: "Complete Week 4 ball maze game assignment"</li>
+                    <li>Push to GitHub</li>
+                    <li>Verify on GitHub.com that files are visible</li>
+                </ol>
+            </div>
+
+            <h2>Bonus Features (Optional Extra Credit) / ボーナス機能（オプション追加クレジット）</h2>
+
+            <div class="tip-box">
+                <h4>🌟 Optional Enhancements (+1-3 points each):</h4>
+                <ul>
+                    <li><strong>Multiple Collectibles:</strong> Add coins/stars to collect before goal (+2 points)
+                        <ul>
+                            <li>Create trigger objects throughout maze</li>
+                            <li>Track collection count</li>
+                            <li>Require all collected before goal activates</li>
+                        </ul>
+                    </li>
+                    <li><strong>Timer System:</strong> Display time taken to complete maze (+1 point)
+                        <ul>
+                            <li>Use Time.time to track elapsed time</li>
+                            <li>Display on UI or console</li>
+                        </ul>
+                    </li>
+                    <li><strong>Reset Function:</strong> Press R to restart level (+1 point)
+                        <ul>
+                            <li>Use SceneManager.LoadScene()</li>
+                            <li>Remember to add "using UnityEngine.SceneManagement;"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Physics Materials:</strong> Different floor surfaces with varying friction (+2 points)
+                        <ul>
+                            <li>Create Physics Materials with different friction values</li>
+                            <li>Apply to different floor sections (ice, carpet, etc.)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Maze Tilt Control:</strong> Instead of moving ball, tilt entire maze (+3 points)
+                        <ul>
+                            <li>Create script to rotate maze platform</li>
+                            <li>Ball rolls based on gravity</li>
+                            <li>More challenging and unique gameplay</li>
+                        </ul>
+                    </li>
+                    <li><strong>Sound Effects:</strong> Add rolling sound and goal sound (+1 point)
+                        <ul>
+                            <li>Attach AudioSource component</li>
+                            <li>Play sound on collision and trigger</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>Note:</strong> Maximum +5 bonus points total. Document any bonus features in a comment at top of your scripts.</p>
+            </div>
+
+            <h2>Submission Checklist / 提出チェックリスト</h2>
+
+            <div class="checklist">
+                <h4>Before submitting, verify / 提出前に確認:</h4>
+                <ul>
+                    <li>Unity project named BallMazeGame in week-04 folder</li>
+                    <li>Ball has Rigidbody with correct settings</li>
+                    <li>Ball tagged as "Player"</li>
+                    <li>All maze walls have Box Colliders</li>
+                    <li>Floor has Box Collider</li>
+                    <li>BallController.cs script exists and works</li>
+                    <li>CameraFollow.cs script exists and works</li>
+                    <li>GoalTrigger.cs script exists and works</li>
+                    <li>Ball can be controlled with WASD or arrows</li>
+                    <li>Camera follows ball smoothly</li>
+                    <li>Reaching goal logs message to console</li>
+                    <li>All scripts have comments explaining code</li>
+                    <li>Scene saved as MazeGame.unity</li>
+                    <li>Screenshot included (week04_screenshot.png)</li>
+                    <li>Folder structure organized correctly</li>
+                    <li>Committed to Git with descriptive message</li>
+                    <li>Pushed to GitHub repository</li>
+                    <li>Verified visible on GitHub.com</li>
+                </ul>
+            </div>
+
+            <h2>Common Issues & Solutions / よくある問題と解決策</h2>
+
+            <div class="warning-box">
+                <h4>❌ Common Problems:</h4>
+
+                <h4>Problem 1: Ball falls through floor</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Check floor has Box Collider</li>
+                    <li>Set Rigidbody Collision Detection to "Continuous"</li>
+                    <li>Ensure floor is thick enough (not paper-thin)</li>
+                </ul>
+
+                <h4>Problem 2: Ball doesn't move</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Check BallController script is attached to ball</li>
+                    <li>Verify Rigidbody is on ball</li>
+                    <li>Check "Use Gravity" is enabled</li>
+                    <li>Increase moveForce value in Inspector</li>
+                    <li>Check Console for errors</li>
+                </ul>
+
+                <h4>Problem 3: Movement is jerky/jittery</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Enable Rigidbody Interpolate</li>
+                    <li>Make sure physics code is in FixedUpdate(), not Update()</li>
+                    <li>Reduce Drag value</li>
+                </ul>
+
+                <h4>Problem 4: Camera doesn't follow</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Check CameraFollow script on Main Camera</li>
+                    <li>Verify Target field references Player ball</li>
+                    <li>Make sure code is in LateUpdate()</li>
+                    <li>Check for errors in Console</li>
+                </ul>
+
+                <h4>Problem 5: Goal trigger doesn't work</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Verify "Is Trigger" is checked on goal collider</li>
+                    <li>Check ball is tagged as "Player"</li>
+                    <li>Ensure ball has Rigidbody</li>
+                    <li>Check spelling in CompareTag("Player")</li>
+                    <li>Look for errors in Console</li>
+                </ul>
+
+                <h4>Problem 6: Ball spins uncontrollably</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>Increase Angular Drag to 0.5 or higher</li>
+                    <li>Freeze unwanted rotation axes in Rigidbody Constraints</li>
+                    <li>Reduce moveForce</li>
+                </ul>
+
+                <h4>Problem 7: FBX import issues</h4>
+                <p><strong>Solution:</strong></p>
+                <ul>
+                    <li>In Blender: Select all objects before exporting</li>
+                    <li>Use File → Export → FBX, not File → Save As</li>
+                    <li>Check "Selected Objects" in FBX export options</li>
+                    <li>Reimport in Unity if needed</li>
+                </ul>
+            </div>
+
+            <h2>Frequently Asked Questions (FAQ) / よくある質問</h2>
+
+            <div class="requirement-box">
+                <h4>Q: Can I use the new Input System instead of legacy?</h4>
+                <p><strong>A:</strong> Yes, but it's not required. The legacy Input Manager is simpler for this assignment. If you use the new Input System, ensure it works correctly and include setup documentation.</p>
+
+                <h4>Q: Do I have to use my Week 1 Blender maze?</h4>
+                <p><strong>A:</strong> Ideally yes, but if there are issues, you can create a simple maze directly in Unity using cubes. The important part is demonstrating physics and scripting skills.</p>
+
+                <h4>Q: What if my maze is too complex to add colliders to every part?</h4>
+                <p><strong>A:</strong> Simplify your maze or combine multiple wall segments into fewer objects. You can also use Mesh Collider set to "Convex" for complex static geometry.</p>
+
+                <h4>Q: Can I make the ball jump?</h4>
+                <p><strong>A:</strong> Yes! Add a jump feature as a bonus. Use AddForce with ForceMode.Impulse on Y-axis when spacebar is pressed.</p>
+
+                <h4>Q: How do I know if my physics values are correct?</h4>
+                <p><strong>A:</strong> Test by playing! The ball should feel responsive but not too fast. You should be able to navigate corners without overshooting. Adjust values until it feels good.</p>
+
+                <h4>Q: What camera offset should I use?</h4>
+                <p><strong>A:</strong> Recommended: (0, 10, -10) for overhead angled view. Adjust based on your maze size and preference.</p>
+
+                <h4>Q: Do I need to include Library folder in GitHub?</h4>
+                <p><strong>A:</strong> No! Library folder is huge and auto-generated. Use Unity .gitignore template to exclude it. Only commit Assets, ProjectSettings, and Packages folders.</p>
+
+                <h4>Q: Can I work with a partner?</h4>
+                <p><strong>A:</strong> You may discuss concepts with classmates, but all code and implementation must be your own work. Do not copy code from others.</p>
+            </div>
+
+            <h2>Getting Help / ヘルプを得る</h2>
+
+            <div class="requirement-box">
+                <p><strong>If you're stuck / 困った場合:</strong></p>
+                <ol>
+                    <li>Check the <a href="lecture.html">Week 4 lecture notes</a> for detailed explanations</li>
+                    <li>Review the <a href="slides.html">Week 4 slides</a> for visual reference</li>
+                    <li>Check Console for error messages (red text)</li>
+                    <li>Use Debug.Log() to track what your code is doing</li>
+                    <li>Review Unity documentation for Rigidbody and Colliders</li>
+                    <li>Watch recommended tutorial videos</li>
+                    <li>Post questions in course discussion forum with:
+                        <ul>
+                            <li>Clear description of problem</li>
+                            <li>Screenshot of issue</li>
+                            <li>Error messages from Console</li>
+                            <li>What you've already tried</li>
+                        </ul>
+                    </li>
+                    <li>Attend office hours for live help</li>
+                    <li>Email instructor with:
+                        <ul>
+                            <li>Your GitHub repository link</li>
+                            <li>Detailed problem description</li>
+                            <li>Screenshots or video of issue</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+
+            <div class="tip-box">
+                <h4>📚 Helpful Links:</h4>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Manual/PhysicsSection.html" target="_blank">Unity Physics Manual</a></li>
+                    <li><a href="https://docs.unity3d.com/ScriptReference/Rigidbody.html" target="_blank">Rigidbody Scripting Reference</a></li>
+                    <li><a href="https://docs.unity3d.com/ScriptReference/Collider.html" target="_blank">Collider Scripting Reference</a></li>
+                    <li><a href="https://docs.unity3d.com/ScriptReference/Input.html" target="_blank">Input Class Reference</a></li>
+                    <li><a href="https://learn.unity.com/tutorial/physics" target="_blank">Unity Learn - Physics Tutorial</a></li>
+                </ul>
+
+                <h4>🎥 Video Tutorials:</h4>
+                <ul>
+                    <li>Brackeys - "Rigidbody Physics in Unity"</li>
+                    <li>Brackeys - "Camera Follow in Unity"</li>
+                    <li>Code Monkey - "Physics Movement Tutorial"</li>
+                    <li>Unity - "Roll-a-Ball Tutorial" (official)</li>
+                </ul>
+            </div>
+
+            <div class="nav-buttons" style="display: flex; gap: 15px; margin-top: 30px;">
+                <a href="lecture.html" class="btn btn-secondary">← Back to Lecture</a>
+                <a href="../../index.html" class="btn btn-primary">Course Home</a>
+                <a href="slides.html" class="btn btn-accent">View Slides</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>

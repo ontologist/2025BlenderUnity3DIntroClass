@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4: Unity Physics & Input Systems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px 80px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .slide h2 {
+            font-size: 2.2em;
+            color: #764ba2;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .slide h3 {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .slide h4 {
+            font-size: 1.4em;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .slide ul, .slide ol {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+        }
+
+        .bilingual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        .english, .japanese {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .english {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+        }
+
+        .japanese {
+            background: #fff0f6;
+            border-left: 4px solid #764ba2;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .code-box {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            color: #667eea;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .title-slide h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .title-slide .subtitle {
+            font-size: 2em;
+            color: #764ba2;
+            margin-bottom: 40px;
+        }
+
+        .title-slide .info {
+            font-size: 1.3em;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 1em;
+        }
+
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-size: 0.95em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        kbd {
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 3px 8px;
+            font-family: monospace;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 0.9em;
+        }
+
+        .physics-icon {
+            font-size: 3em;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .tip-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-number" id="slideNumber">Slide 1 / 20</div>
+
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>🎮 Week 4</h1>
+            <p class="subtitle">Unity Physics & Input Systems<br>Unity物理システムと入力システム</p>
+            <p class="info"><strong>Duration:</strong> 100 minutes / 100分</p>
+            <p class="info"><strong>Developer:</strong> Yuri Tijerino</p>
+            <p class="info">Game Development Course 2025</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h2>📚 Learning Objectives / 講義目標</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>By the end of this lecture, students will be able to:</h4>
+                    <ol>
+                        <li>Understand Unity's physics system</li>
+                        <li>Configure Rigidbody components</li>
+                        <li>Work with different collider types</li>
+                        <li>Distinguish collision vs trigger events</li>
+                        <li>Implement player input systems</li>
+                        <li>Create physics-based movement</li>
+                        <li>Build a camera follow system</li>
+                        <li>Debug physics interactions</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>この講義の終了までに、学生は以下ができるようになります：</h4>
+                    <ol>
+                        <li>Unityの物理システムを理解する</li>
+                        <li>Rigidbodyコンポーネントを設定する</li>
+                        <li>さまざまなコライダータイプを使用する</li>
+                        <li>衝突イベントとトリガーイベントを区別する</li>
+                        <li>プレイヤー入力システムを実装する</li>
+                        <li>物理ベースの移動を作成する</li>
+                        <li>カメラフォローシステムを構築する</li>
+                        <li>物理インタラクションをデバッグする</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: What is Physics in Games? -->
+        <div class="slide">
+            <h2>⚛️ What is Physics in Games?</h2>
+            <div class="physics-icon">🌍 ⚽ 🎯</div>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Physics Engine</h3>
+                    <p>A system that simulates real-world physics in games:</p>
+                    <ul>
+                        <li><strong>Gravity:</strong> Objects fall downward</li>
+                        <li><strong>Collisions:</strong> Objects bounce and interact</li>
+                        <li><strong>Forces:</strong> Push and pull objects</li>
+                        <li><strong>Friction:</strong> Objects slow down on surfaces</li>
+                        <li><strong>Momentum:</strong> Moving objects stay in motion</li>
+                    </ul>
+                    <p><strong>Unity uses NVIDIA PhysX</strong> - industry-standard physics engine</p>
+                </div>
+                <div class="japanese">
+                    <h3>物理エンジン</h3>
+                    <p>ゲームで現実世界の物理をシミュレートするシステム：</p>
+                    <ul>
+                        <li><strong>重力:</strong> オブジェクトが下に落ちる</li>
+                        <li><strong>衝突:</strong> オブジェクトが跳ね返り相互作用する</li>
+                        <li><strong>力:</strong> オブジェクトを押したり引いたりする</li>
+                        <li><strong>摩擦:</strong> 表面上でオブジェクトが減速する</li>
+                        <li><strong>運動量:</strong> 動いているオブジェクトは動き続ける</li>
+                    </ul>
+                    <p><strong>UnityはNVIDIA PhysXを使用</strong> - 業界標準の物理エンジン</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: FixedUpdate vs Update -->
+        <div class="slide">
+            <h2>⏱️ FixedUpdate vs Update</h2>
+            <div class="highlight-box">
+                <h3>Why Two Update Functions?</h3>
+                <p>Physics needs consistent timing, graphics needs responsive updates</p>
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Update()</th>
+                        <th>FixedUpdate()</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Call Rate</strong></td>
+                        <td>Every frame (variable)</td>
+                        <td>Fixed timestep (50x/sec)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Purpose</strong></td>
+                        <td>Visual updates, input</td>
+                        <td>Physics calculations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Timing</strong></td>
+                        <td>Inconsistent (frame rate)</td>
+                        <td>Consistent (0.02 seconds)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Use for</strong></td>
+                        <td>Input.GetKeyDown, animations</td>
+                        <td>AddForce, velocity changes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Example</strong></td>
+                        <td>Camera movement, UI</td>
+                        <td>Ball rolling, gravity</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tip-box">
+                <strong>Rule of Thumb:</strong> All physics operations go in FixedUpdate(), everything else in Update()
+            </div>
+        </div>
+
+        <!-- Slide 5: Rigidbody Component -->
+        <div class="slide">
+            <h2>🎱 Rigidbody Component</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>What is Rigidbody?</h3>
+                    <p>Makes objects respond to physics forces</p>
+                    <h4>Adding Rigidbody:</h4>
+                    <ol>
+                        <li>Select GameObject</li>
+                        <li>Inspector → Add Component</li>
+                        <li>Physics → Rigidbody</li>
+                    </ol>
+                    <h4>Key Properties:</h4>
+                    <ul>
+                        <li><strong>Mass:</strong> Weight (kg)</li>
+                        <li><strong>Drag:</strong> Air resistance</li>
+                        <li><strong>Use Gravity:</strong> Enable falling</li>
+                        <li><strong>Is Kinematic:</strong> Ignore physics forces</li>
+                        <li><strong>Interpolate:</strong> Smooth movement</li>
+                        <li><strong>Constraints:</strong> Freeze axes</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>Rigidbodyとは？</h3>
+                    <p>オブジェクトを物理的な力に反応させる</p>
+                    <h4>Rigidbodyの追加:</h4>
+                    <ol>
+                        <li>GameObjectを選択</li>
+                        <li>Inspector → Add Component</li>
+                        <li>Physics → Rigidbody</li>
+                    </ol>
+                    <h4>主要プロパティ:</h4>
+                    <ul>
+                        <li><strong>Mass:</strong> 重量（kg）</li>
+                        <li><strong>Drag:</strong> 空気抵抗</li>
+                        <li><strong>Use Gravity:</strong> 落下を有効化</li>
+                        <li><strong>Is Kinematic:</strong> 物理力を無視</li>
+                        <li><strong>Interpolate:</strong> 動きを滑らかに</li>
+                        <li><strong>Constraints:</strong> 軸を固定</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Rigidbody Properties Deep Dive -->
+        <div class="slide">
+            <h2>🔧 Rigidbody Properties in Detail</h2>
+            <div class="two-column">
+                <div>
+                    <h4>Mass (質量)</h4>
+                    <ul>
+                        <li>Weight in kilograms</li>
+                        <li>Ball: 0.5 - 1 kg</li>
+                        <li>Crate: 10 - 50 kg</li>
+                        <li>Affects force needed to move</li>
+                    </ul>
+                    <h4>Drag (抗力)</h4>
+                    <ul>
+                        <li>Air resistance: 0-10</li>
+                        <li>0 = no resistance</li>
+                        <li>Higher = faster slowdown</li>
+                        <li>Ball in maze: 0.5-2</li>
+                    </ul>
+                    <h4>Angular Drag</h4>
+                    <ul>
+                        <li>Rotation resistance</li>
+                        <li>Default: 0.05</li>
+                        <li>Prevents infinite spinning</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Interpolate (補間)</h4>
+                    <ul>
+                        <li><strong>None:</strong> No smoothing</li>
+                        <li><strong>Interpolate:</strong> Recommended</li>
+                        <li><strong>Extrapolate:</strong> Predictive</li>
+                    </ul>
+                    <h4>Collision Detection</h4>
+                    <ul>
+                        <li><strong>Discrete:</strong> Default, fast</li>
+                        <li><strong>Continuous:</strong> For fast objects</li>
+                        <li><strong>Continuous Dynamic:</strong> Best</li>
+                    </ul>
+                    <h4>Constraints (制約)</h4>
+                    <ul>
+                        <li>Freeze Position: X, Y, Z</li>
+                        <li>Freeze Rotation: X, Y, Z</li>
+                        <li>Example: Freeze Y rotation for ball</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Colliders Overview -->
+        <div class="slide">
+            <h2>📦 Colliders - Physics Shapes</h2>
+            <div class="highlight-box">
+                <h3>Colliders define the physical shape for collisions</h3>
+                <p>They are invisible boundaries that determine when objects touch</p>
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Collider Type</th>
+                        <th>Shape</th>
+                        <th>Performance</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Box Collider</strong></td>
+                        <td>Rectangle / 長方形</td>
+                        <td>Very Fast / 非常に高速</td>
+                        <td>Walls, floors, crates</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sphere Collider</strong></td>
+                        <td>Sphere / 球体</td>
+                        <td>Very Fast / 非常に高速</td>
+                        <td>Balls, planets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Capsule Collider</strong></td>
+                        <td>Rounded cylinder / 丸い円柱</td>
+                        <td>Fast / 高速</td>
+                        <td>Characters, pillars</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mesh Collider</strong></td>
+                        <td>Exact mesh / 正確なメッシュ</td>
+                        <td>Slow / 低速</td>
+                        <td>Terrain, complex shapes</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="warning-box">
+                <strong>⚠️ Warning:</strong> Mesh Colliders are expensive! Use primitive colliders when possible.
+            </div>
+        </div>
+
+        <!-- Slide 8: Box Collider & Sphere Collider -->
+        <div class="slide">
+            <h2>📦 Box & Sphere Colliders</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Box Collider</h3>
+                    <div class="highlight-box">
+                        <p><strong>Shape:</strong> Rectangular box</p>
+                        <p><strong>Properties:</strong></p>
+                        <ul>
+                            <li>Center (X, Y, Z)</li>
+                            <li>Size (X, Y, Z)</li>
+                        </ul>
+                        <p><strong>Perfect for:</strong></p>
+                        <ul>
+                            <li>Maze walls</li>
+                            <li>Floors and platforms</li>
+                            <li>Buildings and crates</li>
+                            <li>Cubes and rectangular objects</li>
+                        </ul>
+                        <p><strong>Tip:</strong> Adjust size to match visual mesh</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Sphere Collider</h3>
+                    <div class="highlight-box">
+                        <p><strong>Shape:</strong> Perfect sphere</p>
+                        <p><strong>Properties:</strong></p>
+                        <ul>
+                            <li>Center (X, Y, Z)</li>
+                            <li>Radius</li>
+                        </ul>
+                        <p><strong>Perfect for:</strong></p>
+                        <ul>
+                            <li>Balls (our maze game!)</li>
+                            <li>Planets and spherical objects</li>
+                            <li>Rolling physics</li>
+                            <li>Collectible items</li>
+                        </ul>
+                        <p><strong>Tip:</strong> Most efficient for rolling objects</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Collision vs Trigger -->
+        <div class="slide">
+            <h2>💥 Collision vs Trigger Events</h2>
+            <div class="two-column">
+                <div class="english">
+                    <h3>Collision (Physical)</h3>
+                    <div class="highlight-box">
+                        <p><strong>Behavior:</strong> Objects bounce/stop</p>
+                        <p><strong>Is Trigger:</strong> Unchecked ❌</p>
+                        <p><strong>Events:</strong></p>
+                        <ul>
+                            <li>OnCollisionEnter()</li>
+                            <li>OnCollisionStay()</li>
+                            <li>OnCollisionExit()</li>
+                        </ul>
+                        <p><strong>Use for:</strong></p>
+                        <ul>
+                            <li>Walls blocking movement</li>
+                            <li>Bouncing balls</li>
+                            <li>Physical interactions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="japanese">
+                    <h3>Trigger (Detection)</h3>
+                    <div class="highlight-box">
+                        <p><strong>Behavior:</strong> Objects pass through</p>
+                        <p><strong>Is Trigger:</strong> Checked ✅</p>
+                        <p><strong>Events:</strong></p>
+                        <ul>
+                            <li>OnTriggerEnter()</li>
+                            <li>OnTriggerStay()</li>
+                            <li>OnTriggerExit()</li>
+                        </ul>
+                        <p><strong>Use for:</strong></p>
+                        <ul>
+                            <li>Goal zones</li>
+                            <li>Collectibles</li>
+                            <li>Checkpoints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Collision & Trigger Code -->
+        <div class="slide">
+            <h2>💻 Collision & Trigger Code Examples</h2>
+            <div class="two-column">
+                <div>
+                    <h4>Collision Events</h4>
+                    <div class="code-box">
+void OnCollisionEnter(Collision col)
+{
+    // When collision starts
+    Debug.Log("Hit: " + col.gameObject.name);
+
+    // Access collision info
+    ContactPoint contact = col.contacts[0];
+    Debug.Log("Impact point: " + contact.point);
+}
+
+void OnCollisionStay(Collision col)
+{
+    // Every frame while touching
+    Debug.Log("Still touching!");
+}
+
+void OnCollisionExit(Collision col)
+{
+    // When collision ends
+    Debug.Log("Stopped touching");
+}
+                    </div>
+                </div>
+                <div>
+                    <h4>Trigger Events</h4>
+                    <div class="code-box">
+void OnTriggerEnter(Collider other)
+{
+    // When entering trigger
+    if (other.CompareTag("Player"))
+    {
+        Debug.Log("Player reached goal!");
+    }
+}
+
+void OnTriggerStay(Collider other)
+{
+    // While inside trigger
+    Debug.Log("Player in zone");
+}
+
+void OnTriggerExit(Collider other)
+{
+    // When leaving trigger
+    Debug.Log("Player left zone");
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Unity Input System -->
+        <div class="slide">
+            <h2>🎮 Unity Input System</h2>
+            <div class="highlight-box">
+                <h3>Two Input Systems Available</h3>
+                <p>Unity has both Legacy Input Manager and New Input System</p>
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Legacy Input</th>
+                        <th>New Input System</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Setup</strong></td>
+                        <td>None - built-in</td>
+                        <td>Install from Package Manager</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ease of Use</strong></td>
+                        <td>Simple, immediate</td>
+                        <td>More setup required</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flexibility</strong></td>
+                        <td>Limited</td>
+                        <td>Very flexible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Controllers</strong></td>
+                        <td>Basic support</td>
+                        <td>Excellent support</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best For</strong></td>
+                        <td>Learning, simple games</td>
+                        <td>Complex, multi-platform</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="tip-box">
+                <strong>For this course:</strong> We'll use Legacy Input for simplicity and learning
+            </div>
+        </div>
+
+        <!-- Slide 12: Legacy Input - GetKey -->
+        <div class="slide">
+            <h2>⌨️ Legacy Input - Keyboard</h2>
+            <div class="code-box">
+// Check if key is currently held down
+if (Input.GetKey(KeyCode.W))
+{
+    Debug.Log("W key is being held");
+}
+
+// Check if key was pressed THIS frame
+if (Input.GetKeyDown(KeyCode.Space))
+{
+    Debug.Log("Space was just pressed!");
+    // Perfect for jumping
+}
+
+// Check if key was released THIS frame
+if (Input.GetKeyUp(KeyCode.Escape))
+{
+    Debug.Log("Escape was released");
+    // Perfect for pausing
+}
+            </div>
+            <div class="tip-box">
+                <h4>When to use each:</h4>
+                <ul>
+                    <li><strong>GetKey:</strong> Continuous actions (moving, shooting)</li>
+                    <li><strong>GetKeyDown:</strong> Single actions (jump, interact)</li>
+                    <li><strong>GetKeyUp:</strong> Release detection (charge attacks)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 13: Legacy Input - Axes -->
+        <div class="slide">
+            <h2>🕹️ Input Axes (Smooth Movement)</h2>
+            <div class="code-box">
+// GetAxis returns smooth value -1 to 1
+float horizontal = Input.GetAxis("Horizontal"); // A/D or Left/Right arrows
+float vertical = Input.GetAxis("Vertical");     // W/S or Up/Down arrows
+
+// Example: -1 (left), 0 (center), 1 (right)
+Debug.Log("Horizontal: " + horizontal);
+
+// GetAxisRaw returns instant -1, 0, or 1 (no smoothing)
+float horizontalRaw = Input.GetAxisRaw("Horizontal");
+
+// Mouse input
+if (Input.GetMouseButton(0)) // 0=left, 1=right, 2=middle
+{
+    Debug.Log("Left mouse button held");
+}
+
+Vector3 mousePos = Input.mousePosition;
+            </div>
+            <div class="highlight-box">
+                <h4>GetAxis vs GetAxisRaw</h4>
+                <p><strong>GetAxis:</strong> Gradual acceleration/deceleration (smooth)</p>
+                <p><strong>GetAxisRaw:</strong> Instant response (no smoothing)</p>
+                <p><strong>For physics:</strong> Often better to use GetAxisRaw and let physics handle smoothing</p>
+            </div>
+        </div>
+
+        <!-- Slide 14: Physics-Based Movement -->
+        <div class="slide">
+            <h2>🏃 Physics-Based Player Movement</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Method 1: AddForce (Recommended)</h3>
+                    <p>Applies force respecting physics properties</p>
+                    <div class="code-box">
+public float moveForce = 10f;
+private Rigidbody rb;
+
+void Start()
+{
+    rb = GetComponent&lt;Rigidbody&gt;();
+}
+
+void FixedUpdate()
+{
+    float h = Input.GetAxis("Horizontal");
+    float v = Input.GetAxis("Vertical");
+
+    Vector3 movement = new Vector3(h, 0, v);
+    rb.AddForce(movement * moveForce);
+}
+                    </div>
+                </div>
+                <div class="japanese">
+                    <h3>Method 2: Direct Velocity</h3>
+                    <p>More precise, instant control</p>
+                    <div class="code-box">
+public float maxSpeed = 5f;
+private Rigidbody rb;
+
+void FixedUpdate()
+{
+    float h = Input.GetAxisRaw("Horizontal");
+    float v = Input.GetAxisRaw("Vertical");
+
+    rb.velocity = new Vector3(
+        h * maxSpeed,
+        rb.velocity.y,
+        v * maxSpeed
+    );
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Complete Ball Controller Script -->
+        <div class="slide">
+            <h2>⚽ Complete Ball Controller</h2>
+            <div class="code-box">
+using UnityEngine;
+
+public class BallController : MonoBehaviour
+{
+    [Header("Movement Settings")]
+    public float moveForce = 10f;
+    public float maxSpeed = 15f;
+
+    private Rigidbody rb;
+
+    void Start()
+    {
+        // Cache Rigidbody reference for performance
+        rb = GetComponent&lt;Rigidbody&gt;();
+
+        if (rb == null)
+        {
+            Debug.LogError("No Rigidbody found! Add one to this GameObject.");
+        }
+    }
+
+    void FixedUpdate()
+    {
+        // Get input
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Create movement vector
+        Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
+
+        // Apply force
+        rb.AddForce(movement * moveForce);
+
+        // Limit maximum speed to prevent excessive velocity
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+    }
+}
+            </div>
+        </div>
+
+        <!-- Slide 16: Camera Follow System -->
+        <div class="slide">
+            <h2>📷 Camera Follow System</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Why Camera Follow?</h3>
+                    <p>Keeps player centered, better gameplay experience</p>
+                    <h4>Key Concepts:</h4>
+                    <ul>
+                        <li><strong>Target:</strong> Object to follow (ball)</li>
+                        <li><strong>Offset:</strong> Distance from target</li>
+                        <li><strong>Smoothing:</strong> Gradual movement</li>
+                        <li><strong>LateUpdate:</strong> Move after player</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>なぜカメラフォロー？</h3>
+                    <p>プレイヤーを中央に保ち、より良いゲーム体験</p>
+                    <h4>主要概念:</h4>
+                    <ul>
+                        <li><strong>Target:</strong> 追跡するオブジェクト（ボール）</li>
+                        <li><strong>Offset:</strong> ターゲットからの距離</li>
+                        <li><strong>Smoothing:</strong> 段階的な移動</li>
+                        <li><strong>LateUpdate:</strong> プレイヤーの後に移動</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Camera Follow Code -->
+        <div class="slide">
+            <h2>📷 Camera Follow Script</h2>
+            <div class="code-box">
+using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+    [Header("Target Settings")]
+    public Transform target;              // The ball to follow
+
+    [Header("Camera Settings")]
+    public Vector3 offset = new Vector3(0, 10, -10);
+    public float smoothSpeed = 5f;        // How smoothly camera follows
+    public bool lookAtTarget = true;      // Should camera look at ball?
+
+    void LateUpdate()
+    {
+        // Make sure we have a target
+        if (target == null)
+        {
+            Debug.LogWarning("Camera has no target!");
+            return;
+        }
+
+        // Calculate desired position
+        Vector3 desiredPosition = target.position + offset;
+
+        // Smoothly move camera towards desired position
+        Vector3 smoothedPosition = Vector3.Lerp(
+            transform.position,      // Current position
+            desiredPosition,         // Target position
+            smoothSpeed * Time.deltaTime
+        );
+
+        // Update camera position
+        transform.position = smoothedPosition;
+
+        // Optionally look at the target
+        if (lookAtTarget)
+        {
+            transform.LookAt(target);
+        }
+    }
+}
+            </div>
+        </div>
+
+        <!-- Slide 18: Goal Detection with Triggers -->
+        <div class="slide">
+            <h2>🎯 Goal Detection System</h2>
+            <div class="two-column">
+                <div>
+                    <h4>Setup:</h4>
+                    <ol>
+                        <li>Create goal object (Cylinder)</li>
+                        <li>Add Collider component</li>
+                        <li>Check "Is Trigger" ✅</li>
+                        <li>Add goal detection script</li>
+                        <li>Tag ball as "Player"</li>
+                    </ol>
+                    <div class="tip-box">
+                        <p><strong>Important:</strong></p>
+                        <ul>
+                            <li>Ball must have Rigidbody</li>
+                            <li>Goal has trigger collider</li>
+                            <li>Ball tagged as "Player"</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h4>Goal Trigger Script:</h4>
+                    <div class="code-box">
+using UnityEngine;
+
+public class GoalTrigger : MonoBehaviour
+{
+    void OnTriggerEnter(Collider other)
+    {
+        // Check if ball entered
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("🎉 You Win!");
+
+            // Future additions:
+            // - Load next level
+            // - Show win screen
+            // - Play victory sound
+            // - Record time
+        }
+    }
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Debugging Physics -->
+        <div class="slide">
+            <h2>🔍 Testing & Debugging Physics</h2>
+            <div class="two-column">
+                <div>
+                    <h4>Common Problems & Solutions</h4>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Problem</th>
+                            <th>Solution</th>
+                        </tr>
+                        <tr>
+                            <td>Ball passes through walls</td>
+                            <td>Continuous collision detection</td>
+                        </tr>
+                        <tr>
+                            <td>Jittery movement</td>
+                            <td>Enable Interpolate</td>
+                        </tr>
+                        <tr>
+                            <td>Too slow</td>
+                            <td>Increase force, reduce drag</td>
+                        </tr>
+                        <tr>
+                            <td>Spins wildly</td>
+                            <td>Freeze rotation axes</td>
+                        </tr>
+                        <tr>
+                            <td>Trigger not working</td>
+                            <td>Check Rigidbody, Is Trigger, tags</td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <h4>Debug Tools</h4>
+                    <div class="highlight-box">
+                        <p><strong>Scene View Gizmos:</strong></p>
+                        <ul>
+                            <li>Enable "Physics" → "Colliders"</li>
+                            <li>See green collider wireframes</li>
+                        </ul>
+                        <p><strong>Debug Visualization:</strong></p>
+                        <div class="code-box" style="font-size: 0.8em;">
+Debug.DrawRay(
+    transform.position,
+    movement * 2,
+    Color.red
+);
+                        </div>
+                        <p><strong>Console Logging:</strong></p>
+                        <div class="code-box" style="font-size: 0.8em;">
+Debug.Log("Speed: " + rb.velocity.magnitude);
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Summary & Next Steps -->
+        <div class="slide">
+            <h2>🎯 Summary & Next Steps</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Today You Learned:</h3>
+                    <ul>
+                        <li>✅ Unity physics system basics</li>
+                        <li>✅ Rigidbody component configuration</li>
+                        <li>✅ Different collider types</li>
+                        <li>✅ Collision vs Trigger events</li>
+                        <li>✅ Legacy Input System</li>
+                        <li>✅ Physics-based ball movement</li>
+                        <li>✅ Camera follow system</li>
+                        <li>✅ Goal detection with triggers</li>
+                    </ul>
+                    <h3>Week 4 Assignment:</h3>
+                    <p><strong>Create a playable ball maze game!</strong></p>
+                    <ul>
+                        <li>Import your Blender maze</li>
+                        <li>Add physics and colliders</li>
+                        <li>Implement ball controller</li>
+                        <li>Create camera follow</li>
+                        <li>Add goal detection</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>今日学んだこと:</h3>
+                    <ul>
+                        <li>✅ Unity物理システムの基礎</li>
+                        <li>✅ Rigidbodyコンポーネント設定</li>
+                        <li>✅ さまざまなコライダータイプ</li>
+                        <li>✅ 衝突イベント vs トリガーイベント</li>
+                        <li>✅ レガシー入力システム</li>
+                        <li>✅ 物理ベースのボール移動</li>
+                        <li>✅ カメラフォローシステム</li>
+                        <li>✅ トリガーでのゴール検出</li>
+                    </ul>
+                    <h3>第4週の課題:</h3>
+                    <p><strong>プレイ可能なボール迷路ゲームを作成！</strong></p>
+                    <ul>
+                        <li>Blender迷路をインポート</li>
+                        <li>物理とコライダーを追加</li>
+                        <li>ボールコントローラーを実装</li>
+                        <li>カメラフォローを作成</li>
+                        <li>ゴール検出を追加</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 30px; text-align: center;">
+                <h2>🎉 Thank You! / ありがとうございました！</h2>
+                <p style="font-size: 1.3em;">Questions? / 質問はありますか？</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+
+            document.getElementById('slideNumber').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                showSlide(0);
+            } else if (event.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
