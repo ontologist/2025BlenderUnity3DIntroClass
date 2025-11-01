@@ -1,8 +1,8 @@
 # Game Development for Non-Programmers / 非プログラマーのためのゲーム開発
-## 12-Week Introduction to Blender and Unity3D / Blender と Unity3D への12週間入門
+## 14-Week Introduction to Blender and Unity3D / Blender と Unity3D への14週間入門
 
 **Course Developer / コース開発者:** Yuri Tijerino
-**Duration / 期間:** 12 weeks, 100 minutes per lecture / 12週間、各講義100分
+**Duration / 期間:** 14 weeks, 100 minutes per lecture / 14週間、各講義100分
 **Target Audience / 対象者:** Complete beginners with no programming experience / プログラミング経験のない初心者
 
 ---
