@@ -6,6 +6,195 @@
     <title>Week 3 Assignment | Game Dev Course 2025</title>
     <link rel="stylesheet" href="../../styles.css">
     <style>
+        .assignment-content { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .assignment-content h2 { color: var(--primary-color); margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        .assignment-content h3 { color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px; }
+        .requirement-box { background: #dbeafe; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary-color); margin: 20px 0; }
+        .requirement-box h4 { color: var(--primary-color); margin-top: 0; }
+        .points-badge { display: inline-block; background: var(--success); color: white; padding: 5px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold; margin-left: 10px; }
+        .warning-box { background: #fef3c7; border-left: 4px solid var(--warning); padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .checklist { background: var(--bg-light); padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .checklist ul { list-style: none; padding-left: 0; }
+        .checklist li::before { content: "✅ "; margin-right: 8px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid var(--border-color); padding: 12px; text-align: left; }
+        th { background: var(--bg-light); font-weight: bold; }
+        code { background: var(--bg-light); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.9em; }
+        pre { background: var(--bg-light); padding: 15px; border-radius: 5px; overflow-x: auto; border-left: 4px solid var(--primary-color); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📝 Week 3 Assignment: Unity Scene with Imported Maze</h1>
+            <p class="subtitle">第3週課題：迷路をインポートしたUnityシーン</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="assignment-content">
+            <div class="requirement-box">
+                <h3>📋 Assignment Overview</h3>
+                <p><strong>Due Date:</strong> Before Week 4 lecture / 第4週講義前</p>
+                <p><strong>Points:</strong> 15 points / 15点</p>
+                <p><strong>Submission:</strong> Via GitHub repository (Unity project folder)</p>
+            </div>
+
+            <h2>Assignment Description / 課題概要</h2>
+            <p><strong>English:</strong> Create a Unity 3D scene that imports your Blender maze (from Week 1/2) as an FBX, sets up materials, and configures basic physics so a sphere can rest on the maze floor. Organize assets using Scenes, Models, Materials, and Prefabs folders.</p>
+            <p><strong>日本語:</strong> Blenderで作成した迷路（第1/2週）をFBXとしてインポートし、マテリアルを設定し、球体が床に乗る基本的な物理を構成したUnity 3Dシーンを作成します。Scenes、Models、Materials、Prefabsフォルダでアセットを整理します。</p>
+
+            <h2>Requirements / 要件</h2>
+            <div class="requirement-box">
+                <h4>1. Project & Scene Setup <span class="points-badge">3 points</span></h4>
+                <ul>
+                    <li>Create Unity 2022 LTS 3D project</li>
+                    <li>Create folders: <code>Assets/Scenes</code>, <code>Assets/Models</code>, <code>Assets/Materials</code>, <code>Assets/Prefabs</code></li>
+                    <li>Save scene: <code>Assets/Scenes/Week03_Maze.unity</code></li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>2. Import Blender Maze (FBX) <span class="points-badge">4 points</span></h4>
+                <ul>
+                    <li>Export maze from Blender as <code>.fbx</code> (Apply Modifiers ON)</li>
+                    <li>Place FBX in <code>Assets/Models/</code></li>
+                    <li>In Import Settings, ensure Scale Factor = 1.0</li>
+                    <li>Extract materials to <code>Assets/Materials/</code> (Materials tab)</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>3. Materials & Appearance <span class="points-badge">3 points</span></h4>
+                <ul>
+                    <li>Assign appropriate materials to floor/walls/goal</li>
+                    <li>Colors consistent with your Blender file (or improved)</li>
+                    <li>If using URP, use URP/Lit shader; otherwise Standard shader</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>4. Physics Setup <span class="points-badge">3 points</span></h4>
+                <ul>
+                    <li>Add colliders to environment (Box/Mesh Colliders as appropriate)</li>
+                    <li>Add a sphere with <strong>Rigidbody</strong> and <strong>Sphere Collider</strong></li>
+                    <li>On Play, sphere should land and rest on the floor without falling through</li>
+                </ul>
+            </div>
+
+            <h2>File Structure / ファイル構造</h2>
+            <div class="requirement-box">
+                <pre><code>game-dev-2025-yourname/
+└── week-03/
+    └── unity-project/ (Unity project root)
+        └── Assets/
+            ├── Scenes/
+            │   └── Week03_Maze.unity
+            ├── Models/
+            │   └── maze.fbx
+            ├── Materials/
+            └── Prefabs/
+                └── Wall.prefab (example)</code></pre>
+            </div>
+
+            <h2>Grading Rubric / 採点基準</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria / 基準</th>
+                        <th>Points / 点数</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Project & Scene Setup</td>
+                        <td>3</td>
+                        <td>Correct folders and saved scene / 正しいフォルダとシーン保存</td>
+                    </tr>
+                    <tr>
+                        <td>FBX Import</td>
+                        <td>4</td>
+                        <td>Maze imported, correct scale, materials extracted / 迷路インポート、スケール正、マテリアル抽出</td>
+                    </tr>
+                    <tr>
+                        <td>Materials</td>
+                        <td>3</td>
+                        <td>Materials assigned and visible / マテリアルが割り当てられ表示される</td>
+                    </tr>
+                    <tr>
+                        <td>Physics</td>
+                        <td>3</td>
+                        <td>Sphere rests on floor; colliders set / 球体が床に乗る。コライダー設定</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>15</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Step-by-Step Guide / ステップバイステップガイド</h2>
+            <div class="requirement-box">
+                <h4>Quick Steps / クイックステップ</h4>
+                <ol>
+                    <li><strong>Create Project</strong> → Unity Hub → 3D → Name: <code>week-03-unity-[yourname]</code></li>
+                    <li><strong>Folders</strong> → Create Scenes, Models, Materials, Prefabs</li>
+                    <li><strong>Export FBX from Blender</strong> → File → Export → FBX → Apply Modifiers</li>
+                    <li><strong>Import</strong> → Drag FBX to <code>Assets/Models/</code> → Extract Materials</li>
+                    <li><strong>Build Scene</strong> → Add Directional Light, Floor, Maze FBX</li>
+                    <li><strong>Physics</strong> → Add Colliders (floor/walls), add Sphere + Rigidbody</li>
+                    <li><strong>Test</strong> → Press Play; sphere should land and rest</li>
+                    <li><strong>Save</strong> → Save scene and commit to Git</li>
+                </ol>
+            </div>
+
+            <h2>Submission Checklist / 提出チェックリスト</h2>
+            <div class="checklist">
+                <h4>Before submitting, verify / 提出前に確認:</h4>
+                <ul>
+                    <li>Scene saved to <code>Assets/Scenes/Week03_Maze.unity</code></li>
+                    <li>FBX placed in <code>Assets/Models/</code></li>
+                    <li>Materials present and assigned</li>
+                    <li>Sphere with Rigidbody lands on floor</li>
+                    <li>Folders organized (Scenes, Models, Materials, Prefabs)</li>
+                    <li>Project pushed to GitHub</li>
+                </ul>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                <a href="lecture.html" class="btn btn-secondary">← Back to Lecture</a>
+                <a href="../../index.html" class="btn btn-primary">Course Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 Assignment | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
         .assignment-content {
             max-width: 1000px;
             margin: 0 auto;

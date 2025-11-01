@@ -3,6 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3: Unity Interface & Game Objects | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lecture-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .lecture-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .lecture-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .lecture-content h4 {
+            color: var(--text-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .timeline-segment {
+            background: var(--bg-light);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        .duration-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .info-box {
+            background: #d1fae5;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .objectives-list {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .objectives-list ul { margin: 10px 0; padding-left: 25px; }
+        .nav-buttons { display: flex; gap: 15px; margin: 30px 0; flex-wrap: wrap; }
+        code { background: var(--bg-light); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.9em; }
+        pre { background: var(--bg-light); padding: 15px; border-radius: 5px; overflow-x: auto; border-left: 4px solid var(--primary-color); }
+        pre code { background: none; padding: 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎮 Week 3: Unity Interface & Game Objects</h1>
+            <p class="subtitle">第3週：Unityインターフェースとゲームオブジェクト</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="assignment.html">Assignment</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lecture-content">
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-02/lecture.html" class="btn btn-primary">← Previous Week</a>
+            </div>
+
+            <div class="objectives-list">
+                <h3>Learning Objectives / 学習目標</h3>
+                <p><strong>English:</strong> By the end of this lecture, students will be able to:</p>
+                <ul>
+                    <li>Navigate the Unity Editor (Hierarchy, Scene/Game, Inspector, Project)</li>
+                    <li>Explain GameObjects and Components (Transform, MeshRenderer, Collider, Rigidbody)</li>
+                    <li>Import Blender/FBX assets and materials into a Unity project</li>
+                    <li>Create a basic 3D scene and save it as a Unity Scene</li>
+                    <li>Create Prefabs and organize the Project window</li>
+                    <li>Configure basic physics with Colliders and Rigidbody</li>
+                </ul>
+                <p><strong>日本語:</strong> この講義の終了までに、学生は以下ができるようになります：</p>
+                <ul>
+                    <li>Unityエディタを操作（Hierarchy、Scene/Game、Inspector、Project）</li>
+                    <li>GameObjectとComponentを説明（Transform、MeshRenderer、Collider、Rigidbody）</li>
+                    <li>Blender/FBXアセットとマテリアルをUnityプロジェクトにインポート</li>
+                    <li>基本的な3Dシーンを作成し、Unityシーンとして保存</li>
+                    <li>Prefabを作成し、Projectウィンドウを整理</li>
+                    <li>ColliderとRigidbodyで基本的な物理設定</li>
+                </ul>
+            </div>
+
+            <h2>Lecture Timeline (100 minutes)</h2>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 1: Unity Project Setup</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Create a new 3D (URP optional) project in Unity 2022 LTS</li>
+                    <li>Review folder structure conventions: <code>Assets/</code>, <code>Scenes/</code>, <code>Materials/</code>, <code>Prefabs/</code>, <code>Models/</code></li>
+                    <li>Save a new scene: <code>Scenes/Week03_Intro.unity</code></li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>Unity 2022 LTSで新しい3D（URP任意）プロジェクトを作成</li>
+                    <li>フォルダ構成の規約を確認：<code>Assets/</code>、<code>Scenes/</code>、<code>Materials/</code>、<code>Prefabs/</code>、<code>Models/</code></li>
+                    <li>新規シーンを保存：<code>Scenes/Week03_Intro.unity</code></li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 2: Editor Tour</h3>
+                <h4>Core Panels / 主要パネル</h4>
+                <ul>
+                    <li><strong>Hierarchy:</strong> Scene object tree / シーンのオブジェクトツリー</li>
+                    <li><strong>Scene View & Game View:</strong> Editing vs play output / 編集と再生出力</li>
+                    <li><strong>Inspector:</strong> View and edit components / コンポーネントの表示と編集</li>
+                    <li><strong>Project & Console:</strong> Assets and logs / アセットとログ</li>
+                </ul>
+                <h4>Navigation / ナビゲーション</h4>
+                <ul>
+                    <li><code>Right Mouse + WASD</code> fly, <code>F</code> focus, <code>Q/E</code> elevate</li>
+                    <li>Gizmos: Move (W), Rotate (E), Scale (R)</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 3: GameObjects & Components</h3>
+                <p><strong>English:</strong> Everything in a scene is a <em>GameObject</em> composed of <em>Components</em>.</p>
+                <ul>
+                    <li><strong>Transform:</strong> position, rotation, scale</li>
+                    <li><strong>Mesh Filter + Mesh Renderer:</strong> show 3D geometry</li>
+                    <li><strong>Colliders:</strong> Box, Sphere, MeshCollider</li>
+                    <li><strong>Rigidbody:</strong> enables physics</li>
+                </ul>
+                <p><strong>日本語:</strong> シーン内のすべては<em>GameObject</em>で、<em>Component</em>で構成されます。</p>
+                <div class="info-box">
+                    <strong>Demo:</strong> Create a floor (Plane), add a Cube, add Box Collider and Rigidbody, press Play.
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">25 minutes / 25分</span>
+                <h3>Segment 4: Importing Blender Assets</h3>
+                <h4>FBX Workflow / FBXワークフロー</h4>
+                <ol>
+                    <li>Export from Blender as <code>.fbx</code> (Apply Modifiers ON, Selected Objects if needed)</li>
+                    <li>In Unity, create <code>Assets/Models/</code> and drag-drop FBX</li>
+                    <li>Check Import Settings: Scale Factor (1.0), Generate Colliders (optional)</li>
+                    <li>Materials tab: Use <strong>Extract Materials</strong> to <code>Assets/Materials/</code></li>
+                </ol>
+                <div class="warning-box">
+                    <strong>Common Issues:</strong>
+                    <ul>
+                        <li>Scale mismatch → ensure Blender units (meters) and Unity (1 = 1m)</li>
+                        <li>Pink materials → reassign or extract materials, ensure textures included</li>
+                        <li>Pivot/origin odd → set origin in Blender before export</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 5: Prefabs & Organization</h3>
+                <ul>
+                    <li>Create <code>Assets/Prefabs/</code></li>
+                    <li>Drag configured objects from Hierarchy → Prefabs to create reusable assets</li>
+                    <li>Prefab variants and overrides overview</li>
+                </ul>
+                <div class="info-box">
+                    <strong>Practice:</strong> Make a <em>Wall</em> prefab and reuse to build the maze layout.
+                </div>
+            </div>
+
+            <h2>Common Pitfalls / よくある落とし穴</h2>
+            <div class="timeline-segment">
+                <h4>1. Physics Not Working</h4>
+                <p><strong>Cause:</strong> Missing Rigidbody or incorrect collider setup. <strong>Fix:</strong> Add Rigidbody to moving objects; ensure colliders on static environment.</p>
+                <h4>2. Model Too Small/Large</h4>
+                <p><strong>Cause:</strong> Scale mismatch on import. <strong>Fix:</strong> Apply scale in Blender (<code>Ctrl+A</code>) and set FBX scale to 1.0.</p>
+                <h4>3. Materials Look Wrong</h4>
+                <p><strong>Cause:</strong> Shader differences or missing textures. <strong>Fix:</strong> Use Standard/URP Lit, extract materials, reassign textures.</p>
+                <h4>4. Scene Not Saved</h4>
+                <p><strong>Fix:</strong> Save early and often to <code>Assets/Scenes/</code>.</p>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+            <div class="timeline-segment">
+                <ul>
+                    <li><a href="https://learn.unity.com/" target="_blank">Unity Learn</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/UnityOverview.html" target="_blank">Unity Manual - Editor Overview</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/class-GameObject.html" target="_blank">GameObjects & Components</a></li>
+                </ul>
+            </div>
+
+            <h2>Preparation for Next Week / 次週の準備</h2>
+            <div class="objectives-list">
+                <p><strong>English - Students should:</strong></p>
+                <ul>
+                    <li>✅ Complete Week 3 assignment (Unity scene with imported maze)</li>
+                    <li>✅ Review Rigidbody and Colliders basics</li>
+                    <li>✅ Watch Unity physics intro videos</li>
+                </ul>
+                <p><strong>日本語 - 学生は以下を行うべきです：</strong></p>
+                <ul>
+                    <li>✅ 第3週課題を完了（迷路をインポートしたUnityシーン）</li>
+                    <li>✅ RigidbodyとColliderの基礎を復習</li>
+                    <li>✅ Unity物理入門ビデオを視聴</li>
+                </ul>
+                <p><strong>Next Week Preview:</strong> Physics & Input Systems (player movement)</p>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="../week-02/lecture.html" class="btn btn-secondary">← Previous Week</a>
+                <a href="../../index.html" class="btn btn-primary">Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 3: Unity Interface & GameObjects | Game Dev Course 2025</title>
     <link rel="stylesheet" href="../../styles.css">
     <style>
