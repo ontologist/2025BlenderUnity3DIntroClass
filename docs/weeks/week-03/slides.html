@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 3: Unity Interface & GameObjects</title>
+    <title>Week 3: Unity Interface & Game Objects</title>
     <style>
         * {
             margin: 0;
@@ -270,11 +270,275 @@
             margin: 10px 0;
             border-radius: 5px;
         }
+
+        /* Responsive Design for Tablets (768px - 1024px) / タブレット用レスポンシブデザイン */
+        @media screen and (max-width: 1024px) and (min-width: 769px) {
+            .slide {
+                padding: 40px 50px;
+                width: 95%;
+            }
+
+            .slide h1 {
+                font-size: 2.5em;
+            }
+
+            .slide h2 {
+                font-size: 2em;
+            }
+
+            .slide h3 {
+                font-size: 1.5em;
+            }
+
+            .slide h4 {
+                font-size: 1.2em;
+            }
+
+            .slide p {
+                font-size: 1.1em;
+            }
+
+            .slide ul, .slide ol {
+                font-size: 1.1em;
+            }
+
+            .title-slide h1 {
+                font-size: 3em;
+            }
+
+            .title-slide .subtitle {
+                font-size: 1.6em;
+            }
+
+            .title-slide .info {
+                font-size: 1.1em;
+            }
+
+            .bilingual {
+                gap: 25px;
+            }
+
+            .two-column {
+                gap: 20px;
+            }
+        }
+
+        /* Responsive Design for Smartphones (< 768px) / スマートフォン用レスポンシブデザイン */
+        @media screen and (max-width: 768px) {
+            body {
+                overflow: auto;
+            }
+
+            .slide-container {
+                padding: 10px;
+                min-height: 100vh;
+            }
+
+            .slide {
+                width: 100%;
+                height: auto;
+                min-height: calc(100vh - 100px);
+                padding: 20px;
+                border-radius: 10px;
+                margin: 10px 0;
+            }
+
+            .slide h1 {
+                font-size: 2em;
+                margin-bottom: 15px;
+            }
+
+            .slide h2 {
+                font-size: 1.6em;
+                margin-bottom: 20px;
+                padding-bottom: 8px;
+            }
+
+            .slide h3 {
+                font-size: 1.3em;
+                margin-top: 20px;
+                margin-bottom: 12px;
+            }
+
+            .slide h4 {
+                font-size: 1.1em;
+                margin-top: 15px;
+                margin-bottom: 8px;
+            }
+
+            .slide p {
+                font-size: 1em;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .slide ul, .slide ol {
+                font-size: 1em;
+                line-height: 1.6;
+                margin-left: 20px;
+                margin-bottom: 15px;
+            }
+
+            .slide li {
+                margin-bottom: 8px;
+            }
+
+            .bilingual {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 15px 0;
+            }
+
+            .english, .japanese {
+                padding: 15px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .title-slide {
+                padding: 20px;
+            }
+
+            .title-slide h1 {
+                font-size: 2.5em;
+                margin-bottom: 15px;
+            }
+
+            .title-slide .subtitle {
+                font-size: 1.4em;
+                margin-bottom: 25px;
+            }
+
+            .title-slide .info {
+                font-size: 1em;
+                margin: 8px 0;
+            }
+
+            .highlight-box {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            .code-box {
+                padding: 12px;
+                font-size: 0.9em;
+                margin: 12px 0;
+            }
+
+            .component-box {
+                padding: 12px;
+                margin: 8px 0;
+            }
+
+            .slide-number {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+
+            .navigation {
+                bottom: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                gap: 10px;
+                flex-wrap: wrap;
+                width: 95%;
+                justify-content: center;
+            }
+
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
+                flex: 1;
+                min-width: 120px;
+                max-width: 150px;
+            }
+
+            .shortcut-table {
+                font-size: 0.9em;
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .shortcut-table thead,
+            .shortcut-table tbody,
+            .shortcut-table tr {
+                display: block;
+            }
+
+            .shortcut-table th,
+            .shortcut-table td {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 8px;
+                border: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .shortcut-table th {
+                background: #667eea;
+                color: white;
+                font-weight: bold;
+            }
+
+            .shortcut-table tr:nth-child(even) {
+                background: #f9f9f9;
+            }
+
+            kbd {
+                font-size: 0.85em;
+                padding: 2px 6px;
+            }
+
+            .tip-box {
+                padding: 12px;
+                margin: 12px 0;
+            }
+        }
+
+        /* Extra Small Devices (< 480px) / 超小型デバイス */
+        @media screen and (max-width: 480px) {
+            .slide {
+                padding: 15px;
+            }
+
+            .slide h1 {
+                font-size: 1.8em;
+            }
+
+            .slide h2 {
+                font-size: 1.4em;
+            }
+
+            .title-slide h1 {
+                font-size: 2em;
+            }
+
+            .title-slide .subtitle {
+                font-size: 1.2em;
+            }
+
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 0.85em;
+                min-width: 100px;
+            }
+
+            .slide-number {
+                font-size: 0.8em;
+                padding: 6px 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="slide-number" id="slideNumber">Slide 1 / 20</div>
-
     <div class="slide-container">
         <!-- Slide 1: Title -->
         <div class="slide active title-slide">
