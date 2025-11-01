@@ -39,7 +39,9 @@
 
         /* Responsive Design for Tablets (768px - 1024px) / タブレット用レスポンシブデザイン */
         @media screen and (max-width: 1024px) and (min-width: 769px) {
-            .slide { padding: 40px 50px; width: 95%; }
+            .slide-container { padding: 10px; }
+            .slide { padding: 40px 50px; width: 100%; max-width: 100%; }
+            .slide.active { display: block !important; width: 100%; }
             .slide h1 { font-size: 2.5em; }
             .slide h2 { font-size: 2em; }
             .slide h3 { font-size: 1.5em; }
@@ -56,8 +58,9 @@
         /* Responsive Design for Smartphones (< 768px) / スマートフォン用レスポンシブデザイン */
         @media screen and (max-width: 768px) {
             body { overflow: auto; }
-            .slide-container { padding: 10px; min-height: 100vh; }
-            .slide { width: 100%; height: auto; min-height: calc(100vh - 100px); padding: 20px; border-radius: 10px; margin: 10px 0; }
+            .slide-container { padding: 0; min-height: 100vh; display: block; width: 100vw; }
+            .slide { display: none !important; width: 100vw; height: auto; min-height: 100vh; padding: 20px; border-radius: 0; margin: 0; max-width: 100%; }
+            .slide.active { display: block !important; width: 100vw; margin: 0; padding: 20px; box-sizing: border-box; }
             .slide h1 { font-size: 2em; margin-bottom: 15px; }
             .slide h2 { font-size: 1.6em; margin-bottom: 20px; padding-bottom: 8px; }
             .slide h3 { font-size: 1.3em; margin-top: 20px; margin-bottom: 12px; }
@@ -68,7 +71,8 @@
             .bilingual { grid-template-columns: 1fr; gap: 15px; margin: 15px 0; }
             .english, .japanese { padding: 15px; }
             .two-column { grid-template-columns: 1fr; gap: 15px; }
-            .title-slide { padding: 20px; }
+            .title-slide { padding: 40px 20px; display: none; }
+            .title-slide.active { display: flex !important; }
             .title-slide h1 { font-size: 2.5em; margin-bottom: 15px; }
             .title-slide .subtitle { font-size: 1.4em; margin-bottom: 25px; }
             .title-slide .info { font-size: 1em; margin: 8px 0; }
@@ -89,7 +93,8 @@
 
         /* Extra Small Devices (< 480px) / 超小型デバイス */
         @media screen and (max-width: 480px) {
-            .slide { padding: 15px; }
+            .slide { padding: 15px; width: 100vw; }
+            .slide.active { width: 100vw; }
             .slide h1 { font-size: 1.8em; }
             .slide h2 { font-size: 1.4em; }
             .title-slide h1 { font-size: 2em; }

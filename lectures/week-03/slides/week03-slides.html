@@ -273,9 +273,19 @@
 
         /* Responsive Design for Tablets (768px - 1024px) / タブレット用レスポンシブデザイン */
         @media screen and (max-width: 1024px) and (min-width: 769px) {
+            .slide-container {
+                padding: 10px;
+            }
+
             .slide {
                 padding: 40px 50px;
-                width: 95%;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .slide.active {
+                display: block !important;
+                width: 100%;
             }
 
             .slide h1 {
@@ -330,17 +340,29 @@
             }
 
             .slide-container {
-                padding: 10px;
+                padding: 0;
                 min-height: 100vh;
+                display: block;
+                width: 100vw;
             }
 
             .slide {
-                width: 100%;
+                display: none !important;
+                width: 100vw;
                 height: auto;
-                min-height: calc(100vh - 100px);
+                min-height: 100vh;
                 padding: 20px;
-                border-radius: 10px;
-                margin: 10px 0;
+                border-radius: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .slide.active {
+                display: block !important;
+                width: 100vw;
+                margin: 0;
+                padding: 20px;
+                box-sizing: border-box;
             }
 
             .slide h1 {
@@ -399,7 +421,12 @@
             }
 
             .title-slide {
-                padding: 20px;
+                padding: 40px 20px;
+                display: none;
+            }
+
+            .title-slide.active {
+                display: flex !important;
             }
 
             .title-slide h1 {
@@ -506,6 +533,11 @@
         @media screen and (max-width: 480px) {
             .slide {
                 padding: 15px;
+                width: 100vw;
+            }
+
+            .slide.active {
+                width: 100vw;
             }
 
             .slide h1 {
