@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5 Assignment | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .assignment-content { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .assignment-content h2 { color: var(--primary-color); margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        .assignment-content h3 { color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px; }
+        .requirement-box { background: #dbeafe; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary-color); margin: 20px 0; }
+        .requirement-box h4 { color: var(--primary-color); margin-top: 0; }
+        .points-badge { display: inline-block; background: var(--success); color: white; padding: 5px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold; margin-left: 10px; }
+        .warning-box { background: #fef3c7; border-left: 4px solid var(--warning); padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .checklist { background: var(--bg-light); padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .checklist ul { list-style: none; padding-left: 0; }
+        .checklist li::before { content: "✅ "; margin-right: 8px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid var(--border-color); padding: 12px; text-align: left; }
+        th { background: var(--bg-light); font-weight: bold; }
+        code { background: var(--bg-light); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.9em; }
+        pre { background: var(--bg-light); padding: 15px; border-radius: 5px; overflow-x: auto; border-left: 4px solid var(--primary-color); }
+        .tip-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📝 Week 5 Assignment: Complete Playable Ball Maze Game</h1>
+            <p class="subtitle">第5週課題：完全にプレイ可能なボール迷路ゲーム</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="assignment-content">
+            <div class="requirement-box">
+                <h3>📋 Assignment Overview</h3>
+                <p><strong>Due Date:</strong> Before Week 6 lecture / 第6週講義前</p>
+                <p><strong>Points:</strong> 20 points / 20点</p>
+                <p><strong>Estimated Time:</strong> 4-5 hours / 4-5時間</p>
+                <p><strong>Submission:</strong> Via GitHub repository</p>
+            </div>
+
+            <h2>Assignment Description / 課題概要</h2>
+            <p><strong>English:</strong> Build a complete, polished ball maze game in Unity with enhanced ball controller, camera system, goal detection, UI, and game state management. This assignment combines all skills learned from Weeks 1-5 into a fully playable game experience.</p>
+            <p><strong>日本語:</strong> 強化されたボールコントローラー、カメラシステム、ゴール検出、UI、ゲーム状態管理を備えた完全で磨かれたボール迷路ゲームをUnityで構築します。この課題は、第1-5週で学んだすべてのスキルを完全にプレイ可能なゲーム体験に統合します。</p>
+
+            <h2>Requirements / 要件</h2>
+            <div class="requirement-box">
+                <h4>1. Enhanced Ball Controller <span class="points-badge">4 points</span></h4>
+                <ul>
+                    <li>Physics-based movement with AddForce()</li>
+                    <li>Maximum speed limit implementation</li>
+                    <li>Smooth acceleration and deceleration</li>
+                    <li>Physics material applied (friction/bounce control)</li>
+                    <li>Code well-commented and organized</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>2. Camera Follow System <span class="points-badge">3 points</span></h4>
+                <ul>
+                    <li>Smooth camera following using Lerp</li>
+                    <li>Configurable offset and smoothSpeed</li>
+                    <li>Camera keeps player in view at all times</li>
+                    <li>Optional: Multiple camera modes (Top-Down, Isometric)</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>3. Goal Detection & Win Condition <span class="points-badge">3 points</span></h4>
+                <ul>
+                    <li>Goal trigger zone with OnTriggerEnter</li>
+                    <li>Win state management</li>
+                    <li>Visual/audio feedback on win</li>
+                    <li>Ball movement frozen on win</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>4. Game State Management <span class="points-badge">3 points</span></h4>
+                <ul>
+                    <li>GameManager script with state machine</li>
+                    <li>States: Playing, Won, Lost</li>
+                    <li>State transitions working correctly</li>
+                    <li>Scene restart functionality</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>5. Basic UI System <span class="points-badge">4 points</span></h4>
+                <ul>
+                    <li>Canvas with proper scaling setup</li>
+                    <li>Win panel with message</li>
+                    <li>Restart button that works</li>
+                    <li>UI elements properly positioned</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>6. Fall Detection (Optional Bonus) <span class="points-badge">2 points</span></h4>
+                <ul>
+                    <li>Detect when ball falls below threshold</li>
+                    <li>Trigger lose state</li>
+                    <li>Show lose UI panel</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>7. Project Organization <span class="points-badge">1 point</span></h4>
+                <ul>
+                    <li>Proper folder structure (Scripts, Prefabs, Scenes)</li>
+                    <li>All scripts well-named and organized</li>
+                    <li>Scene saved and committed to GitHub</li>
+                </ul>
+            </div>
+
+            <h2>Grading Rubric / 採点基準</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria / 基準</th>
+                        <th>Points / 点数</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Enhanced Ball Controller</td><td>4</td><td>Physics-based movement, speed limits, smooth controls</td></tr>
+                    <tr><td>Camera Follow</td><td>3</td><td>Smooth following, proper offset, always visible</td></tr>
+                    <tr><td>Goal Detection</td><td>3</td><td>Trigger works, win state, feedback</td></tr>
+                    <tr><td>Game State Management</td><td>3</td><td>State machine, transitions, restart works</td></tr>
+                    <tr><td>UI System</td><td>4</td><td>Canvas, win panel, restart button functional</td></tr>
+                    <tr><td>Fall Detection (Bonus)</td><td>2</td><td>Detects fall, triggers lose state</td></tr>
+                    <tr><td>Organization</td><td>1</td><td>Proper structure, naming, GitHub submission</td></tr>
+                    <tr><td><strong>Total</strong></td><td><strong>20</strong></td><td></td></tr>
+                </tbody>
+            </table>
+
+            <h2>Submission Checklist / 提出チェックリスト</h2>
+            <div class="checklist">
+                <ul>
+                    <li>Enhanced ball controller working</li>
+                    <li>Camera follows smoothly</li>
+                    <li>Goal detection functional</li>
+                    <li>Game state management implemented</li>
+                    <li>UI panels working</li>
+                    <li>Restart button functional</li>
+                    <li>Code well-commented</li>
+                    <li>Project organized properly</li>
+                    <li>Committed and pushed to GitHub</li>
+                </ul>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                <a href="lecture.html" class="btn btn-secondary">← Back to Lecture</a>
+                <a href="../../index.html" class="btn btn-primary">Course Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>
+

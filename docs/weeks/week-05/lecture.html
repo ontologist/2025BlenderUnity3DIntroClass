@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5: Ball Maze Game - Maze & Player Controller | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lecture-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .lecture-content h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .lecture-content h3 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .lecture-content h4 {
+            color: var(--text-dark);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .timeline-segment {
+            background: var(--bg-light);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        .duration-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .shortcut-box {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--warning);
+            margin: 15px 0;
+        }
+        .shortcut-box code {
+            background: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .objectives-list {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .objectives-list ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .tip-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .warning-box {
+            background: #fee;
+            border-left: 4px solid #dc2626;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎮 Week 5: Ball Maze Game - Maze & Player Controller</h1>
+            <p class="subtitle">第5週：ボール迷路ゲーム - 迷路とプレイヤーコントローラー</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="assignment.html">Assignment</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lecture-content">
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-04/lecture.html" class="btn btn-primary">← Week 4: Physics & Input</a>
+            </div>
+
+            <div class="objectives-list">
+                <h3>Learning Objectives / 学習目標</h3>
+                <p><strong>English:</strong> By the end of this lecture, students will be able to:</p>
+                <ul>
+                    <li>Organize Unity projects with proper folder structure and naming conventions</li>
+                    <li>Import and optimize Blender mazes for Unity game development</li>
+                    <li>Create an enhanced ball controller with refined physics and movement</li>
+                    <li>Implement a smooth camera follow system with damping and offset controls</li>
+                    <li>Build a goal detection system with particle effects and audio feedback</li>
+                    <li>Implement game state management for Playing, Won, and Lost states</li>
+                    <li>Create basic Unity UI with Canvas, Text, and Button components</li>
+                    <li>Add level restart functionality using SceneManager</li>
+                    <li>Implement a collectibles/pickups system for additional gameplay</li>
+                    <li>Playtest and iterate on game feel and balance</li>
+                </ul>
+                <p><strong>日本語:</strong> この講義の終了までに、学生は以下ができるようになります：</p>
+                <ul>
+                    <li>適切なフォルダ構造と命名規則でUnityプロジェクトを整理する</li>
+                    <li>Unityゲーム開発のためにBlender迷路をインポートして最適化する</li>
+                    <li>洗練された物理とムーブメントを持つ強化されたボールコントローラーを作成する</li>
+                    <li>ダンピングとオフセットコントロールを備えたスムーズなカメラフォローシステムを実装する</li>
+                    <li>パーティクルエフェクトとオーディオフィードバックを備えたゴール検出システムを構築する</li>
+                    <li>Playing、Won、Lostの状態のためのゲーム状態管理を実装する</li>
+                    <li>Canvas、Text、Buttonコンポーネントを使用して基本的なUnity UIを作成する</li>
+                    <li>SceneManagerを使用してレベル再起動機能を追加する</li>
+                    <li>追加のゲームプレイのために収集物/ピックアップシステムを実装する</li>
+                    <li>ゲームのフィールとバランスをプレイテストして反復する</li>
+                </ul>
+            </div>
+
+            <h2>Lecture Timeline (100 minutes)</h2>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 1: Phase 3 Introduction & Project Setup</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Welcome to Phase 3: Ball Maze Game (Weeks 5-7)</li>
+                    <li>Overview of the complete ball maze game project</li>
+                    <li>Project organization best practices in Unity</li>
+                    <li>Creating proper folder structure: Assets/Scripts, Assets/Prefabs, Assets/Materials, Assets/Scenes</li>
+                    <li>Naming conventions for scripts, prefabs, and scenes</li>
+                    <li>Setting up the new Unity project</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>フェーズ3へようこそ：ボール迷路ゲーム（第5-7週）</li>
+                    <li>完全なボール迷路ゲームプロジェクトの概要</li>
+                    <li>Unityでのプロジェクト整理のベストプラクティス</li>
+                    <li>適切なフォルダ構造の作成：Assets/Scripts、Assets/Prefabs、Assets/Materials、Assets/Scenes</li>
+                    <li>スクリプト、プレハブ、シーンの命名規則</li>
+                    <li>新しいUnityプロジェクトのセットアップ</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h4>💡 Project Organization Tip / プロジェクト整理のヒント:</h4>
+                    <p><strong>English:</strong> A well-organized project is easier to debug, maintain, and expand. Always use clear folder structures and descriptive names.</p>
+                    <p><strong>日本語:</strong> よく整理されたプロジェクトは、デバッグ、保守、拡張が容易です。常に明確なフォルダ構造と説明的な名前を使用してください。</p>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 2: Importing and Setting Up the Maze</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Exporting maze from Blender as FBX (.fbx)</li>
+                    <li>Import settings in Unity for optimal performance</li>
+                    <li>Scaling considerations (Blender units vs Unity units)</li>
+                    <li>Adding colliders to maze walls (Box Colliders, Mesh Colliders)</li>
+                    <li>Creating Physics Materials for different surfaces (bouncy, slippery, normal)</li>
+                    <li>Static vs Dynamic objects in Unity physics</li>
+                    <li>Optimizing maze for mobile/lower-end devices</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>BlenderからFBX（.fbx）として迷路をエクスポート</li>
+                    <li>最適なパフォーマンスのためのUnityのインポート設定</li>
+                    <li>スケーリングの考慮事項（Blenderユニット vs Unityユニット）</li>
+                    <li>迷路の壁にコライダーを追加（Box Colliders、Mesh Colliders）</li>
+                    <li>異なる表面のための物理マテリアルの作成（弾む、滑りやすい、通常）</li>
+                    <li>Unity物理におけるStaticとDynamicオブジェクト</li>
+                    <li>モバイル/低スペックデバイス向けの迷路の最適化</li>
+                </ul>
+
+                <div class="shortcut-box">
+                    <h4>🔧 Blender Export Settings / Blenderエクスポート設定:</h4>
+                    <ul>
+                        <li>File → Export → FBX (.fbx)</li>
+                        <li>Scale: 1.00 (Unity handles scale automatically)</li>
+                        <li>Forward: -Z Forward</li>
+                        <li>Up: Y Up</li>
+                        <li>Apply Scalings: FBX All</li>
+                        <li>Selected Objects: ✓ (if exporting only maze)</li>
+                    </ul>
+                </div>
+
+                <h4>Adding Colliders to Imported Maze / インポートされた迷路にコライダーを追加</h4>
+                <pre><code>// Steps:
+1. Select maze walls in hierarchy
+2. Add Component → Physics → Box Collider (for simple walls)
+3. Adjust collider size to match wall dimensions
+4. For complex shapes: Mesh Collider with "Convex" enabled
+
+// Static objects should be marked:
+1. Select maze walls
+2. Check "Static" checkbox in Inspector (top right)
+3. This improves physics performance</code></pre>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">20 minutes / 20分</span>
+                <h3>Segment 3: Enhanced Ball Controller</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Review of Week 4 basic ball controller</li>
+                    <li>Adding acceleration and deceleration for smoother movement</li>
+                    <li>Implementing maximum speed limits</li>
+                    <li>Adding jump functionality (optional for maze game)</li>
+                    <li>Implementing drag for more realistic physics</li>
+                    <li>Input smoothing and responsiveness tuning</li>
+                    <li>Preventing ball from getting stuck on walls</li>
+                    <li>Physics material setup for the ball (bounciness, friction)</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>第4週の基本的なボールコントローラーのレビュー</li>
+                    <li>よりスムーズな移動のための加速と減速の追加</li>
+                    <li>最大速度制限の実装</li>
+                    <li>ジャンプ機能の追加（迷路ゲームではオプション）</li>
+                    <li>よりリアルな物理のためのドラッグの実装</li>
+                    <li>入力スムージングと応答性のチューニング</li>
+                    <li>ボールが壁に引っかからないようにする</li>
+                    <li>ボールの物理マテリアル設定（弾性、摩擦）</li>
+                </ul>
+
+                <h4>Enhanced Ball Controller Code / 強化されたボールコントローラーコード</h4>
+                <pre><code>using UnityEngine;
+
+public class EnhancedBallController : MonoBehaviour
+{
+    [Header("Movement Settings")]
+    [SerializeField] private float moveForce = 10f;
+    [SerializeField] private float maxSpeed = 15f;
+    [SerializeField] private float acceleration = 5f;
+
+    [Header("Jump Settings")]
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private bool allowJump = false;
+
+    [Header("Physics Settings")]
+    [SerializeField] private float dragAmount = 0.5f;
+    [SerializeField] private PhysicMaterial ballPhysicsMaterial;
+
+    private Rigidbody rb;
+    private Vector3 inputDirection;
+    private bool isGrounded;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        // Apply drag
+        rb.drag = dragAmount;
+
+        // Apply physics material if assigned
+        if (ballPhysicsMaterial != null)
+        {
+            GetComponent<SphereCollider>().material = ballPhysicsMaterial;
+        }
+    }
+
+    void Update()
+    {
+        // Get input (WASD or Arrow Keys)
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        inputDirection = new Vector3(horizontal, 0f, vertical).normalized;
+
+        // Jump input
+        if (allowJump && Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Jump();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        // Apply movement force
+        if (inputDirection.magnitude > 0.1f)
+        {
+            // Smooth acceleration
+            Vector3 targetVelocity = inputDirection * maxSpeed;
+            Vector3 velocityChange = (targetVelocity - rb.velocity);
+            velocityChange.y = 0; // Don't affect vertical velocity
+
+            rb.AddForce(velocityChange * acceleration, ForceMode.Force);
+        }
+
+        // Clamp maximum speed (XZ plane only)
+        Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        if (horizontalVelocity.magnitude > maxSpeed)
+        {
+            horizontalVelocity = horizontalVelocity.normalized * maxSpeed;
+            rb.velocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
+        }
+    }
+
+    void Jump()
+    {
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        isGrounded = false;
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        // Check if grounded
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5f)
+            {
+                isGrounded = true;
+                return;
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        isGrounded = false;
+    }
+}</code></pre>
+
+                <div class="tip-box">
+                    <h4>💡 Physics Material Setup / 物理マテリアル設定:</h4>
+                    <p><strong>English:</strong></p>
+                    <ol>
+                        <li>Create → Physics Material (name: "BallPhysics")</li>
+                        <li>Dynamic Friction: 0.4</li>
+                        <li>Static Friction: 0.4</li>
+                        <li>Bounciness: 0.3</li>
+                        <li>Friction Combine: Average</li>
+                        <li>Bounce Combine: Average</li>
+                        <li>Assign to ball's Sphere Collider</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 4: Advanced Camera Follow System</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Review of basic camera following from Week 4</li>
+                    <li>Implementing smooth camera damping with Lerp</li>
+                    <li>Setting up camera offset and rotation</li>
+                    <li>Multiple camera modes: Top-Down, Isometric, Third-Person</li>
+                    <li>Camera zoom controls (optional)</li>
+                    <li>Preventing camera from going through walls</li>
+                    <li>Camera shake on collision (advanced, optional)</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>第4週の基本的なカメラフォローのレビュー</li>
+                    <li>Lerpを使用したスムーズなカメラダンピングの実装</li>
+                    <li>カメラオフセットと回転の設定</li>
+                    <li>複数のカメラモード：トップダウン、アイソメトリック、サードパーソン</li>
+                    <li>カメラズームコントロール（オプション）</li>
+                    <li>カメラが壁を通過しないようにする</li>
+                    <li>衝突時のカメラシェイク（高度、オプション）</li>
+                </ul>
+
+                <h4>Smooth Camera Follow Code / スムーズカメラフォローコード</h4>
+                <pre><code>using UnityEngine;
+
+public class SmoothCameraFollow : MonoBehaviour
+{
+    [Header("Target Settings")]
+    [SerializeField] private Transform target;
+
+    [Header("Camera Settings")]
+    [SerializeField] private Vector3 offset = new Vector3(0f, 10f, -10f);
+    [SerializeField] private float smoothSpeed = 5f;
+    [SerializeField] private bool lookAtTarget = true;
+
+    [Header("Camera Modes")]
+    [SerializeField] private CameraMode cameraMode = CameraMode.TopDown;
+
+    public enum CameraMode
+    {
+        TopDown,
+        Isometric,
+        ThirdPerson
+    }
+
+    void Start()
+    {
+        // If no target assigned, try to find ball
+        if (target == null)
+        {
+            GameObject ball = GameObject.FindGameObjectWithTag("Player");
+            if (ball != null)
+                target = ball.transform;
+        }
+
+        // Set initial camera mode offset
+        SetCameraMode(cameraMode);
+    }
+
+    void LateUpdate()
+    {
+        if (target == null) return;
+
+        // Calculate desired position
+        Vector3 desiredPosition = target.position + offset;
+
+        // Smoothly interpolate to desired position
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+        transform.position = smoothedPosition;
+
+        // Look at target
+        if (lookAtTarget)
+        {
+            transform.LookAt(target);
+        }
+    }
+
+    public void SetCameraMode(CameraMode mode)
+    {
+        cameraMode = mode;
+
+        switch (mode)
+        {
+            case CameraMode.TopDown:
+                offset = new Vector3(0f, 15f, 0f);
+                transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+                lookAtTarget = false;
+                break;
+
+            case CameraMode.Isometric:
+                offset = new Vector3(10f, 10f, -10f);
+                lookAtTarget = true;
+                break;
+
+            case CameraMode.ThirdPerson:
+                offset = new Vector3(0f, 5f, -10f);
+                lookAtTarget = true;
+                break;
+        }
+    }
+
+    // Optional: Change camera mode at runtime
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            // Cycle through camera modes
+            int nextMode = ((int)cameraMode + 1) % 3;
+            SetCameraMode((CameraMode)nextMode);
+        }
+    }
+}</code></pre>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 5: Goal Detection and Win Condition</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Creating a goal trigger zone</li>
+                    <li>Using OnTriggerEnter for goal detection</li>
+                    <li>Adding particle effects on goal reached</li>
+                    <li>Playing audio feedback (success sound)</li>
+                    <li>Triggering win state</li>
+                    <li>Freezing ball movement on win</li>
+                    <li>Visual feedback (glowing goal, color changes)</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>ゴールトリガーゾーンの作成</li>
+                    <li>ゴール検出のためのOnTriggerEnterの使用</li>
+                    <li>ゴール到達時のパーティクルエフェクトの追加</li>
+                    <li>オーディオフィードバックの再生（成功サウンド）</li>
+                    <li>勝利状態のトリガー</li>
+                    <li>勝利時のボール移動の凍結</li>
+                    <li>視覚的フィードバック（輝くゴール、色の変化）</li>
+                </ul>
+
+                <h4>Goal Trigger Code / ゴールトリガーコード</h4>
+                <pre><code>using UnityEngine;
+
+public class GoalTrigger : MonoBehaviour
+{
+    [Header("Effects")]
+    [SerializeField] private ParticleSystem goalParticles;
+    [SerializeField] private AudioClip goalSound;
+    [SerializeField] private Material goalGlowMaterial;
+
+    [Header("References")]
+    [SerializeField] private GameManager gameManager;
+
+    private AudioSource audioSource;
+    private Renderer goalRenderer;
+    private Material originalMaterial;
+    private bool goalReached = false;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        goalRenderer = GetComponent<Renderer>();
+        if (goalRenderer != null)
+            originalMaterial = goalRenderer.material;
+
+        // Find GameManager if not assigned
+        if (gameManager == null)
+            gameManager = FindObjectOfType<GameManager>();
+
+        // Stop particles initially
+        if (goalParticles != null)
+            goalParticles.Stop();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (goalReached) return;
+
+        // Check if the ball entered the goal
+        if (other.CompareTag("Player"))
+        {
+            ReachGoal(other.gameObject);
+        }
+    }
+
+    void ReachGoal(GameObject ball)
+    {
+        goalReached = true;
+
+        // Play particle effect
+        if (goalParticles != null)
+            goalParticles.Play();
+
+        // Play sound
+        if (goalSound != null && audioSource != null)
+            audioSource.PlayOneShot(goalSound);
+
+        // Change material to glow
+        if (goalRenderer != null && goalGlowMaterial != null)
+            goalRenderer.material = goalGlowMaterial;
+
+        // Freeze ball
+        Rigidbody ballRb = ball.GetComponent<Rigidbody>();
+        if (ballRb != null)
+        {
+            ballRb.velocity = Vector3.zero;
+            ballRb.isKinematic = true;
+        }
+
+        // Notify GameManager
+        if (gameManager != null)
+        {
+            gameManager.OnGoalReached();
+        }
+
+        Debug.Log("Goal Reached! You Win!");
+    }
+}</code></pre>
+
+                <div class="tip-box">
+                    <h4>💡 Setting Up Goal Trigger / ゴールトリガーの設定:</h4>
+                    <ol>
+                        <li>Create cylinder or cube at goal location</li>
+                        <li>Add component: Box Collider or Sphere Collider</li>
+                        <li>Check "Is Trigger" ✓</li>
+                        <li>Add GoalTrigger script</li>
+                        <li>Create particle system as child object</li>
+                        <li>Assign references in Inspector</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 6: Game State Management & UI Basics</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Introduction to game states (Playing, Won, Lost, Paused)</li>
+                    <li>Creating a GameManager singleton</li>
+                    <li>State machine implementation with enums</li>
+                    <li>State transition logic</li>
+                    <li>Introduction to Unity UI (Canvas, Text, Button)</li>
+                    <li>Creating win message display</li>
+                    <li>Creating restart button</li>
+                    <li>UI anchoring and positioning basics</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>ゲーム状態の紹介（Playing、Won、Lost、Paused）</li>
+                    <li>GameManagerシングルトンの作成</li>
+                    <li>列挙型を使用したステートマシンの実装</li>
+                    <li>状態遷移ロジック</li>
+                    <li>Unity UI（Canvas、Text、Button）の紹介</li>
+                    <li>勝利メッセージ表示の作成</li>
+                    <li>再起動ボタンの作成</li>
+                    <li>UIアンカリングと位置決めの基本</li>
+                </ul>
+
+                <h4>GameManager Code / GameManagerコード</h4>
+                <pre><code>using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+
+    [Header("Game State")]
+    [SerializeField] private GameState currentState = GameState.Playing;
+
+    [Header("UI References")]
+    [SerializeField] private UIManager uiManager;
+
+    [Header("Settings")]
+    [SerializeField] private float winDelay = 1f;
+
+    public enum GameState
+    {
+        Playing,
+        Won,
+        Lost,
+        Paused
+    }
+
+    void Awake()
+    {
+        // Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    void Start()
+    {
+        SetGameState(GameState.Playing);
+
+        // Find UIManager if not assigned
+        if (uiManager == null)
+            uiManager = FindObjectOfType<UIManager>();
+    }
+
+    public void SetGameState(GameState newState)
+    {
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case GameState.Playing:
+                Time.timeScale = 1f;
+                if (uiManager != null)
+                    uiManager.HideAllPanels();
+                break;
+
+            case GameState.Won:
+                if (uiManager != null)
+                    Invoke(nameof(ShowWinUI), winDelay);
+                break;
+
+            case GameState.Lost:
+                if (uiManager != null)
+                    Invoke(nameof(ShowLoseUI), winDelay);
+                break;
+
+            case GameState.Paused:
+                Time.timeScale = 0f;
+                if (uiManager != null)
+                    uiManager.ShowPausePanel();
+                break;
+        }
+    }
+
+    void ShowWinUI()
+    {
+        if (uiManager != null)
+            uiManager.ShowWinPanel();
+    }
+
+    void ShowLoseUI()
+    {
+        if (uiManager != null)
+            uiManager.ShowLosePanel();
+    }
+
+    public void OnGoalReached()
+    {
+        SetGameState(GameState.Won);
+    }
+
+    public void OnBallFellOff()
+    {
+        SetGameState(GameState.Lost);
+    }
+
+    public void RestartLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void PauseGame()
+    {
+        if (currentState == GameState.Playing)
+            SetGameState(GameState.Paused);
+    }
+
+    public void ResumeGame()
+    {
+        if (currentState == GameState.Paused)
+            SetGameState(GameState.Playing);
+    }
+
+    void Update()
+    {
+        // Pause with ESC key
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (currentState == GameState.Playing)
+                PauseGame();
+            else if (currentState == GameState.Paused)
+                ResumeGame();
+        }
+    }
+}</code></pre>
+
+                <h4>UIManager Code / UIManagerコード</h4>
+                <pre><code>using UnityEngine;
+using UnityEngine.UI;
+
+public class UIManager : MonoBehaviour
+{
+    [Header("UI Panels")]
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject losePanel;
+    [SerializeField] private GameObject pausePanel;
+
+    [Header("UI Text")]
+    [SerializeField] private Text winText;
+    [SerializeField] private Text loseText;
+
+    [Header("Buttons")]
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button resumeButton;
+
+    void Start()
+    {
+        HideAllPanels();
+
+        // Setup button listeners
+        if (restartButton != null)
+            restartButton.onClick.AddListener(OnRestartClicked);
+
+        if (resumeButton != null)
+            resumeButton.onClick.AddListener(OnResumeClicked);
+    }
+
+    public void HideAllPanels()
+    {
+        if (winPanel != null) winPanel.SetActive(false);
+        if (losePanel != null) losePanel.SetActive(false);
+        if (pausePanel != null) pausePanel.SetActive(false);
+    }
+
+    public void ShowWinPanel()
+    {
+        HideAllPanels();
+        if (winPanel != null)
+        {
+            winPanel.SetActive(true);
+            if (winText != null)
+                winText.text = "You Win!\nおめでとうございます！";
+        }
+    }
+
+    public void ShowLosePanel()
+    {
+        HideAllPanels();
+        if (losePanel != null)
+        {
+            losePanel.SetActive(true);
+            if (loseText != null)
+                loseText.text = "Game Over\nもう一度挑戦してください";
+        }
+    }
+
+    public void ShowPausePanel()
+    {
+        if (pausePanel != null)
+            pausePanel.SetActive(true);
+    }
+
+    void OnRestartClicked()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.RestartLevel();
+    }
+
+    void OnResumeClicked()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResumeGame();
+    }
+}</code></pre>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">10 minutes / 10分</span>
+                <h3>Segment 7: Polish, Playtesting & Assignment Overview</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Adding collectibles/pickups system (optional bonus)</li>
+                    <li>Fall detection (when ball falls off the maze)</li>
+                    <li>Visual polish tips (colors, lighting, particle effects)</li>
+                    <li>Audio polish (background music, sound effects)</li>
+                    <li>Playtesting methodology: test controls, difficulty, fun factor</li>
+                    <li>Iteration techniques: tweaking values, getting feedback</li>
+                    <li>Performance optimization tips</li>
+                    <li>Week 5 assignment overview and expectations</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>収集物/ピックアップシステムの追加（オプションのボーナス）</li>
+                    <li>落下検出（ボールが迷路から落ちたとき）</li>
+                    <li>視覚的な磨きのヒント（色、照明、パーティクルエフェクト）</li>
+                    <li>オーディオの磨き（背景音楽、効果音）</li>
+                    <li>プレイテスト方法論：コントロール、難易度、楽しさのテスト</li>
+                    <li>反復技術：値の調整、フィードバックの取得</li>
+                    <li>パフォーマンス最適化のヒント</li>
+                    <li>第5週の課題の概要と期待事項</li>
+                </ul>
+
+                <h4>Fall Detection Code / 落下検出コード</h4>
+                <pre><code>using UnityEngine;
+
+public class FallDetector : MonoBehaviour
+{
+    [SerializeField] private float fallThreshold = -10f;
+    [SerializeField] private GameManager gameManager;
+
+    void Start()
+    {
+        if (gameManager == null)
+            gameManager = FindObjectOfType<GameManager>();
+    }
+
+    void Update()
+    {
+        // Check if ball fell below threshold
+        if (transform.position.y < fallThreshold)
+        {
+            OnBallFell();
+        }
+    }
+
+    void OnBallFell()
+    {
+        if (gameManager != null)
+            gameManager.OnBallFellOff();
+    }
+}</code></pre>
+
+                <h4>Simple Collectible Code / シンプルな収集物コード</h4>
+                <pre><code>using UnityEngine;
+
+public class Collectible : MonoBehaviour
+{
+    [SerializeField] private int points = 10;
+    [SerializeField] private AudioClip collectSound;
+    [SerializeField] private ParticleSystem collectEffect;
+    [SerializeField] private float rotationSpeed = 100f;
+
+    void Update()
+    {
+        // Rotate collectible for visual interest
+        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Collect();
+        }
+    }
+
+    void Collect()
+    {
+        // Play effect
+        if (collectEffect != null)
+        {
+            Instantiate(collectEffect, transform.position, Quaternion.identity);
+        }
+
+        // Play sound
+        if (collectSound != null)
+        {
+            AudioSource.PlayClipAtPoint(collectSound, transform.position);
+        }
+
+        // Add points (you can create a ScoreManager for this)
+        Debug.Log("Collected! +" + points + " points");
+
+        // Destroy collectible
+        Destroy(gameObject);
+    }
+}</code></pre>
+            </div>
+
+            <h2>Creating Unity UI / Unity UIの作成</h2>
+
+            <div class="timeline-segment">
+                <h4>Step-by-Step UI Creation / ステップバイステップUI作成</h4>
+                <p><strong>English:</strong></p>
+                <ol>
+                    <li><strong>Create Canvas:</strong>
+                        <ul>
+                            <li>Right-click in Hierarchy → UI → Canvas</li>
+                            <li>Canvas will auto-create EventSystem (required for UI interaction)</li>
+                            <li>Set Canvas Scaler → UI Scale Mode → Scale With Screen Size</li>
+                            <li>Reference Resolution: 1920 x 1080</li>
+                        </ul>
+                    </li>
+                    <li><strong>Create Win Panel:</strong>
+                        <ul>
+                            <li>Right-click Canvas → UI → Panel (name: "WinPanel")</li>
+                            <li>Set color with slight transparency</li>
+                            <li>Add UI → Text (name: "WinText")</li>
+                            <li>Set font size: 60, color: white, align: center</li>
+                            <li>Add UI → Button (name: "RestartButton")</li>
+                        </ul>
+                    </li>
+                    <li><strong>Position UI Elements:</strong>
+                        <ul>
+                            <li>Use Rect Transform for positioning</li>
+                            <li>Anchor presets (top-left corner of Rect Transform)</li>
+                            <li>Center anchor for centered elements</li>
+                        </ul>
+                    </li>
+                    <li><strong>Assign to UIManager:</strong>
+                        <ul>
+                            <li>Create empty GameObject (name: "UIManager")</li>
+                            <li>Add UIManager script</li>
+                            <li>Drag panels and buttons to appropriate fields</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h2>Common Pitfalls / よくある落とし穴</h2>
+
+            <div class="timeline-segment">
+                <h4>1. Physics Instability / 物理の不安定性</h4>
+                <p><strong>Problem:</strong> Ball jitters or bounces uncontrollably</p>
+                <p><strong>Solution:</strong> Adjust Rigidbody settings: Drag = 0.5, Angular Drag = 0.5, Interpolate = Interpolate</p>
+
+                <h4>2. Ball Getting Stuck in Walls / ボールが壁に引っかかる</h4>
+                <p><strong>Problem:</strong> Ball catches on edges or seams</p>
+                <p><strong>Solution:</strong> Use Physics Material with low friction, ensure colliders don't overlap, use continuous collision detection</p>
+
+                <h4>3. Camera Jumping or Lagging / カメラのジャンプや遅延</h4>
+                <p><strong>Problem:</strong> Camera doesn't smoothly follow ball</p>
+                <p><strong>Solution:</strong> Use LateUpdate() for camera movement, lower smoothSpeed value (3-5 is typical)</p>
+
+                <h4>4. UI Not Responding to Clicks / UIがクリックに反応しない</h4>
+                <p><strong>Problem:</strong> Buttons don't work</p>
+                <p><strong>Solution:</strong> Ensure EventSystem exists in scene, check Button component has OnClick event, verify Canvas is set to Screen Space - Overlay</p>
+
+                <h4>5. Goal Not Triggering / ゴールがトリガーしない</h4>
+                <p><strong>Problem:</strong> Ball passes through goal without detection</p>
+                <p><strong>Solution:</strong> Ensure goal has "Is Trigger" ✓, ball has "Player" tag, both have colliders, OnTriggerEnter is implemented correctly</p>
+            </div>
+
+            <h2>Additional Resources / 追加リソース</h2>
+
+            <div class="timeline-segment">
+                <h4>Unity Documentation:</h4>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Manual/UISystem.html" target="_blank">Unity UI System</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/class-PhysicMaterial.html" target="_blank">Physics Materials</a></li>
+                    <li><a href="https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.html" target="_blank">SceneManager</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/Particles.html" target="_blank">Particle System</a></li>
+                </ul>
+
+                <h4>Video Tutorials (English):</h4>
+                <ul>
+                    <li>Brackeys - "How to make a VIDEO GAME in Unity"</li>
+                    <li>Code Monkey - "Unity UI Tutorial"</li>
+                    <li>Sebastian Lague - "Introduction to Game Development"</li>
+                </ul>
+
+                <h4>Video Tutorials (Japanese / 日本語):</h4>
+                <ul>
+                    <li>Unity Japan - UIシステムチュートリアル</li>
+                    <li>ゲーム開発チャンネル - ボール迷路ゲームの作り方</li>
+                </ul>
+            </div>
+
+            <h2>Preparation for Next Week / 次週の準備</h2>
+
+            <div class="objectives-list">
+                <p><strong>English - Students should:</strong></p>
+                <ul>
+                    <li>✅ Complete Week 5 assignment (playable ball maze game)</li>
+                    <li>✅ Playtest your game and note areas for improvement</li>
+                    <li>✅ Experiment with different camera angles and controls</li>
+                    <li>✅ Ensure code is well-commented and organized</li>
+                    <li>✅ Push completed project to GitHub</li>
+                    <li>✅ Come prepared with questions about game feel</li>
+                </ul>
+                <p><strong>日本語 - 学生は以下を行うべきです：</strong></p>
+                <ul>
+                    <li>✅ 第5週の課題を完了（プレイ可能なボール迷路ゲーム）</li>
+                    <li>✅ ゲームをプレイテストし、改善すべき点をメモ</li>
+                    <li>✅ さまざまなカメラアングルとコントロールを実験</li>
+                    <li>✅ コードがよくコメントされ整理されていることを確認</li>
+                    <li>✅ 完成したプロジェクトをGitHubにプッシュ</li>
+                    <li>✅ ゲームフィールについての質問を準備して来る</li>
+                </ul>
+                <p><strong>Next Week Preview:</strong> Enhanced Gameplay - Timer, Score, Multiple Levels, Advanced Mechanics</p>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-06/lecture.html" class="btn btn-primary">Next Week: Enhanced Gameplay →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+            <p>著作権 © 2025 Yuri Tijerino. 無断転載を禁じます。</p>
+        </div>
+    </footer>
+</body>
+</html>

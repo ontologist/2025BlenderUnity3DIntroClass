@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5: Ball Maze Game - Maze & Player Controller</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; overflow: hidden; }
+        .slide-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .slide { display: none; background: white; width: 90%; max-width: 1200px; height: 85vh; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); padding: 60px 80px; position: relative; overflow-y: auto; }
+        .slide.active { display: block; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .slide h1 { font-size: 3em; color: #667eea; margin-bottom: 20px; text-align: center; }
+        .slide h2 { font-size: 2.2em; color: #764ba2; margin-bottom: 30px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .slide h3 { font-size: 1.8em; color: #667eea; margin-top: 30px; margin-bottom: 15px; }
+        .slide h4 { font-size: 1.4em; color: #555; margin-top: 20px; margin-bottom: 10px; }
+        .slide p { font-size: 1.2em; line-height: 1.8; margin-bottom: 15px; color: #444; }
+        .slide ul, .slide ol { font-size: 1.2em; line-height: 1.8; margin-left: 40px; margin-bottom: 20px; }
+        .slide li { margin-bottom: 10px; }
+        .bilingual { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 20px 0; }
+        .english, .japanese { padding: 20px; border-radius: 10px; }
+        .english { background: #f0f4ff; border-left: 4px solid #667eea; }
+        .japanese { background: #fff0f6; border-left: 4px solid #764ba2; }
+        .highlight-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .code-box { background: #f4f4f4; border: 1px solid #ddd; border-radius: 5px; padding: 15px; font-family: 'Courier New', monospace; margin: 15px 0; overflow-x: auto; }
+        .navigation { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 1000; }
+        .nav-btn { background: white; color: #667eea; border: 2px solid #667eea; padding: 12px 30px; font-size: 1.1em; border-radius: 30px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .nav-btn:hover { background: #667eea; color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .slide-number { position: fixed; top: 30px; right: 30px; background: rgba(255, 255, 255, 0.9); padding: 10px 20px; border-radius: 20px; font-size: 1.1em; color: #667eea; font-weight: bold; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+        .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+        .title-slide h1 { font-size: 4em; margin-bottom: 20px; }
+        .title-slide .subtitle { font-size: 2em; color: #764ba2; margin-bottom: 40px; }
+        .title-slide .info { font-size: 1.3em; color: #666; margin: 10px 0; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0; }
+        .component-box { background: #e8f4f8; border-left: 4px solid #0088cc; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .tip-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="slide-number" id="slideNumber">Slide 1 / 20</div>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>🎮 Week 5</h1>
+            <p class="subtitle">Ball Maze Game: Maze & Player Controller<br>ボール迷路ゲーム：迷路とプレイヤーコントローラー</p>
+            <p class="info"><strong>Duration:</strong> 100 minutes / 100分</p>
+            <p class="info"><strong>Developer:</strong> Yuri Tijerino</p>
+            <p class="info">Game Development Course 2025</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h2>📚 Learning Objectives / 講義目標</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>By the end of this lecture, students will be able to:</h4>
+                    <ol>
+                        <li>Organize Unity projects properly</li>
+                        <li>Import and optimize Blender mazes</li>
+                        <li>Create enhanced ball controller</li>
+                        <li>Implement smooth camera follow</li>
+                        <li>Build goal detection system</li>
+                        <li>Implement game state management</li>
+                        <li>Create basic Unity UI</li>
+                        <li>Add level restart functionality</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>この講義の終了までに、学生は以下ができるようになります：</h4>
+                    <ol>
+                        <li>Unityプロジェクトを適切に整理する</li>
+                        <li>Blender迷路をインポートして最適化する</li>
+                        <li>強化されたボールコントローラーを作成する</li>
+                        <li>スムーズなカメラフォローを実装する</li>
+                        <li>ゴール検出システムを構築する</li>
+                        <li>ゲーム状態管理を実装する</li>
+                        <li>基本的なUnity UIを作成する</li>
+                        <li>レベル再起動機能を追加する</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Phase 3 Introduction -->
+        <div class="slide">
+            <h2>🚀 Phase 3: Ball Maze Game</h2>
+            <div class="highlight-box">
+                <h3>Welcome to Phase 3! / フェーズ3へようこそ！</h3>
+                <p><strong>Weeks 5-7:</strong> Building a complete playable game!</p>
+                <p><strong>第5-7週：</strong> 完全にプレイ可能なゲームを構築！</p>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>This Phase Includes:</h4>
+                    <ul>
+                        <li>Week 5: Maze setup & player controller</li>
+                        <li>Week 6: AI enemies (next week)</li>
+                        <li>Week 7: Polish & completion</li>
+                    </ul>
+                    <h4>Week 5 Goals:</h4>
+                    <ul>
+                        <li>Complete playable ball maze</li>
+                        <li>Goal detection system</li>
+                        <li>Basic UI and game states</li>
+                        <li>Restart functionality</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h4>このフェーズには以下が含まれます：</h4>
+                    <ul>
+                        <li>第5週：迷路のセットアップとプレイヤーコントローラー</li>
+                        <li>第6週：AI敵（来週）</li>
+                        <li>第7週：仕上げと完成</li>
+                    </ul>
+                    <h4>第5週の目標：</h4>
+                    <ul>
+                        <li>完全にプレイ可能なボール迷路</li>
+                        <li>ゴール検出システム</li>
+                        <li>基本的なUIとゲーム状態</li>
+                        <li>再起動機能</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Project Organization -->
+        <div class="slide">
+            <h2>📁 Project Organization / プロジェクト整理</h2>
+            <div class="code-box">
+                <strong>Recommended Folder Structure / 推奨フォルダ構造:</strong><br><br>
+                Assets/<br>
+                ├─ Scripts/<br>
+                │  ├─ BallController.cs<br>
+                │  ├─ CameraFollow.cs<br>
+                │  ├─ GameManager.cs<br>
+                │  └─ GoalTrigger.cs<br>
+                ├─ Prefabs/<br>
+                │  └─ Ball.prefab<br>
+                ├─ Materials/<br>
+                │  ├─ Wall.mat<br>
+                │  └─ Floor.mat<br>
+                ├─ Models/<br>
+                │  └─ Maze.fbx<br>
+                └─ Scenes/<br>
+                   └─ MazeGame.unity<br>
+            </div>
+            <div class="tip-box">
+                <strong>💡 Best Practice:</strong> Good organization makes debugging easier!<br>
+                <strong>💡 ベストプラクティス：</strong> 良い整理はデバッグを簡単にします！
+            </div>
+        </div>
+
+        <!-- Slide 5: Importing Maze from Blender -->
+        <div class="slide">
+            <h2>📥 Importing Maze from Blender</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Export Settings (Blender):</h3>
+                    <ul>
+                        <li>File → Export → FBX</li>
+                        <li>Scale: 1.00</li>
+                        <li>Forward: -Z Forward</li>
+                        <li>Up: Y Up</li>
+                        <li>Apply Scalings: FBX All</li>
+                    </ul>
+                    <h3>Import to Unity:</h3>
+                    <ul>
+                        <li>Drag .fbx into Assets/Models</li>
+                        <li>Check import scale</li>
+                        <li>Add colliders to walls</li>
+                        <li>Mark walls as Static</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>エクスポート設定（Blender）：</h3>
+                    <ul>
+                        <li>File → Export → FBX</li>
+                        <li>Scale：1.00</li>
+                        <li>Forward：-Z Forward</li>
+                        <li>Up：Y Up</li>
+                        <li>Apply Scalings：FBX All</li>
+                    </ul>
+                    <h3>Unityへのインポート：</h3>
+                    <ul>
+                        <li>.fbxをAssets/Modelsにドラッグ</li>
+                        <li>インポートスケールを確認</li>
+                        <li>壁にコライダーを追加</li>
+                        <li>壁をStaticとしてマーク</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Enhanced Ball Controller -->
+        <div class="slide">
+            <h2>⚽ Enhanced Ball Controller</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Improvements over Week 4:</h3>
+                    <ul>
+                        <li>Maximum speed limits</li>
+                        <li>Smooth acceleration/deceleration</li>
+                        <li>Physics material for friction</li>
+                        <li>Better input handling</li>
+                        <li>Prevents getting stuck</li>
+                    </ul>
+                    <h4>Key Features:</h4>
+                    <ul>
+                        <li>Uses FixedUpdate() for physics</li>
+                        <li>AddForce() for movement</li>
+                        <li>Speed clamping</li>
+                        <li>Configurable in Inspector</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>第4週からの改善：</h3>
+                    <ul>
+                        <li>最大速度制限</li>
+                        <li>スムーズな加速/減速</li>
+                        <li>摩擦用の物理マテリアル</li>
+                        <li>より良い入力処理</li>
+                        <li>引っかかり防止</li>
+                    </ul>
+                    <h4>主要機能：</h4>
+                    <ul>
+                        <li>物理にFixedUpdate()を使用</li>
+                        <li>移動にAddForce()を使用</li>
+                        <li>速度クランプ</li>
+                        <li>Inspectorで設定可能</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Smooth Camera Follow -->
+        <div class="slide">
+            <h2>📷 Smooth Camera Follow</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Camera System Features:</h3>
+                    <ul>
+                        <li>Follows player smoothly using Lerp</li>
+                        <li>Configurable offset (position)</li>
+                        <li>Smooth speed control</li>
+                        <li>Optional: LookAt target</li>
+                        <li>Uses LateUpdate() for smoothness</li>
+                    </ul>
+                    <h4>Camera Modes:</h4>
+                    <ul>
+                        <li>Top-Down view</li>
+                        <li>Isometric view</li>
+                        <li>Third-person view</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>カメラシステムの機能：</h3>
+                    <ul>
+                        <li>Lerpを使用してプレイヤーをスムーズに追跡</li>
+                        <li>設定可能なオフセット（位置）</li>
+                        <li>スムーズな速度制御</li>
+                        <li>オプション：ターゲットをLookAt</li>
+                        <li>滑らかさのためにLateUpdate()を使用</li>
+                    </ul>
+                    <h4>カメラモード：</h4>
+                    <ul>
+                        <li>トップダウンビュー</li>
+                        <li>アイソメトリックビュー</li>
+                        <li>サードパーソンビュー</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Goal Detection System -->
+        <div class="slide">
+            <h2>🎯 Goal Detection System</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>How It Works:</h3>
+                    <ul>
+                        <li>Goal zone with trigger collider</li>
+                        <li>OnTriggerEnter() detects player</li>
+                        <li>Triggers win state in GameManager</li>
+                        <li>Visual/audio feedback</li>
+                        <li>Freezes ball movement</li>
+                    </ul>
+                    <h4>Implementation Steps:</h4>
+                    <ol>
+                        <li>Create goal GameObject (cylinder/cube)</li>
+                        <li>Add Collider with Is Trigger ✓</li>
+                        <li>Add GoalTrigger script</li>
+                        <li>Check for "Player" tag</li>
+                        <li>Notify GameManager</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h3>仕組み：</h3>
+                    <ul>
+                        <li>トリガーコライダー付きゴールゾーン</li>
+                        <li>OnTriggerEnter()でプレイヤーを検出</li>
+                        <li>GameManagerで勝利状態をトリガー</li>
+                        <li>視覚/オーディオフィードバック</li>
+                        <li>ボール移動を凍結</li>
+                    </ul>
+                    <h4>実装ステップ：</h4>
+                    <ol>
+                        <li>ゴールGameObjectを作成（シリンダー/キューブ）</li>
+                        <li>Is Trigger ✓ でColliderを追加</li>
+                        <li>GoalTriggerスクリプトを追加</li>
+                        <li>「Player」タグを確認</li>
+                        <li>GameManagerに通知</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Game State Management -->
+        <div class="slide">
+            <h2>🎮 Game State Management</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Game States:</h3>
+                    <ul>
+                        <li><strong>Playing:</strong> Game is active</li>
+                        <li><strong>Won:</strong> Player reached goal</li>
+                        <li><strong>Lost:</strong> Player failed (fell off, etc.)</li>
+                        <li><strong>Paused:</strong> Game paused</li>
+                    </ul>
+                    <h3>GameManager Pattern:</h3>
+                    <ul>
+                        <li>Singleton design pattern</li>
+                        <li>Manages state transitions</li>
+                        <li>Controls UI visibility</li>
+                        <li>Handles scene restart</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ゲーム状態：</h3>
+                    <ul>
+                        <li><strong>Playing：</strong> ゲームがアクティブ</li>
+                        <li><strong>Won：</strong> プレイヤーがゴールに到達</li>
+                        <li><strong>Lost：</strong> プレイヤーが失敗（落下など）</li>
+                        <li><strong>Paused：</strong> ゲームが一時停止</li>
+                    </ul>
+                    <h3>GameManagerパターン：</h3>
+                    <ul>
+                        <li>シングルトンデザインパターン</li>
+                        <li>状態遷移を管理</li>
+                        <li>UIの可視性を制御</li>
+                        <li>シーン再起動を処理</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Unity UI Basics -->
+        <div class="slide">
+            <h2>🖼️ Unity UI Basics</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>UI Components:</h3>
+                    <ul>
+                        <li><strong>Canvas:</strong> Container for all UI</li>
+                        <li><strong>Panel:</strong> Background container</li>
+                        <li><strong>Text:</strong> Display messages</li>
+                        <li><strong>Button:</strong> Clickable actions</li>
+                    </ul>
+                    <h3>Setting Up UI:</h3>
+                    <ol>
+                        <li>Right-click Hierarchy → UI → Canvas</li>
+                        <li>Create UI → Panel (for win/lose screens)</li>
+                        <li>Add UI → Text (for messages)</li>
+                        <li>Add UI → Button (for restart)</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h3>UIコンポーネント：</h3>
+                    <ul>
+                        <li><strong>Canvas：</strong> すべてのUIのコンテナ</li>
+                        <li><strong>Panel：</strong> 背景コンテナ</li>
+                        <li><strong>Text：</strong> メッセージを表示</li>
+                        <li><strong>Button：</strong> クリック可能なアクション</li>
+                    </ul>
+                    <h3>UIのセットアップ：</h3>
+                    <ol>
+                        <li>Hierarchyで右クリック → UI → Canvas</li>
+                        <li>UI → Panelを作成（勝利/敗北画面用）</li>
+                        <li>UI → Textを追加（メッセージ用）</li>
+                        <li>UI → Buttonを追加（再起動用）</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Scene Restart -->
+        <div class="slide">
+            <h2>🔄 Scene Restart Functionality</h2>
+            <div class="code-box">
+                <strong>Using SceneManager / SceneManagerの使用:</strong><br><br>
+                using UnityEngine.SceneManagement;<br><br>
+                public void RestartLevel()<br>
+                {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;SceneManager.LoadScene(<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SceneManager.GetActiveScene().buildIndex<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;);<br>
+                }<br><br>
+                <strong>What it does:</strong><br>
+                - Reloads the current scene<br>
+                - Resets all objects to initial state<br>
+                - Called from Restart button<br>
+            </div>
+            <div class="tip-box">
+                <strong>💡 Don't forget:</strong> Add scene to Build Settings!<br>
+                <strong>💡 忘れずに：</strong> Build Settingsにシーンを追加！
+            </div>
+        </div>
+
+        <!-- Slide 12: Fall Detection -->
+        <div class="slide">
+            <h2>⬇️ Fall Detection (Optional)</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Detecting When Ball Falls:</h3>
+                    <ul>
+                        <li>Check Y position in Update()</li>
+                        <li>If Y < threshold → trigger lose</li>
+                        <li>Notify GameManager</li>
+                        <li>Show lose UI panel</li>
+                    </ul>
+                    <h4>Implementation:</h4>
+                    <ul>
+                        <li>Add FallDetector script to ball</li>
+                        <li>Set fall threshold (e.g., -10)</li>
+                        <li>Call GameManager.OnBallFellOff()</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ボールの落下を検出：</h3>
+                    <ul>
+                        <li>Update()でY位置を確認</li>
+                        <li>Y < 閾値 → 敗北をトリガー</li>
+                        <li>GameManagerに通知</li>
+                        <li>敗北UIパネルを表示</li>
+                    </ul>
+                    <h4>実装：</h4>
+                    <ul>
+                        <li>ボールにFallDetectorスクリプトを追加</li>
+                        <li>落下閾値を設定（例：-10）</li>
+                        <li>GameManager.OnBallFellOff()を呼び出す</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Collectibles System (Bonus) -->
+        <div class="slide">
+            <h2>⭐ Collectibles System (Bonus)</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Optional Enhancement:</h3>
+                    <ul>
+                        <li>Create collectible prefabs</li>
+                        <li>Trigger colliders for detection</li>
+                        <li>Add score when collected</li>
+                        <li>Visual/audio feedback</li>
+                        <li>Rotate for visual interest</li>
+                    </ul>
+                    <h4>Implementation:</h4>
+                    <ul>
+                        <li>Simple cube/sphere with trigger</li>
+                        <li>Collectible.cs script</li>
+                        <li>OnTriggerEnter() detection</li>
+                        <li>Destroy on collect</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>オプションの強化：</h3>
+                    <ul>
+                        <li>収集可能なプレハブを作成</li>
+                        <li>検出用のトリガーコライダー</li>
+                        <li>収集時にスコアを追加</li>
+                        <li>視覚/オーディオフィードバック</li>
+                        <li>視覚的興味のために回転</li>
+                    </ul>
+                    <h4>実装：</h4>
+                    <ul>
+                        <li>トリガー付きシンプルなキューブ/球</li>
+                        <li>Collectible.csスクリプト</li>
+                        <li>OnTriggerEnter()検出</li>
+                        <li>収集時に破壊</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Testing & Polish -->
+        <div class="slide">
+            <h2>🧪 Testing & Polish</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Playtesting Checklist:</h3>
+                    <ul>
+                        <li>✓ Ball moves smoothly</li>
+                        <li>✓ Camera follows correctly</li>
+                        <li>✓ Goal detection works</li>
+                        <li>✓ UI appears on win/lose</li>
+                        <li>✓ Restart button works</li>
+                        <li>✓ No bugs or glitches</li>
+                    </ul>
+                    <h3>Polish Tips:</h3>
+                    <ul>
+                        <li>Adjust movement speeds</li>
+                        <li>Fine-tune camera smoothness</li>
+                        <li>Add particle effects</li>
+                        <li>Test on different screen sizes</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>プレイテストチェックリスト：</h3>
+                    <ul>
+                        <li>✓ ボールがスムーズに動く</li>
+                        <li>✓ カメラが正しく追跡する</li>
+                        <li>✓ ゴール検出が機能する</li>
+                        <li>✓ 勝利/敗北時にUIが表示される</li>
+                        <li>✓ 再起動ボタンが機能する</li>
+                        <li>✓ バグや不具合がない</li>
+                    </ul>
+                    <h3>仕上げのヒント：</h3>
+                    <ul>
+                        <li>移動速度を調整</li>
+                        <li>カメラの滑らかさを微調整</li>
+                        <li>パーティクルエフェクトを追加</li>
+                        <li>異なる画面サイズでテスト</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Common Issues -->
+        <div class="slide">
+            <h2>⚠️ Common Issues & Solutions</h2>
+            <div class="two-column">
+                <div class="english">
+                    <h3>Physics Issues:</h3>
+                    <ul>
+                        <li>❌ Ball jitters</li>
+                        <li>✅ Enable Interpolate</li>
+                        <li>❌ Ball gets stuck</li>
+                        <li>✅ Check collider sizes</li>
+                    </ul>
+                    <h3>Camera Issues:</h3>
+                    <ul>
+                        <li>❌ Camera lags</li>
+                        <li>✅ Lower smoothSpeed</li>
+                        <li>❌ Camera through walls</li>
+                        <li>✅ Adjust offset</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>物理の問題：</h3>
+                    <ul>
+                        <li>❌ ボールが揺れる</li>
+                        <li>✅ Interpolateを有効化</li>
+                        <li>❌ ボールが引っかかる</li>
+                        <li>✅ コライダーサイズを確認</li>
+                    </ul>
+                    <h3>カメラの問題：</h3>
+                    <ul>
+                        <li>❌ カメラが遅れる</li>
+                        <li>✅ smoothSpeedを下げる</li>
+                        <li>❌ カメラが壁を通る</li>
+                        <li>✅ オフセットを調整</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: UI Issues -->
+        <div class="slide">
+            <h2>🖼️ UI Issues & Solutions</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Common UI Problems:</h3>
+                    <ul>
+                        <li>❌ UI not visible → Check Canvas Render Mode</li>
+                        <li>❌ Button doesn't work → Ensure EventSystem exists</li>
+                        <li>❌ Text not showing → Check Canvas Scaler settings</li>
+                        <li>❌ UI wrong size → Adjust Canvas Scaler</li>
+                    </ul>
+                    <h3>Solutions:</h3>
+                    <ul>
+                        <li>Canvas → Screen Space - Overlay</li>
+                        <li>EventSystem auto-created with Canvas</li>
+                        <li>Use Scale With Screen Size</li>
+                        <li>Reference Resolution: 1920x1080</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>一般的なUIの問題：</h3>
+                    <ul>
+                        <li>❌ UIが見えない → Canvas Render Modeを確認</li>
+                        <li>❌ ボタンが機能しない → EventSystemが存在することを確認</li>
+                        <li>❌ テキストが表示されない → Canvas Scaler設定を確認</li>
+                        <li>❌ UIサイズが間違っている → Canvas Scalerを調整</li>
+                    </ul>
+                    <h3>解決策：</h3>
+                    <ul>
+                        <li>Canvas → Screen Space - Overlay</li>
+                        <li>EventSystemはCanvasで自動作成</li>
+                        <li>Scale With Screen Sizeを使用</li>
+                        <li>Reference Resolution：1920x1080</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Code Best Practices -->
+        <div class="slide">
+            <h2>💻 Code Best Practices</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Code Organization:</h3>
+                    <ul>
+                        <li>Use clear variable names</li>
+                        <li>Add comments for complex logic</li>
+                        <li>Group related code</li>
+                        <li>Use SerializeField for Inspector</li>
+                    </ul>
+                    <h3>Script Structure:</h3>
+                    <ul>
+                        <li>Header attributes for organization</li>
+                        <li>Private fields with [SerializeField]</li>
+                        <li>Public methods for external calls</li>
+                        <li>Consistent naming conventions</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>コードの整理：</h3>
+                    <ul>
+                        <li>明確な変数名を使用</li>
+                        <li>複雑なロジックにコメントを追加</li>
+                        <li>関連コードをグループ化</li>
+                        <li>InspectorにSerializeFieldを使用</li>
+                    </ul>
+                    <h3>スクリプト構造：</h3>
+                    <ul>
+                        <li>整理用のHeader属性</li>
+                        <li>[SerializeField]付きプライベートフィールド</li>
+                        <li>外部呼び出し用のパブリックメソッド</li>
+                        <li>一貫した命名規則</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Week 5 Assignment Overview -->
+        <div class="slide">
+            <h2>📝 Week 5 Assignment</h2>
+            <div class="highlight-box">
+                <h3>Complete Playable Ball Maze Game</h3>
+                <h3>完全にプレイ可能なボール迷路ゲーム</h3>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>Requirements:</h4>
+                    <ul>
+                        <li>Enhanced ball controller (4 points)</li>
+                        <li>Camera follow system (3 points)</li>
+                        <li>Goal detection (3 points)</li>
+                        <li>Game state management (3 points)</li>
+                        <li>Basic UI system (4 points)</li>
+                        <li>Fall detection (2 points, bonus)</li>
+                        <li>Project organization (1 point)</li>
+                    </ul>
+                    <p><strong>Total: 20 points</strong></p>
+                </div>
+                <div class="japanese">
+                    <h4>要件：</h4>
+                    <ul>
+                        <li>強化されたボールコントローラー（4点）</li>
+                        <li>カメラフォローシステム（3点）</li>
+                        <li>ゴール検出（3点）</li>
+                        <li>ゲーム状態管理（3点）</li>
+                        <li>基本的なUIシステム（4点）</li>
+                        <li>落下検出（2点、ボーナス）</li>
+                        <li>プロジェクト整理（1点）</li>
+                    </ul>
+                    <p><strong>合計：20点</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Submission Checklist -->
+        <div class="slide">
+            <h2>✅ Submission Checklist</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>Before Submitting:</h4>
+                    <ul>
+                        <li>✓ All scripts working correctly</li>
+                        <li>✓ Ball moves with input</li>
+                        <li>✓ Camera follows smoothly</li>
+                        <li>✓ Goal detection functional</li>
+                        <li>✓ UI panels show on win/lose</li>
+                        <li>✓ Restart button works</li>
+                        <li>✓ Code is commented</li>
+                        <li>✓ Project organized properly</li>
+                        <li>✓ Committed to GitHub</li>
+                        <li>✓ Tested thoroughly</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h4>提出前：</h4>
+                    <ul>
+                        <li>✓ すべてのスクリプトが正しく動作</li>
+                        <li>✓ ボールが入力で動く</li>
+                        <li>✓ カメラがスムーズに追跡</li>
+                        <li>✓ ゴール検出が機能</li>
+                        <li>✓ 勝利/敗北時にUIパネルが表示</li>
+                        <li>✓ 再起動ボタンが機能</li>
+                        <li>✓ コードにコメント</li>
+                        <li>✓ プロジェクトが適切に整理</li>
+                        <li>✓ GitHubにコミット</li>
+                        <li>✓ 徹底的にテスト</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Summary & Next Week -->
+        <div class="slide">
+            <h2>🎉 Summary & Next Week</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>What You Learned Today:</h3>
+                    <ul>
+                        <li>✅ Project organization best practices</li>
+                        <li>✅ Enhanced ball controller</li>
+                        <li>✅ Smooth camera following</li>
+                        <li>✅ Goal detection system</li>
+                        <li>✅ Game state management</li>
+                        <li>✅ Basic Unity UI creation</li>
+                        <li>✅ Scene restart functionality</li>
+                    </ul>
+                    <h3>Next Week Preview:</h3>
+                    <p><strong>Week 6: AI Enemies with NavMesh</strong></p>
+                    <ul>
+                        <li>AI navigation basics</li>
+                        <li>NavMesh setup</li>
+                        <li>Enemy chase behavior</li>
+                        <li>Multiple AI enemies</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>今日学んだこと：</h3>
+                    <ul>
+                        <li>✅ プロジェクト整理のベストプラクティス</li>
+                        <li>✅ 強化されたボールコントローラー</li>
+                        <li>✅ スムーズなカメラ追跡</li>
+                        <li>✅ ゴール検出システム</li>
+                        <li>✅ ゲーム状態管理</li>
+                        <li>✅ 基本的なUnity UI作成</li>
+                        <li>✅ シーン再起動機能</li>
+                    </ul>
+                    <h3>来週のプレビュー：</h3>
+                    <p><strong>第6週：NavMeshを使用したAI敵</strong></p>
+                    <ul>
+                        <li>AIナビゲーションの基礎</li>
+                        <li>NavMeshセットアップ</li>
+                        <li>敵の追跡行動</li>
+                        <li>複数のAI敵</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 30px; text-align: center;">
+                <h2>🎉 Great Work! / お疲れ様でした！</h2>
+                <p style="font-size: 1.3em;">Keep practicing and experimenting!</p>
+                <p style="font-size: 1.3em;">練習と実験を続けてください！</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideNumber').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                showSlide(0);
+            } else if (event.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
+

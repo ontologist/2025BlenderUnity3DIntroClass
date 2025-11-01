@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3: Unity Interface & Game Objects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 60px 80px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .slide h2 {
+            font-size: 2.2em;
+            color: #764ba2;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .slide h3 {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .slide h4 {
+            font-size: 1.4em;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .slide p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .slide ul, .slide ol {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+        }
+
+        .bilingual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        .english, .japanese {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .english {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+        }
+
+        .japanese {
+            background: #fff0f6;
+            border-left: 4px solid #764ba2;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .code-box {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            color: #667eea;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .title-slide h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .title-slide .subtitle {
+            font-size: 2em;
+            color: #764ba2;
+            margin-bottom: 40px;
+        }
+
+        .title-slide .info {
+            font-size: 1.3em;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .shortcut-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .shortcut-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .shortcut-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .shortcut-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        kbd {
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 3px 8px;
+            font-family: monospace;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .unity-icon {
+            background: #222c37;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .component-box {
+            background: #e8f4f8;
+            border-left: 4px solid #0088cc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-number" id="slideNumber">Slide 1 / 20</div>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>🎮 Week 3</h1>
+            <p class="subtitle">Unity Interface & GameObjects<br>Unityインターフェースとゲームオブジェクト</p>
+            <p class="info"><strong>Duration:</strong> 100 minutes / 100分</p>
+            <p class="info"><strong>Developer:</strong> Yuri Tijerino</p>
+            <p class="info">Game Development Course 2025</p>
+            <p class="unity-icon">🔷 Welcome to Unity!</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h2>📚 Learning Objectives / 講義目標</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>By the end of this lecture, students will be able to:</h4>
+                    <ol>
+                        <li>Navigate the Unity interface</li>
+                        <li>Understand GameObject-Component architecture</li>
+                        <li>Create and manipulate 3D objects</li>
+                        <li>Use Scene, Hierarchy, Inspector windows</li>
+                        <li>Perform Transform operations</li>
+                        <li>Create and use Prefabs</li>
+                        <li>Import Blender models (FBX)</li>
+                        <li>Set up a basic game scene</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>この講義の終了までに、学生は以下ができるようになります：</h4>
+                    <ol>
+                        <li>Unityインターフェースを操作する</li>
+                        <li>GameObject-Componentアーキテクチャを理解する</li>
+                        <li>3Dオブジェクトを作成して操作する</li>
+                        <li>Scene、Hierarchy、Inspectorウィンドウを使用</li>
+                        <li>Transform操作を実行する</li>
+                        <li>Prefabを作成して使用する</li>
+                        <li>Blenderモデル（FBX）をインポート</li>
+                        <li>基本的なゲームシーンをセットアップ</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: From Blender to Unity -->
+        <div class="slide">
+            <h2>🔄 From Blender to Unity</h2>
+            <div class="highlight-box">
+                <h3>The Journey So Far / これまでの旅</h3>
+                <p><strong>Weeks 1-2: Blender</strong> - Created 3D models and assets</p>
+                <p><strong>Week 3+: Unity</strong> - Bring models to life in a game engine!</p>
+            </div>
+            <div class="two-column">
+                <div>
+                    <h3>Blender</h3>
+                    <ul>
+                        <li>3D Modeling Software</li>
+                        <li>Create assets</li>
+                        <li>Sculpting, texturing</li>
+                        <li>Animation</li>
+                        <li>Export to FBX</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Unity</h3>
+                    <ul>
+                        <li>Game Engine</li>
+                        <li>Assemble games</li>
+                        <li>Physics, lighting</li>
+                        <li>Scripting behavior</li>
+                        <li>Build for platforms</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <p><strong>Together:</strong> Complete game development pipeline!</p>
+                <p><strong>一緒に：</strong> 完全なゲーム開発パイプライン！</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Unity Hub & Project Creation -->
+        <div class="slide">
+            <h2>🚀 Unity Hub & Project Creation</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Unity Hub:</h3>
+                    <ul>
+                        <li>Manage multiple Unity versions</li>
+                        <li>Organize projects</li>
+                        <li>Download templates</li>
+                        <li>Access learning resources</li>
+                    </ul>
+                    <h3>Creating a Project:</h3>
+                    <ol>
+                        <li>Open Unity Hub</li>
+                        <li>Click "New Project"</li>
+                        <li>Choose <strong>3D Core</strong> template</li>
+                        <li>Name: <code>GameDev2025_Week03</code></li>
+                        <li>Location: Your GitHub repo folder</li>
+                        <li>Click Create Project</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h3>Unity Hub:</h3>
+                    <ul>
+                        <li>複数のUnityバージョンを管理</li>
+                        <li>プロジェクトを整理</li>
+                        <li>テンプレートをダウンロード</li>
+                        <li>学習リソースにアクセス</li>
+                    </ul>
+                    <h3>プロジェクトの作成:</h3>
+                    <ol>
+                        <li>Unity Hubを開く</li>
+                        <li>「新しいプロジェクト」をクリック</li>
+                        <li><strong>3D Core</strong>テンプレートを選択</li>
+                        <li>名前：<code>GameDev2025_Week03</code></li>
+                        <li>場所：GitHubリポジトリフォルダ</li>
+                        <li>プロジェクトを作成をクリック</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Unity Interface Overview -->
+        <div class="slide">
+            <h2>🖥️ Unity Interface - Main Windows</h2>
+            <div class="component-box">
+                <h3>1. Scene View (Center)</h3>
+                <p>Visual workspace - build your game here</p>
+                <p>ビジュアルワークスペース - ここでゲームを構築</p>
+            </div>
+            <div class="component-box">
+                <h3>2. Game View (Tab)</h3>
+                <p>Player's perspective through camera</p>
+                <p>カメラを通したプレイヤーの視点</p>
+            </div>
+            <div class="component-box">
+                <h3>3. Hierarchy (Left)</h3>
+                <p>Lists all GameObjects in scene</p>
+                <p>シーン内のすべてのGameObjectをリスト</p>
+            </div>
+            <div class="component-box">
+                <h3>4. Inspector (Right)</h3>
+                <p>Properties of selected GameObject</p>
+                <p>選択したGameObjectのプロパティ</p>
+            </div>
+            <div class="component-box">
+                <h3>5. Project (Bottom)</h3>
+                <p>All assets in your project</p>
+                <p>プロジェクト内のすべてのアセット</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Scene Navigation -->
+        <div class="slide">
+            <h2>🧭 Scene Navigation / シーンナビゲーション</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Action / アクション</th>
+                        <th>Control / コントロール</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fly Camera / フライカメラ</td>
+                        <td><kbd>RMB</kbd> + <kbd>WASD</kbd></td>
+                        <td>Move through scene like FPS</td>
+                    </tr>
+                    <tr>
+                        <td>Orbit / オービット</td>
+                        <td><kbd>Alt</kbd> + <kbd>LMB</kbd></td>
+                        <td>Rotate around selected object</td>
+                    </tr>
+                    <tr>
+                        <td>Pan View / パン</td>
+                        <td><kbd>Middle Mouse</kbd></td>
+                        <td>Move view sideways</td>
+                    </tr>
+                    <tr>
+                        <td>Zoom / ズーム</td>
+                        <td><kbd>Scroll Wheel</kbd></td>
+                        <td>Zoom in/out</td>
+                    </tr>
+                    <tr>
+                        <td>Frame Selected / フレーム</td>
+                        <td><kbd>F</kbd></td>
+                        <td>Focus on selected object</td>
+                    </tr>
+                    <tr>
+                        <td>Hand Tool / ハンドツール</td>
+                        <td><kbd>Q</kbd></td>
+                        <td>Pan mode</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box">
+                <strong>💡 Pro Tip:</strong> Hold <kbd>Shift</kbd> while navigating to move faster!
+                <br><strong>💡 プロのヒント：</strong> ナビゲート中に<kbd>Shift</kbd>を押すと速く移動！
+            </div>
+        </div>
+
+        <!-- Slide 7: Transform Tools -->
+        <div class="slide">
+            <h2>🔧 Transform Tools / トランスフォームツール</h2>
+            <table class="shortcut-table">
+                <thead>
+                    <tr>
+                        <th>Tool / ツール</th>
+                        <th>Shortcut</th>
+                        <th>Function / 機能</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hand Tool</td>
+                        <td><kbd>Q</kbd></td>
+                        <td>Pan view / ビューをパン</td>
+                    </tr>
+                    <tr>
+                        <td>Move Tool</td>
+                        <td><kbd>W</kbd></td>
+                        <td>Move objects / オブジェクトを移動</td>
+                    </tr>
+                    <tr>
+                        <td>Rotate Tool</td>
+                        <td><kbd>E</kbd></td>
+                        <td>Rotate objects / オブジェクトを回転</td>
+                    </tr>
+                    <tr>
+                        <td>Scale Tool</td>
+                        <td><kbd>R</kbd></td>
+                        <td>Scale objects / オブジェクトをスケール</td>
+                    </tr>
+                    <tr>
+                        <td>Rect Tool</td>
+                        <td><kbd>T</kbd></td>
+                        <td>2D transform / 2Dトランスフォーム</td>
+                    </tr>
+                    <tr>
+                        <td>Transform Tool</td>
+                        <td><kbd>Y</kbd></td>
+                        <td>Combined tools / 結合ツール</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box">
+                <h4>Gizmo Modes / ギズモモード</h4>
+                <p><strong>Global:</strong> World-aligned axes / ワールド整列軸</p>
+                <p><strong>Local:</strong> Object-aligned axes / オブジェクト整列軸</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: GameObject Basics -->
+        <div class="slide">
+            <h2>🎯 What is a GameObject?</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Everything in Unity is a GameObject!</h3>
+                    <ul>
+                        <li>Container for Components</li>
+                        <li>Can be visible or invisible</li>
+                        <li>Can be parent or child</li>
+                        <li>Always has a Transform</li>
+                    </ul>
+                    <h4>Examples:</h4>
+                    <ul>
+                        <li>3D models (cube, sphere)</li>
+                        <li>Lights</li>
+                        <li>Cameras</li>
+                        <li>Empty objects (folders)</li>
+                        <li>UI elements</li>
+                        <li>Audio sources</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>UnityのすべてがGameObject！</h3>
+                    <ul>
+                        <li>Componentのコンテナ</li>
+                        <li>可視または不可視</li>
+                        <li>親または子になれる</li>
+                        <li>常にTransformを持つ</li>
+                    </ul>
+                    <h4>例：</h4>
+                    <ul>
+                        <li>3Dモデル（立方体、球）</li>
+                        <li>ライト</li>
+                        <li>カメラ</li>
+                        <li>空のオブジェクト（フォルダ）</li>
+                        <li>UI要素</li>
+                        <li>オーディオソース</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Component System -->
+        <div class="slide">
+            <h2>⚙️ Component System / コンポーネントシステム</h2>
+            <div class="highlight-box">
+                <h3>Components define WHAT a GameObject can DO</h3>
+                <h3>ComponentはGameObjectが何ができるかを定義</h3>
+            </div>
+            <div class="two-column">
+                <div class="component-box">
+                    <h4>Transform</h4>
+                    <p>Position, Rotation, Scale</p>
+                    <p>位置、回転、スケール</p>
+                    <p><em>Every GameObject has this!</em></p>
+                </div>
+                <div class="component-box">
+                    <h4>Mesh Filter</h4>
+                    <p>Defines 3D shape</p>
+                    <p>3D形状を定義</p>
+                </div>
+                <div class="component-box">
+                    <h4>Mesh Renderer</h4>
+                    <p>Makes object visible</p>
+                    <p>オブジェクトを可視化</p>
+                </div>
+                <div class="component-box">
+                    <h4>Collider</h4>
+                    <p>Collision detection</p>
+                    <p>衝突検出</p>
+                </div>
+                <div class="component-box">
+                    <h4>Rigidbody</h4>
+                    <p>Physics simulation</p>
+                    <p>物理シミュレーション</p>
+                </div>
+                <div class="component-box">
+                    <h4>Scripts</h4>
+                    <p>Custom behavior (C#)</p>
+                    <p>カスタム動作（C#）</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Creating GameObjects -->
+        <div class="slide">
+            <h2>➕ Creating GameObjects</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Method 1: Hierarchy Right-Click</h3>
+                    <ol>
+                        <li>Right-click in Hierarchy window</li>
+                        <li>Select "3D Object"</li>
+                        <li>Choose: Cube, Sphere, Capsule, etc.</li>
+                    </ol>
+                    <h3>Method 2: GameObject Menu</h3>
+                    <ol>
+                        <li>Top menu: GameObject → 3D Object</li>
+                        <li>Choose primitive shape</li>
+                    </ol>
+                    <h3>Method 3: Drag from Project</h3>
+                    <ol>
+                        <li>Drag model/prefab from Project window</li>
+                        <li>Drop into Scene or Hierarchy</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h3>方法1：Hierarchy右クリック</h3>
+                    <ol>
+                        <li>Hierarchyウィンドウで右クリック</li>
+                        <li>「3D Object」を選択</li>
+                        <li>選択：Cube、Sphere、Capsuleなど</li>
+                    </ol>
+                    <h3>方法2：GameObjectメニュー</h3>
+                    <ol>
+                        <li>上部メニュー：GameObject → 3D Object</li>
+                        <li>プリミティブ形状を選択</li>
+                    </ol>
+                    <h3>方法3：Projectからドラッグ</h3>
+                    <ol>
+                        <li>Projectウィンドウからモデル/Prefabをドラッグ</li>
+                        <li>SceneまたはHierarchyにドロップ</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Transform Component -->
+        <div class="slide">
+            <h2>📐 Transform Component</h2>
+            <div class="component-box">
+                <h3>Position / 位置</h3>
+                <ul>
+                    <li><strong>X:</strong> Left (-) / Right (+)</li>
+                    <li><strong>Y:</strong> Down (-) / Up (+)</li>
+                    <li><strong>Z:</strong> Back (-) / Forward (+)</li>
+                    <li>Origin: 0, 0, 0</li>
+                </ul>
+            </div>
+            <div class="component-box">
+                <h3>Rotation / 回転</h3>
+                <ul>
+                    <li><strong>X:</strong> Pitch (tilt forward/back) / ピッチ</li>
+                    <li><strong>Y:</strong> Yaw (turn left/right) / ヨー</li>
+                    <li><strong>Z:</strong> Roll (tilt sideways) / ロール</li>
+                    <li>Measured in degrees / 度単位で測定</li>
+                </ul>
+            </div>
+            <div class="component-box">
+                <h3>Scale / スケール</h3>
+                <ul>
+                    <li><strong>1, 1, 1:</strong> Normal size / 通常サイズ</li>
+                    <li><strong>2, 2, 2:</strong> Twice as large / 2倍の大きさ</li>
+                    <li><strong>0.5, 0.5, 0.5:</strong> Half size / 半分のサイズ</li>
+                    <li>Non-uniform: (2, 1, 1) = stretched on X</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Hierarchy & Parent-Child -->
+        <div class="slide">
+            <h2>🌳 Hierarchy & Parent-Child Relationships</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Organizing with Hierarchy:</h3>
+                    <ul>
+                        <li>Drag child object onto parent</li>
+                        <li>Child inherits parent's transform</li>
+                        <li>Move parent → children move too</li>
+                        <li>Rotate parent → children rotate too</li>
+                        <li>Delete parent → children deleted too</li>
+                    </ul>
+                    <h3>Best Practices:</h3>
+                    <ul>
+                        <li>Create empty GameObjects as folders</li>
+                        <li>Example: "Environment", "Props", "Lighting"</li>
+                        <li>Group related objects together</li>
+                        <li>Name objects clearly</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>Hierarchyで整理:</h3>
+                    <ul>
+                        <li>子オブジェクトを親にドラッグ</li>
+                        <li>子は親のトランスフォームを継承</li>
+                        <li>親を移動 → 子も移動</li>
+                        <li>親を回転 → 子も回転</li>
+                        <li>親を削除 → 子も削除</li>
+                    </ul>
+                    <h3>ベストプラクティス:</h3>
+                    <ul>
+                        <li>フォルダとして空のGameObjectを作成</li>
+                        <li>例：「Environment」、「Props」、「Lighting」</li>
+                        <li>関連オブジェクトをグループ化</li>
+                        <li>オブジェクトを明確に命名</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Introduction to Prefabs -->
+        <div class="slide">
+            <h2>📦 Introduction to Prefabs</h2>
+            <div class="highlight-box">
+                <h3>What are Prefabs?</h3>
+                <p><strong>Reusable GameObject templates</strong></p>
+                <p><strong>再利用可能なGameObjectテンプレート</strong></p>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Why use Prefabs?</h3>
+                    <ul>
+                        <li>Create once, use many times</li>
+                        <li>Change prefab → all instances update</li>
+                        <li>Saves time in level design</li>
+                        <li>Consistent objects across scenes</li>
+                        <li>Easy to manage and modify</li>
+                    </ul>
+                    <h4>Examples:</h4>
+                    <ul>
+                        <li>Wall segments in a maze</li>
+                        <li>Trees in a forest</li>
+                        <li>Enemies in a game</li>
+                        <li>Collectible items</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>なぜPrefabを使うのか？</h3>
+                    <ul>
+                        <li>一度作成して何度も使用</li>
+                        <li>Prefabを変更 → すべてのインスタンスが更新</li>
+                        <li>レベルデザインの時間を節約</li>
+                        <li>シーン間で一貫したオブジェクト</li>
+                        <li>管理と変更が簡単</li>
+                    </ul>
+                    <h4>例：</h4>
+                    <ul>
+                        <li>迷路の壁セグメント</li>
+                        <li>森の木</li>
+                        <li>ゲームの敵</li>
+                        <li>収集アイテム</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Creating Prefabs -->
+        <div class="slide">
+            <h2>📦 Creating & Using Prefabs</h2>
+            <div class="code-box">
+                <strong>Step-by-Step / ステップバイステップ:</strong><br><br>
+                <strong>1. Create a GameObject</strong><br>
+                - Design and configure it in the scene<br>
+                - Add all necessary components<br><br>
+                <strong>2. Drag to Project Window</strong><br>
+                - Drag from Hierarchy to Project<br>
+                - Choose "Original Prefab"<br>
+                - Prefab asset created!<br><br>
+                <strong>3. Use the Prefab</strong><br>
+                - Drag from Project to Scene<br>
+                - Creates new instance<br>
+                - Blue text = Prefab instance<br><br>
+                <strong>4. Edit the Prefab</strong><br>
+                - Double-click prefab asset<br>
+                - Enter Prefab Mode<br>
+                - Changes affect all instances<br>
+            </div>
+        </div>
+
+        <!-- Slide 15: Inspector Window Deep Dive -->
+        <div class="slide">
+            <h2>🔍 Inspector Window / インスペクターウィンドウ</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>What does it show?</h3>
+                    <ul>
+                        <li>All components on selected GameObject</li>
+                        <li>Component properties and values</li>
+                        <li>Enable/disable components (checkbox)</li>
+                        <li>Add/remove components</li>
+                    </ul>
+                    <h3>Key Features:</h3>
+                    <ul>
+                        <li><strong>Add Component:</strong> Button at bottom</li>
+                        <li><strong>Gear icon:</strong> Component menu</li>
+                        <li><strong>Checkbox:</strong> Enable/disable</li>
+                        <li><strong>Reset:</strong> Reset to default values</li>
+                        <li><strong>Remove:</strong> Delete component</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>何を表示？</h3>
+                    <ul>
+                        <li>選択したGameObjectのすべてのコンポーネント</li>
+                        <li>コンポーネントのプロパティと値</li>
+                        <li>コンポーネントの有効/無効（チェックボックス）</li>
+                        <li>コンポーネントの追加/削除</li>
+                    </ul>
+                    <h3>主要機能：</h3>
+                    <ul>
+                        <li><strong>コンポーネントを追加:</strong> 下部のボタン</li>
+                        <li><strong>歯車アイコン:</strong> コンポーネントメニュー</li>
+                        <li><strong>チェックボックス:</strong> 有効/無効</li>
+                        <li><strong>リセット:</strong> デフォルト値にリセット</li>
+                        <li><strong>削除:</strong> コンポーネントを削除</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Exporting from Blender -->
+        <div class="slide">
+            <h2>📤 Exporting from Blender to Unity</h2>
+            <div class="code-box">
+                <strong>Blender Export Settings:</strong><br><br>
+                1. Select your model(s) in Blender<br>
+                2. File → Export → FBX (.fbx)<br><br>
+                <strong>Important Settings:</strong><br>
+                ✓ Selected Objects: ON (if only exporting selected)<br>
+                ✓ Scale: 1.00<br>
+                ✓ Forward: <strong>-Z Forward</strong><br>
+                ✓ Up: <strong>Y Up</strong><br>
+                ✓ Apply Scalings: <strong>FBX All</strong><br><br>
+                3. Save to Unity's Assets folder<br>
+                4. Name clearly: Maze_Week01.fbx<br>
+            </div>
+            <div class="highlight-box">
+                <strong>⚠️ Important!</strong> Blender uses Z-up, Unity uses Y-up.<br>
+                These settings fix the orientation!<br>
+                <strong>⚠️ 重要！</strong> BlenderはZ-up、UnityはY-upを使用。<br>
+                これらの設定で向きを修正！
+            </div>
+        </div>
+
+        <!-- Slide 17: Importing to Unity -->
+        <div class="slide">
+            <h2>📥 Importing FBX to Unity</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Import Methods:</h3>
+                    <ol>
+                        <li><strong>Drag & Drop:</strong> Drag .fbx into Project window</li>
+                        <li><strong>Copy:</strong> Copy .fbx to Assets folder</li>
+                    </ol>
+                    <h3>Import Settings:</h3>
+                    <ul>
+                        <li>Select imported model in Project</li>
+                        <li>Check Inspector for settings</li>
+                        <li><strong>Model tab:</strong> Scale, meshes</li>
+                        <li><strong>Materials tab:</strong> Material extraction</li>
+                        <li>Click <strong>Apply</strong> after changes</li>
+                    </ul>
+                    <h3>Using the Model:</h3>
+                    <ul>
+                        <li>Drag from Project to Scene</li>
+                        <li>Adjust Transform (position, rotation, scale)</li>
+                        <li>Add materials for color/texture</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>インポート方法:</h3>
+                    <ol>
+                        <li><strong>ドラッグ＆ドロップ:</strong> .fbxをProjectウィンドウにドラッグ</li>
+                        <li><strong>コピー:</strong> .fbxをAssetsフォルダにコピー</li>
+                    </ol>
+                    <h3>インポート設定:</h3>
+                    <ul>
+                        <li>Projectでインポートしたモデルを選択</li>
+                        <li>Inspectorで設定を確認</li>
+                        <li><strong>Modelタブ:</strong> スケール、メッシュ</li>
+                        <li><strong>Materialsタブ:</strong> マテリアルの抽出</li>
+                        <li>変更後に<strong>Apply</strong>をクリック</li>
+                    </ul>
+                    <h3>モデルの使用:</h3>
+                    <ul>
+                        <li>ProjectからSceneにドラッグ</li>
+                        <li>Transformを調整（位置、回転、スケール）</li>
+                        <li>色/テクスチャ用にマテリアルを追加</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Scene Organization -->
+        <div class="slide">
+            <h2>📁 Scene Organization Best Practices</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Hierarchy Structure</h3>
+                    <div class="code-box">
+--- Scene: MazeGame ---<br>
+├─ Environment<br>
+│  ├─ Floor<br>
+│  └─ Walls<br>
+├─ GameObjects<br>
+│  └─ Ball<br>
+├─ Lighting<br>
+│  └─ Directional Light<br>
+└─ Main Camera<br>
+                    </div>
+                </div>
+                <div>
+                    <h3>Project Structure</h3>
+                    <div class="code-box">
+--- Assets ---<br>
+├─ Models<br>
+│  └─ Maze_Week01.fbx<br>
+├─ Materials<br>
+│  ├─ Wall.mat<br>
+│  └─ Floor.mat<br>
+├─ Prefabs<br>
+│  └─ Wall.prefab<br>
+├─ Scenes<br>
+│  └─ MazeGame.unity<br>
+└─ Scripts<br>
+                    </div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <strong>💡 Tip:</strong> Good organization = easier debugging and collaboration!<br>
+                <strong>💡 ヒント:</strong> 良い整理 = デバッグと協力が簡単！
+            </div>
+        </div>
+
+        <!-- Slide 19: Common Mistakes -->
+        <div class="slide">
+            <h2>⚠️ Common Mistakes to Avoid</h2>
+            <div class="two-column">
+                <div class="english">
+                    <h3>Navigation Issues:</h3>
+                    <ul>
+                        <li>❌ Getting lost in Scene view</li>
+                        <li>✅ Use <kbd>F</kbd> to frame selected</li>
+                    </ul>
+                    <h3>Scale Problems:</h3>
+                    <ul>
+                        <li>❌ Model too big/small</li>
+                        <li>✅ Check import scale settings</li>
+                    </ul>
+                    <h3>Organization:</h3>
+                    <ul>
+                        <li>❌ Everything at root level</li>
+                        <li>✅ Use empty GameObjects as folders</li>
+                    </ul>
+                    <h3>Forgetting to Save:</h3>
+                    <ul>
+                        <li>❌ Lose hours of work</li>
+                        <li>✅ <kbd>Ctrl+S</kbd> frequently!</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ナビゲーションの問題:</h3>
+                    <ul>
+                        <li>❌ Sceneビューで迷子</li>
+                        <li>✅ <kbd>F</kbd>を使用して選択をフレーム</li>
+                    </ul>
+                    <h3>スケールの問題:</h3>
+                    <ul>
+                        <li>❌ モデルが大きすぎる/小さすぎる</li>
+                        <li>✅ インポートスケール設定を確認</li>
+                    </ul>
+                    <h3>整理:</h3>
+                    <ul>
+                        <li>❌ すべてがルートレベル</li>
+                        <li>✅ フォルダとして空のGameObjectを使用</li>
+                    </ul>
+                    <h3>保存を忘れる:</h3>
+                    <ul>
+                        <li>❌ 何時間もの作業を失う</li>
+                        <li>✅ <kbd>Ctrl+S</kbd>を頻繁に！</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Week 3 Assignment & Summary -->
+        <div class="slide">
+            <h2>📝 Week 3 Assignment</h2>
+            <div class="highlight-box">
+                <h3>Import Maze from Blender to Unity</h3>
+                <h3>BlenderからUnityへ迷路をインポート</h3>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>Requirements:</h4>
+                    <ul>
+                        <li>Export Week 1 maze as FBX</li>
+                        <li>Import into Unity project</li>
+                        <li>Set up scene with lighting</li>
+                        <li>Add ball (Sphere) GameObject</li>
+                        <li>Organize hierarchy properly</li>
+                        <li>Save scene and commit to GitHub</li>
+                    </ul>
+                    <h4>Summary - You Learned:</h4>
+                    <ul>
+                        <li>✅ Unity interface navigation</li>
+                        <li>✅ GameObject-Component system</li>
+                        <li>✅ Transform operations</li>
+                        <li>✅ Creating Prefabs</li>
+                        <li>✅ Importing Blender models</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h4>要件:</h4>
+                    <ul>
+                        <li>Week 1迷路をFBXとしてエクスポート</li>
+                        <li>Unityプロジェクトにインポート</li>
+                        <li>ライティングでシーンをセットアップ</li>
+                        <li>ボール（Sphere）GameObjectを追加</li>
+                        <li>ヒエラルキーを適切に整理</li>
+                        <li>シーンを保存してGitHubにコミット</li>
+                    </ul>
+                    <h4>まとめ - 学んだこと:</h4>
+                    <ul>
+                        <li>✅ Unityインターフェースナビゲーション</li>
+                        <li>✅ GameObject-Componentシステム</li>
+                        <li>✅ Transform操作</li>
+                        <li>✅ Prefabの作成</li>
+                        <li>✅ Blenderモデルのインポート</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 30px; text-align: center;">
+                <h2>🎉 Great Work! / お疲れ様でした！</h2>
+                <p style="font-size: 1.3em;">Next Week: Physics & Input Systems!</p>
+                <p style="font-size: 1.3em;">来週：物理システムと入力システム！</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+
+            document.getElementById('slideNumber').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                showSlide(0);
+            } else if (event.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
