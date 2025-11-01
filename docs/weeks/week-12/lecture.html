@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 12: Final Project & Presentation | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .lecture-content { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .lecture-content h2 { color: var(--primary-color); margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        .lecture-content h3 { color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px; }
+        .lecture-content h4 { color: var(--text-dark); margin-top: 20px; margin-bottom: 10px; }
+        .timeline-segment { background: var(--bg-light); padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid var(--primary-color); }
+        .duration-badge { display: inline-block; background: var(--primary-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 10px; }
+        .shortcut-box { background: #fef3c7; padding: 15px; border-radius: 5px; border-left: 4px solid var(--warning); margin: 15px 0; }
+        .objectives-list { background: #dbeafe; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .objectives-list ul { margin: 10px 0; padding-left: 25px; }
+        .nav-buttons { display: flex; gap: 15px; margin: 30px 0; flex-wrap: wrap; }
+        code { background: var(--bg-light); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.9em; }
+        pre { background: var(--bg-light); padding: 15px; border-radius: 5px; overflow-x: auto; border-left: 4px solid var(--primary-color); }
+        pre code { background: none; padding: 0; }
+        .tip-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .warning-box { background: #fee; border-left: 4px solid #dc2626; padding: 15px; margin: 15px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🤖 Week 12: Final Project & Presentation</h1>
+            <p class="subtitle">第12週：最終プロジェクトの統合とプレゼンテーション</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="assignment.html">Assignment</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="lecture-content">
+            <div class="nav-buttons">
+                <a href="../../index.html" class="btn btn-secondary">← Back to Curriculum</a>
+                <a href="assignment.html" class="btn btn-accent">📝 View Assignment</a>
+                <a href="../week-05/lecture.html" class="btn btn-primary">← Week 5: Maze & Player Controller</a>
+            </div>
+
+            <div class="objectives-list">
+                <h3>Learning Objectives / 学習目標</h3>
+                <p><strong>English:</strong> By the end of this lecture, students will be able to:</p>
+                <ul>
+                    <li>Understand AI navigation concepts and NavMesh in Unity</li>
+                    <li>Set up NavMesh for enemy pathfinding</li>
+                    <li>Create enemy ball GameObjects with AI behavior</li>
+                    <li>Implement basic chase behavior using NavMeshAgent</li>
+                    <li>Add player detection and pursuit logic</li>
+                    <li>Implement collision detection for game over conditions</li>
+                    <li>Create enemy spawner system</li>
+                    <li>Test and balance enemy difficulty</li>
+                </ul>
+                <p><strong>日本語:</strong> この講義の終了までに、学生は以下ができるようになります：</p>
+                <ul>
+                    <li>AIナビゲーションの概念とUnityのNavMeshを理解する</li>
+                    <li>敵の経路探索のためにNavMeshをセットアップする</li>
+                    <li>AI動作を持つ敵ボールGameObjectを作成する</li>
+                    <li>NavMeshAgentを使用して基本的な追跡動作を実装する</li>
+                    <li>プレイヤーの検出と追跡ロジックを追加する</li>
+                    <li>ゲームオーバー条件のための衝突検出を実装する</li>
+                    <li>敵スポナーシステムを作成する</li>
+                    <li>敵の難易度をテストしてバランスを取る</li>
+                </ul>
+            </div>
+
+            <h2>Lecture Timeline (100 minutes)</h2>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 1: Introduction to AI Navigation</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>What is AI in games?</li>
+                    <li>Understanding NavMesh (Navigation Mesh)</li>
+                    <li>When to use NavMesh vs other AI methods</li>
+                    <li>Setting up NavMesh in Unity</li>
+                    <li>NavMesh baking process</li>
+                    <li>Visualizing NavMesh in Scene view</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>ゲームにおけるAIとは何か？</li>
+                    <li>NavMesh（ナビゲーションメッシュ）の理解</li>
+                    <li>NavMeshとその他のAI手法を使い分ける</li>
+                    <li>UnityでNavMeshをセットアップする</li>
+                    <li>NavMeshのベイク処理</li>
+                    <li>SceneビューでNavMeshを視覚化する</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 2: Setting Up NavMesh for the Maze</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Marking walkable surfaces (Navigation Static)</li>
+                    <li>Excluding walls and obstacles</li>
+                    <li>Baking the NavMesh</li>
+                    <li>Adjusting NavMesh agent radius and height</li>
+                    <li>Setting up NavMesh areas</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>歩行可能な表面をマーク（Navigation Static）</li>
+                    <li>壁と障害物を除外</li>
+                    <li>NavMeshのベイク</li>
+                    <li>NavMeshエージェントの半径と高さの調整</li>
+                    <li>NavMeshエリアの設定</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 3: Creating Enemy Ball GameObject</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Creating enemy ball prefab</li>
+                    <li>Setting up Rigidbody component</li>
+                    <li>Adding NavMeshAgent component</li>
+                    <li>Configuring NavMeshAgent parameters</li>
+                    <li>Creating enemy material</li>
+                </ul>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>敵ボールプレハブの作成</li>
+                    <li>Rigidbodyコンポーネントのセットアップ</li>
+                    <li>NavMeshAgentコンポーネントの追加</li>
+                    <li>NavMeshAgentパラメータの設定</li>
+                    <li>敵のマテリアルの作成</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">25 minutes / 25分</span>
+                <h3>Segment 4: Basic Chase Behavior Script</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Creating EnemyController script</li>
+                    <li>Understanding NavMeshAgent.SetDestination()</li>
+                    <li>Finding the player GameObject</li>
+                    <li>Setting destination to player position</li>
+                    <li>Updating destination every frame</li>
+                </ul>
+                <h4>EnemyController Code Example</h4>
+                <pre><code>using UnityEngine;
+using UnityEngine.AI;
+
+public class EnemyController : MonoBehaviour
+{
+    private NavMeshAgent agent;
+    private Transform player;
+    public float detectionRange = 10f;
+    
+    void Start()
+    {
+        agent = GetComponent&lt;NavMeshAgent&gt;();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+    
+    void FixedUpdate()
+    {
+        if (player != null)
+        {
+            float distance = Vector3.Distance(
+                transform.position, player.position);
+            
+            if (distance &lt;= detectionRange)
+            {
+                agent.SetDestination(player.position);
+            }
+            else
+            {
+                agent.ResetPath();
+            }
+        }
+    }
+}</code></pre>
+                <p><strong>日本語:</strong></p>
+                <ul>
+                    <li>EnemyControllerスクリプトの作成</li>
+                    <li>NavMeshAgent.SetDestination()の理解</li>
+                    <li>プレイヤーGameObjectの検索</li>
+                    <li>プレイヤーの位置を目的地に設定</li>
+                    <li>毎フレーム目的地を更新</li>
+                </ul>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 5: Collision Detection for Game Over</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Using OnTriggerEnter for collision detection</li>
+                    <li>Tagging player ball with "Player" tag</li>
+                    <li>Detecting when enemy touches player</li>
+                    <li>Implementing game over logic</li>
+                    <li>Integration with GameManager</li>
+                </ul>
+                <pre><code>void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("Player"))
+    {
+        GameManager.Instance.GameOver();
+    }
+}</code></pre>
+            </div>
+
+            <div class="timeline-segment">
+                <span class="duration-badge">15 minutes / 15分</span>
+                <h3>Segment 6: Testing and Balancing</h3>
+                <p><strong>English:</strong></p>
+                <ul>
+                    <li>Testing enemy chases player correctly</li>
+                    <li>Verifying enemy navigates around obstacles</li>
+                    <li>Ensuring enemy doesn't get stuck</li>
+                    <li>Adjusting enemy speed for balance</li>
+                    <li>Adjusting detection range</li>
+                </ul>
+            </div>
+
+            <h2>Resources / リソース</h2>
+            <ul>
+                <li><a href="https://docs.unity3d.com/Manual/nav-BuildingNavMesh.html" target="_blank">Unity NavMesh Documentation</a></li>
+                <li><a href="https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.html" target="_blank">NavMeshAgent API Reference</a></li>
+                <li><a href="slides.html">Week 6 Slides</a></li>
+                <li><a href="assignment.html">Week 6 Assignment</a></li>
+            </ul>
+
+            <h2>Next Steps / 次のステップ</h2>
+            <p>Complete the Week 6 assignment and prepare for Week 7 where we'll add multiple enemies and polish the game!</p>
+            <p>第6週課題を完了し、複数の敵を追加してゲームを仕上げる第7週の準備をしてください！</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

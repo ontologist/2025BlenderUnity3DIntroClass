@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 12: Final Project & Presentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; overflow: hidden; }
+        .slide-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .slide { display: none; background: white; width: 90%; max-width: 1200px; height: 85vh; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); padding: 60px 80px; position: relative; overflow-y: auto; }
+        .slide.active { display: block; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .slide h1 { font-size: 3em; color: #667eea; margin-bottom: 20px; text-align: center; }
+        .slide h2 { font-size: 2.2em; color: #764ba2; margin-bottom: 30px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .slide h3 { font-size: 1.8em; color: #667eea; margin-top: 30px; margin-bottom: 15px; }
+        .slide h4 { font-size: 1.4em; color: #555; margin-top: 20px; margin-bottom: 10px; }
+        .slide p { font-size: 1.2em; line-height: 1.8; margin-bottom: 15px; color: #444; }
+        .slide ul, .slide ol { font-size: 1.2em; line-height: 1.8; margin-left: 40px; margin-bottom: 20px; }
+        .slide li { margin-bottom: 10px; }
+        .bilingual { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 20px 0; }
+        .english, .japanese { padding: 20px; border-radius: 10px; }
+        .english { background: #f0f4ff; border-left: 4px solid #667eea; }
+        .japanese { background: #fff0f6; border-left: 4px solid #764ba2; }
+        .highlight-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .code-box { background: #f4f4f4; border: 1px solid #ddd; border-radius: 5px; padding: 15px; font-family: 'Courier New', monospace; margin: 15px 0; overflow-x: auto; font-size: 0.9em; }
+        .navigation { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 1000; }
+        .nav-btn { background: white; color: #667eea; border: 2px solid #667eea; padding: 12px 30px; font-size: 1.1em; border-radius: 30px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .nav-btn:hover { background: #667eea; color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .slide-number { position: fixed; top: 70px; right: 30px; background: rgba(255, 255, 255, 0.9); padding: 10px 20px; border-radius: 20px; font-size: 1.1em; color: #667eea; font-weight: bold; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); z-index: 1000; }
+        .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+        .title-slide h1 { font-size: 4em; margin-bottom: 20px; }
+        .title-slide .subtitle { font-size: 2em; color: #764ba2; margin-bottom: 40px; }
+        .title-slide .info { font-size: 1.3em; color: #666; margin: 10px 0; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0; }
+        .component-box { background: #e8f4f8; border-left: 4px solid #0088cc; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .tip-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .warning-box { background: #fee2e2; border-left: 4px solid #ef4444; padding: 15px; margin: 15px 0; border-radius: 5px; }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) and (min-width: 769px) {
+            .slide-container { padding: 10px; }
+            .slide { padding: 40px 50px; width: 100%; max-width: 100%; }
+            .slide.active { display: block !important; width: 100%; }
+            .slide h1 { font-size: 2.5em; }
+            .slide h2 { font-size: 2em; }
+            .slide h3 { font-size: 1.5em; }
+            .slide h4 { font-size: 1.2em; }
+            .slide p { font-size: 1.1em; }
+            .slide ul, .slide ol { font-size: 1.1em; }
+            .title-slide h1 { font-size: 3em; }
+            .title-slide .subtitle { font-size: 1.6em; }
+            .title-slide .info { font-size: 1.1em; }
+            .bilingual { gap: 25px; }
+            .two-column { gap: 20px; }
+        }
+
+        @media screen and (max-width: 768px) {
+            body { overflow: auto; padding-top: 50px; }
+            .slide-container { padding: 0; min-height: 100vh; display: block; width: 100vw; }
+            .slide { display: none !important; width: 100vw; height: auto; min-height: 100vh; padding: 20px; border-radius: 0; margin: 0; max-width: 100%; }
+            .slide.active { display: block !important; width: 100vw; margin: 0; padding: 20px; box-sizing: border-box; }
+            .slide h1 { font-size: 2em; margin-bottom: 15px; }
+            .slide h2 { font-size: 1.6em; margin-bottom: 20px; padding-bottom: 8px; }
+            .slide h3 { font-size: 1.3em; margin-top: 20px; margin-bottom: 12px; }
+            .slide h4 { font-size: 1.1em; margin-top: 15px; margin-bottom: 8px; }
+            .slide p { font-size: 1em; line-height: 1.6; margin-bottom: 12px; }
+            .slide ul, .slide ol { font-size: 1em; line-height: 1.6; margin-left: 20px; margin-bottom: 15px; }
+            .slide li { margin-bottom: 8px; }
+            .bilingual { grid-template-columns: 1fr; gap: 15px; margin: 15px 0; }
+            .english, .japanese { padding: 15px; }
+            .two-column { grid-template-columns: 1fr; gap: 15px; }
+            .title-slide { padding: 40px 20px; display: none; }
+            .title-slide.active { display: flex !important; }
+            .title-slide h1 { font-size: 2.5em; margin-bottom: 15px; }
+            .title-slide .subtitle { font-size: 1.4em; margin-bottom: 25px; }
+            .title-slide .info { font-size: 1em; margin: 8px 0; }
+            .highlight-box, .code-box, .component-box, .tip-box, .warning-box { padding: 12px; margin: 12px 0; font-size: 0.9em; }
+            .slide-number { top: 55px; right: 10px; padding: 8px 12px; font-size: 0.9em; }
+            .navigation { bottom: 15px; left: 50%; transform: translateX(-50%); gap: 10px; flex-wrap: wrap; width: 95%; justify-content: center; }
+            .nav-btn { padding: 10px 20px; font-size: 0.95em; flex: 1; min-width: 120px; max-width: 150px; }
+        }
+
+        @media screen and (max-width: 480px) {
+            body { padding-top: 40px; }
+            .slide { padding: 15px; width: 100vw; }
+            .slide.active { width: 100vw; }
+            .slide h1 { font-size: 1.8em; }
+            .slide h2 { font-size: 1.4em; }
+            .title-slide h1 { font-size: 2em; }
+            .title-slide .subtitle { font-size: 1.2em; }
+            .nav-btn { padding: 8px 16px; font-size: 0.85em; min-width: 100px; }
+            .slide-number { font-size: 0.8em; padding: 6px 10px; }
+        }
+    </style>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .slides-nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            padding: 10px 20px;
+        }
+        .slides-nav .container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .slides-nav a {
+            color: #1f2937;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95em;
+        }
+        .slides-nav a:hover { color: #2563eb; }
+        @media screen and (max-width: 768px) {
+            .slides-nav { padding: 8px 15px; }
+            .slides-nav .container { gap: 15px; font-size: 0.9em; }
+            body { padding-top: 45px; }
+        }
+        @media screen and (max-width: 480px) {
+            .slides-nav .container { gap: 10px; font-size: 0.85em; }
+            body { padding-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="slides-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+            <a href="assignment.html">Assignment</a>
+        </div>
+    </nav>
+
+    <div class="slide-number" id="slideNumber">Slide 1 / 18</div>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>🎓 Week 12</h1>
+            <p class="subtitle">Final Project & Presentation<br>最終プロジェクトの統合とプレゼンテーション</p>
+            <p class="info"><strong>Duration:</strong> 100 minutes / 100分</p>
+            <p class="info"><strong>Developer:</strong> Yuri Tijerino</p>
+            <p class="info">Game Development Course 2025</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h2>📚 Learning Objectives / 講義目標</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>By the end of this lecture, students will be able to:</h4>
+                    <ol>
+                        <li>Understand AI navigation and NavMesh</li>
+                        <li>Set up NavMesh in Unity</li>
+                        <li>Create enemy ball GameObjects</li>
+                        <li>Implement chase behavior</li>
+                        <li>Add player detection logic</li>
+                        <li>Handle enemy-player collisions</li>
+                        <li>Create enemy spawner system</li>
+                        <li>Balance game difficulty</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>この講義の終了までに、学生は以下ができるようになります：</h4>
+                    <ol>
+                        <li>AIナビゲーションとNavMeshを理解する</li>
+                        <li>UnityでNavMeshをセットアップする</li>
+                        <li>敵ボールGameObjectを作成する</li>
+                        <li>追跡動作を実装する</li>
+                        <li>プレイヤー検出ロジックを追加する</li>
+                        <li>敵-プレイヤーの衝突を処理する</li>
+                        <li>敵スポナーシステムを作成する</li>
+                        <li>ゲーム難易度をバランスさせる</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Introduction to AI Navigation -->
+        <div class="slide">
+            <h2>🧠 Introduction to AI Navigation / AIナビゲーション入門</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>What is AI in Games?</h3>
+                    <ul>
+                        <li>AI (Artificial Intelligence) makes NPCs act intelligently</li>
+                        <li>Enemies that chase, patrol, or avoid obstacles</li>
+                        <li>Creates challenging and dynamic gameplay</li>
+                    </ul>
+                    <h3>NavMesh (Navigation Mesh):</h3>
+                    <ul>
+                        <li>Pre-calculated walkable areas in the scene</li>
+                        <li>Enables pathfinding for AI agents</li>
+                        <li>Handles obstacle avoidance automatically</li>
+                        <li>More efficient than raycast-based navigation</li>
+                    </ul>
+                    <h4>When to Use NavMesh:</h4>
+                    <ul>
+                        <li>✅ Ground-based navigation</li>
+                        <li>✅ Static obstacles</li>
+                        <li>✅ Multiple AI agents</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ゲームにおけるAIとは？</h3>
+                    <ul>
+                        <li>AI（人工知能）はNPCを知的に動作させる</li>
+                        <li>追跡、パトロール、障害物回避する敵</li>
+                        <li>挑戦的で動的なゲームプレイを生み出す</li>
+                    </ul>
+                    <h3>NavMesh（ナビゲーションメッシュ）：</h3>
+                    <ul>
+                        <li>シーン内の事前計算された歩行可能エリア</li>
+                        <li>AIエージェントの経路探索を可能にする</li>
+                        <li>自動的に障害物回避を処理</li>
+                        <li>レイキャストベースのナビゲーションより効率的</li>
+                    </ul>
+                    <h4>NavMeshを使用する場合：</h4>
+                    <ul>
+                        <li>✅ 地上ベースのナビゲーション</li>
+                        <li>✅ 静的障害物</li>
+                        <li>✅ 複数のAIエージェント</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Setting Up NavMesh -->
+        <div class="slide">
+            <h2>🗺️ Setting Up NavMesh / NavMeshのセットアップ</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Step 1: Mark Walkable Surfaces</h3>
+                    <ul>
+                        <li>Select floor/walkable objects</li>
+                        <li>In Inspector, check <strong>Navigation Static</strong></li>
+                        <li>This marks surfaces for NavMesh baking</li>
+                    </ul>
+                    <h3>Step 2: Exclude Obstacles</h3>
+                    <ul>
+                        <li>Walls should NOT be Navigation Static</li>
+                        <li>They will be excluded from NavMesh</li>
+                        <li>AI will navigate around them</li>
+                    </ul>
+                    <h3>Step 3: Bake NavMesh</h3>
+                    <ul>
+                        <li>Window → AI → Navigation</li>
+                        <li>Click <strong>Bake</strong> button</li>
+                        <li>Blue areas = walkable paths</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ステップ1：歩行可能な表面をマーク</h3>
+                    <ul>
+                        <li>床/歩行可能なオブジェクトを選択</li>
+                        <li>Inspectorで<strong>Navigation Static</strong>をチェック</li>
+                        <li>これでNavMeshのベイク対象にマーク</li>
+                    </ul>
+                    <h3>ステップ2：障害物を除外</h3>
+                    <ul>
+                        <li>壁はNavigation Staticにしない</li>
+                        <li>NavMeshから除外される</li>
+                        <li>AIはそれらを回避してナビゲート</li>
+                    </ul>
+                    <h3>ステップ3：NavMeshをベイク</h3>
+                    <ul>
+                        <li>Window → AI → Navigation</li>
+                        <li><strong>Bake</strong>ボタンをクリック</li>
+                        <li>青色のエリア = 歩行可能なパス</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>💡 Tip:</strong> Always verify NavMesh in Scene view before testing AI!<br>
+                <strong>💡 ヒント：</strong> AIをテストする前に、SceneビューでNavMeshを常に確認してください！
+            </div>
+        </div>
+
+        <!-- Slide 5: NavMeshAgent Component -->
+        <div class="slide">
+            <h2>⚙️ NavMeshAgent Component / NavMeshAgentコンポーネント</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Key Properties:</h3>
+                    <ul>
+                        <li><strong>Speed:</strong> Movement speed (3-5 units/sec)</li>
+                        <li><strong>Angular Speed:</strong> Rotation speed (120-180°/sec)</li>
+                        <li><strong>Acceleration:</strong> How fast it speeds up (8 units/sec²)</li>
+                        <li><strong>Stopping Distance:</strong> Distance from target to stop (0.5 units)</li>
+                        <li><strong>Radius:</strong> Agent size for collision (0.5-1.0)</li>
+                        <li><strong>Height:</strong> Agent height (1-2 units)</li>
+                    </ul>
+                    <h4>Important Notes:</h4>
+                    <ul>
+                        <li>Agent must be ON NavMesh to work</li>
+                        <li>Agent size must fit through openings</li>
+                        <li>Too large = gets stuck!</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>主要プロパティ：</h3>
+                    <ul>
+                        <li><strong>Speed:</strong> 移動速度（3-5ユニット/秒）</li>
+                        <li><strong>Angular Speed:</strong> 回転速度（120-180°/秒）</li>
+                        <li><strong>Acceleration:</strong> 加速速度（8ユニット/秒²）</li>
+                        <li><strong>Stopping Distance:</strong> 停止するターゲットからの距離（0.5ユニット）</li>
+                        <li><strong>Radius:</strong> 衝突のためのエージェントサイズ（0.5-1.0）</li>
+                        <li><strong>Height:</strong> エージェントの高さ（1-2ユニット）</li>
+                    </ul>
+                    <h4>重要な注意事項：</h4>
+                    <ul>
+                        <li>エージェントは動作するためにNavMesh上にある必要がある</li>
+                        <li>エージェントサイズは開口部を通過できる必要がある</li>
+                        <li>大きすぎると詰まる！</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Creating Enemy Ball -->
+        <div class="slide">
+            <h2>🔴 Creating Enemy Ball / 敵ボールの作成</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>GameObject Setup:</h3>
+                    <ol>
+                        <li>Create Sphere GameObject</li>
+                        <li>Name it "EnemyBall"</li>
+                        <li>Apply red/different color material</li>
+                        <li>Add <strong>Rigidbody</strong> component</li>
+                        <li>Add <strong>NavMeshAgent</strong> component</li>
+                        <li>Configure NavMeshAgent settings</li>
+                        <li>Create prefab from GameObject</li>
+                    </ol>
+                    <h4>Component Settings:</h4>
+                    <ul>
+                        <li>Rigidbody: Use Gravity ✓</li>
+                        <li>Rigidbody: Is Kinematic ✗ (NavMeshAgent controls movement)</li>
+                        <li>Tag: "Enemy" (for collision detection)</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>GameObjectセットアップ：</h3>
+                    <ol>
+                        <li>Sphere GameObjectを作成</li>
+                        <li>"EnemyBall"と名前を付ける</li>
+                        <li>赤/異なる色のマテリアルを適用</li>
+                        <li><strong>Rigidbody</strong>コンポーネントを追加</li>
+                        <li><strong>NavMeshAgent</strong>コンポーネントを追加</li>
+                        <li>NavMeshAgent設定を構成</li>
+                        <li>GameObjectからプレハブを作成</li>
+                    </ol>
+                    <h4>コンポーネント設定：</h4>
+                    <ul>
+                        <li>Rigidbody: Use Gravity ✓</li>
+                        <li>Rigidbody: Is Kinematic ✗（NavMeshAgentが移動を制御）</li>
+                        <li>Tag: "Enemy"（衝突検出用）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Basic Chase Script -->
+        <div class="slide">
+            <h2>📝 Basic Chase Script / 基本的な追跡スクリプト</h2>
+            <div class="code-box">
+<strong>EnemyController.cs</strong><br><br>
+using UnityEngine;<br>
+using UnityEngine.AI;<br><br>
+public class EnemyController : MonoBehaviour<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;private NavMeshAgent agent;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;private Transform player;<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;void Start()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agent = GetComponent&lt;NavMeshAgent&gt;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;player = GameObject.FindGameObjectWithTag("Player").transform;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;void FixedUpdate()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (player != null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agent.SetDestination(player.position);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+            </div>
+            <div class="tip-box">
+                <strong>💡 Key Points:</strong><br>
+                • Use FixedUpdate() for physics-based updates<br>
+                • SetDestination() updates pathfinding automatically<br>
+                • Always check if player exists before accessing<br>
+                <strong>💡 重要なポイント：</strong><br>
+                • 物理ベースの更新にはFixedUpdate()を使用<br>
+                • SetDestination()は自動的に経路探索を更新<br>
+                • アクセスする前にプレイヤーが存在するか常に確認
+            </div>
+        </div>
+
+        <!-- Slide 8: Player Detection Logic -->
+        <div class="slide">
+            <h2>👁️ Player Detection Logic / プレイヤー検出ロジック</h2>
+            <div class="code-box">
+<strong>Enhanced EnemyController with Detection Range</strong><br><br>
+public float detectionRange = 10f;<br>
+public float chaseRange = 15f;<br><br>
+void FixedUpdate()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (player != null)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float distance = Vector3.Distance(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transform.position, player.position);<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (distance &lt;= detectionRange)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Chase player<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agent.SetDestination(player.position);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else if (distance &gt; chaseRange)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Stop chasing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agent.ResetPath();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>Benefits:</h4>
+                    <ul>
+                        <li>Enemy only chases when player is nearby</li>
+                        <li>Performance optimization (fewer calculations)</li>
+                        <li>Better gameplay feel</li>
+                        <li>Allows for stealth gameplay</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h4>メリット：</h4>
+                    <ul>
+                        <li>プレイヤーが近くにいるときのみ敵が追跡</li>
+                        <li>パフォーマンス最適化（計算が減る）</li>
+                        <li>より良いゲームプレイフィール</li>
+                        <li>ステルスゲームプレイを可能にする</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Collision Detection -->
+        <div class="slide">
+            <h2>💥 Collision Detection / 衝突検出</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Game Over on Contact:</h3>
+                    <ol>
+                        <li>Add Collider to enemy (Is Trigger ✓)</li>
+                        <li>Ensure player has "Player" tag</li>
+                        <li>Use OnTriggerEnter() method</li>
+                        <li>Check if collider is player</li>
+                        <li>Call GameManager.GameOver()</li>
+                    </ol>
+                    <h4>Code Implementation:</h4>
+                </div>
+                <div class="japanese">
+                    <h3>接触時のゲームオーバー：</h3>
+                    <ol>
+                        <li>敵にColliderを追加（Is Trigger ✓）</li>
+                        <li>プレイヤーに"Player"タグがあることを確認</li>
+                        <li>OnTriggerEnter()メソッドを使用</li>
+                        <li>コライダーがプレイヤーか確認</li>
+                        <li>GameManager.GameOver()を呼び出す</li>
+                    </ol>
+                    <h4>コード実装：</h4>
+                </div>
+            </div>
+            <div class="code-box">
+void OnTriggerEnter(Collider other)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (other.CompareTag("Player"))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Player caught!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GameManager.Instance.GameOver();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+            </div>
+        </div>
+
+        <!-- Slide 10: Enemy Spawner System -->
+        <div class="slide">
+            <h2>🏭 Enemy Spawner System / 敵スポナーシステム</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Basic Spawner Features:</h3>
+                    <ul>
+                        <li>Spawn enemies at specific locations</li>
+                        <li>Control spawn timing</li>
+                        <li>Limit maximum enemy count</li>
+                        <li>Random spawn locations</li>
+                    </ul>
+                    <h4>Implementation Steps:</h4>
+                    <ol>
+                        <li>Create spawn point GameObjects</li>
+                        <li>Create EnemySpawner script</li>
+                        <li>Reference enemy prefab</li>
+                        <li>Instantiate enemies at spawn points</li>
+                        <li>Use InvokeRepeating() for timed spawning</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h3>基本的なスポナー機能：</h3>
+                    <ul>
+                        <li>特定の位置で敵をスポーン</li>
+                        <li>スポーンタイミングを制御</li>
+                        <li>最大敵数を制限</li>
+                        <li>ランダムなスポーン位置</li>
+                    </ul>
+                    <h4>実装ステップ：</h4>
+                    <ol>
+                        <li>スポーンポイントGameObjectを作成</li>
+                        <li>EnemySpawnerスクリプトを作成</li>
+                        <li>敵プレハブを参照</li>
+                        <li>スポーンポイントで敵をインスタンス化</li>
+                        <li>時間指定スポーンにInvokeRepeating()を使用</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Testing and Balancing -->
+        <div class="slide">
+            <h2>⚖️ Testing and Balancing / テストとバランス調整</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Key Balance Parameters:</h3>
+                    <ul>
+                        <li><strong>Enemy Speed:</strong> 3-5 units/sec (challenging but fair)</li>
+                        <li><strong>Detection Range:</strong> 10-15 units (not too large/small)</li>
+                        <li><strong>Agent Size:</strong> Fits through maze openings</li>
+                        <li><strong>Number of Enemies:</strong> Start with 1-2, increase gradually</li>
+                    </ul>
+                    <h4>Playtesting Checklist:</h4>
+                    <ul>
+                        <li>✓ Enemy finds player correctly</li>
+                        <li>✓ Enemy navigates around obstacles</li>
+                        <li>✓ Enemy doesn't get stuck</li>
+                        <li>✓ Game feels challenging but fair</li>
+                        <li>✓ Collision detection works</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>主要なバランスパラメータ：</h3>
+                    <ul>
+                        <li><strong>敵の速度：</strong> 3-5ユニット/秒（挑戦的だが公平）</li>
+                        <li><strong>検出範囲：</strong> 10-15ユニット（大きすぎず小さすぎず）</li>
+                        <li><strong>エージェントサイズ：</strong> 迷路の開口部を通過できる</li>
+                        <li><strong>敵の数：</strong> 1-2から始めて段階的に増やす</li>
+                    </ul>
+                    <h4>プレイテストチェックリスト：</h4>
+                    <ul>
+                        <li>✓ 敵がプレイヤーを正しく見つける</li>
+                        <li>✓ 敵が障害物を回避する</li>
+                        <li>✓ 敵が詰まらない</li>
+                        <li>✓ ゲームが挑戦的だが公平に感じる</li>
+                        <li>✓ 衝突検出が機能する</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Common Issues -->
+        <div class="slide">
+            <h2>⚠️ Common Issues / よくある問題</h2>
+            <div class="warning-box">
+                <h3>Problem 1: Enemy Not Moving / 問題1：敵が動かない</h3>
+                <ul>
+                    <li><strong>Solution:</strong> Check NavMesh is baked, agent is on NavMesh</li>
+                    <li><strong>解決策：</strong> NavMeshがベイクされているか、エージェントがNavMesh上にあるか確認</li>
+                </ul>
+            </div>
+            <div class="warning-box">
+                <h3>Problem 2: Enemy Gets Stuck / 問題2：敵が詰まる</h3>
+                <ul>
+                    <li><strong>Solution:</strong> Reduce agent radius, increase obstacle avoidance</li>
+                    <li><strong>解決策：</strong> エージェント半径を減らす、障害物回避を増やす</li>
+                </ul>
+            </div>
+            <div class="warning-box">
+                <h3>Problem 3: Enemy Too Fast/Slow / 問題3：敵が速すぎる/遅すぎる</h3>
+                <ul>
+                    <li><strong>Solution:</strong> Adjust NavMeshAgent Speed (3-5 is good range)</li>
+                    <li><strong>解決策：</strong> NavMeshAgent Speedを調整（3-5が良い範囲）</li>
+                </ul>
+            </div>
+            <div class="tip-box">
+                <strong>💡 Debug Tip:</strong> Use Gizmos to visualize detection range in Scene view!<br>
+                <strong>💡 デバッグのヒント：</strong> Sceneビューで検出範囲を視覚化するためにGizmosを使用！
+            </div>
+        </div>
+
+        <!-- Slide 13: Assignment Preview -->
+        <div class="slide">
+            <h2>📝 Assignment Preview / 課題プレビュー</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Week 6 Assignment Requirements:</h3>
+                    <ol>
+                        <li><strong>NavMesh Setup (3 points)</strong> - Bake NavMesh for maze</li>
+                        <li><strong>Enemy Ball GameObject (3 points)</strong> - Create enemy prefab</li>
+                        <li><strong>Enemy Controller Script (5 points)</strong> - Implement chase behavior</li>
+                        <li><strong>Collision Detection (2 points)</strong> - Game over on contact</li>
+                        <li><strong>Testing & Balancing (2 points)</strong> - Balance difficulty</li>
+                    </ol>
+                    <h4>Bonus Points Available:</h4>
+                    <ul>
+                        <li>+1 Multiple enemy types</li>
+                        <li>+1 Enemy spawner system</li>
+                        <li>+1 Advanced AI behavior</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>第6週課題要件：</h3>
+                    <ol>
+                        <li><strong>NavMeshセットアップ（3点）</strong> - 迷路のNavMeshをベイク</li>
+                        <li><strong>敵ボールGameObject（3点）</strong> - 敵プレハブを作成</li>
+                        <li><strong>敵コントローラースクリプト（5点）</strong> - 追跡動作を実装</li>
+                        <li><strong>衝突検出（2点）</strong> - 接触でゲームオーバー</li>
+                        <li><strong>テストとバランス調整（2点）</strong> - 難易度をバランス</li>
+                    </ol>
+                    <h4>利用可能なボーナス点：</h4>
+                    <ul>
+                        <li>+1 複数の敵タイプ</li>
+                        <li>+1 敵スポナーシステム</li>
+                        <li>+1 高度なAI動作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Best Practices -->
+        <div class="slide">
+            <h2>✨ Best Practices / ベストプラクティス</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Code Organization:</h3>
+                    <ul>
+                        <li>Keep scripts in Assets/Scripts folder</li>
+                        <li>Use descriptive variable names</li>
+                        <li>Add comments for complex logic</li>
+                        <li>Make values configurable in Inspector</li>
+                    </ul>
+                    <h3>Performance:</h3>
+                    <ul>
+                        <li>Use detection range to limit updates</li>
+                        <li>Don't update destination every frame if not needed</li>
+                        <li>Limit maximum enemy count</li>
+                        <li>Use object pooling for many enemies (advanced)</li>
+                    </ul>
+                    <h3>Game Design:</h3>
+                    <ul>
+                        <li>Start easy, increase difficulty gradually</li>
+                        <li>Test with different player skill levels</li>
+                        <li>Make enemies fair but challenging</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>コード整理：</h3>
+                    <ul>
+                        <li>スクリプトをAssets/Scriptsフォルダに保持</li>
+                        <li>説明的な変数名を使用</li>
+                        <li>複雑なロジックにコメントを追加</li>
+                        <li>Inspectorで値を設定可能にする</li>
+                    </ul>
+                    <h3>パフォーマンス：</h3>
+                    <ul>
+                        <li>検出範囲を使用して更新を制限</li>
+                        <li>不要な場合は毎フレーム目的地を更新しない</li>
+                        <li>最大敵数を制限</li>
+                        <li>多くの敵にはオブジェクトプーリングを使用（上級）</li>
+                    </ul>
+                    <h3>ゲームデザイン：</h3>
+                    <ul>
+                        <li>簡単に始めて、段階的に難易度を上げる</li>
+                        <li>異なるプレイヤースキルレベルでテスト</li>
+                        <li>敵を公平だが挑戦的にする</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Resources -->
+        <div class="slide">
+            <h2>📚 Resources / リソース</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Official Documentation:</h3>
+                    <ul>
+                        <li>Unity NavMesh Manual: docs.unity3d.com/Manual/nav-BuildingNavMesh.html</li>
+                        <li>NavMeshAgent API: docs.unity3d.com/ScriptReference/AI.NavMeshAgent.html</li>
+                        <li>Unity Learn: learn.unity.com/tutorial/introduction-to-navmesh</li>
+                    </ul>
+                    <h3>YouTube Tutorials:</h3>
+                    <ul>
+                        <li>Brackeys: NavMesh Tutorial</li>
+                        <li>Code Monkey: AI Navigation Basics</li>
+                    </ul>
+                    <h4>Course Materials:</h4>
+                    <ul>
+                        <li>Lecture Notes (lecture.html)</li>
+                        <li>Assignment Details (assignment.html)</li>
+                        <li>Week 5 project as starting point</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>公式ドキュメント：</h3>
+                    <ul>
+                        <li>Unity NavMeshマニュアル: docs.unity3d.com/Manual/nav-BuildingNavMesh.html</li>
+                        <li>NavMeshAgent API: docs.unity3d.com/ScriptReference/AI.NavMeshAgent.html</li>
+                        <li>Unity Learn: learn.unity.com/tutorial/introduction-to-navmesh</li>
+                    </ul>
+                    <h3>YouTubeチュートリアル：</h3>
+                    <ul>
+                        <li>Brackeys: NavMeshチュートリアル</li>
+                        <li>Code Monkey: AIナビゲーション基礎</li>
+                    </ul>
+                    <h4>コース教材：</h4>
+                    <ul>
+                        <li>講義ノート（lecture.html）</li>
+                        <li>課題詳細（assignment.html）</li>
+                        <li>開始点としての第5週プロジェクト</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Key Takeaways -->
+        <div class="slide">
+            <h2>🎯 Key Takeaways / 重要なポイント</h2>
+            <div class="highlight-box">
+                <h3>Essential Concepts:</h3>
+            </div>
+            <div class="bilingual">
+                <div class="english">
+                    <ul>
+                        <li>✅ NavMesh enables efficient AI pathfinding</li>
+                        <li>✅ NavMeshAgent handles movement automatically</li>
+                        <li>✅ SetDestination() updates pathfinding</li>
+                        <li>✅ Detection range optimizes performance</li>
+                        <li>✅ Collision detection uses triggers</li>
+                        <li>✅ Balancing is key to good gameplay</li>
+                    </ul>
+                    <h4>Remember:</h4>
+                    <ul>
+                        <li>Always bake NavMesh before testing</li>
+                        <li>Agent size must fit through openings</li>
+                        <li>Test with different enemy configurations</li>
+                        <li>Start simple, add complexity gradually</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <ul>
+                        <li>✅ NavMeshは効率的なAI経路探索を可能にする</li>
+                        <li>✅ NavMeshAgentは自動的に移動を処理</li>
+                        <li>✅ SetDestination()が経路探索を更新</li>
+                        <li>✅ 検出範囲がパフォーマンスを最適化</li>
+                        <li>✅ 衝突検出はトリガーを使用</li>
+                        <li>✅ バランス調整が良いゲームプレイの鍵</li>
+                    </ul>
+                    <h4>覚えておくこと：</h4>
+                    <ul>
+                        <li>テスト前に常にNavMeshをベイク</li>
+                        <li>エージェントサイズは開口部を通過できる必要がある</li>
+                        <li>異なる敵構成でテスト</li>
+                        <li>シンプルに始めて、段階的に複雑さを追加</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Next Steps -->
+        <div class="slide">
+            <h2>🚀 Next Steps / 次のステップ</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Today's Homework:</h3>
+                    <ol>
+                        <li>Complete Week 6 assignment</li>
+                        <li>Test enemy AI thoroughly</li>
+                        <li>Balance difficulty parameters</li>
+                        <li>Submit via GitHub before Week 7</li>
+                    </ol>
+                    <h3>Next Week Preview (Week 7):</h3>
+                    <ul>
+                        <li><strong>Game States & Polish</strong></li>
+                        <li>Win/lose conditions refinement</li>
+                        <li>UI improvements</li>
+                        <li>Multiple enemies</li>
+                        <li>Game balancing</li>
+                        <li><strong>Midterm Project Due!</strong></li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>今日の宿題：</h3>
+                    <ol>
+                        <li>第6週課題を完了</li>
+                        <li>敵AIを徹底的にテスト</li>
+                        <li>難易度パラメータをバランス</li>
+                        <li>第7週前にGitHubで提出</li>
+                    </ol>
+                    <h3>来週のプレビュー（第7週）：</h3>
+                    <ul>
+                        <li><strong>ゲーム状態と仕上げ</strong></li>
+                        <li>勝敗条件の改善</li>
+                        <li>UIの改善</li>
+                        <li>複数の敵</li>
+                        <li>ゲームバランス調整</li>
+                        <li><strong>中間プロジェクト提出！</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Questions -->
+        <div class="slide">
+            <h2>❓ Questions & Discussion / 質問とディスカッション</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Common Questions:</h3>
+                    <ul>
+                        <li>How do I make enemies patrol when player not detected?</li>
+                        <li>Can I have multiple NavMeshes?</li>
+                        <li>How do I make enemies spawn randomly?</li>
+                        <li>What's the difference between NavMesh and NavMeshAgent?</li>
+                    </ul>
+                    <h4>Need Help?</h4>
+                    <ul>
+                        <li>Check lecture notes for detailed explanations</li>
+                        <li>Review Unity documentation</li>
+                        <li>Ask questions during office hours</li>
+                        <li>Check GitHub discussions</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>よくある質問：</h3>
+                    <ul>
+                        <li>プレイヤーが検出されていないときに敵をパトロールさせるには？</li>
+                        <li>複数のNavMeshを持つことはできますか？</li>
+                        <li>敵をランダムにスポーンさせるには？</li>
+                        <li>NavMeshとNavMeshAgentの違いは何ですか？</li>
+                    </ul>
+                    <h4>ヘルプが必要ですか？</h4>
+                    <ul>
+                        <li>詳細な説明については講義ノートを確認</li>
+                        <li>Unityドキュメントをレビュー</li>
+                        <li>オフィスアワー中に質問</li>
+                        <li>GitHubディスカッションを確認</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <p><strong>Remember:</strong> AI is a complex topic - take your time to understand it!</p>
+                <p><strong>覚えておいて：</strong> AIは複雑なトピックです - 理解するために時間をかけてください！</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideNumber').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                showSlide(0);
+            } else if (event.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
+

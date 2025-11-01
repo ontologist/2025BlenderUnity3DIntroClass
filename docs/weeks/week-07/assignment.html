@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7 Assignment: Game States & Polish (Midterm) | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .assignment-content { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .assignment-content h2 { color: var(--primary-color); margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        .assignment-content h3 { color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px; }
+        .requirement-box { background: #dbeafe; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary-color); margin: 20px 0; }
+        .requirement-box h4 { color: var(--primary-color); margin-top: 0; }
+        .points-badge { display: inline-block; background: var(--success); color: white; padding: 5px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold; margin-left: 10px; }
+        .warning-box { background: #fef3c7; border-left: 4px solid var(--warning); padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .checklist { background: var(--bg-light); padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .checklist ul { list-style: none; padding-left: 0; }
+        .checklist li::before { content: "✅ "; margin-right: 8px; }
+        .milestone-box { background: #fef3c7; border-left: 5px solid #f59e0b; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid var(--border-color); padding: 12px; text-align: left; }
+        th { background: var(--bg-light); font-weight: bold; }
+        .tip-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📝 Week 7 Assignment: Game States & Polish (Midterm Project)</h1>
+            <p class="subtitle">第7週課題：ゲーム状態と仕上げ（中間プロジェクト）</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="assignment-content">
+            <div class="milestone-box">
+                <h3>🏆 Midterm Project / 中間プロジェクト</h3>
+                <p><strong>Due Date:</strong> Before Week 8 lecture / 第8週講義前</p>
+                <p><strong>Points:</strong> 25 points / 25点</p>
+                <p><strong>Estimated Time:</strong> 6-8 hours / 6-8時間</p>
+                <p><strong>Submission:</strong> Complete Unity project + executable build</p>
+            </div>
+
+            <h2>Assignment Description / 課題概要</h2>
+            <p><strong>English:</strong> Complete and polish your ball maze game with multiple enemies, enhanced UI, game state management, and visual effects. This is your midterm project submission demonstrating all skills learned in Weeks 1-7.</p>
+            <p><strong>日本語:</strong> 複数の敵、強化されたUI、ゲーム状態管理、視覚効果を備えたボール迷路ゲームを完成させ、仕上げます。これは、第1-7週で学んだすべてのスキルを示す中間プロジェクト提出です。</p>
+
+            <h2>Requirements / 要件</h2>
+            <div class="requirement-box">
+                <h4>1. Multiple AI Enemies <span class="points-badge">5 points</span></h4>
+                <ul>
+                    <li>Implement at least 3 AI enemies in the game</li>
+                    <li>Enemies spawn at different locations</li>
+                    <li>All enemies use NavMesh navigation</li>
+                    <li>Enemies don't interfere with each other</li>
+                    <li>Performance remains smooth</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>2. Enhanced Game State Management <span class="points-badge">5 points</span></h4>
+                <ul>
+                    <li>Complete GameManager with all states: Playing, Won, Lost, Paused</li>
+                    <li>State transitions work correctly</li>
+                    <li>Controls disabled in wrong states</li>
+                    <li>UI updates based on current state</li>
+                    <li>Restart functionality works</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>3. Polished UI System <span class="points-badge">5 points</span></h4>
+                <ul>
+                    <li>Enhanced win/lose panels</li>
+                    <li>Score or timer display</li>
+                    <li>Clear restart buttons</li>
+                    <li>UI animations (fade in/out)</li>
+                    <li>Professional appearance</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>4. Visual Polish <span class="points-badge">5 points</span></h4>
+                <ul>
+                    <li>Particle effects for key events (win, lose, collisions)</li>
+                    <li>Visual feedback for player actions</li>
+                    <li>Screen effects (fade transitions)</li>
+                    <li>Improved lighting</li>
+                    <li>Overall visual appeal</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>5. Game Balancing & Testing <span class="points-badge">5 points</span></h4>
+                <ul>
+                    <li>Game feels challenging but fair</li>
+                    <li>Difficulty is appropriate</li>
+                    <li>No game-breaking bugs</li>
+                    <li>Smooth performance</li>
+                    <li>Complete playtesting documentation</li>
+                </ul>
+            </div>
+
+            <h2>Bonus Points / ボーナス点 (+5 points max)</h2>
+            <div class="tip-box">
+                <h4>1. Advanced Features (+2 points)</h4>
+                <p>Multiple levels, collectible items system, power-ups, or time attack mode.</p>
+                
+                <h4>2. Polish & Effects (+2 points)</h4>
+                <p>Multiple particle effects, screen shake, post-processing effects, sound effects integration.</p>
+                
+                <h4>3. Documentation (+1 point)</h4>
+                <p>Comprehensive README, code documentation, design document, playtesting report.</p>
+            </div>
+
+            <h2>Submission Checklist / 提出チェックリスト</h2>
+            <div class="checklist">
+                <ul>
+                    <li>Complete Unity project with all scripts</li>
+                    <li>Working executable build</li>
+                    <li>All features from previous weeks working</li>
+                    <li>GitHub repository organized and committed</li>
+                    <li>Screenshots/videos of gameplay</li>
+                    <li>README with instructions</li>
+                    <li>Project builds without errors</li>
+                </ul>
+            </div>
+
+            <h2>Resources / リソース</h2>
+            <ul>
+                <li><a href="lecture.html">Week 7 Lecture Notes</a></li>
+                <li><a href="slides.html">Week 7 Slides</a></li>
+                <li><a href="../week-06/assignment.html">Week 6 Assignment (reference)</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
