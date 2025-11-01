@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 6 Assignment | Game Dev Course 2025</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .assignment-content { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .assignment-content h2 { color: var(--primary-color); margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        .assignment-content h3 { color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px; }
+        .requirement-box { background: #dbeafe; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary-color); margin: 20px 0; }
+        .requirement-box h4 { color: var(--primary-color); margin-top: 0; }
+        .points-badge { display: inline-block; background: var(--success); color: white; padding: 5px 12px; border-radius: 15px; font-size: 0.9em; font-weight: bold; margin-left: 10px; }
+        .warning-box { background: #fef3c7; border-left: 4px solid var(--warning); padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .checklist { background: var(--bg-light); padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .checklist ul { list-style: none; padding-left: 0; }
+        .checklist li::before { content: "✅ "; margin-right: 8px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid var(--border-color); padding: 12px; text-align: left; }
+        th { background: var(--bg-light); font-weight: bold; }
+        code { background: var(--bg-light); padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.9em; }
+        pre { background: var(--bg-light); padding: 15px; border-radius: 5px; overflow-x: auto; border-left: 4px solid var(--primary-color); }
+        .tip-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📝 Week 13 Assignment: Advanced Game Features & Optimization</h1>
+            <p class="subtitle">第13週課題：高度なゲーム機能と最適化</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+            <a href="slides.html">Slides</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="assignment-content">
+            <div class="requirement-box">
+                <h3>📋 Assignment Overview</h3>
+                <p><strong>Due Date:</strong> Before Week 14 lecture / 第14週講義前</p>
+                <p><strong>Points:</strong> 18 points / 18点</p>
+                <p><strong>Estimated Time:</strong> 3-4 hours / 3-4時間</p>
+                <p><strong>Submission:</strong> Via GitHub repository</p>
+            </div>
+
+            <h2>Assignment Description / 課題概要</h2>
+            <p><strong>English:</strong> Enhance your game with advanced features including collectibles, save/load system, settings menu, and performance optimizations. Apply professional game development techniques to polish and optimize your project. Create intelligent enemies that navigate around obstacles and pursue the player, adding challenge to your ball maze game.</p>
+            <p><strong>日本語:</strong> UnityのNavMeshシステムを使用してプレイヤーを追跡するAI敵ボールを実装します。障害物を回避し、プレイヤーを追跡する知的な敵を作成し、ボール迷路ゲームに挑戦を追加します。</p>
+
+            <h2>Requirements / 要件</h2>
+            <div class="requirement-box">
+                <h4>1. NavMesh Setup <span class="points-badge">3 points</span></h4>
+                <ul>
+                    <li>Mark all walkable surfaces as Navigation Static</li>
+                    <li>Bake NavMesh for your scene</li>
+                    <li>NavMesh covers entire maze floor</li>
+                    <li>Walls and obstacles excluded from NavMesh</li>
+                    <li>NavMesh visible (blue) in Scene view</li>
+                    <li>Configure agent radius (0.5-1.0 units) and height (1-2 units)</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>2. Enemy Ball GameObject <span class="points-badge">3 points</span></h4>
+                <ul>
+                    <li>Create enemy ball prefab (Sphere primitive)</li>
+                    <li>Apply contrasting material (red or different color)</li>
+                    <li>Add Rigidbody component</li>
+                    <li>Add NavMeshAgent component</li>
+                    <li>Configure NavMeshAgent settings:
+                        <ul>
+                            <li>Speed: 3-5 units/second</li>
+                            <li>Angular Speed: 120-180 degrees/second</li>
+                            <li>Acceleration: 8 units/second²</li>
+                            <li>Stopping Distance: 0.5 units</li>
+                        </ul>
+                    </li>
+                    <li>Tag enemy as "Enemy"</li>
+                    <li>Set up appropriate layer for collision</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>3. Enemy Controller Script <span class="points-badge">5 points</span></h4>
+                <ul>
+                    <li>Create EnemyController script</li>
+                    <li>Find player GameObject by tag ("Player")</li>
+                    <li>Set NavMeshAgent destination to player position</li>
+                    <li>Update destination every frame in FixedUpdate()</li>
+                    <li>Add detection range parameter (10-15 units)</li>
+                    <li>Only chase player when within detection range</li>
+                    <li>Stop chasing when player moves outside range</li>
+                    <li>Code well-commented and organized</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>4. Collision Detection <span class="points-badge">2 points</span></h4>
+                <ul>
+                    <li>Detect when enemy collides with player</li>
+                    <li>Use OnTriggerEnter or OnCollisionEnter</li>
+                    <li>Call GameManager.GameOver() when collision occurs</li>
+                    <li>Ensure player ball has "Player" tag</li>
+                    <li>Add visual/audio feedback (optional but recommended)</li>
+                </ul>
+            </div>
+
+            <div class="requirement-box">
+                <h4>5. Testing and Balancing <span class="points-badge">2 points</span></h4>
+                <ul>
+                    <li>Test enemy chases player correctly</li>
+                    <li>Verify enemy navigates around obstacles</li>
+                    <li>Ensure enemy doesn't get stuck</li>
+                    <li>Adjust enemy speed to feel challenging but fair</li>
+                    <li>Adjust detection range for good gameplay feel</li>
+                    <li>Document chosen values in code comments</li>
+                </ul>
+            </div>
+
+            <h2>Code Template / コードテンプレート</h2>
+            <pre><code>using UnityEngine;
+using UnityEngine.AI;
+
+public class EnemyController : MonoBehaviour
+{
+    private NavMeshAgent agent;
+    private Transform player;
+    public float detectionRange = 10f;
+    public float chaseRange = 15f;
+    
+    void Start()
+    {
+        agent = GetComponent&lt;NavMeshAgent&gt;();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+    
+    void FixedUpdate()
+    {
+        if (player != null)
+        {
+            float distance = Vector3.Distance(
+                transform.position, player.position);
+            
+            if (distance &lt;= detectionRange)
+            {
+                agent.SetDestination(player.position);
+            }
+            else if (distance &gt; chaseRange)
+            {
+                agent.ResetPath();
+            }
+        }
+    }
+    
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+}</code></pre>
+
+            <h2>Grading Rubric / 採点基準</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria / 基準</th>
+                        <th>Points / 点数</th>
+                        <th>Description / 説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>NavMesh Setup</td><td>3</td><td>Properly baked, configured, visible</td></tr>
+                    <tr><td>Enemy GameObject</td><td>3</td><td>Prefab created, components configured</td></tr>
+                    <tr><td>Enemy Controller</td><td>5</td><td>Chase behavior, detection range working</td></tr>
+                    <tr><td>Collision Detection</td><td>2</td><td>Game over on contact</td></tr>
+                    <tr><td>Testing & Balancing</td><td>2</td><td>Game feels challenging but fair</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Bonus Points / ボーナス点 (+3 points max)</h2>
+            <div class="tip-box">
+                <h4>1. Multiple Enemy Types (+1 point)</h4>
+                <p>Create 2 different enemy types with different speeds (fast: 6-8 units/sec, slow: 2-3 units/sec) with different colored materials.</p>
+                
+                <h4>2. Enemy Spawner (+1 point)</h4>
+                <p>Create EnemySpawner script that spawns enemies at specific locations, every X seconds, with maximum enemy count limit.</p>
+                
+                <h4>3. Advanced AI Behavior (+1 point)</h4>
+                <p>Implement patrol behavior when player not detected, add enemy health system, or create spawn points as GameObjects with visual indicators.</p>
+            </div>
+
+            <h2>Submission Checklist / 提出チェックリスト</h2>
+            <div class="checklist">
+                <ul>
+                    <li>NavMesh baked and visible in Scene view</li>
+                    <li>Enemy prefab created and configured</li>
+                    <li>EnemyController script works correctly</li>
+                    <li>Enemy chases player when in range</li>
+                    <li>Collision detection triggers game over</li>
+                    <li>Enemy doesn't get stuck on obstacles</li>
+                    <li>Game feels balanced and playable</li>
+                    <li>Code is commented and organized</li>
+                    <li>All files committed to GitHub</li>
+                    <li>Screenshot of NavMesh included (week06_navmesh_screenshot.png)</li>
+                </ul>
+            </div>
+
+            <h2>Common Mistakes to Avoid / 避けるべき一般的な間違い</h2>
+            <div class="warning-box">
+                <ul>
+                    <li>❌ Forgetting to bake NavMesh (enemy won't move)</li>
+                    <li>❌ Not updating destination every frame</li>
+                    <li>❌ Wrong NavMeshAgent size (gets stuck)</li>
+                    <li>❌ Not setting Player tag on player ball</li>
+                    <li>❌ Using wrong collision detection method</li>
+                    <li>❌ Enemy speed too fast or too slow</li>
+                    <li>❌ Detection range too large (unfair) or too small (too easy)</li>
+                </ul>
+            </div>
+
+            <h2>Resources / リソース</h2>
+            <ul>
+                <li><a href="https://docs.unity3d.com/Manual/nav-BuildingNavMesh.html" target="_blank">Unity NavMesh Documentation</a></li>
+                <li><a href="https://docs.unity3d.com/ScriptReference/AI.NavMeshAgent.html" target="_blank">NavMeshAgent API Reference</a></li>
+                <li><a href="lecture.html">Week 6 Lecture Notes</a></li>
+                <li><a href="slides.html">Week 6 Slides</a></li>
+            </ul>
+
+            <div class="tip-box">
+                <p><strong>💡 Tip:</strong> Test with one enemy first, then add more once it works correctly!</p>
+                <p><strong>💡 ヒント：</strong> 最初に1つの敵でテストし、正しく動作したらさらに追加してください！</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Yuri Tijerino. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

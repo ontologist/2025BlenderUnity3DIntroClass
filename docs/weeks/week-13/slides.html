@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 13: Advanced Game Features & Optimization</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; overflow: hidden; }
+        .slide-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .slide { display: none; background: white; width: 90%; max-width: 1200px; height: 85vh; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); padding: 60px 80px; position: relative; overflow-y: auto; }
+        .slide.active { display: block; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .slide h1 { font-size: 3em; color: #667eea; margin-bottom: 20px; text-align: center; }
+        .slide h2 { font-size: 2.2em; color: #764ba2; margin-bottom: 30px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .slide h3 { font-size: 1.8em; color: #667eea; margin-top: 30px; margin-bottom: 15px; }
+        .slide h4 { font-size: 1.4em; color: #555; margin-top: 20px; margin-bottom: 10px; }
+        .slide p { font-size: 1.2em; line-height: 1.8; margin-bottom: 15px; color: #444; }
+        .slide ul, .slide ol { font-size: 1.2em; line-height: 1.8; margin-left: 40px; margin-bottom: 20px; }
+        .slide li { margin-bottom: 10px; }
+        .bilingual { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 20px 0; }
+        .english, .japanese { padding: 20px; border-radius: 10px; }
+        .english { background: #f0f4ff; border-left: 4px solid #667eea; }
+        .japanese { background: #fff0f6; border-left: 4px solid #764ba2; }
+        .highlight-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .code-box { background: #f4f4f4; border: 1px solid #ddd; border-radius: 5px; padding: 15px; font-family: 'Courier New', monospace; margin: 15px 0; overflow-x: auto; font-size: 0.9em; }
+        .navigation { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 1000; }
+        .nav-btn { background: white; color: #667eea; border: 2px solid #667eea; padding: 12px 30px; font-size: 1.1em; border-radius: 30px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .nav-btn:hover { background: #667eea; color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .slide-number { position: fixed; top: 70px; right: 30px; background: rgba(255, 255, 255, 0.9); padding: 10px 20px; border-radius: 20px; font-size: 1.1em; color: #667eea; font-weight: bold; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); z-index: 1000; }
+        .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+        .title-slide h1 { font-size: 4em; margin-bottom: 20px; }
+        .title-slide .subtitle { font-size: 2em; color: #764ba2; margin-bottom: 40px; }
+        .title-slide .info { font-size: 1.3em; color: #666; margin: 10px 0; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0; }
+        .component-box { background: #e8f4f8; border-left: 4px solid #0088cc; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .tip-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .warning-box { background: #fee2e2; border-left: 4px solid #ef4444; padding: 15px; margin: 15px 0; border-radius: 5px; }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) and (min-width: 769px) {
+            .slide-container { padding: 10px; }
+            .slide { padding: 40px 50px; width: 100%; max-width: 100%; }
+            .slide.active { display: block !important; width: 100%; }
+            .slide h1 { font-size: 2.5em; }
+            .slide h2 { font-size: 2em; }
+            .slide h3 { font-size: 1.5em; }
+            .slide h4 { font-size: 1.2em; }
+            .slide p { font-size: 1.1em; }
+            .slide ul, .slide ol { font-size: 1.1em; }
+            .title-slide h1 { font-size: 3em; }
+            .title-slide .subtitle { font-size: 1.6em; }
+            .title-slide .info { font-size: 1.1em; }
+            .bilingual { gap: 25px; }
+            .two-column { gap: 20px; }
+        }
+
+        @media screen and (max-width: 768px) {
+            body { overflow: auto; padding-top: 50px; }
+            .slide-container { padding: 0; min-height: 100vh; display: block; width: 100vw; }
+            .slide { display: none !important; width: 100vw; height: auto; min-height: 100vh; padding: 20px; border-radius: 0; margin: 0; max-width: 100%; }
+            .slide.active { display: block !important; width: 100vw; margin: 0; padding: 20px; box-sizing: border-box; }
+            .slide h1 { font-size: 2em; margin-bottom: 15px; }
+            .slide h2 { font-size: 1.6em; margin-bottom: 20px; padding-bottom: 8px; }
+            .slide h3 { font-size: 1.3em; margin-top: 20px; margin-bottom: 12px; }
+            .slide h4 { font-size: 1.1em; margin-top: 15px; margin-bottom: 8px; }
+            .slide p { font-size: 1em; line-height: 1.6; margin-bottom: 12px; }
+            .slide ul, .slide ol { font-size: 1em; line-height: 1.6; margin-left: 20px; margin-bottom: 15px; }
+            .slide li { margin-bottom: 8px; }
+            .bilingual { grid-template-columns: 1fr; gap: 15px; margin: 15px 0; }
+            .english, .japanese { padding: 15px; }
+            .two-column { grid-template-columns: 1fr; gap: 15px; }
+            .title-slide { padding: 40px 20px; display: none; }
+            .title-slide.active { display: flex !important; }
+            .title-slide h1 { font-size: 2.5em; margin-bottom: 15px; }
+            .title-slide .subtitle { font-size: 1.4em; margin-bottom: 25px; }
+            .title-slide .info { font-size: 1em; margin: 8px 0; }
+            .highlight-box, .code-box, .component-box, .tip-box, .warning-box { padding: 12px; margin: 12px 0; font-size: 0.9em; }
+            .slide-number { top: 55px; right: 10px; padding: 8px 12px; font-size: 0.9em; }
+            .navigation { bottom: 15px; left: 50%; transform: translateX(-50%); gap: 10px; flex-wrap: wrap; width: 95%; justify-content: center; }
+            .nav-btn { padding: 10px 20px; font-size: 0.95em; flex: 1; min-width: 120px; max-width: 150px; }
+        }
+
+        @media screen and (max-width: 480px) {
+            body { padding-top: 40px; }
+            .slide { padding: 15px; width: 100vw; }
+            .slide.active { width: 100vw; }
+            .slide h1 { font-size: 1.8em; }
+            .slide h2 { font-size: 1.4em; }
+            .title-slide h1 { font-size: 2em; }
+            .title-slide .subtitle { font-size: 1.2em; }
+            .nav-btn { padding: 8px 16px; font-size: 0.85em; min-width: 100px; }
+            .slide-number { font-size: 0.8em; padding: 6px 10px; }
+        }
+    </style>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .slides-nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            padding: 10px 20px;
+        }
+        .slides-nav .container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .slides-nav a {
+            color: #1f2937;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95em;
+        }
+        .slides-nav a:hover { color: #2563eb; }
+        @media screen and (max-width: 768px) {
+            .slides-nav { padding: 8px 15px; }
+            .slides-nav .container { gap: 15px; font-size: 0.9em; }
+            body { padding-top: 45px; }
+        }
+        @media screen and (max-width: 480px) {
+            .slides-nav .container { gap: 10px; font-size: 0.85em; }
+            body { padding-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="slides-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+            <a href="assignment.html">Assignment</a>
+        </div>
+    </nav>
+
+    <div class="slide-number" id="slideNumber">Slide 1 / 11</div>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>⚡ Week 13</h1>
+            <p class="subtitle">Advanced Game Features & Optimization<br>高度なゲーム機能と最適化</p>
+            <p class="info"><strong>Duration:</strong> 100 minutes / 100分</p>
+            <p class="info"><strong>Developer:</strong> Yuri Tijerino</p>
+            <p class="info">Game Development Course 2025</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h2>📚 Learning Objectives / 講義目標</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>By the end of this lecture, students will be able to:</h4>
+                    <ol>
+                        <li>Implement advanced game features (collectibles, power-ups)</li>
+                        <li>Create save/load system using PlayerPrefs and JSON</li>
+                        <li>Build a comprehensive settings menu</li>
+                        <li>Optimize game performance using Unity Profiler</li>
+                        <li>Implement object pooling</li>
+                        <li>Add quality settings and graphics options</li>
+                        <li>Optimize assets for better performance</li>
+                        <li>Apply professional optimization techniques</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>この講義の終了までに、学生は以下ができるようになります：</h4>
+                    <ol>
+                        <li>高度なゲーム機能を実装（収集アイテム、パワーアップ）</li>
+                        <li>PlayerPrefsとJSONを使用してセーブ/ロードシステムを作成</li>
+                        <li>包括的な設定メニューを構築</li>
+                        <li>Unity Profilerを使用してゲームパフォーマンスを最適化</li>
+                        <li>オブジェクトプーリングを実装</li>
+                        <li>品質設定とグラフィックスオプションを追加</li>
+                        <li>パフォーマンス向上のためのアセットを最適化</li>
+                        <li>プロフェッショナルな最適化技術を適用</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Advanced Game Features -->
+        <div class="slide">
+            <h2>🎮 Advanced Game Features / 高度なゲーム機能</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Collectible Items System:</h3>
+                    <ul>
+                        <li>Coins, stars, gems to collect</li>
+                        <li>Score points or unlock features</li>
+                        <li>Visual and audio feedback</li>
+                        <li>Persistent tracking</li>
+                    </ul>
+                    <h3>Power-ups & Abilities:</h3>
+                    <ul>
+                        <li>Speed boosts</li>
+                        <li>Temporary invincibility</li>
+                        <li>Special abilities</li>
+                        <li>Timed effects</li>
+                    </ul>
+                    <h3>Multiple Levels:</h3>
+                    <ul>
+                        <li>Level progression system</li>
+                        <li>Unlocking mechanism</li>
+                        <li>Level selection menu</li>
+                        <li>Difficulty scaling</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>収集アイテムシステム：</h3>
+                    <ul>
+                        <li>収集するコイン、星、宝石</li>
+                        <li>スコアポイントまたは機能のアンロック</li>
+                        <li>視覚的およびオーディオフィードバック</li>
+                        <li>永続的な追跡</li>
+                    </ul>
+                    <h3>パワーアップと能力：</h3>
+                    <ul>
+                        <li>スピードブースト</li>
+                        <li>一時的な無敵</li>
+                        <li>特殊能力</li>
+                        <li>時間制限効果</li>
+                    </ul>
+                    <h3>複数レベル：</h3>
+                    <ul>
+                        <li>レベル進行システム</li>
+                        <li>アンロックメカニズム</li>
+                        <li>レベル選択メニュー</li>
+                        <li>難易度スケーリング</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Save/Load System -->
+        <div class="slide">
+            <h2>💾 Save/Load System / セーブ/ロードシステム</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>PlayerPrefs:</h3>
+                    <ul>
+                        <li>Simple key-value storage</li>
+                        <li>For settings and preferences</li>
+                        <li>Easy to use: SetInt, SetFloat, SetString</li>
+                        <li>Automatically persists</li>
+                    </ul>
+                    <h3>JSON Serialization:</h3>
+                    <ul>
+                        <li>For complex game data</li>
+                        <li>Save game state, progress</li>
+                        <li>Load saved games</li>
+                        <li>Cross-platform compatible</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>PlayerPrefs：</h3>
+                    <ul>
+                        <li>シンプルなキー・バリューストレージ</li>
+                        <li>設定と環境設定用</li>
+                        <li>使いやすい：SetInt、SetFloat、SetString</li>
+                        <li>自動的に永続化</li>
+                    </ul>
+                    <h3>JSONシリアライゼーション：</h3>
+                    <ul>
+                        <li>複雑なゲームデータ用</li>
+                        <li>ゲーム状態、進行を保存</li>
+                        <li>保存されたゲームを読み込み</li>
+                        <li>クロスプラットフォーム互換</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Settings Menu -->
+        <div class="slide">
+            <h2>⚙️ Settings Menu / 設定メニュー</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Volume Controls:</h3>
+                    <ul>
+                        <li>Master volume slider</li>
+                        <li>Music volume slider</li>
+                        <li>SFX volume slider</li>
+                        <li>Real-time preview</li>
+                    </ul>
+                    <h3>Graphics Options:</h3>
+                    <ul>
+                        <li>Quality settings (Low/Medium/High)</li>
+                        <li>Resolution selection</li>
+                        <li>Fullscreen toggle</li>
+                        <li>VSync options</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ボリュームコントロール：</h3>
+                    <ul>
+                        <li>マスターボリュームスライダー</li>
+                        <li>音楽ボリュームスライダー</li>
+                        <li>SFXボリュームスライダー</li>
+                        <li>リアルタイムプレビュー</li>
+                    </ul>
+                    <h3>グラフィックスオプション：</h3>
+                    <ul>
+                        <li>品質設定（低/中/高）</li>
+                        <li>解像度選択</li>
+                        <li>フルスクリーン切り替え</li>
+                        <li>VSyncオプション</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Unity Profiler -->
+        <div class="slide">
+            <h2>📊 Unity Profiler / Unity Profiler</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Profiler Features:</h3>
+                    <ul>
+                        <li>CPU Usage analysis</li>
+                        <li>Memory usage tracking</li>
+                        <li>Frame rate monitoring</li>
+                        <li>Rendering statistics</li>
+                        <li>Physics performance</li>
+                    </ul>
+                    <h4>How to Use:</h4>
+                    <ul>
+                        <li>Window → Analysis → Profiler</li>
+                        <li>Record during gameplay</li>
+                        <li>Identify bottlenecks</li>
+                        <li>Optimize problem areas</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>Profiler機能：</h3>
+                    <ul>
+                        <li>CPU使用率分析</li>
+                        <li>メモリ使用量追跡</li>
+                        <li>フレームレート監視</li>
+                        <li>レンダリング統計</li>
+                        <li>物理パフォーマンス</li>
+                    </ul>
+                    <h4>使用方法：</h4>
+                    <ul>
+                        <li>Window → Analysis → Profiler</li>
+                        <li>ゲームプレイ中に記録</li>
+                        <li>ボトルネックを特定</li>
+                        <li>問題領域を最適化</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Performance Optimization -->
+        <div class="slide">
+            <h2>⚡ Performance Optimization / パフォーマンス最適化</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Key Techniques:</h3>
+                    <ul>
+                        <li>Object pooling (reuse objects)</li>
+                        <li>Reduce draw calls</li>
+                        <li>Optimize textures (compression)</li>
+                        <li>Use LOD (Level of Detail)</li>
+                        <li>Disable unused components</li>
+                        <li>Optimize physics calculations</li>
+                    </ul>
+                    <h3>Memory Management:</h3>
+                    <ul>
+                        <li>Avoid creating objects in Update()</li>
+                        <li>Use object pooling</li>
+                        <li>Clean up unused assets</li>
+                        <li>Monitor memory leaks</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>主要な技術：</h3>
+                    <ul>
+                        <li>オブジェクトプーリング（オブジェクトの再利用）</li>
+                        <li>描画呼び出しを削減</li>
+                        <li>テクスチャを最適化（圧縮）</li>
+                        <li>LOD（レベルオブディテール）を使用</li>
+                        <li>未使用のコンポーネントを無効化</li>
+                        <li>物理計算を最適化</li>
+                    </ul>
+                    <h3>メモリ管理：</h3>
+                    <ul>
+                        <li>Update()でオブジェクトを作成しない</li>
+                        <li>オブジェクトプーリングを使用</li>
+                        <li>未使用のアセットをクリーンアップ</li>
+                        <li>メモリリークを監視</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Object Pooling -->
+        <div class="slide">
+            <h2>🔄 Object Pooling / オブジェクトプーリング</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>What is Object Pooling?</h3>
+                    <ul>
+                        <li>Reuse objects instead of creating/destroying</li>
+                        <li>Reduces garbage collection</li>
+                        <li>Improves performance significantly</li>
+                        <li>Essential for frequent spawns</li>
+                    </ul>
+                    <h3>When to Use:</h3>
+                    <ul>
+                        <li>✅ Enemies spawning frequently</li>
+                        <li>✅ Projectiles/bullets</li>
+                        <li>✅ Particle effects</li>
+                        <li>✅ UI elements</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>オブジェクトプーリングとは？</h3>
+                    <ul>
+                        <li>作成/破棄の代わりにオブジェクトを再利用</li>
+                        <li>ガベージコレクションを削減</li>
+                        <li>パフォーマンスを大幅に改善</li>
+                        <li>頻繁なスポーンに不可欠</li>
+                    </ul>
+                    <h3>使用する場合：</h3>
+                    <ul>
+                        <li>✅ 頻繁にスポーンする敵</li>
+                        <li>✅ プロジェクタイル/弾丸</li>
+                        <li>✅ パーティクルエフェクト</li>
+                        <li>✅ UI要素</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Asset Optimization -->
+        <div class="slide">
+            <h2>📦 Asset Optimization / アセット最適化</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Texture Optimization:</h3>
+                    <ul>
+                        <li>Use appropriate compression</li>
+                        <li>Set correct Max Size</li>
+                        <li>Use sprite atlases</li>
+                        <li>Remove unused textures</li>
+                    </ul>
+                    <h3>Model Optimization:</h3>
+                    <ul>
+                        <li>Reduce polygon count</li>
+                        <li>Use LOD groups</li>
+                        <li>Optimize mesh compression</li>
+                        <li>Remove unnecessary animations</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>テクスチャ最適化：</h3>
+                    <ul>
+                        <li>適切な圧縮を使用</li>
+                        <li>正しいMax Sizeを設定</li>
+                        <li>スプライトアトラスを使用</li>
+                        <li>未使用のテクスチャを削除</li>
+                    </ul>
+                    <h3>モデル最適化：</h3>
+                    <ul>
+                        <li>ポリゴン数を削減</li>
+                        <li>LODグループを使用</li>
+                        <li>メッシュ圧縮を最適化</li>
+                        <li>不要なアニメーションを削除</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Summary -->
+        <div class="slide">
+            <h2>🎯 Summary / まとめ</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Key Takeaways:</h3>
+                    <ul>
+                        <li>✅ Advanced features enhance gameplay</li>
+                        <li>✅ Save/load system provides continuity</li>
+                        <li>✅ Settings menu improves user experience</li>
+                        <li>✅ Optimization is crucial for performance</li>
+                        <li>✅ Profiler is essential for optimization</li>
+                        <li>✅ Object pooling reduces memory overhead</li>
+                    </ul>
+                    <h3>Best Practices:</h3>
+                    <ul>
+                        <li>Profile before optimizing</li>
+                        <li>Optimize incrementally</li>
+                        <li>Test on target hardware</li>
+                        <li>Document optimizations</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>重要なポイント：</h3>
+                    <ul>
+                        <li>✅ 高度な機能がゲームプレイを強化</li>
+                        <li>✅ セーブ/ロードシステムが継続性を提供</li>
+                        <li>✅ 設定メニューがユーザー体験を改善</li>
+                        <li>✅ 最適化がパフォーマンスに不可欠</li>
+                        <li>✅ Profilerが最適化に不可欠</li>
+                        <li>✅ オブジェクトプーリングがメモリオーバーヘッドを削減</li>
+                    </ul>
+                    <h3>ベストプラクティス：</h3>
+                    <ul>
+                        <li>最適化前にプロファイリング</li>
+                        <li>段階的に最適化</li>
+                        <li>ターゲットハードウェアでテスト</li>
+                        <li>最適化を文書化</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Next Steps -->
+        <div class="slide">
+            <h2>🚀 Next Steps / 次のステップ</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>This Week's Assignment:</h3>
+                    <ul>
+                        <li>Implement collectibles system</li>
+                        <li>Create save/load functionality</li>
+                        <li>Build settings menu</li>
+                        <li>Optimize game performance</li>
+                        <li>Use Unity Profiler</li>
+                    </ul>
+                    <h3>Next Week Preview (Week 14):</h3>
+                    <ul>
+                        <li><strong>Game Publishing</strong></li>
+                        <li>Multi-platform builds</li>
+                        <li>Game branding</li>
+                        <li>Distribution platforms</li>
+                        <li>Final project completion</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>今週の課題：</h3>
+                    <ul>
+                        <li>収集アイテムシステムを実装</li>
+                        <li>セーブ/ロード機能を作成</li>
+                        <li>設定メニューを構築</li>
+                        <li>ゲームパフォーマンスを最適化</li>
+                        <li>Unity Profilerを使用</li>
+                    </ul>
+                    <h3>来週のプレビュー（第14週）：</h3>
+                    <ul>
+                        <li><strong>ゲーム公開</strong></li>
+                        <li>マルチプラットフォームビルド</li>
+                        <li>ゲームブランディング</li>
+                        <li>配布プラットフォーム</li>
+                        <li>最終プロジェクトの完成</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Slide 17: Next Steps -->
+        <div class="slide">
+            <h2>🚀 Next Steps / 次のステップ</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Today's Homework:</h3>
+                    <ol>
+                        <li>Complete Week 6 assignment</li>
+                        <li>Test enemy AI thoroughly</li>
+                        <li>Balance difficulty parameters</li>
+                        <li>Submit via GitHub before Week 7</li>
+                    </ol>
+                    <h3>Next Week Preview (Week 7):</h3>
+                    <ul>
+                        <li><strong>Game States & Polish</strong></li>
+                        <li>Win/lose conditions refinement</li>
+                        <li>UI improvements</li>
+                        <li>Multiple enemies</li>
+                        <li>Game balancing</li>
+                        <li><strong>Midterm Project Due!</strong></li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>今日の宿題：</h3>
+                    <ol>
+                        <li>第6週課題を完了</li>
+                        <li>敵AIを徹底的にテスト</li>
+                        <li>難易度パラメータをバランス</li>
+                        <li>第7週前にGitHubで提出</li>
+                    </ol>
+                    <h3>来週のプレビュー（第7週）：</h3>
+                    <ul>
+                        <li><strong>ゲーム状態と仕上げ</strong></li>
+                        <li>勝敗条件の改善</li>
+                        <li>UIの改善</li>
+                        <li>複数の敵</li>
+                        <li>ゲームバランス調整</li>
+                        <li><strong>中間プロジェクト提出！</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Questions -->
+        <div class="slide">
+            <h2>❓ Questions & Discussion / 質問とディスカッション</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Common Questions:</h3>
+                    <ul>
+                        <li>How do I make enemies patrol when player not detected?</li>
+                        <li>Can I have multiple NavMeshes?</li>
+                        <li>How do I make enemies spawn randomly?</li>
+                        <li>What's the difference between NavMesh and NavMeshAgent?</li>
+                    </ul>
+                    <h4>Need Help?</h4>
+                    <ul>
+                        <li>Check lecture notes for detailed explanations</li>
+                        <li>Review Unity documentation</li>
+                        <li>Ask questions during office hours</li>
+                        <li>Check GitHub discussions</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>よくある質問：</h3>
+                    <ul>
+                        <li>プレイヤーが検出されていないときに敵をパトロールさせるには？</li>
+                        <li>複数のNavMeshを持つことはできますか？</li>
+                        <li>敵をランダムにスポーンさせるには？</li>
+                        <li>NavMeshとNavMeshAgentの違いは何ですか？</li>
+                    </ul>
+                    <h4>ヘルプが必要ですか？</h4>
+                    <ul>
+                        <li>詳細な説明については講義ノートを確認</li>
+                        <li>Unityドキュメントをレビュー</li>
+                        <li>オフィスアワー中に質問</li>
+                        <li>GitHubディスカッションを確認</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <p><strong>Remember:</strong> AI is a complex topic - take your time to understand it!</p>
+                <p><strong>覚えておいて：</strong> AIは複雑なトピックです - 理解するために時間をかけてください！</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideNumber').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                showSlide(0);
+            } else if (event.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
+

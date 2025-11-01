@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 14: Game Publishing & Advanced Techniques</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; overflow: hidden; }
+        .slide-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .slide { display: none; background: white; width: 90%; max-width: 1200px; height: 85vh; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); padding: 60px 80px; position: relative; overflow-y: auto; }
+        .slide.active { display: block; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .slide h1 { font-size: 3em; color: #667eea; margin-bottom: 20px; text-align: center; }
+        .slide h2 { font-size: 2.2em; color: #764ba2; margin-bottom: 30px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .slide h3 { font-size: 1.8em; color: #667eea; margin-top: 30px; margin-bottom: 15px; }
+        .slide h4 { font-size: 1.4em; color: #555; margin-top: 20px; margin-bottom: 10px; }
+        .slide p { font-size: 1.2em; line-height: 1.8; margin-bottom: 15px; color: #444; }
+        .slide ul, .slide ol { font-size: 1.2em; line-height: 1.8; margin-left: 40px; margin-bottom: 20px; }
+        .slide li { margin-bottom: 10px; }
+        .bilingual { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 20px 0; }
+        .english, .japanese { padding: 20px; border-radius: 10px; }
+        .english { background: #f0f4ff; border-left: 4px solid #667eea; }
+        .japanese { background: #fff0f6; border-left: 4px solid #764ba2; }
+        .highlight-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .code-box { background: #f4f4f4; border: 1px solid #ddd; border-radius: 5px; padding: 15px; font-family: 'Courier New', monospace; margin: 15px 0; overflow-x: auto; font-size: 0.9em; }
+        .navigation { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 1000; }
+        .nav-btn { background: white; color: #667eea; border: 2px solid #667eea; padding: 12px 30px; font-size: 1.1em; border-radius: 30px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .nav-btn:hover { background: #667eea; color: white; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .slide-number { position: fixed; top: 70px; right: 30px; background: rgba(255, 255, 255, 0.9); padding: 10px 20px; border-radius: 20px; font-size: 1.1em; color: #667eea; font-weight: bold; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); z-index: 1000; }
+        .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+        .title-slide h1 { font-size: 4em; margin-bottom: 20px; }
+        .title-slide .subtitle { font-size: 2em; color: #764ba2; margin-bottom: 40px; }
+        .title-slide .info { font-size: 1.3em; color: #666; margin: 10px 0; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0; }
+        .component-box { background: #e8f4f8; border-left: 4px solid #0088cc; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .tip-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .warning-box { background: #fee2e2; border-left: 4px solid #ef4444; padding: 15px; margin: 15px 0; border-radius: 5px; }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) and (min-width: 769px) {
+            .slide-container { padding: 10px; }
+            .slide { padding: 40px 50px; width: 100%; max-width: 100%; }
+            .slide.active { display: block !important; width: 100%; }
+            .slide h1 { font-size: 2.5em; }
+            .slide h2 { font-size: 2em; }
+            .slide h3 { font-size: 1.5em; }
+            .slide h4 { font-size: 1.2em; }
+            .slide p { font-size: 1.1em; }
+            .slide ul, .slide ol { font-size: 1.1em; }
+            .title-slide h1 { font-size: 3em; }
+            .title-slide .subtitle { font-size: 1.6em; }
+            .title-slide .info { font-size: 1.1em; }
+            .bilingual { gap: 25px; }
+            .two-column { gap: 20px; }
+        }
+
+        @media screen and (max-width: 768px) {
+            body { overflow: auto; padding-top: 50px; }
+            .slide-container { padding: 0; min-height: 100vh; display: block; width: 100vw; }
+            .slide { display: none !important; width: 100vw; height: auto; min-height: 100vh; padding: 20px; border-radius: 0; margin: 0; max-width: 100%; }
+            .slide.active { display: block !important; width: 100vw; margin: 0; padding: 20px; box-sizing: border-box; }
+            .slide h1 { font-size: 2em; margin-bottom: 15px; }
+            .slide h2 { font-size: 1.6em; margin-bottom: 20px; padding-bottom: 8px; }
+            .slide h3 { font-size: 1.3em; margin-top: 20px; margin-bottom: 12px; }
+            .slide h4 { font-size: 1.1em; margin-top: 15px; margin-bottom: 8px; }
+            .slide p { font-size: 1em; line-height: 1.6; margin-bottom: 12px; }
+            .slide ul, .slide ol { font-size: 1em; line-height: 1.6; margin-left: 20px; margin-bottom: 15px; }
+            .slide li { margin-bottom: 8px; }
+            .bilingual { grid-template-columns: 1fr; gap: 15px; margin: 15px 0; }
+            .english, .japanese { padding: 15px; }
+            .two-column { grid-template-columns: 1fr; gap: 15px; }
+            .title-slide { padding: 40px 20px; display: none; }
+            .title-slide.active { display: flex !important; }
+            .title-slide h1 { font-size: 2.5em; margin-bottom: 15px; }
+            .title-slide .subtitle { font-size: 1.4em; margin-bottom: 25px; }
+            .title-slide .info { font-size: 1em; margin: 8px 0; }
+            .highlight-box, .code-box, .component-box, .tip-box, .warning-box { padding: 12px; margin: 12px 0; font-size: 0.9em; }
+            .slide-number { top: 55px; right: 10px; padding: 8px 12px; font-size: 0.9em; }
+            .navigation { bottom: 15px; left: 50%; transform: translateX(-50%); gap: 10px; flex-wrap: wrap; width: 95%; justify-content: center; }
+            .nav-btn { padding: 10px 20px; font-size: 0.95em; flex: 1; min-width: 120px; max-width: 150px; }
+        }
+
+        @media screen and (max-width: 480px) {
+            body { padding-top: 40px; }
+            .slide { padding: 15px; width: 100vw; }
+            .slide.active { width: 100vw; }
+            .slide h1 { font-size: 1.8em; }
+            .slide h2 { font-size: 1.4em; }
+            .title-slide h1 { font-size: 2em; }
+            .title-slide .subtitle { font-size: 1.2em; }
+            .nav-btn { padding: 8px 16px; font-size: 0.85em; min-width: 100px; }
+            .slide-number { font-size: 0.8em; padding: 6px 10px; }
+        }
+    </style>
+    <link rel="stylesheet" href="../../styles.css">
+    <style>
+        .slides-nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            padding: 10px 20px;
+        }
+        .slides-nav .container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .slides-nav a {
+            color: #1f2937;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95em;
+        }
+        .slides-nav a:hover { color: #2563eb; }
+        @media screen and (max-width: 768px) {
+            .slides-nav { padding: 8px 15px; }
+            .slides-nav .container { gap: 15px; font-size: 0.9em; }
+            body { padding-top: 45px; }
+        }
+        @media screen and (max-width: 480px) {
+            .slides-nav .container { gap: 10px; font-size: 0.85em; }
+            body { padding-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="slides-nav">
+        <div class="container">
+            <a href="../../index.html">← Course Home</a>
+            <a href="lecture.html">Lecture Notes</a>
+            <a href="assignment.html">Assignment</a>
+        </div>
+    </nav>
+
+    <div class="slide-number" id="slideNumber">Slide 1 / 10</div>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>🚀 Week 14</h1>
+            <p class="subtitle">Game Publishing & Advanced Techniques<br>ゲーム公開と高度な技術</p>
+            <p class="info"><strong>Duration:</strong> 100 minutes / 100分</p>
+            <p class="info"><strong>Developer:</strong> Yuri Tijerino</p>
+            <p class="info">Game Development Course 2025</p>
+        </div>
+
+        <!-- Slide 2: Learning Objectives -->
+        <div class="slide">
+            <h2>📚 Learning Objectives / 講義目標</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h4>By the end of this lecture, students will be able to:</h4>
+                    <ol>
+                        <li>Build games for multiple platforms (Windows, Mac, WebGL)</li>
+                        <li>Configure build settings for different platforms</li>
+                        <li>Create professional game branding assets</li>
+                        <li>Optimize builds for performance and size</li>
+                        <li>Publish to distribution platforms</li>
+                        <li>Create game documentation and press kits</li>
+                        <li>Understand monetization options</li>
+                        <li>Set up game analytics</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h4>この講義の終了までに、学生は以下ができるようになります：</h4>
+                    <ol>
+                        <li>複数のプラットフォーム（Windows、Mac、WebGL）向けにゲームをビルド</li>
+                        <li>異なるプラットフォームのビルド設定を構成</li>
+                        <li>プロフェッショナルなゲームブランディングアセットを作成</li>
+                        <li>パフォーマンスとサイズのためにビルドを最適化</li>
+                        <li>配布プラットフォームに公開</li>
+                        <li>ゲームドキュメントとプレスキットを作成</li>
+                        <li>収益化オプションを理解</li>
+                        <li>ゲームアナリティクスをセットアップ</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Multi-Platform Builds -->
+        <div class="slide">
+            <h2>💻 Multi-Platform Builds / マルチプラットフォームビルド</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Supported Platforms:</h3>
+                    <ul>
+                        <li><strong>Windows:</strong> .exe executable</li>
+                        <li><strong>Mac:</strong> .app bundle</li>
+                        <li><strong>WebGL:</strong> Browser-based</li>
+                        <li><strong>Linux:</strong> Standalone executable</li>
+                    </ul>
+                    <h3>Build Settings:</h3>
+                    <ul>
+                        <li>File → Build Settings</li>
+                        <li>Select target platform</li>
+                        <li>Configure platform-specific settings</li>
+                        <li>Build and Run</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>サポートされているプラットフォーム：</h3>
+                    <ul>
+                        <li><strong>Windows:</strong> .exe実行ファイル</li>
+                        <li><strong>Mac:</strong> .appバンドル</li>
+                        <li><strong>WebGL:</strong> ブラウザベース</li>
+                        <li><strong>Linux:</strong> スタンドアロン実行ファイル</li>
+                    </ul>
+                    <h3>ビルド設定：</h3>
+                    <ul>
+                        <li>File → Build Settings</li>
+                        <li>ターゲットプラットフォームを選択</li>
+                        <li>プラットフォーム固有の設定を構成</li>
+                        <li>ビルドして実行</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Game Branding -->
+        <div class="slide">
+            <h2>🎨 Game Branding / ゲームブランディング</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Game Icon:</h3>
+                    <ul>
+                        <li>Create icon in multiple sizes</li>
+                        <li>16x16 to 1024x1024 pixels</li>
+                        <li>Platform-specific requirements</li>
+                        <li>Professional appearance</li>
+                    </ul>
+                    <h3>Splash Screen:</h3>
+                    <ul>
+                        <li>Custom splash screen image</li>
+                        <li>Company logo</li>
+                        <li>Game title</li>
+                        <li>First impression matters</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ゲームアイコン：</h3>
+                    <ul>
+                        <li>複数のサイズでアイコンを作成</li>
+                        <li>16x16から1024x1024ピクセル</li>
+                        <li>プラットフォーム固有の要件</li>
+                        <li>プロフェッショナルな外観</li>
+                    </ul>
+                    <h3>スプラッシュスクリーン：</h3>
+                    <ul>
+                        <li>カスタムスプラッシュスクリーン画像</li>
+                        <li>会社ロゴ</li>
+                        <li>ゲームタイトル</li>
+                        <li>第一印象が重要</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Build Optimization -->
+        <div class="slide">
+            <h2>📦 Build Optimization / ビルド最適化</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Build Size Reduction:</h3>
+                    <ul>
+                        <li>Compress textures</li>
+                        <li>Remove unused assets</li>
+                        <li>Optimize audio files</li>
+                        <li>Use asset bundles</li>
+                    </ul>
+                    <h3>Performance Settings:</h3>
+                    <ul>
+                        <li>Quality settings per platform</li>
+                        <li>Code stripping</li>
+                        <li>Compression format</li>
+                        <li>Scripting backend</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>ビルドサイズの削減：</h3>
+                    <ul>
+                        <li>テクスチャを圧縮</li>
+                        <li>未使用のアセットを削除</li>
+                        <li>オーディオファイルを最適化</li>
+                        <li>アセットバンドルを使用</li>
+                    </ul>
+                    <h3>パフォーマンス設定：</h3>
+                    <ul>
+                        <li>プラットフォームごとの品質設定</li>
+                        <li>コードストリッピング</li>
+                        <li>圧縮形式</li>
+                        <li>スクリプティングバックエンド</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Distribution Platforms -->
+        <div class="slide">
+            <h2>🌐 Distribution Platforms / 配布プラットフォーム</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Free Platforms:</h3>
+                    <ul>
+                        <li><strong>Itch.io:</strong> Easy publishing</li>
+                        <li><strong>GitHub Releases:</strong> For developers</li>
+                        <li><strong>WebGL Hosting:</strong> Browser games</li>
+                        <li><strong>Game Jolt:</strong> Indie-friendly</li>
+                    </ul>
+                    <h3>Commercial Platforms:</h3>
+                    <ul>
+                        <li><strong>Steam:</strong> $100 fee, large audience</li>
+                        <li><strong>Epic Games Store:</strong> Growing platform</li>
+                        <li><strong>GOG:</strong> DRM-free</li>
+                        <li><strong>Mobile Stores:</strong> App Store, Google Play</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>無料プラットフォーム：</h3>
+                    <ul>
+                        <li><strong>Itch.io:</strong> 簡単な公開</li>
+                        <li><strong>GitHub Releases:</strong> 開発者向け</li>
+                        <li><strong>WebGLホスティング:</strong> ブラウザゲーム</li>
+                        <li><strong>Game Jolt:</strong> インディー向け</li>
+                    </ul>
+                    <h3>商業プラットフォーム：</h3>
+                    <ul>
+                        <li><strong>Steam:</strong> $100料金、大規模な視聴者</li>
+                        <li><strong>Epic Games Store:</strong> 成長中のプラットフォーム</li>
+                        <li><strong>GOG:</strong> DRMフリー</li>
+                        <li><strong>モバイルストア:</strong> App Store、Google Play</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Game Documentation -->
+        <div class="slide">
+            <h2>📝 Game Documentation / ゲームドキュメント</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Essential Documents:</h3>
+                    <ul>
+                        <li><strong>README:</strong> Installation and setup</li>
+                        <li><strong>Game Description:</strong> What the game is about</li>
+                        <li><strong>Screenshots:</strong> Visual showcase (3-5)</li>
+                        <li><strong>Video Demo:</strong> Gameplay trailer</li>
+                    </ul>
+                    <h3>Press Kit:</h3>
+                    <ul>
+                        <li>Game overview</li>
+                        <li>High-resolution images</li>
+                        <li>Logos and assets</li>
+                        <li>Contact information</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>必須ドキュメント：</h3>
+                    <ul>
+                        <li><strong>README:</strong> インストールとセットアップ</li>
+                        <li><strong>ゲーム説明:</strong> ゲームの概要</li>
+                        <li><strong>スクリーンショット:</strong> 視覚的な紹介（3-5枚）</li>
+                        <li><strong>ビデオデモ:</strong> ゲームプレイトレーラー</li>
+                    </ul>
+                    <h3>プレスキット：</h3>
+                    <ul>
+                        <li>ゲーム概要</li>
+                        <li>高解像度画像</li>
+                        <li>ロゴとアセット</li>
+                        <li>連絡先情報</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Publishing Process -->
+        <div class="slide">
+            <h2>🚀 Publishing Process / 公開プロセス</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Step-by-Step:</h3>
+                    <ol>
+                        <li>Prepare all builds (Windows, Mac, WebGL)</li>
+                        <li>Create branding assets (icon, splash)</li>
+                        <li>Write game description</li>
+                        <li>Take screenshots and video</li>
+                        <li>Choose distribution platform</li>
+                        <li>Upload builds and assets</li>
+                        <li>Fill out platform requirements</li>
+                        <li>Publish and share!</li>
+                    </ol>
+                </div>
+                <div class="japanese">
+                    <h3>ステップバイステップ：</h3>
+                    <ol>
+                        <li>すべてのビルドを準備（Windows、Mac、WebGL）</li>
+                        <li>ブランディングアセットを作成（アイコン、スプラッシュ）</li>
+                        <li>ゲーム説明を記述</li>
+                        <li>スクリーンショットとビデオを撮影</li>
+                        <li>配布プラットフォームを選択</li>
+                        <li>ビルドとアセットをアップロード</li>
+                        <li>プラットフォーム要件を記入</li>
+                        <li>公開して共有！</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Course Completion -->
+        <div class="slide">
+            <h2>🎓 Course Completion / コース完了</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>What You've Accomplished:</h3>
+                    <ul>
+                        <li>✅ 3D modeling in Blender</li>
+                        <li>✅ Unity game development</li>
+                        <li>✅ C# scripting</li>
+                        <li>✅ AI implementation</li>
+                        <li>✅ Audio integration</li>
+                        <li>✅ Performance optimization</li>
+                        <li>✅ Multi-platform publishing</li>
+                        <li>✅ Complete game creation</li>
+                    </ul>
+                    <h3>Congratulations!</h3>
+                    <p>You've completed the extended 14-week course and are ready to continue your game development journey!</p>
+                </div>
+                <div class="japanese">
+                    <h3>達成したこと：</h3>
+                    <ul>
+                        <li>✅ Blenderでの3Dモデリング</li>
+                        <li>✅ Unityゲーム開発</li>
+                        <li>✅ C#スクリプティング</li>
+                        <li>✅ AI実装</li>
+                        <li>✅ オーディオ統合</li>
+                        <li>✅ パフォーマンス最適化</li>
+                        <li>✅ マルチプラットフォーム公開</li>
+                        <li>✅ 完全なゲーム作成</li>
+                    </ul>
+                    <h3>おめでとうございます！</h3>
+                    <p>拡張14週間コースを完了し、ゲーム開発の旅を続ける準備ができています！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Resources & Next Steps -->
+        <div class="slide">
+            <h2>📚 Resources & Next Steps / リソースと次のステップ</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Continue Learning:</h3>
+                    <ul>
+                        <li>Unity Learn Platform</li>
+                        <li>Game development communities</li>
+                        <li>Participate in game jams</li>
+                        <li>Build more games</li>
+                        <li>Join game dev forums</li>
+                    </ul>
+                    <h3>Distribution Resources:</h3>
+                    <ul>
+                        <li>Itch.io Developer Guide</li>
+                        <li>Steam Direct Documentation</li>
+                        <li>Unity Publishing Guides</li>
+                        <li>Marketing best practices</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>学習を続ける：</h3>
+                    <ul>
+                        <li>Unity Learn Platform</li>
+                        <li>ゲーム開発コミュニティ</li>
+                        <li>ゲームジャムに参加</li>
+                        <li>より多くのゲームを構築</li>
+                        <li>ゲーム開発フォーラムに参加</li>
+                    </ul>
+                    <h3>配布リソース：</h3>
+                    <ul>
+                        <li>Itch.io開発者ガイド</li>
+                        <li>Steam Directドキュメント</li>
+                        <li>Unity公開ガイド</li>
+                        <li>マーケティングのベストプラクティス</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Slide 17: Next Steps -->
+        <div class="slide">
+            <h2>🚀 Next Steps / 次のステップ</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Today's Homework:</h3>
+                    <ol>
+                        <li>Complete Week 6 assignment</li>
+                        <li>Test enemy AI thoroughly</li>
+                        <li>Balance difficulty parameters</li>
+                        <li>Submit via GitHub before Week 7</li>
+                    </ol>
+                    <h3>Next Week Preview (Week 7):</h3>
+                    <ul>
+                        <li><strong>Game States & Polish</strong></li>
+                        <li>Win/lose conditions refinement</li>
+                        <li>UI improvements</li>
+                        <li>Multiple enemies</li>
+                        <li>Game balancing</li>
+                        <li><strong>Midterm Project Due!</strong></li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>今日の宿題：</h3>
+                    <ol>
+                        <li>第6週課題を完了</li>
+                        <li>敵AIを徹底的にテスト</li>
+                        <li>難易度パラメータをバランス</li>
+                        <li>第7週前にGitHubで提出</li>
+                    </ol>
+                    <h3>来週のプレビュー（第7週）：</h3>
+                    <ul>
+                        <li><strong>ゲーム状態と仕上げ</strong></li>
+                        <li>勝敗条件の改善</li>
+                        <li>UIの改善</li>
+                        <li>複数の敵</li>
+                        <li>ゲームバランス調整</li>
+                        <li><strong>中間プロジェクト提出！</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Questions -->
+        <div class="slide">
+            <h2>❓ Questions & Discussion / 質問とディスカッション</h2>
+            <div class="bilingual">
+                <div class="english">
+                    <h3>Common Questions:</h3>
+                    <ul>
+                        <li>How do I make enemies patrol when player not detected?</li>
+                        <li>Can I have multiple NavMeshes?</li>
+                        <li>How do I make enemies spawn randomly?</li>
+                        <li>What's the difference between NavMesh and NavMeshAgent?</li>
+                    </ul>
+                    <h4>Need Help?</h4>
+                    <ul>
+                        <li>Check lecture notes for detailed explanations</li>
+                        <li>Review Unity documentation</li>
+                        <li>Ask questions during office hours</li>
+                        <li>Check GitHub discussions</li>
+                    </ul>
+                </div>
+                <div class="japanese">
+                    <h3>よくある質問：</h3>
+                    <ul>
+                        <li>プレイヤーが検出されていないときに敵をパトロールさせるには？</li>
+                        <li>複数のNavMeshを持つことはできますか？</li>
+                        <li>敵をランダムにスポーンさせるには？</li>
+                        <li>NavMeshとNavMeshAgentの違いは何ですか？</li>
+                    </ul>
+                    <h4>ヘルプが必要ですか？</h4>
+                    <ul>
+                        <li>詳細な説明については講義ノートを確認</li>
+                        <li>Unityドキュメントをレビュー</li>
+                        <li>オフィスアワー中に質問</li>
+                        <li>GitHubディスカッションを確認</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <p><strong>Remember:</strong> AI is a complex topic - take your time to understand it!</p>
+                <p><strong>覚えておいて：</strong> AIは複雑なトピックです - 理解するために時間をかけてください！</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next ▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideNumber').textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                showSlide(0);
+            } else if (event.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
+
